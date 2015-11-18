@@ -14,7 +14,7 @@ X3D {
    <body>
       <script>
          function loadX3d (id, content) {
-            var x3dele = getElementById(id);
+            var x3dele = document.getElementById(id);
             x3dele.url = "data:text/plain,base64;" + btoa(content);
          }
       </script>
