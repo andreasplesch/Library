@@ -15,8 +15,12 @@ X3D {
       <script>
          function loadX3d (id, content) {
             var x3dele = document.getElementById(id);
-            x3dele.url = "data:text/plain,base64;" + btoa(content);
+            var dataurl = "data:text/plain,base64;" + btoa(content);
+            
             //getx3dbrowser
+            var browser = X3D.getBrowser(x3dele);
+            browser.createX3DFromString(content);
+            
             //browser.initialize
          
          }
