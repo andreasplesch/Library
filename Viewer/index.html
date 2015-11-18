@@ -19,7 +19,7 @@ X3D {
             
             //getx3dbrowser
             var browser = X3D.getBrowser(x3dele);
-            browser.createX3DFromString(content);
+            browser.replaceWorld(browser.createX3DFromString(content));
             
             //browser.initialize
          
