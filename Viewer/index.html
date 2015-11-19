@@ -40,6 +40,7 @@ Paste x3d here.</textarea>
          //var dataurl = "data:text/plain,base64;" + btoa(content);
          
          editor.on("update", function(){
+            var browser = X3D.getBrowser(x3dele);
             var content = editor.getDoc().getValue(); 
             browser.replaceWorld(browser.createX3DFromString(content));
          });
