@@ -19,7 +19,7 @@ X3D {
    </head>
    <body>
       <form>
-         Edit and click to load:<button type='button' onclick='updatex3d();'>Update</button>
+         Edit and click to load:<button type='button' onclick='updatex3d();'>Update</button>Remove any initial white space.
          <textarea name="x3dcontent" id='x3dcontent' rows="30" cols="120" onchange='loadX3d("x3dele", event.target.value); console.log("changed");'></textarea>
          </form>
       <X3D id='x3dele' cache='false' url='  "https://raw.githubusercontent.com/andreasplesch/Library/master/Models/Animals/Bird.x3d"  '>
