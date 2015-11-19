@@ -18,8 +18,8 @@ X3D {
    </style>
    </head>
    <body>
-      <form>Edit and click outside the box to load:
-         <button type='submit'>update</button>
+      <form>
+         Edit and click outside the box to load:
          <textarea name="x3dcontent" id='x3dcontent' rows="30" cols="120" onchange='loadX3d("x3dele", event.target.value); console.log("changed");'>
       Paste x3d here.</textarea>
       </form>
@@ -29,13 +29,14 @@ X3D {
       <p>Here is an example to copy and paste:</p>
       <iframe width="100%" height="500px" src="http://x3dgraphics.com/examples/X3dForWebAuthors/Chapter02-GeometryPrimitives/Sphere.html"></iframe>
       <script>
-         var myCodeMirror = CodeMirror.fromTextArea(document.getElementById("x3dcontent2"),
+         var myCodeMirror = CodeMirror.fromTextArea(document.getElementById("x3dcontent"),
          {
             lineNumbers: true,
             mode: "xml",
             matchbrackets: true,
             matchtags: true
          });
+         myCodeMirror.on("changes", function(){myCodeMirror.save();});
          function loadX3d (id, content) {
             var x3dele = document.getElementById(id);
             var dataurl = "data:text/plain,base64;" + btoa(content);
