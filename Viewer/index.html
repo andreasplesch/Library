@@ -16,6 +16,15 @@ X3D {
    </style>
    </head>
    <body>
+      
+    <p>Edit and click outside the box to load:</p>
+      <textarea name="x3dcontent" id='x3dcontent' rows="10" cols="120" onchange='loadX3d("x3dele", event.target.value); console.log("changed");'>
+      Paste x3d here.</textarea>
+      <X3D id='x3dele' cache='false' url='  "https://raw.githubusercontent.com/andreasplesch/Library/master/Models/Animals/Bird.x3d"  '>
+         <p>Your browser may not support all features required by Cobweb!</p>
+      </X3D>
+      <p>Here is an example to copy and paste:</p>
+      <iframe width="100%" height="500px" src="http://x3dgraphics.com/examples/X3dForWebAuthors/Chapter02-GeometryPrimitives/Sphere.html"></iframe>
       <script>
          var myCodeMirror = CodeMirror.fromTextArea(document.getElementById("x3dcontent"),
          {
@@ -29,13 +38,5 @@ X3D {
             browser.replaceWorld(browser.createX3DFromString(content));
          }
       </script>
-    <p>Edit and click outside the box to load:</p>
-      <textarea name="x3dcontent" id='x3dcontent' rows="10" cols="120" onchange='loadX3d("x3dele", event.target.value); console.log("changed");'>
-      Paste x3d here.</textarea>
-      <X3D id='x3dele' cache='false' url='  "https://raw.githubusercontent.com/andreasplesch/Library/master/Models/Animals/Bird.x3d"  '>
-         <p>Your browser may not support all features required by Cobweb!</p>
-      </X3D>
-      <p>Here is an example to copy and paste:</p>
-      <iframe width="100%" height="500px" src="http://x3dgraphics.com/examples/X3dForWebAuthors/Chapter02-GeometryPrimitives/Sphere.html"></iframe>
    </body>
 </html>
