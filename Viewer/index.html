@@ -38,7 +38,6 @@ Paste x3d here.</textarea>
          });
          var x3dele = document.getElementById("x3dele");
          //var dataurl = "data:text/plain,base64;" + btoa(content);
-         var browser = X3D.getBrowser(x3dele);
          
          editor.on("update", function(){
             var content = editor.getDoc().getValue(); 
@@ -46,6 +45,7 @@ Paste x3d here.</textarea>
          });
          
          function updatex3d() {
+            var browser = X3D.getBrowser(x3dele);
             editor.save();
             var content = editor.getDoc().getValue(); 
             browser.replaceWorld(browser.createX3DFromString(content));
