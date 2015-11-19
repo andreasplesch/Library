@@ -17,7 +17,11 @@ X3D {
    </head>
    <body>
       <script>
-         var myCodeMirror = CodeMirror.fromTextArea(document.getElementById("x3dcontent"));
+         var myCodeMirror = CodeMirror.fromTextArea(document.getElementById("x3dcontent"),
+         {
+            lineNumbers: true,
+            mode: "xml"
+         });
          function loadX3d (id, content) {
             var x3dele = document.getElementById(id);
             var dataurl = "data:text/plain,base64;" + btoa(content);
