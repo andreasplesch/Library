@@ -46,7 +46,8 @@ Paste x3d here.</textarea>
          });
          
          function updatex3d() {
-             var content = editor.getDoc().getValue(); 
+            editor.save();
+            var content = editor.getDoc().getValue(); 
             browser.replaceWorld(browser.createX3DFromString(content));
          }
          
