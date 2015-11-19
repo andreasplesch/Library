@@ -36,7 +36,15 @@ X3D {
             matchbrackets: true,
             matchtags: true
          });
-         myCodeMirror.on("changes", function(){myCodeMirror.save();});
+         var x3dele = document.getElementById("x3dcontent");
+         //var dataurl = "data:text/plain,base64;" + btoa(content);
+         var browser = X3D.getBrowser(x3dele);
+         
+         myCodeMirror.on("changes", function(){
+            var content = myCodeMirror.getValue(); 
+            browser.replaceWorld(browser.createX3DFromString(content));
+         });
+         
          function loadX3d (id, content) {
             var x3dele = document.getElementById(id);
             var dataurl = "data:text/plain,base64;" + btoa(content);
