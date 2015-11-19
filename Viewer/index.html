@@ -3,7 +3,11 @@
    <head>
       <meta charset="utf-8">
       <link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/create3000/cobweb/master/stable/1/1.19/cobweb.css"/>
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.8.0/codemirror.min.css">
       <script type="text/javascript" src="https://cdn.rawgit.com/create3000/cobweb/master/stable/1/1.19/cobweb.min.js"></script>
+      <script type="text/javascript"  src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.8.0/codemirror.min.js"> </script>
+      <script type="text/javascript"  src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.8.0/mode/xml/xml.min.js"> </script>
+
    <style>
 X3D {
    width: 100%;
@@ -13,6 +17,7 @@ X3D {
    </head>
    <body>
       <script>
+         var myCodeMirror = CodeMirror.fromTextArea(document.getElementById("x3dcontent"));
          function loadX3d (id, content) {
             var x3dele = document.getElementById(id);
             var dataurl = "data:text/plain,base64;" + btoa(content);
