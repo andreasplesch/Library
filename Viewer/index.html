@@ -19,7 +19,7 @@ X3D {
    </head>
    <body>
       <form>
-         Edit and click outside the box to load:<button onclick='updatex3d'>Update</button>
+         Edit and click outside the box to load:<button onclick='updatex3d();'>Update</button>
          <textarea name="x3dcontent" id='x3dcontent' rows="30" cols="120" onchanges='loadX3d("x3dele", event.target.value); console.log("changed");'>
 Paste x3d here.</textarea>
       </form>
