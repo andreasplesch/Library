@@ -55,7 +55,7 @@ Remove any initial white space.
       //var browser = X3D.getBrowser(x3dele);
       editor.save();
       var content = editor.getDoc().getValue(); 
-      var dataurl = "data:text/plain,base64;" + btoa(content);
+      var dataurl = "data:text/plain;base64," + btoa(content);
       inline.setAttribute("url",dataurl);
     }
   
