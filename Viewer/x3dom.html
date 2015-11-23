@@ -31,42 +31,42 @@ Remove any initial white space.
       </inline>
     </scene>
   </x3d>
+  <script>
+    var editor = CodeMirror.fromTextArea(document.getElementById("x3dcontent"),
+           {
+              lineNumbers: true,
+              mode: "xml",
+              lineWrapping: true,
+              matchBrackets: true,
+              matchTags: {bothTags: true}
+           });
+    var inline = document.getElementById("inline");
+           
+           /*
+           editor.on("changes", function(){
+              var browser = X3D.getBrowser(x3dele);
+              var content = editor.getDoc().getValue(); 
+              browser.replaceWorld(browser.createX3DFromString(content));
+           });
+           */
+           
+    function updatex3d() {
+      //var browser = X3D.getBrowser(x3dele);
+      editor.save();
+      var content = editor.getDoc().getValue(); 
+      var dataurl = "data:text/plain,base64;" + btoa(content);
+      inline.setAttribute("url",dataurl);
+    }
+  
+           function loadX3d (id, content) {
+              var x3dele = document.getElementById(id);
+              var dataurl = "data:text/plain,base64;" + btoa(content);
+              var browser = X3D.getBrowser(x3dele);
+              browser.replaceWorld(browser.createX3DFromString(content));
+           }
+        </script>
+  <script type="text/javascript" src="http://x3dom.org/download/dev/x3dom-full.debug.js"></script>
+  <script type="text/javascript" src="http://x3dom.org/download/dev/ammo.js"></script>
+  <script type="text/javascript" src="https://rawgit.com/andreasplesch/x3dom/earclipping/src/util/EarClipping.js">
 </body>
-<script>
-  var editor = CodeMirror.fromTextArea(document.getElementById("x3dcontent"),
-         {
-            lineNumbers: true,
-            mode: "xml",
-            lineWrapping: true,
-            matchBrackets: true,
-            matchTags: {bothTags: true}
-         });
-  var inline = document.getElementById("inline");
-         
-         /*
-         editor.on("changes", function(){
-            var browser = X3D.getBrowser(x3dele);
-            var content = editor.getDoc().getValue(); 
-            browser.replaceWorld(browser.createX3DFromString(content));
-         });
-         */
-         
-  function updatex3d() {
-    //var browser = X3D.getBrowser(x3dele);
-    editor.save();
-    var content = editor.getDoc().getValue(); 
-    var dataurl = "data:text/plain,base64;" + btoa(content);
-    inline.setAttribute("url",dataurl);
-  }
-
-         function loadX3d (id, content) {
-            var x3dele = document.getElementById(id);
-            var dataurl = "data:text/plain,base64;" + btoa(content);
-            var browser = X3D.getBrowser(x3dele);
-            browser.replaceWorld(browser.createX3DFromString(content));
-         }
-      </script>
-<script type="text/javascript" src="http://x3dom.org/download/dev/x3dom-full.debug.js"></script>
-<script type="text/javascript" src="http://x3dom.org/download/dev/ammo.js"></script>
-<script type="text/javascript" src="https://rawgit.com/andreasplesch/x3dom/earclipping/src/util/EarClipping.js">
 </html>
