@@ -35,41 +35,8 @@ Edit and click to load:<button type='button' onclick='updatex3d();'>Update</butt
 Remove any initial white space.
     <textarea name="x3dcontent" id='x3dcontent' rows="30" cols="120"></textarea>
   </form>
-  <iframe id='x3domframe' srcDoc='
-  <html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>x3dom viewer</title>
-    <link href="http://x3dom.org/download/dev/x3dom.css" rel="stylesheet" type="text/css" />
-    <script type="text/javascript" src="http://x3dom.org/download/dev/x3dom-full.js"></script>
-    <script type="text/javascript" src="https://rawgit.com/andreasplesch/x3dom/earclipping/src/util/EarClipping.js"></script>
-  </head>
-  <body>
-  x3dom body
-  <x3d style="width:100%"> x3dom scene
-    <scene>
-      <inline namespacename="x3dembed" id="inline"
-          url="data:text/plain;charset=utf-8;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4NCjwhRE9DVFlQRSBYM0QgUFVCTElDICJJU08vL1dlYjNELy9EVEQgWDNEIDMuMy8vRU4iICJodHRwOi8vd3d3LndlYjNkLm9yZy9zcGVjaWZpY2F0aW9ucy94M2QtMy4zLmR0ZCI+DQo8WDNEIHByb2ZpbGU9J0ludGVyY2hhbmdlJyB2ZXJzaW9uPSczLjMnICB4bWxuczp4c2Q9J2h0dHA6Ly93d3cudzMub3JnLzIwMDEvWE1MU2NoZW1hLWluc3RhbmNlJyB4c2Q6bm9OYW1lc3BhY2VTY2hlbWFMb2NhdGlvbiA9JyBodHRwOi8vd3d3LndlYjNkLm9yZy9zcGVjaWZpY2F0aW9ucy94M2QtMy4zLnhzZCAnPg0KPFNjZW5lPg0KPEJhY2tncm91bmQgc2t5Q29sb3I9JzEgMSAxJy8+DQo8Vmlld3BvaW50IGRlc2NyaXB0aW9uPSdCb29rIFZpZXcnIG9yaWVudGF0aW9uPSctMC43NDcgLTAuNjI0IC0wLjIzMSAxLjA1JyBwb3NpdGlvbj0nLTEuODEgMy4xMiAyLjU5Jy8+DQo8U2hhcGU+DQo8Qm94IHNpemU9JzEgMiAzJy8+DQo8QXBwZWFyYW5jZT4NCjxNYXRlcmlhbC8+DQo8L0FwcGVhcmFuY2U+DQo8L1NoYXBlPg0KPC9TY2VuZT4NCjwvWDNEPg==">
-      </inline>
-    </scene>
-  </x3d>
-  </body>
-  </html> '></iframe>
-  <iframe id='cobwebframe' srcDoc='
-  <html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>cobweb viewer</title>
-    <link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/create3000/cobweb/master/stable/1/1.19/cobweb.css"/>
-    <script type="text/javascript" src="https://cdn.rawgit.com/create3000/cobweb/master/stable/1/1.19/cobweb.min.js"></script>  
-  </head>
-  <body>
-  cobweb body
-    <X3D id='x3dele' cache='false' url=&apos; "https://raw.githubusercontent.com/andreasplesch/Library/master/Models/Animals/Bird.x3d" &apos;>
-           <p>Your browser may not support all features required by Cobweb!</p>
-    </X3D>
-  </body>
-  </html> '></iframe>
+  <iframe id='x3domframe' srcD='x3domframe.html'></iframe>
+  <iframe id='cobwebframe' srcDoc='cobwebframe.html'></iframe>
   <script>
     var editor = CodeMirror.fromTextArea(document.getElementById("x3dcontent"),
            {
@@ -88,7 +55,6 @@ Remove any initial white space.
       var browser = X3D.getBrowser(document.getElementById("cobwebframe").contentDocument.getElementById("x3dele"));
       browser.replaceWorld(browser.createX3DFromString(content));
     }
-  
   </script>
   </body>
 </html>
