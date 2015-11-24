@@ -62,7 +62,9 @@ Remove any initial white space.
       var dataurl = "data:text/plain;base64," + btoa(content);
       var inline = document.getElementById("inline");
       inline.setAttribute("url", dataurl);
-      var browser = X3D.getBrowser(document.getElementById("cobwebframe").contentDocument.getElementById("x3dele"));
+      var cobwebWindow = document.getElementById("cobwebframe").contentWindow ;
+      var cobwebEle = cobwebWindow.document.getElementById("x3dele");
+      var browser = cobwebWindow.X3D.getBrowser(cobwebEle);
       browser.replaceWorld(browser.createX3DFromString(content));
     }
   </script>
