@@ -61,7 +61,7 @@ Remove any initial white space.
               matchBrackets: true,
               matchTags: {bothTags: true}
            });
-    var inline = document.getElementById("x3domframe").contentDocument.getElementById("inline");
+    
            
            /*
            editor.on("changes", function(){
@@ -76,6 +76,7 @@ Remove any initial white space.
       editor.save();
       var content = editor.getDoc().getValue(); 
       var dataurl = "data:text/plain;base64," + btoa(content);
+      var inline = document.getElementById("x3domframe").contentDocument.getElementById("inline");
       inline.setAttribute("url",dataurl);
     }
   
