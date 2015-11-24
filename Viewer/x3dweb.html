@@ -6,9 +6,7 @@
   <meta name="description" content="VRMath2 is an online learning community for all to design, create, and share online 3D virtual worlds.">
   <meta name="keywords" content="WebGL,Web3D,X3DOM,LOGO,Programming,STEM,Microworld,X3D,Mobile,Sensor,Free,3D,Education,Science,Technology,Engineering,Mathematics,Online Community,School,Primary,Secondary,Tertiary,Design,Create,Share,Teaching,Learning,Constructionism,Semiotics">
   <title>x3dom viewer</title>
-  <link href="http://x3dom.org/download/dev/x3dom.css" rel="stylesheet" type="text/css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.8.0/codemirror.min.css">
-  
   <script type="text/javascript"  src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.8.0/codemirror.min.js"> </script>
   <script type="text/javascript"  src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.8.0/mode/xml/xml.min.js"> </script>
   <script type="text/javascript"  src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.8.0/addon/edit/matchbrackets.min.js"> </script>
@@ -22,6 +20,10 @@
     height: 400px;
     }
     #x3domframe {
+    width: 50%;
+    height: 400px;
+    }
+    #cobwebframe {
     width: 50%;
     height: 400px;
     }
@@ -41,6 +43,8 @@ Remove any initial white space.
     <link href="http://x3dom.org/download/dev/x3dom.css" rel="stylesheet" type="text/css" />
     <script type="text/javascript" src="http://x3dom.org/download/dev/x3dom-full.debug.js"></script>
     <script type="text/javascript" src="http://x3dom.org/download/dev/ammo.js"></script>
+    <script type="text/javascript" src="https://rawgit.com/andreasplesch/x3dom/earclipping/src/util/EarClipping.js">
+  
   </head>
   <body>
   <x3d style="height:400px; width:100%">
@@ -52,6 +56,22 @@ Remove any initial white space.
   </x3d>
   </body>
   </html> '></iframe>
+  <iframe id='cobwebframe' srcDoc='
+  <html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>x3dom viewer</title>
+    <link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/create3000/cobweb/master/stable/1/1.19/cobweb.css"/>
+    <script type="text/javascript" src="https://cdn.rawgit.com/create3000/cobweb/master/stable/1/1.19/cobweb.min.js"></script>  
+  </head>
+  <body>
+  
+    <X3D id='x3dele' cache='false' url="https://raw.githubusercontent.com/andreasplesch/Library/master/Models/Animals/Bird.x3d">
+           <p>Your browser may not support all features required by Cobweb!</p>
+    </X3D>
+  </body>
+  </html> '></iframe>
+  
   <script>
     var editor = CodeMirror.fromTextArea(document.getElementById("x3dcontent"),
            {
@@ -61,34 +81,16 @@ Remove any initial white space.
               matchBrackets: true,
               matchTags: {bothTags: true}
            });
-    
-           
-           /*
-           editor.on("changes", function(){
-              var browser = X3D.getBrowser(x3dele);
-              var content = editor.getDoc().getValue(); 
-              browser.replaceWorld(browser.createX3DFromString(content));
-           });
-           */
-           
     function updatex3d() {
-      //var browser = X3D.getBrowser(x3dele);
       editor.save();
       var content = editor.getDoc().getValue(); 
       var dataurl = "data:text/plain;base64," + btoa(content);
       var inline = document.getElementById("x3domframe").contentDocument.getElementById("inline");
       inline.setAttribute("url",dataurl);
+      var browser = X3D.getBrowser(document.getElementById("cobwebframe").contentDocument.getElementById("x3dele"));
+      browser.replaceWorld(browser.createX3DFromString(content));
     }
   
-           function loadX3d (id, content) {
-              var x3dele = document.getElementById(id);
-              var dataurl = "data:text/plain,base64;" + btoa(content);
-              var browser = X3D.getBrowser(x3dele);
-              browser.replaceWorld(browser.createX3DFromString(content));
-           }
-        </script>
-  <script type="text/javascript" src="http://x3dom.org/download/dev/x3dom-full.debug.js"></script>
-  <script type="text/javascript" src="http://x3dom.org/download/dev/ammo.js"></script>
-  <script type="text/javascript" src="https://rawgit.com/andreasplesch/x3dom/earclipping/src/util/EarClipping.js">
-</body>
+  </script>
+  </body>
 </html>
