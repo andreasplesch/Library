@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<!--html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"-->
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="description" content="VRMath2 is an online learning community for all to design, create, and share online 3D virtual worlds.">
+  <meta name="keywords" content="WebGL,Web3D,X3DOM,LOGO,Programming,STEM,Microworld,X3D,Mobile,Sensor,Free,3D,Education,Science,Technology,Engineering,Mathematics,Online Community,School,Primary,Secondary,Tertiary,Design,Create,Share,Teaching,Learning,Constructionism,Semiotics">
+  <title>x3dom viewer</title>
+  <link href="http://x3dom.org/download/dev/x3dom.css" rel="stylesheet" type="text/css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.8.0/codemirror.min.css">
+  
+  <script type="text/javascript"  src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.8.0/codemirror.min.js"> </script>
+  <script type="text/javascript"  src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.8.0/mode/xml/xml.min.js"> </script>
+  <script type="text/javascript"  src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.8.0/addon/edit/matchbrackets.min.js"> </script>
+  <script type="text/javascript"  src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.8.0/addon/edit/matchtags.min.js"> </script>
+  <script type="text/javascript"  src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.8.0/addon/fold/xml-fold.js"> </script>
+
+  <style>
+    html, body { width:100%; height:100%; margin:0px; }
+  </style>
+</head>
+<body>
+  <form>
+Edit and click to load:<button type='button' onclick='updatex3d();'>Update</button>
+Remove any initial white space.
+    <textarea name="x3dcontent" id='x3dcontent' rows="30" cols="120"></textarea>
+  </form>
+  <iframe srcDoc='
+  <x3d style="height:400px; width:100%">
+    <scene>
+      <inline namespacename="x3dembed" id="inline"
+          url="data:text/plain;charset=utf-8;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4NCjwhRE9DVFlQRSBYM0QgUFVCTElDICJJU08vL1dlYjNELy9EVEQgWDNEIDMuMy8vRU4iICJodHRwOi8vd3d3LndlYjNkLm9yZy9zcGVjaWZpY2F0aW9ucy94M2QtMy4zLmR0ZCI+DQo8WDNEIHByb2ZpbGU9J0ludGVyY2hhbmdlJyB2ZXJzaW9uPSczLjMnICB4bWxuczp4c2Q9J2h0dHA6Ly93d3cudzMub3JnLzIwMDEvWE1MU2NoZW1hLWluc3RhbmNlJyB4c2Q6bm9OYW1lc3BhY2VTY2hlbWFMb2NhdGlvbiA9JyBodHRwOi8vd3d3LndlYjNkLm9yZy9zcGVjaWZpY2F0aW9ucy94M2QtMy4zLnhzZCAnPg0KPFNjZW5lPg0KPEJhY2tncm91bmQgc2t5Q29sb3I9JzEgMSAxJy8+DQo8Vmlld3BvaW50IGRlc2NyaXB0aW9uPSdCb29rIFZpZXcnIG9yaWVudGF0aW9uPSctMC43NDcgLTAuNjI0IC0wLjIzMSAxLjA1JyBwb3NpdGlvbj0nLTEuODEgMy4xMiAyLjU5Jy8+DQo8U2hhcGU+DQo8Qm94IHNpemU9JzEgMiAzJy8+DQo8QXBwZWFyYW5jZT4NCjxNYXRlcmlhbC8+DQo8L0FwcGVhcmFuY2U+DQo8L1NoYXBlPg0KPC9TY2VuZT4NCjwvWDNEPg==">
+      </inline>
+    </scene>
+  </x3d> '></iframe>
+  <script>
+    var editor = CodeMirror.fromTextArea(document.getElementById("x3dcontent"),
+           {
+              lineNumbers: true,
+              mode: "xml",
+              lineWrapping: true,
+              matchBrackets: true,
+              matchTags: {bothTags: true}
+           });
+    var inline = document.getElementById("inline");
+           
+           /*
+           editor.on("changes", function(){
+              var browser = X3D.getBrowser(x3dele);
+              var content = editor.getDoc().getValue(); 
+              browser.replaceWorld(browser.createX3DFromString(content));
+           });
+           */
+           
+    function updatex3d() {
+      //var browser = X3D.getBrowser(x3dele);
+      editor.save();
+      var content = editor.getDoc().getValue(); 
+      var dataurl = "data:text/plain;base64," + btoa(content);
+      inline.setAttribute("url",dataurl);
+    }
+  
+           function loadX3d (id, content) {
+              var x3dele = document.getElementById(id);
+              var dataurl = "data:text/plain,base64;" + btoa(content);
+              var browser = X3D.getBrowser(x3dele);
+              browser.replaceWorld(browser.createX3DFromString(content));
+           }
+        </script>
+  <script type="text/javascript" src="http://x3dom.org/download/dev/x3dom-full.debug.js"></script>
+  <script type="text/javascript" src="http://x3dom.org/download/dev/ammo.js"></script>
+  <script type="text/javascript" src="https://rawgit.com/andreasplesch/x3dom/earclipping/src/util/EarClipping.js">
+</body>
+</html>
