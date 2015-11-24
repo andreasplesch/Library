@@ -29,7 +29,7 @@ Edit and click to load:<button type='button' onclick='updatex3d();'>Update</butt
 Remove any initial white space.
     <textarea name="x3dcontent" id='x3dcontent' rows="30" cols="120"></textarea>
   </form>
-  <iframe srcDoc='
+  <iframe id='x3domframe' srcDoc='
   <html>
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -57,7 +57,7 @@ Remove any initial white space.
               matchBrackets: true,
               matchTags: {bothTags: true}
            });
-    var inline = document.getElementById("inline");
+    var inline = document.getElementById("x3domframe").contentDocument.getElementById("inline");
            
            /*
            editor.on("changes", function(){
