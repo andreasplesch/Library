@@ -6,7 +6,7 @@
 		<meta name="generator" content="Blender 2.74 (sub 0)" />
 	</head>
 	<Scene>
-		<NavigationInfo headlight="false"
+		<NavigationInfo headlight="true"
 		                visibilityLimit="0.0"
 		                type='"EXAMINE", "ANY"'
 		                avatarSize="0.25, 1.75, 0.75"
