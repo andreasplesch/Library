@@ -23,9 +23,9 @@ X3D {
          Edit and click to load:<button type='button' onclick='updatex3d();'>Update</button> Remove any initial white space.
          <textarea name="x3dcontent" id='x3dcontent' rows="30" cols="120" onchange='loadX3d("x3dele", event.target.value); console.log("changed");'></textarea>
          </form>
-      <X3D id='x3dele' cache='false' url='  "https://raw.githubusercontent.com/andreasplesch/Library/master/Models/Animals/Bird.x3d"  '>
+      <X3DCanvas id='x3dele' cache='false' url='  "https://raw.githubusercontent.com/andreasplesch/Library/master/Models/Animals/Bird.x3d"  '>
          <p>Your browser may not support all features required by Cobweb!</p>
-      </X3D>
+      </X3DCanvas>
       <p>Here is an example to copy and paste:</p>
       <iframe width="100%" height="500px" src="http://x3dgraphics.com/examples/X3dForWebAuthors/Chapter02-GeometryPrimitives/Sphere.html"></iframe>
       <script>
