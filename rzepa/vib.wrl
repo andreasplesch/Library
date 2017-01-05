@@ -1,0 +1,2439 @@
+#VRML V2.0 utf8
+
+#Cosmo Worlds V2.0
+
+PROTO KfaAnimation [
+	    field        SFFloat	framesPerSecond	10
+	    field        SFFloat	zoom	1
+	    field        SFBool	snap	TRUE
+	    field        SFBool	viewInFrames	TRUE
+	    field        SFBool	showEmptyFieldLines	FALSE
+	    field        SFFloat	playRangeStart	0
+	    field        SFFloat	playRangeEnd	1
+	    field        SFBool	usePlayRange	TRUE
+	    field        SFNode	timeSensor	NULL
+	    field        MFNode	fieldInterps	[]
+	    field        MFNode	actors	[]
+	  ]
+{
+  Group {
+  }
+}
+PROTO KfaPositionInterpolator [
+	    eventIn      SFFloat	set_fraction
+	    eventOut     SFVec3f	value_changed
+	    exposedField MFFloat	key	0
+	    exposedField MFInt32	keyTypes	2
+	    exposedField MFVec3f	keyValue	0 0 0
+	    field        MFFloat	authorKey	0
+	    field        MFVec3f	authorKeyValue	0 0 0
+	  ]
+{
+  PositionInterpolator {
+    key IS key
+    set_fraction IS set_fraction
+    keyValue IS keyValue
+    value_changed IS value_changed
+  }
+}
+PROTO KfaOrientationInterpolator [
+	    eventIn      SFFloat	set_fraction
+	    eventOut     SFRotation	value_changed
+	    exposedField MFFloat	key	0
+	    exposedField MFInt32	keyTypes	2
+	    exposedField MFRotation	keyValue	0 0 1  0
+	    field        MFFloat	authorKey	0
+	    field        MFRotation	authorKeyValue	0 0 1  0
+	  ]
+{
+  OrientationInterpolator {
+    key IS key
+    set_fraction IS set_fraction
+    keyValue IS keyValue
+    value_changed IS value_changed
+  }
+}
+WorldInfo {
+  title	"molecule-name-here"
+  info	"WebLab Viewer"
+}
+Background {
+  skyColor	0 0.25 0.5
+}
+NavigationInfo {
+  type	[ "EXAMINE",
+	    "ANY" ]
+}
+DEF _0 Transform {
+  children	[
+    Shape {
+      appearance	Appearance {
+	material	DEF mat_1 Material {
+	  ambientIntensity	0.2
+	  diffuseColor	0.565 0.565 0.565
+	  specularColor	0.8 0.8 0.8
+	  shininess	0.2
+	}
+
+      }
+
+      geometry	DEF sphere Sphere {
+      }
+
+    }
+    DEF Animation0_3 KfaAnimation {
+      framesPerSecond	1
+      snap	TRUE
+      viewInFrames	TRUE
+      playRangeStart	0
+      playRangeEnd	1
+      timeSensor	DEF UnnamedAnimation0Time_4 TimeSensor {
+	startTime	-1
+	cycleInterval	2
+	loop	TRUE
+      }
+
+      actors	[
+	USE _0
+	DEF _5 Transform {
+	  children	[
+	    Shape {
+	      appearance	Appearance {
+		material	USE mat_1
+
+	      }
+
+	      geometry	USE sphere
+
+	    }
+	    USE Animation0_3
+	  ]
+	  translation	0.6112 -0.89515 0.5973
+	  scale	0.4 0.4 0.4
+	  center	2.98023e-008 0 0
+	}
+	DEF _6 Transform {
+	  children	[
+	    Shape {
+	      appearance	Appearance {
+		material	USE mat_1
+
+	      }
+
+	      geometry	USE sphere
+
+	    }
+	    USE Animation0_3
+	  ]
+	  translation	1.0185 0.53915 0.6155
+	  scale	0.4 0.4 0.4
+	  center	2.98023e-008 0 0
+	}
+	DEF _7 Transform {
+	  children	[
+	    Shape {
+	      appearance	Appearance {
+		material	USE mat_1
+
+	      }
+
+	      geometry	USE sphere
+
+	    }
+	    USE Animation0_3
+	  ]
+	  translation	-0.611 0.89575 0.597
+	  scale	0.4 0.4 0.4
+	  center	0 1.19209e-007 -2.98023e-008
+	}
+	DEF _8 Transform {
+	  children	[
+	    Shape {
+	      appearance	Appearance {
+		material	USE mat_1
+
+	      }
+
+	      geometry	USE sphere
+
+	    }
+	    USE Animation0_3
+	  ]
+	  translation	1.2228 -1.03155 -0.7278
+	  scale	0.4 0.4 0.4
+	  center	-1.19209e-007 -2.98023e-008 -2.98023e-008
+	}
+	DEF _9 Transform {
+	  children	[
+	    Shape {
+	      appearance	Appearance {
+		material	USE mat_1
+
+	      }
+
+	      geometry	USE sphere
+
+	    }
+	    USE Animation0_3
+	  ]
+	  translation	1.7918 0.18855 -0.6571
+	  scale	0.4 0.4 0.4
+	  center	2.38419e-007 0 0
+	}
+	DEF _10 Transform {
+	  children	[
+	    Shape {
+	      appearance	Appearance {
+		material	USE mat_1
+
+	      }
+
+	      geometry	USE sphere
+
+	    }
+	    USE Animation0_3
+	  ]
+	  translation	-1.2226 1.03175 -0.7282
+	  scale	0.4 0.4 0.4
+	  center	0 1.19209e-007 0
+	}
+	DEF _11 Transform {
+	  children	[
+	    Shape {
+	      appearance	Appearance {
+		material	USE mat_1
+
+	      }
+
+	      geometry	USE sphere
+
+	    }
+	    USE Animation0_3
+	  ]
+	  translation	-1.7918 -0.18815 -0.657
+	  scale	0.4 0.4 0.4
+	  center	-2.38419e-007 0 0
+	}
+	DEF _12 Transform {
+	  children	[
+	    Shape {
+	      appearance	Appearance {
+		material	DEF mat_13 Material {
+		  ambientIntensity	0.2
+		  diffuseColor	1 1 1
+		  specularColor	0.8 0.8 0.8
+		  shininess	0.2
+		}
+
+	      }
+
+	      geometry	USE sphere
+
+	    }
+	    USE Animation0_3
+	  ]
+	  translation	-1.5292 -1.03485 1.4546
+	  scale	0.4 0.4 0.4
+	  center	2.98023e-008 2.98023e-008 2.98023e-008
+	}
+	DEF _14 Transform {
+	  children	[
+	    Shape {
+	      appearance	Appearance {
+		material	USE mat_13
+
+	      }
+
+	      geometry	USE sphere
+
+	    }
+	    USE Animation0_3
+	  ]
+	  translation	0.8996 -1.57465 1.4726
+	  scale	0.4 0.4 0.4
+	  center	0 -1.19209e-007 0
+	}
+	DEF _15 Transform {
+	  children	[
+	    Shape {
+	      appearance	Appearance {
+		material	USE mat_13
+
+	      }
+
+	      geometry	USE sphere
+
+	    }
+	    USE Animation0_3
+	  ]
+	  translation	1.5297 1.03675 1.4538
+	  scale	0.4 0.4 0.4
+	  center	-1.19209e-007 2.98023e-008 -1.19209e-007
+	}
+	DEF _16 Transform {
+	  children	[
+	    Shape {
+	      appearance	Appearance {
+		material	USE mat_13
+
+	      }
+
+	      geometry	USE sphere
+
+	    }
+	    USE Animation0_3
+	  ]
+	  translation	-0.8993 1.57565 1.4722
+	  scale	0.4 0.4 0.4
+	  center	2.98023e-008 -1.19209e-007 2.98023e-008
+	}
+	DEF _17 Transform {
+	  children	[
+	    Shape {
+	      appearance	Appearance {
+		material	USE mat_13
+
+	      }
+
+	      geometry	USE sphere
+
+	    }
+	    USE Animation0_3
+	  ]
+	  translation	1.0872 -1.75155 -1.532
+	  scale	0.4 0.4 0.4
+	  center	-2.98023e-008 -1.19209e-007 2.98023e-008
+	}
+	DEF _18 Transform {
+	  children	[
+	    Shape {
+	      appearance	Appearance {
+		material	USE mat_13
+
+	      }
+
+	      geometry	USE sphere
+
+	    }
+	    USE Animation0_3
+	  ]
+	  translation	2.5246 0.73465 -1.2698
+	  scale	0.4 0.4 0.4
+	  center	0 -2.98023e-008 1.19209e-007
+	}
+	DEF _19 Transform {
+	  children	[
+	    Shape {
+	      appearance	Appearance {
+		material	USE mat_13
+
+	      }
+
+	      geometry	USE sphere
+
+	    }
+	    USE Animation0_3
+	  ]
+	  translation	-1.0868 1.75155 -1.5326
+	  scale	0.4 0.4 0.4
+	  center	2.98023e-008 1.19209e-007 -2.98023e-008
+	}
+	DEF _20 Transform {
+	  children	[
+	    Shape {
+	      appearance	Appearance {
+		material	USE mat_13
+
+	      }
+
+	      geometry	USE sphere
+
+	    }
+	    USE Animation0_3
+	  ]
+	  translation	-2.5246 -0.73435 -1.2695
+	  scale	0.4 0.4 0.4
+	  center	0 0 -1.19209e-007
+	}
+	DEF _21 Transform {
+	  children	[
+	    Shape {
+	      appearance	Appearance {
+		material	USE mat_1
+
+	      }
+
+	      geometry	DEF cylinder Cylinder {
+		height	1
+		top	FALSE
+		bottom	FALSE
+	      }
+
+	    }
+	    USE Animation0_3
+	  ]
+	  translation	-1.14595 -0.662025 0.8255
+	  rotation	0.949802 -0.163827 0.266529  2.08473
+	  scale	0.2 0.550412 0.2
+	  scaleOrientation	5.36465e-008 -1 -2.1179e-007  0.229549
+	  center	0 4.47035e-008 0
+	}
+	DEF _22 Transform {
+	  children	[
+	    Shape {
+	      appearance	Appearance {
+		material	USE mat_13
+
+	      }
+
+	      geometry	Cylinder {
+		height	1
+		top	FALSE
+		bottom	FALSE
+	      }
+
+	    }
+	    USE Animation0_3
+	  ]
+	  translation	-1.40145 -0.910575 1.2449
+	  rotation	0.949802 -0.163827 0.266529  2.08473
+	  scale	0.2 0.550412 0.2
+	  scaleOrientation	5.36465e-008 -1 -2.1179e-007  0.229549
+	  center	8.9407e-008 0 0
+	}
+	DEF _23 Transform {
+	  children	[
+	    Shape {
+	      appearance	Appearance {
+		material	USE mat_1
+
+	      }
+
+	      geometry	Cylinder {
+		height	1
+		top	FALSE
+		bottom	FALSE
+	      }
+
+	    }
+	    USE Animation0_3
+	  ]
+	  translation	-0.2035 -0.71645 0.60655
+	  rotation	-0.610284 -0.496541 0.617252  4.05433
+	  scale	0.2 1.66824 0.2
+	  scaleOrientation	-1.72931e-008 -1 -1.57791e-008  0.569462
+	  center	-8.9407e-008 0 -2.98023e-008
+	}
+	DEF _24 Transform {
+	  children	[
+	    Shape {
+	      appearance	Appearance {
+		material	USE mat_1
+
+	      }
+
+	      geometry	Cylinder {
+		height	1
+		top	FALSE
+		bottom	FALSE
+	      }
+
+	    }
+	    USE Animation0_3
+	  ]
+	  translation	-0.8146 0.179 0.6064
+	  rotation	0.130723 0.981922 -0.136897  1.63515
+	  scale	0.2 1.49033 0.2
+	  scaleOrientation	-3.40146e-009 1 -2.06093e-009  1.5708
+	  center	0 0 1.19209e-007
+	}
+	DEF _25 Transform {
+	  children	[
+	    Shape {
+	      appearance	Appearance {
+		material	USE mat_1
+
+	      }
+
+	      geometry	Cylinder {
+		height	1
+		top	FALSE
+		bottom	FALSE
+	      }
+
+	    }
+	    USE Animation0_3
+	  ]
+	  translation	-1.405 -0.36295 -0.0206
+	  rotation	-0.171369 0.77215 -0.611896  3.56753
+	  scale	0.2 1.52993 0.2
+	  scaleOrientation	-4.60776e-009 1 7.35115e-010  1.5708
+	  center	5.96046e-008 0 0
+	}
+	DEF _26 Transform {
+	  children	[
+	    Shape {
+	      appearance	Appearance {
+		material	USE mat_1
+
+	      }
+
+	      geometry	Cylinder {
+		height	1
+		top	FALSE
+		bottom	FALSE
+	      }
+
+	    }
+	    USE Animation0_3
+	  ]
+	  translation	0.6833 -1.06502 0.816125
+	  rotation	0.984215 0.0797912 -0.157966  2.21888
+	  scale	0.2 0.572504 0.2
+	  scaleOrientation	3.84812e-008 1 4.99809e-008  0.269657
+	  center	0 5.96046e-008 -5.96046e-008
+	}
+	DEF _27 Transform {
+	  children	[
+	    Shape {
+	      appearance	Appearance {
+		material	USE mat_13
+
+	      }
+
+	      geometry	Cylinder {
+		height	1
+		top	FALSE
+		bottom	FALSE
+	      }
+
+	    }
+	    USE Animation0_3
+	  ]
+	  translation	0.8275 -1.40478 1.25377
+	  rotation	0.984215 0.0797912 -0.157966  2.21888
+	  scale	0.2 0.572504 0.2
+	  scaleOrientation	3.84812e-008 1 4.99809e-008  0.269657
+	  center	-8.9407e-008 1.04308e-007 0
+	}
+	DEF _28 Transform {
+	  children	[
+	    Shape {
+	      appearance	Appearance {
+		material	USE mat_1
+
+	      }
+
+	      geometry	Cylinder {
+		height	1
+		top	FALSE
+		bottom	FALSE
+	      }
+
+	    }
+	    USE Animation0_3
+	  ]
+	  translation	0.81485 -0.178 0.6064
+	  rotation	0.142858 0.980269 -0.136617  1.54606
+	  scale	0.2 1.49112 0.2
+	  scaleOrientation	-2.2282e-007 -1 -9.91177e-008  0.0365206
+	  center	2.98023e-008 0 8.9407e-008
+	}
+	DEF _29 Transform {
+	  children	[
+	    Shape {
+	      appearance	Appearance {
+		material	USE mat_1
+
+	      }
+
+	      geometry	Cylinder {
+		height	1
+		top	FALSE
+		bottom	FALSE
+	      }
+
+	    }
+	    USE Animation0_3
+	  ]
+	  translation	0.917 -0.96335 -0.0652501
+	  rotation	-0.160275 -0.664697 0.729719  3.43153
+	  scale	0.2 1.46579 0.2
+	  scaleOrientation	-1.39893e-007 -1 -2.11322e-008  0.107831
+	  center	-2.08616e-007 0 1.49012e-007
+	}
+	DEF _30 Transform {
+	  children	[
+	    Shape {
+	      appearance	Appearance {
+		material	USE mat_1
+
+	      }
+
+	      geometry	Cylinder {
+		height	1
+		top	FALSE
+		bottom	FALSE
+	      }
+
+	    }
+	    USE Animation0_3
+	  ]
+	  translation	1.1463 0.66355 0.825075
+	  rotation	0.881167 0.402864 -0.247478  1.21761
+	  scale	0.2 0.550381 0.2
+	  scaleOrientation	-2.85122e-007 1 1.1492e-007  0.141299
+	  center	8.9407e-008 -5.96046e-008 0
+	}
+	DEF _31 Transform {
+	  children	[
+	    Shape {
+	      appearance	Appearance {
+		material	USE mat_13
+
+	      }
+
+	      geometry	Cylinder {
+		height	1
+		top	FALSE
+		bottom	FALSE
+	      }
+
+	    }
+	    USE Animation0_3
+	  ]
+	  translation	1.4019 0.91235 1.24422
+	  rotation	0.881167 0.402864 -0.247478  1.21761
+	  scale	0.2 0.550381 0.2
+	  scaleOrientation	-2.85122e-007 1 1.1492e-007  0.141299
+	  center	-1.19209e-007 0 0
+	}
+	DEF _32 Transform {
+	  children	[
+	    Shape {
+	      appearance	Appearance {
+		material	USE mat_1
+
+	      }
+
+	      geometry	Cylinder {
+		height	1
+		top	FALSE
+		bottom	FALSE
+	      }
+
+	    }
+	    USE Animation0_3
+	  ]
+	  translation	0.20375 0.71745 0.60625
+	  rotation	-0.526886 0.662122 -0.532902  4.30086
+	  scale	0.2 1.66816 0.2
+	  scaleOrientation	3.88932e-008 -1 -3.00406e-008  0.161111
+	  center	0 0 5.96046e-008
+	}
+	DEF _33 Transform {
+	  children	[
+	    Shape {
+	      appearance	Appearance {
+		material	USE mat_1
+
+	      }
+
+	      geometry	Cylinder {
+		height	1
+		top	FALSE
+		bottom	FALSE
+	      }
+
+	    }
+	    USE Animation0_3
+	  ]
+	  translation	1.40515 0.36385 -0.0207999
+	  rotation	-0.214409 -0.606381 0.765723  3.47797
+	  scale	0.2 1.52984 0.2
+	  scaleOrientation	6.04421e-008 -1 -6.87882e-009  0.354428
+	  center	8.9407e-008 0 -8.9407e-008
+	}
+	DEF _34 Transform {
+	  children	[
+	    Shape {
+	      appearance	Appearance {
+		material	USE mat_1
+
+	      }
+
+	      geometry	Cylinder {
+		height	1
+		top	FALSE
+		bottom	FALSE
+	      }
+
+	    }
+	    USE Animation0_3
+	  ]
+	  translation	-0.683075 1.06572 0.8158
+	  rotation	0.942074 -0.299406 0.151169  0.983974
+	  scale	0.2 0.572572 0.2
+	  scaleOrientation	-2.20921e-007 -1 3.42412e-008  0.292069
+	  center	0 8.9407e-008 0
+	}
+	DEF _35 Transform {
+	  children	[
+	    Shape {
+	      appearance	Appearance {
+		material	USE mat_13
+
+	      }
+
+	      geometry	Cylinder {
+		height	1
+		top	FALSE
+		bottom	FALSE
+	      }
+
+	    }
+	    USE Animation0_3
+	  ]
+	  translation	-0.827225 1.40568 1.2534
+	  rotation	0.942074 -0.299406 0.151169  0.983974
+	  scale	0.2 0.572572 0.2
+	  scaleOrientation	-2.20921e-007 -1 3.42412e-008  0.292069
+	  center	0 5.96046e-008 -5.96046e-008
+	}
+	DEF _36 Transform {
+	  children	[
+	    Shape {
+	      appearance	Appearance {
+		material	USE mat_1
+
+	      }
+
+	      geometry	Cylinder {
+		height	1
+		top	FALSE
+		bottom	FALSE
+	      }
+
+	    }
+	    USE Animation0_3
+	  ]
+	  translation	-0.9168 0.96375 -0.0656
+	  rotation	-0.146329 0.731226 -0.666255  3.46007
+	  scale	0.2 1.46585 0.2
+	  scaleOrientation	1.50666e-007 1 -6.24731e-009  0.228415
+	  center	1.49012e-007 0 0
+	}
+	DEF _37 Transform {
+	  children	[
+	    Shape {
+	      appearance	Appearance {
+		material	USE mat_1
+
+	      }
+
+	      geometry	Cylinder {
+		height	1
+		top	FALSE
+		bottom	FALSE
+	      }
+
+	    }
+	    USE Animation0_3
+	  ]
+	  translation	1.1889 -1.21155 -0.92885
+	  rotation	0.0760897 -0.410009 0.908902  3.07297
+	  scale	0.2 0.543753 0.2
+	  scaleOrientation	-6.76535e-007 1 4.4355e-008  0.0366834
+	  center	-2.98023e-008 -4.47035e-008 -8.9407e-008
+	}
+	DEF _38 Transform {
+	  children	[
+	    Shape {
+	      appearance	Appearance {
+		material	USE mat_13
+
+	      }
+
+	      geometry	Cylinder {
+		height	1
+		top	FALSE
+		bottom	FALSE
+	      }
+
+	    }
+	    USE Animation0_3
+	  ]
+	  translation	1.1211 -1.57155 -1.33095
+	  rotation	0.0760897 -0.410009 0.908902  3.07297
+	  scale	0.2 0.543753 0.2
+	  scaleOrientation	-6.76535e-007 1 4.4355e-008  0.0366834
+	  center	2.98023e-008 1.04308e-007 0
+	}
+	DEF _39 Transform {
+	  children	[
+	    Shape {
+	      appearance	Appearance {
+		material	USE mat_1
+
+	      }
+
+	      geometry	Cylinder {
+		height	1
+		top	FALSE
+		bottom	FALSE
+	      }
+
+	    }
+	    USE Animation0_3
+	  ]
+	  translation	1.5073 -0.4215 -0.69245
+	  rotation	0.239467 0.947576 -0.211555  1.50077
+	  scale	0.2 1.34811 0.2
+	  scaleOrientation	5.29877e-008 1 3.53929e-008  0.181674
+	  center	2.08616e-007 0 1.19209e-007
+	}
+	DEF _40 Transform {
+	  children	[
+	    Shape {
+	      appearance	Appearance {
+		material	USE mat_1
+
+	      }
+
+	      geometry	Cylinder {
+		height	1
+		top	FALSE
+		bottom	FALSE
+	      }
+
+	    }
+	    USE Animation0_3
+	  ]
+	  translation	1.975 0.325075 -0.810275
+	  rotation	0.228348 0.842113 -0.488573  2.39166
+	  scale	0.2 0.549543 0.2
+	  scaleOrientation	1.18182e-008 1 -6.11113e-009  2.35619
+	  center	-1.19209e-007 -1.04308e-007 -1.19209e-007
+	}
+	DEF _41 Transform {
+	  children	[
+	    Shape {
+	      appearance	Appearance {
+		material	USE mat_13
+
+	      }
+
+	      geometry	Cylinder {
+		height	1
+		top	FALSE
+		bottom	FALSE
+	      }
+
+	    }
+	    USE Animation0_3
+	  ]
+	  translation	2.3414 0.598125 -1.11662
+	  rotation	0.228348 0.842113 -0.488573  2.39166
+	  scale	0.2 0.549543 0.2
+	  scaleOrientation	1.18182e-008 1 -6.11113e-009  2.35619
+	  center	2.98023e-008 -4.47035e-008 0
+	}
+	DEF _42 Transform {
+	  children	[
+	    Shape {
+	      appearance	Appearance {
+		material	USE mat_1
+
+	      }
+
+	      geometry	Cylinder {
+		height	1
+		top	FALSE
+		bottom	FALSE
+	      }
+
+	    }
+	    USE Animation0_3
+	  ]
+	  translation	-1.18865 1.2117 -0.9293
+	  rotation	0.0344558 0.910946 -0.411085  2.98918
+	  scale	0.2 0.543775 0.2
+	  scaleOrientation	2.05845e-006 -1 3.17581e-007  0.0276216
+	  center	2.08616e-007 0 0
+	}
+	DEF _43 Transform {
+	  children	[
+	    Shape {
+	      appearance	Appearance {
+		material	USE mat_13
+
+	      }
+
+	      geometry	Cylinder {
+		height	1
+		top	FALSE
+		bottom	FALSE
+	      }
+
+	    }
+	    USE Animation0_3
+	  ]
+	  translation	-1.12075 1.5716 -1.3315
+	  rotation	0.0344558 0.910946 -0.411084  2.98918
+	  scale	0.2 0.543775 0.2
+	  scaleOrientation	2.06161e-008 1 1.73626e-008  1.5708
+	  center	2.38419e-007 0 -8.9407e-008
+	}
+	DEF _44 Transform {
+	  children	[
+	    Shape {
+	      appearance	Appearance {
+		material	USE mat_1
+
+	      }
+
+	      geometry	Cylinder {
+		height	1
+		top	FALSE
+		bottom	FALSE
+	      }
+
+	    }
+	    USE Animation0_3
+	  ]
+	  translation	-1.5072 0.4218 -0.6926
+	  rotation	0.741648 -0.14624 0.654654  2.81323
+	  scale	0.2 1.34804 0.2
+	  scaleOrientation	-1.93087e-008 1 6.45631e-009  0.631231
+	  center	8.9407e-008 0 -8.9407e-008
+	}
+	DEF _45 Transform {
+	  children	[
+	    Shape {
+	      appearance	Appearance {
+		material	USE mat_1
+
+	      }
+
+	      geometry	Cylinder {
+		height	1
+		top	FALSE
+		bottom	FALSE
+	      }
+
+	    }
+	    USE Animation0_3
+	  ]
+	  translation	-1.975 -0.3247 -0.810125
+	  rotation	0.374878 -0.46518 0.801919  2.71334
+	  scale	0.2 0.5495 0.2
+	  scaleOrientation	1.11746e-007 1 5.8293e-008  0.37725
+	  center	-8.9407e-008 -5.96046e-008 8.9407e-008
+	}
+	DEF _46 Transform {
+	  children	[
+	    Shape {
+	      appearance	Appearance {
+		material	USE mat_13
+
+	      }
+
+	      geometry	Cylinder {
+		height	1
+		top	FALSE
+		bottom	FALSE
+	      }
+
+	    }
+	    USE Animation0_3
+	  ]
+	  translation	-2.3414 -0.5978 -1.11638
+	  rotation	0.374878 -0.46518 0.801919  2.71334
+	  scale	0.2 0.549499 0.2
+	  scaleOrientation	1.11746e-007 1 5.8293e-008  0.37725
+	  center	8.9407e-008 -4.47035e-008 -5.96046e-008
+	}
+      ]
+      fieldInterps	[
+	DEF UnnamedTransformTranslationInterp_47 KfaPositionInterpolator {
+	  key	[ 0, 0.5, 1 ]
+	  keyTypes	[ 2, 2, 2 ]
+	  authorKey	[ 0, 0.5, 1 ]
+	  keyValue	[ -1.0182 -0.53775 0.6158,
+		    -1.2582 -1.13775 0.4558,
+		    -1.0182 -0.53775 0.6158 ]
+	  authorKeyValue	[ -1.0182 -0.53775 0.6158,
+		    -1.2582 -1.13775 0.4558,
+		    -1.0182 -0.53775 0.6158 ]
+	}
+	DEF UnnamedTransformTranslationInterp_48 KfaPositionInterpolator {
+	  key	[ 0, 0.5, 1 ]
+	  keyTypes	[ 2, 2, 2 ]
+	  authorKey	[ 0, 0.5, 1 ]
+	  keyValue	[ -1.5292 -1.03485 1.4546,
+		    -1.8292 -1.69485 1.1946,
+		    -1.5292 -1.03485 1.4546 ]
+	  authorKeyValue	[ -1.5292 -1.03485 1.4546,
+		    -1.8292 -1.69485 1.1946,
+		    -1.5292 -1.03485 1.4546 ]
+	}
+	DEF UnnamedTransformTranslationInterp_49 KfaPositionInterpolator {
+	  key	[ 0, 0.5, 1 ]
+	  keyTypes	[ 2, 2, 2 ]
+	  authorKey	[ 0, 0.5, 1 ]
+	  keyValue	[ -1.40145 -0.910575 1.2449,
+		    -1.68645 -1.55558 1.0099,
+		    -1.40145 -0.910575 1.2449 ]
+	  authorKeyValue	[ -1.40145 -0.910575 1.2449,
+		    -1.68645 -1.55558 1.0099,
+		    -1.40145 -0.910575 1.2449 ]
+	}
+	DEF UnnamedTransformRotationInterp_50 KfaOrientationInterpolator {
+	  key	[ 0, 0.5, 1 ]
+	  keyTypes	[ 2, 2, 2 ]
+	  authorKey	[ 0, 0.5, 1 ]
+	  keyValue	[ 0.949802 -0.163827 0.266529  2.08473,
+		    0.930834 -0.180446 0.317784  2.16914,
+		    0.949802 -0.163827 0.266529  2.08473 ]
+	  authorKeyValue	[ 0.949802 -0.163827 0.266529  2.08473,
+		    0.930834 -0.180446 0.317784  2.16914,
+		    0.949802 -0.163827 0.266529  2.08473 ]
+	}
+	DEF UnnamedTransformScaleOrientationInterp_51 KfaOrientationInterpolator {
+	  key	[ 0, 0.5, 1 ]
+	  keyTypes	[ 2, 2, 2 ]
+	  authorKey	[ 0, 0.5, 1 ]
+	  keyValue	[ 5.36465e-008 -1 -2.1179e-007  0.229549,
+		    2.00796e-007 -1 -4.67615e-007  0.00512114,
+		    5.36465e-008 -1 -2.1179e-007  0.229549 ]
+	  authorKeyValue	[ 5.36465e-008 -1 -2.1179e-007  0.229549,
+		    2.00796e-007 -1 -4.67615e-007  0.00512114,
+		    5.36465e-008 -1 -2.1179e-007  0.229549 ]
+	}
+	DEF UnnamedTransformTranslationInterp_52 KfaPositionInterpolator {
+	  key	[ 0, 0.5, 1 ]
+	  keyTypes	[ 2, 2, 2 ]
+	  authorKey	[ 0, 0.5, 1 ]
+	  keyValue	[ -1.14595 -0.662025 0.8255,
+		    -1.40095 -1.27702 0.6405,
+		    -1.14595 -0.662025 0.8255 ]
+	  authorKeyValue	[ -1.14595 -0.662025 0.8255,
+		    -1.40095 -1.27702 0.6405,
+		    -1.14595 -0.662025 0.8255 ]
+	}
+	DEF UnnamedTransformRotationInterp_53 KfaOrientationInterpolator {
+	  key	[ 0, 0.5, 1 ]
+	  keyTypes	[ 2, 2, 2 ]
+	  authorKey	[ 0, 0.5, 1 ]
+	  keyValue	[ 0.949802 -0.163827 0.266529  2.08473,
+		    0.930834 -0.180446 0.317784  2.16914,
+		    0.949802 -0.163827 0.266529  2.08473 ]
+	  authorKeyValue	[ 0.949802 -0.163827 0.266529  2.08473,
+		    0.930834 -0.180446 0.317784  2.16914,
+		    0.949802 -0.163827 0.266529  2.08473 ]
+	}
+	DEF UnnamedTransformScaleInterp_54 KfaPositionInterpolator {
+	  key	[ 0, 0.5, 1 ]
+	  keyTypes	[ 2, 2, 2 ]
+	  authorKey	[ 0, 0.5, 1 ]
+	  keyValue	[ 0.2 0.550412 0.2,
+		    0.2 0.543651 0.2,
+		    0.2 0.550412 0.2 ]
+	  authorKeyValue	[ 0.2 0.550412 0.2,
+		    0.2 0.543651 0.2,
+		    0.2 0.550412 0.2 ]
+	}
+	DEF UnnamedTransformScaleOrientationInterp_55 KfaOrientationInterpolator {
+	  key	[ 0, 0.5, 1 ]
+	  keyTypes	[ 2, 2, 2 ]
+	  authorKey	[ 0, 0.5, 1 ]
+	  keyValue	[ 5.36465e-008 -1 -2.1179e-007  0.229549,
+		    2.00796e-007 -1 -4.67615e-007  0.00512114,
+		    5.36465e-008 -1 -2.1179e-007  0.229549 ]
+	  authorKeyValue	[ 5.36465e-008 -1 -2.1179e-007  0.229549,
+		    2.00796e-007 -1 -4.67615e-007  0.00512114,
+		    5.36465e-008 -1 -2.1179e-007  0.229549 ]
+	}
+	DEF UnnamedTransformTranslationInterp_56 KfaPositionInterpolator {
+	  key	[ 0, 0.5, 1 ]
+	  keyTypes	[ 2, 2, 2 ]
+	  authorKey	[ 0, 0.5, 1 ]
+	  keyValue	[ 0.6112 -0.89515 0.5973,
+		    0.0912 -0.93515 0.5173,
+		    0.6112 -0.89515 0.5973 ]
+	  authorKeyValue	[ 0.6112 -0.89515 0.5973,
+		    0.0912 -0.93515 0.5173,
+		    0.6112 -0.89515 0.5973 ]
+	}
+	DEF UnnamedTransformTranslationInterp_57 KfaPositionInterpolator {
+	  key	[ 0, 0.5, 1 ]
+	  keyTypes	[ 2, 2, 2 ]
+	  authorKey	[ 0, 0.5, 1 ]
+	  keyValue	[ 1.0185 0.53915 0.6155,
+		    1.2585 1.13915 0.4555,
+		    1.0185 0.53915 0.6155 ]
+	  authorKeyValue	[ 1.0185 0.53915 0.6155,
+		    1.2585 1.13915 0.4555,
+		    1.0185 0.53915 0.6155 ]
+	}
+	DEF UnnamedTransformTranslationInterp_58 KfaPositionInterpolator {
+	  key	[ 0, 0.5, 1 ]
+	  keyTypes	[ 2, 2, 2 ]
+	  authorKey	[ 0, 0.5, 1 ]
+	  keyValue	[ -0.611 0.89575 0.597,
+		    -0.091 0.93575 0.517,
+		    -0.611 0.89575 0.597 ]
+	  authorKeyValue	[ -0.611 0.89575 0.597,
+		    -0.091 0.93575 0.517,
+		    -0.611 0.89575 0.597 ]
+	}
+	DEF UnnamedTransformTranslationInterp_59 KfaPositionInterpolator {
+	  key	[ 0, 0.5, 1 ]
+	  keyTypes	[ 2, 2, 2 ]
+	  authorKey	[ 0, 0.5, 1 ]
+	  keyValue	[ 1.2228 -1.03155 -0.7278,
+		    1.1228 -0.97155 -0.6078,
+		    1.2228 -1.03155 -0.7278 ]
+	  authorKeyValue	[ 1.2228 -1.03155 -0.7278,
+		    1.1228 -0.97155 -0.6078,
+		    1.2228 -1.03155 -0.7278 ]
+	}
+	DEF UnnamedTransformTranslationInterp_60 KfaPositionInterpolator {
+	  key	[ 0, 0.5, 1 ]
+	  keyTypes	[ 2, 2, 2 ]
+	  authorKey	[ 0, 0.5, 1 ]
+	  keyValue	[ 1.7918 0.18855 -0.6571,
+		    1.8118 0.20855 -0.5371,
+		    1.7918 0.18855 -0.6571 ]
+	  authorKeyValue	[ 1.7918 0.18855 -0.6571,
+		    1.8118 0.20855 -0.5371,
+		    1.7918 0.18855 -0.6571 ]
+	}
+	DEF UnnamedTransformTranslationInterp_61 KfaPositionInterpolator {
+	  key	[ 0, 0.5, 1 ]
+	  keyTypes	[ 2, 2, 2 ]
+	  authorKey	[ 0, 0.5, 1 ]
+	  keyValue	[ -1.2226 1.03175 -0.7282,
+		    -1.1226 0.97175 -0.6082,
+		    -1.2226 1.03175 -0.7282 ]
+	  authorKeyValue	[ -1.2226 1.03175 -0.7282,
+		    -1.1226 0.97175 -0.6082,
+		    -1.2226 1.03175 -0.7282 ]
+	}
+	DEF UnnamedTransformTranslationInterp_62 KfaPositionInterpolator {
+	  key	[ 0, 0.5, 1 ]
+	  keyTypes	[ 2, 2, 2 ]
+	  authorKey	[ 0, 0.5, 1 ]
+	  keyValue	[ -1.7918 -0.18815 -0.657,
+		    -1.8118 -0.20815 -0.537,
+		    -1.7918 -0.18815 -0.657 ]
+	  authorKeyValue	[ -1.7918 -0.18815 -0.657,
+		    -1.8118 -0.20815 -0.537,
+		    -1.7918 -0.18815 -0.657 ]
+	}
+	DEF UnnamedTransformTranslationInterp_63 KfaPositionInterpolator {
+	  key	[ 0, 0.5, 1 ]
+	  keyTypes	[ 2, 2, 2 ]
+	  authorKey	[ 0, 0.5, 1 ]
+	  keyValue	[ 0.8996 -1.57465 1.4726,
+		    0.6596 -0.91465 1.5326,
+		    0.8996 -1.57465 1.4726 ]
+	  authorKeyValue	[ 0.8996 -1.57465 1.4726,
+		    0.6596 -0.91465 1.5326,
+		    0.8996 -1.57465 1.4726 ]
+	}
+	DEF UnnamedTransformTranslationInterp_64 KfaPositionInterpolator {
+	  key	[ 0, 0.5, 1 ]
+	  keyTypes	[ 2, 2, 2 ]
+	  authorKey	[ 0, 0.5, 1 ]
+	  keyValue	[ 1.5297 1.03675 1.4538,
+		    1.8297 1.69675 1.1938,
+		    1.5297 1.03675 1.4538 ]
+	  authorKeyValue	[ 1.5297 1.03675 1.4538,
+		    1.8297 1.69675 1.1938,
+		    1.5297 1.03675 1.4538 ]
+	}
+	DEF UnnamedTransformTranslationInterp_65 KfaPositionInterpolator {
+	  key	[ 0, 0.5, 1 ]
+	  keyTypes	[ 2, 2, 2 ]
+	  authorKey	[ 0, 0.5, 1 ]
+	  keyValue	[ -0.8993 1.57565 1.4722,
+		    -0.6593 0.91565 1.5322,
+		    -0.8993 1.57565 1.4722 ]
+	  authorKeyValue	[ -0.8993 1.57565 1.4722,
+		    -0.6593 0.91565 1.5322,
+		    -0.8993 1.57565 1.4722 ]
+	}
+	DEF UnnamedTransformTranslationInterp_66 KfaPositionInterpolator {
+	  key	[ 0, 0.5, 1 ]
+	  keyTypes	[ 2, 2, 2 ]
+	  authorKey	[ 0, 0.5, 1 ]
+	  keyValue	[ 1.0872 -1.75155 -1.532,
+		    1.0072 -1.67155 -1.432,
+		    1.0872 -1.75155 -1.532 ]
+	  authorKeyValue	[ 1.0872 -1.75155 -1.532,
+		    1.0072 -1.67155 -1.432,
+		    1.0872 -1.75155 -1.532 ]
+	}
+	DEF UnnamedTransformTranslationInterp_67 KfaPositionInterpolator {
+	  key	[ 0, 0.5, 1 ]
+	  keyTypes	[ 2, 2, 2 ]
+	  authorKey	[ 0, 0.5, 1 ]
+	  keyValue	[ 2.5246 0.73465 -1.2698,
+		    2.6846 0.47465 -1.1498,
+		    2.5246 0.73465 -1.2698 ]
+	  authorKeyValue	[ 2.5246 0.73465 -1.2698,
+		    2.6846 0.47465 -1.1498,
+		    2.5246 0.73465 -1.2698 ]
+	}
+	DEF UnnamedTransformTranslationInterp_68 KfaPositionInterpolator {
+	  key	[ 0, 0.5, 1 ]
+	  keyTypes	[ 2, 2, 2 ]
+	  authorKey	[ 0, 0.5, 1 ]
+	  keyValue	[ -1.0868 1.75155 -1.5326,
+		    -1.0068 1.67155 -1.4326,
+		    -1.0868 1.75155 -1.5326 ]
+	  authorKeyValue	[ -1.0868 1.75155 -1.5326,
+		    -1.0068 1.67155 -1.4326,
+		    -1.0868 1.75155 -1.5326 ]
+	}
+	DEF UnnamedTransformTranslationInterp_69 KfaPositionInterpolator {
+	  key	[ 0, 0.5, 1 ]
+	  keyTypes	[ 2, 2, 2 ]
+	  authorKey	[ 0, 0.5, 1 ]
+	  keyValue	[ -2.5246 -0.73435 -1.2695,
+		    -2.6846 -0.47435 -1.1495,
+		    -2.5246 -0.73435 -1.2695 ]
+	  authorKeyValue	[ -2.5246 -0.73435 -1.2695,
+		    -2.6846 -0.47435 -1.1495,
+		    -2.5246 -0.73435 -1.2695 ]
+	}
+	DEF UnnamedTransformTranslationInterp_70 KfaPositionInterpolator {
+	  key	[ 0, 0.5, 1 ]
+	  keyTypes	[ 2, 2, 2 ]
+	  authorKey	[ 0, 0.5, 1 ]
+	  keyValue	[ -0.2035 -0.71645 0.60655,
+		    -0.5835 -1.03645 0.48655,
+		    -0.2035 -0.71645 0.60655 ]
+	  authorKeyValue	[ -0.2035 -0.71645 0.60655,
+		    -0.5835 -1.03645 0.48655,
+		    -0.2035 -0.71645 0.60655 ]
+	}
+	DEF UnnamedTransformRotationInterp_71 KfaOrientationInterpolator {
+	  key	[ 0, 0.5, 1 ]
+	  keyTypes	[ 2, 2, 2 ]
+	  authorKey	[ 0, 0.5, 1 ]
+	  keyValue	[ -0.610284 -0.496541 0.617252  4.05433,
+		    0.563992 0.625723 -0.538872  1.98198,
+		    -0.610284 -0.496541 0.617252  4.05433 ]
+	  authorKeyValue	[ -0.610284 -0.496541 0.617252  4.05433,
+		    0.563992 0.625723 -0.538872  1.98198,
+		    -0.610284 -0.496541 0.617252  4.05433 ]
+	}
+	DEF UnnamedTransformScaleInterp_72 KfaPositionInterpolator {
+	  key	[ 0, 0.5, 1 ]
+	  keyTypes	[ 2, 2, 2 ]
+	  authorKey	[ 0, 0.5, 1 ]
+	  keyValue	[ 0.2 1.66824 0.2,
+		    0.2 1.36591 0.2,
+		    0.2 1.66824 0.2 ]
+	  authorKeyValue	[ 0.2 1.66824 0.2,
+		    0.2 1.36591 0.2,
+		    0.2 1.66824 0.2 ]
+	}
+	DEF UnnamedTransformTranslationInterp_73 KfaPositionInterpolator {
+	  key	[ 0, 0.5, 1 ]
+	  keyTypes	[ 2, 2, 2 ]
+	  authorKey	[ 0, 0.5, 1 ]
+	  keyValue	[ -0.8146 0.179 0.6064,
+		    -0.6746 -0.10195 0.4364,
+		    -0.8146 0.179 0.6064 ]
+	  authorKeyValue	[ -0.8146 0.179 0.6064,
+		    -0.6746 -0.10195 0.4364,
+		    -0.8146 0.179 0.6064 ]
+	}
+	DEF UnnamedTransformRotationInterp_74 KfaOrientationInterpolator {
+	  key	[ 0, 0.5, 1 ]
+	  keyTypes	[ 2, 2, 2 ]
+	  authorKey	[ 0, 0.5, 1 ]
+	  keyValue	[ 0.130723 0.981922 -0.136897  1.63515,
+		    0.25841 0.934395 -0.245215  1.58624,
+		    0.130723 0.981922 -0.136897  1.63515 ]
+	  authorKeyValue	[ 0.130723 0.981922 -0.136897  1.63515,
+		    0.25841 0.934395 -0.245215  1.58624,
+		    0.130723 0.981922 -0.136897  1.63515 ]
+	}
+	DEF UnnamedTransformScaleInterp_75 KfaPositionInterpolator {
+	  key	[ 0, 0.5, 1 ]
+	  keyTypes	[ 2, 2, 2 ]
+	  authorKey	[ 0, 0.5, 1 ]
+	  keyValue	[ 0.2 1.49033 0.2,
+		    0.2 2.38023 0.2,
+		    0.2 1.49033 0.2 ]
+	  authorKeyValue	[ 0.2 1.49033 0.2,
+		    0.2 2.38023 0.2,
+		    0.2 1.49033 0.2 ]
+	}
+	DEF UnnamedTransformTranslationInterp_76 KfaPositionInterpolator {
+	  key	[ 0, 0.5, 1 ]
+	  keyTypes	[ 2, 2, 2 ]
+	  authorKey	[ 0, 0.5, 1 ]
+	  keyValue	[ -1.405 -0.36295 -0.0206,
+		    -1.535 -0.67295 -0.0406,
+		    -1.405 -0.36295 -0.0206 ]
+	  authorKeyValue	[ -1.405 -0.36295 -0.0206,
+		    -1.535 -0.67295 -0.0406,
+		    -1.405 -0.36295 -0.0206 ]
+	}
+	DEF UnnamedTransformScaleInterp_77 KfaPositionInterpolator {
+	  key	[ 0, 0.5, 1 ]
+	  keyTypes	[ 2, 2, 2 ]
+	  authorKey	[ 0, 0.5, 1 ]
+	  keyValue	[ 0.2 1.52993 0.2,
+		    0.2 1.46843 0.2,
+		    0.2 1.52993 0.2 ]
+	  authorKeyValue	[ 0.2 1.52993 0.2,
+		    0.2 1.46843 0.2,
+		    0.2 1.52993 0.2 ]
+	}
+	DEF UnnamedTransformTranslationInterp_78 KfaPositionInterpolator {
+	  key	[ 0, 0.5, 1 ]
+	  keyTypes	[ 2, 2, 2 ]
+	  authorKey	[ 0, 0.5, 1 ]
+	  keyValue	[ 0.6833 -1.06502 0.816125,
+		    0.2333 -0.930025 0.771125,
+		    0.6833 -1.06502 0.816125 ]
+	  authorKeyValue	[ 0.6833 -1.06502 0.816125,
+		    0.2333 -0.930025 0.771125,
+		    0.6833 -1.06502 0.816125 ]
+	}
+	DEF UnnamedTransformRotationInterp_79 KfaOrientationInterpolator {
+	  key	[ 0, 0.5, 1 ]
+	  keyTypes	[ 2, 2, 2 ]
+	  authorKey	[ 0, 0.5, 1 ]
+	  keyValue	[ 0.984215 0.0797912 -0.157966  2.21888,
+		    0.937184 0.248827 -0.244481  1.61804,
+		    0.984215 0.0797912 -0.157966  2.21888 ]
+	  authorKeyValue	[ 0.984215 0.0797912 -0.157966  2.21888,
+		    0.937184 0.248827 -0.244481  1.61804,
+		    0.984215 0.0797912 -0.157966  2.21888 ]
+	}
+	DEF UnnamedTransformScaleInterp_80 KfaPositionInterpolator {
+	  key	[ 0, 0.5, 1 ]
+	  keyTypes	[ 2, 2, 2 ]
+	  authorKey	[ 0, 0.5, 1 ]
+	  keyValue	[ 0.2 0.572504 0.2,
+		    0.2 0.581879 0.2,
+		    0.2 0.572504 0.2 ]
+	  authorKeyValue	[ 0.2 0.572504 0.2,
+		    0.2 0.581879 0.2,
+		    0.2 0.572504 0.2 ]
+	}
+	DEF UnnamedTransformTranslationInterp_81 KfaPositionInterpolator {
+	  key	[ 0, 0.5, 1 ]
+	  keyTypes	[ 2, 2, 2 ]
+	  authorKey	[ 0, 0.5, 1 ]
+	  keyValue	[ 0.8275 -1.40478 1.25377,
+		    0.5175 -0.919775 1.27878,
+		    0.8275 -1.40478 1.25377 ]
+	  authorKeyValue	[ 0.8275 -1.40478 1.25377,
+		    0.5175 -0.919775 1.27878,
+		    0.8275 -1.40478 1.25377 ]
+	}
+	DEF UnnamedTransformRotationInterp_82 KfaOrientationInterpolator {
+	  key	[ 0, 0.5, 1 ]
+	  keyTypes	[ 2, 2, 2 ]
+	  authorKey	[ 0, 0.5, 1 ]
+	  keyValue	[ 0.984215 0.0797912 -0.157966  2.21888,
+		    0.937184 0.248827 -0.244481  1.61804,
+		    0.984215 0.0797912 -0.157966  2.21888 ]
+	  authorKeyValue	[ 0.984215 0.0797912 -0.157966  2.21888,
+		    0.937184 0.248827 -0.244481  1.61804,
+		    0.984215 0.0797912 -0.157966  2.21888 ]
+	}
+	DEF UnnamedTransformScaleInterp_83 KfaPositionInterpolator {
+	  key	[ 0, 0.5, 1 ]
+	  keyTypes	[ 2, 2, 2 ]
+	  authorKey	[ 0, 0.5, 1 ]
+	  keyValue	[ 0.2 0.572504 0.2,
+		    0.2 0.581879 0.2,
+		    0.2 0.572504 0.2 ]
+	  authorKeyValue	[ 0.2 0.572504 0.2,
+		    0.2 0.581879 0.2,
+		    0.2 0.572504 0.2 ]
+	}
+	DEF UnnamedTransformTranslationInterp_84 KfaPositionInterpolator {
+	  key	[ 0, 0.5, 1 ]
+	  keyTypes	[ 2, 2, 2 ]
+	  authorKey	[ 0, 0.5, 1 ]
+	  keyValue	[ 0.81485 -0.178 0.6064,
+		    0.67485 0.10105 0.4364,
+		    0.81485 -0.178 0.6064 ]
+	  authorKeyValue	[ 0.81485 -0.178 0.6064,
+		    0.67485 0.10105 0.4364,
+		    0.81485 -0.178 0.6064 ]
+	}
+	DEF UnnamedTransformRotationInterp_85 KfaOrientationInterpolator {
+	  key	[ 0, 0.5, 1 ]
+	  keyTypes	[ 2, 2, 2 ]
+	  authorKey	[ 0, 0.5, 1 ]
+	  keyValue	[ 0.142858 0.980269 -0.136617  1.54606,
+		    0.234013 0.940403 -0.246738  1.68492,
+		    0.142858 0.980269 -0.136617  1.54606 ]
+	  authorKeyValue	[ 0.142858 0.980269 -0.136617  1.54606,
+		    0.234013 0.940403 -0.246738  1.68492,
+		    0.142858 0.980269 -0.136617  1.54606 ]
+	}
+	DEF UnnamedTransformScaleInterp_86 KfaPositionInterpolator {
+	  key	[ 0, 0.5, 1 ]
+	  keyTypes	[ 2, 2, 2 ]
+	  authorKey	[ 0, 0.5, 1 ]
+	  keyValue	[ 0.2 1.49112 0.2,
+		    0.2 2.38099 0.2,
+		    0.2 1.49112 0.2 ]
+	  authorKeyValue	[ 0.2 1.49112 0.2,
+		    0.2 2.38099 0.2,
+		    0.2 1.49112 0.2 ]
+	}
+	DEF UnnamedTransformRotationInterp_87 KfaOrientationInterpolator {
+	  key	[ 0, 0.5, 1 ]
+	  keyTypes	[ 2, 2, 2 ]
+	  authorKey	[ 0, 0.5, 1 ]
+	  keyValue	[ -0.171369 0.77215 -0.611896  3.56753,
+		    -0.110669 0.898069 -0.425704  3.60031,
+		    -0.171369 0.77215 -0.611896  3.56753 ]
+	  authorKeyValue	[ -0.171369 0.77215 -0.611896  3.56753,
+		    -0.110669 0.898069 -0.425704  3.60031,
+		    -0.171369 0.77215 -0.611896  3.56753 ]
+	}
+	DEF UnnamedTransformScaleOrientationInterp_88 KfaOrientationInterpolator {
+	  key	[ 0, 0.5, 1 ]
+	  keyTypes	[ 2, 2, 2 ]
+	  authorKey	[ 0, 0.5, 1 ]
+	  keyValue	[ -4.60776e-009 1 7.35115e-010  1.5708,
+		    -6.97768e-007 1 -4.75183e-008  0.0402298,
+		    -4.60776e-009 1 7.35115e-010  1.5708 ]
+	  authorKeyValue	[ -4.60776e-009 1 7.35115e-010  1.5708,
+		    -6.97768e-007 1 -4.75183e-008  0.0402298,
+		    -4.60776e-009 1 7.35115e-010  1.5708 ]
+	}
+	DEF UnnamedTransformTranslationInterp_89 KfaPositionInterpolator {
+	  key	[ 0, 0.5, 1 ]
+	  keyTypes	[ 2, 2, 2 ]
+	  authorKey	[ 0, 0.5, 1 ]
+	  keyValue	[ 0.20375 0.71745 0.60625,
+		    0.58375 1.03745 0.48625,
+		    0.20375 0.71745 0.60625 ]
+	  authorKeyValue	[ 0.20375 0.71745 0.60625,
+		    0.58375 1.03745 0.48625,
+		    0.20375 0.71745 0.60625 ]
+	}
+	DEF UnnamedTransformRotationInterp_90 KfaOrientationInterpolator {
+	  key	[ 0, 0.5, 1 ]
+	  keyTypes	[ 2, 2, 2 ]
+	  authorKey	[ 0, 0.5, 1 ]
+	  keyValue	[ -0.526886 0.662122 -0.532902  4.30086,
+		    0.621466 -0.511075 0.593786  2.15924,
+		    -0.526886 0.662122 -0.532902  4.30086 ]
+	  authorKeyValue	[ -0.526886 0.662122 -0.532902  4.30086,
+		    0.621466 -0.511075 0.593786  2.15924,
+		    -0.526886 0.662122 -0.532902  4.30086 ]
+	}
+	DEF UnnamedTransformScaleInterp_91 KfaPositionInterpolator {
+	  key	[ 0, 0.5, 1 ]
+	  keyTypes	[ 2, 2, 2 ]
+	  authorKey	[ 0, 0.5, 1 ]
+	  keyValue	[ 0.2 1.66816 0.2,
+		    0.2 1.36613 0.2,
+		    0.2 1.66816 0.2 ]
+	  authorKeyValue	[ 0.2 1.66816 0.2,
+		    0.2 1.36613 0.2,
+		    0.2 1.66816 0.2 ]
+	}
+	DEF UnnamedTransformScaleOrientationInterp_92 KfaOrientationInterpolator {
+	  key	[ 0, 0.5, 1 ]
+	  keyTypes	[ 2, 2, 2 ]
+	  authorKey	[ 0, 0.5, 1 ]
+	  keyValue	[ 3.88932e-008 -1 -3.00406e-008  0.161111,
+		    -7.72133e-010 1 -5.58336e-010  1.5708,
+		    3.88932e-008 -1 -3.00406e-008  0.161111 ]
+	  authorKeyValue	[ 3.88932e-008 -1 -3.00406e-008  0.161111,
+		    -7.72133e-010 1 -5.58336e-010  1.5708,
+		    3.88932e-008 -1 -3.00406e-008  0.161111 ]
+	}
+	DEF UnnamedTransformTranslationInterp_93 KfaPositionInterpolator {
+	  key	[ 0, 0.5, 1 ]
+	  keyTypes	[ 2, 2, 2 ]
+	  authorKey	[ 0, 0.5, 1 ]
+	  keyValue	[ 1.5073 -0.4215 -0.69245,
+		    1.4673 -0.3815 -0.57245,
+		    1.5073 -0.4215 -0.69245 ]
+	  authorKeyValue	[ 1.5073 -0.4215 -0.69245,
+		    1.4673 -0.3815 -0.57245,
+		    1.5073 -0.4215 -0.69245 ]
+	}
+	DEF UnnamedTransformRotationInterp_94 KfaOrientationInterpolator {
+	  key	[ 0, 0.5, 1 ]
+	  keyTypes	[ 2, 2, 2 ]
+	  authorKey	[ 0, 0.5, 1 ]
+	  keyValue	[ 0.239467 0.947576 -0.211555  1.50077,
+		    0.279018 0.926671 -0.251852  1.54452,
+		    0.239467 0.947576 -0.211555  1.50077 ]
+	  authorKeyValue	[ 0.239467 0.947576 -0.211555  1.50077,
+		    0.279018 0.926671 -0.251852  1.54452,
+		    0.239467 0.947576 -0.211555  1.50077 ]
+	}
+	DEF UnnamedTransformScaleInterp_95 KfaPositionInterpolator {
+	  key	[ 0, 0.5, 1 ]
+	  keyTypes	[ 2, 2, 2 ]
+	  authorKey	[ 0, 0.5, 1 ]
+	  keyValue	[ 0.2 1.34811 0.2,
+		    0.2 1.36834 0.2,
+		    0.2 1.34811 0.2 ]
+	  authorKeyValue	[ 0.2 1.34811 0.2,
+		    0.2 1.36834 0.2,
+		    0.2 1.34811 0.2 ]
+	}
+	DEF UnnamedTransformScaleOrientationInterp_96 KfaOrientationInterpolator {
+	  key	[ 0, 0.5, 1 ]
+	  keyTypes	[ 2, 2, 2 ]
+	  authorKey	[ 0, 0.5, 1 ]
+	  keyValue	[ 5.29877e-008 1 3.53929e-008  0.181674,
+		    -9.63075e-010 1 -1.584e-009  2.35619,
+		    5.29877e-008 1 3.53929e-008  0.181674 ]
+	  authorKeyValue	[ 5.29877e-008 1 3.53929e-008  0.181674,
+		    -9.63075e-010 1 -1.584e-009  2.35619,
+		    5.29877e-008 1 3.53929e-008  0.181674 ]
+	}
+	DEF UnnamedTransformTranslationInterp_97 KfaPositionInterpolator {
+	  key	[ 0, 0.5, 1 ]
+	  keyTypes	[ 2, 2, 2 ]
+	  authorKey	[ 0, 0.5, 1 ]
+	  keyValue	[ -1.5072 0.4218 -0.6926,
+		    -1.4672 0.3818 -0.5726,
+		    -1.5072 0.4218 -0.6926 ]
+	  authorKeyValue	[ -1.5072 0.4218 -0.6926,
+		    -1.4672 0.3818 -0.5726,
+		    -1.5072 0.4218 -0.6926 ]
+	}
+	DEF UnnamedTransformRotationInterp_98 KfaOrientationInterpolator {
+	  key	[ 0, 0.5, 1 ]
+	  keyTypes	[ 2, 2, 2 ]
+	  authorKey	[ 0, 0.5, 1 ]
+	  keyValue	[ 0.741648 -0.14624 0.654654  2.81323,
+		    0.730535 -0.179172 0.658951  2.74943,
+		    0.741648 -0.14624 0.654654  2.81323 ]
+	  authorKeyValue	[ 0.741648 -0.14624 0.654654  2.81323,
+		    0.730535 -0.179172 0.658951  2.74943,
+		    0.741648 -0.14624 0.654654  2.81323 ]
+	}
+	DEF UnnamedTransformScaleInterp_99 KfaPositionInterpolator {
+	  key	[ 0, 0.5, 1 ]
+	  keyTypes	[ 2, 2, 2 ]
+	  authorKey	[ 0, 0.5, 1 ]
+	  keyValue	[ 0.2 1.34804 0.2,
+		    0.2 1.36829 0.2,
+		    0.2 1.34804 0.2 ]
+	  authorKeyValue	[ 0.2 1.34804 0.2,
+		    0.2 1.36829 0.2,
+		    0.2 1.34804 0.2 ]
+	}
+	DEF UnnamedTransformScaleOrientationInterp_100 KfaOrientationInterpolator {
+	  key	[ 0, 0.5, 1 ]
+	  keyTypes	[ 2, 2, 2 ]
+	  authorKey	[ 0, 0.5, 1 ]
+	  keyValue	[ -1.93087e-008 1 6.45631e-009  0.631231,
+		    -2.65069e-008 -1 -6.14213e-009  0.0778885,
+		    -1.93087e-008 1 6.45631e-009  0.631231 ]
+	  authorKeyValue	[ -1.93087e-008 1 6.45631e-009  0.631231,
+		    -2.65069e-008 -1 -6.14213e-009  0.0778885,
+		    -1.93087e-008 1 6.45631e-009  0.631231 ]
+	}
+	DEF UnnamedTransformTranslationInterp_101 KfaPositionInterpolator {
+	  key	[ 0, 0.5, 1 ]
+	  keyTypes	[ 2, 2, 2 ]
+	  authorKey	[ 0, 0.5, 1 ]
+	  keyValue	[ 1.40515 0.36385 -0.0207999,
+		    1.53515 0.67385 -0.0408,
+		    1.40515 0.36385 -0.0207999 ]
+	  authorKeyValue	[ 1.40515 0.36385 -0.0207999,
+		    1.53515 0.67385 -0.0408,
+		    1.40515 0.36385 -0.0207999 ]
+	}
+	DEF UnnamedTransformRotationInterp_102 KfaOrientationInterpolator {
+	  key	[ 0, 0.5, 1 ]
+	  keyTypes	[ 2, 2, 2 ]
+	  authorKey	[ 0, 0.5, 1 ]
+	  keyValue	[ -0.214409 -0.606381 0.765723  3.47797,
+		    -0.228653 -0.416695 0.87982  3.35734,
+		    -0.214409 -0.606381 0.765723  3.47797 ]
+	  authorKeyValue	[ -0.214409 -0.606381 0.765723  3.47797,
+		    -0.228653 -0.416695 0.87982  3.35734,
+		    -0.214409 -0.606381 0.765723  3.47797 ]
+	}
+	DEF UnnamedTransformScaleInterp_103 KfaPositionInterpolator {
+	  key	[ 0, 0.5, 1 ]
+	  keyTypes	[ 2, 2, 2 ]
+	  authorKey	[ 0, 0.5, 1 ]
+	  keyValue	[ 0.2 1.52984 0.2,
+		    0.2 1.46881 0.2,
+		    0.2 1.52984 0.2 ]
+	  authorKeyValue	[ 0.2 1.52984 0.2,
+		    0.2 1.46881 0.2,
+		    0.2 1.52984 0.2 ]
+	}
+	DEF UnnamedTransformScaleOrientationInterp_104 KfaOrientationInterpolator {
+	  key	[ 0, 0.5, 1 ]
+	  keyTypes	[ 2, 2, 2 ]
+	  authorKey	[ 0, 0.5, 1 ]
+	  keyValue	[ 6.04421e-008 -1 -6.87882e-009  0.354428,
+		    -2.1023e-007 -1 5.34941e-008  0.0634191,
+		    6.04421e-008 -1 -6.87882e-009  0.354428 ]
+	  authorKeyValue	[ 6.04421e-008 -1 -6.87882e-009  0.354428,
+		    -2.1023e-007 -1 5.34941e-008  0.0634191,
+		    6.04421e-008 -1 -6.87882e-009  0.354428 ]
+	}
+	DEF UnnamedTransformTranslationInterp_105 KfaPositionInterpolator {
+	  key	[ 0, 0.5, 1 ]
+	  keyTypes	[ 2, 2, 2 ]
+	  authorKey	[ 0, 0.5, 1 ]
+	  keyValue	[ -0.9168 0.96375 -0.0656,
+		    -0.6068 0.95375 -0.0456,
+		    -0.9168 0.96375 -0.0656 ]
+	  authorKeyValue	[ -0.9168 0.96375 -0.0656,
+		    -0.6068 0.95375 -0.0456,
+		    -0.9168 0.96375 -0.0656 ]
+	}
+	DEF UnnamedTransformRotationInterp_106 KfaOrientationInterpolator {
+	  key	[ 0, 0.5, 1 ]
+	  keyTypes	[ 2, 2, 2 ]
+	  authorKey	[ 0, 0.5, 1 ]
+	  keyValue	[ -0.146329 0.731226 -0.666255  3.46007,
+		    -0.262308 0.690343 -0.674256  3.66634,
+		    -0.146329 0.731226 -0.666255  3.46007 ]
+	  authorKeyValue	[ -0.146329 0.731226 -0.666255  3.46007,
+		    -0.262308 0.690343 -0.674256  3.66634,
+		    -0.146329 0.731226 -0.666255  3.46007 ]
+	}
+	DEF UnnamedTransformScaleInterp_107 KfaPositionInterpolator {
+	  key	[ 0, 0.5, 1 ]
+	  keyTypes	[ 2, 2, 2 ]
+	  authorKey	[ 0, 0.5, 1 ]
+	  keyValue	[ 0.2 1.46585 0.2,
+		    0.2 1.52695 0.2,
+		    0.2 1.46585 0.2 ]
+	  authorKeyValue	[ 0.2 1.46585 0.2,
+		    0.2 1.52695 0.2,
+		    0.2 1.46585 0.2 ]
+	}
+	DEF UnnamedTransformScaleOrientationInterp_108 KfaOrientationInterpolator {
+	  key	[ 0, 0.5, 1 ]
+	  keyTypes	[ 2, 2, 2 ]
+	  authorKey	[ 0, 0.5, 1 ]
+	  keyValue	[ 1.50666e-007 1 -6.24731e-009  0.228415,
+		    4.33033e-008 1 -6.25659e-007  0.00569429,
+		    1.50666e-007 1 -6.24731e-009  0.228415 ]
+	  authorKeyValue	[ 1.50666e-007 1 -6.24731e-009  0.228415,
+		    4.33033e-008 1 -6.25659e-007  0.00569429,
+		    1.50666e-007 1 -6.24731e-009  0.228415 ]
+	}
+	DEF UnnamedTransformTranslationInterp_109 KfaPositionInterpolator {
+	  key	[ 0, 0.5, 1 ]
+	  keyTypes	[ 2, 2, 2 ]
+	  authorKey	[ 0, 0.5, 1 ]
+	  keyValue	[ -0.683075 1.06572 0.8158,
+		    -0.233075 0.930725 0.7708,
+		    -0.683075 1.06572 0.8158 ]
+	  authorKeyValue	[ -0.683075 1.06572 0.8158,
+		    -0.233075 0.930725 0.7708,
+		    -0.683075 1.06572 0.8158 ]
+	}
+	DEF UnnamedTransformRotationInterp_110 KfaOrientationInterpolator {
+	  key	[ 0, 0.5, 1 ]
+	  keyTypes	[ 2, 2, 2 ]
+	  authorKey	[ 0, 0.5, 1 ]
+	  keyValue	[ 0.942074 -0.299406 0.151169  0.983974,
+		    0.939153 -0.240783 0.244979  1.65076,
+		    0.942074 -0.299406 0.151169  0.983974 ]
+	  authorKeyValue	[ 0.942074 -0.299406 0.151169  0.983974,
+		    0.939153 -0.240783 0.244979  1.65076,
+		    0.942074 -0.299406 0.151169  0.983974 ]
+	}
+	DEF UnnamedTransformScaleInterp_111 KfaPositionInterpolator {
+	  key	[ 0, 0.5, 1 ]
+	  keyTypes	[ 2, 2, 2 ]
+	  authorKey	[ 0, 0.5, 1 ]
+	  keyValue	[ 0.2 0.572572 0.2,
+		    0.2 0.581808 0.2,
+		    0.2 0.572572 0.2 ]
+	  authorKeyValue	[ 0.2 0.572572 0.2,
+		    0.2 0.581808 0.2,
+		    0.2 0.572572 0.2 ]
+	}
+	DEF UnnamedTransformScaleOrientationInterp_112 KfaOrientationInterpolator {
+	  key	[ 0, 0.5, 1 ]
+	  keyTypes	[ 2, 2, 2 ]
+	  authorKey	[ 0, 0.5, 1 ]
+	  keyValue	[ -2.20921e-007 -1 3.42412e-008  0.292069,
+		    -2.40818e-007 -1 2.59298e-006  0.00300997,
+		    -2.20921e-007 -1 3.42412e-008  0.292069 ]
+	  authorKeyValue	[ -2.20921e-007 -1 3.42412e-008  0.292069,
+		    -2.40818e-007 -1 2.59298e-006  0.00300997,
+		    -2.20921e-007 -1 3.42412e-008  0.292069 ]
+	}
+	DEF UnnamedTransformTranslationInterp_113 KfaPositionInterpolator {
+	  key	[ 0, 0.5, 1 ]
+	  keyTypes	[ 2, 2, 2 ]
+	  authorKey	[ 0, 0.5, 1 ]
+	  keyValue	[ -0.827225 1.40568 1.2534,
+		    -0.517225 0.920675 1.2784,
+		    -0.827225 1.40568 1.2534 ]
+	  authorKeyValue	[ -0.827225 1.40568 1.2534,
+		    -0.517225 0.920675 1.2784,
+		    -0.827225 1.40568 1.2534 ]
+	}
+	DEF UnnamedTransformRotationInterp_114 KfaOrientationInterpolator {
+	  key	[ 0, 0.5, 1 ]
+	  keyTypes	[ 2, 2, 2 ]
+	  authorKey	[ 0, 0.5, 1 ]
+	  keyValue	[ 0.942074 -0.299406 0.151169  0.983974,
+		    0.939153 -0.240783 0.244979  1.65076,
+		    0.942074 -0.299406 0.151169  0.983974 ]
+	  authorKeyValue	[ 0.942074 -0.299406 0.151169  0.983974,
+		    0.939153 -0.240783 0.244979  1.65076,
+		    0.942074 -0.299406 0.151169  0.983974 ]
+	}
+	DEF UnnamedTransformScaleInterp_115 KfaPositionInterpolator {
+	  key	[ 0, 0.5, 1 ]
+	  keyTypes	[ 2, 2, 2 ]
+	  authorKey	[ 0, 0.5, 1 ]
+	  keyValue	[ 0.2 0.572572 0.2,
+		    0.2 0.581807 0.2,
+		    0.2 0.572572 0.2 ]
+	  authorKeyValue	[ 0.2 0.572572 0.2,
+		    0.2 0.581807 0.2,
+		    0.2 0.572572 0.2 ]
+	}
+	DEF UnnamedTransformScaleOrientationInterp_116 KfaOrientationInterpolator {
+	  key	[ 0, 0.5, 1 ]
+	  keyTypes	[ 2, 2, 2 ]
+	  authorKey	[ 0, 0.5, 1 ]
+	  keyValue	[ -2.20921e-007 -1 3.42412e-008  0.292069,
+		    -6.99747e-008 -1 6.81518e-007  0.00300997,
+		    -2.20921e-007 -1 3.42412e-008  0.292069 ]
+	  authorKeyValue	[ -2.20921e-007 -1 3.42412e-008  0.292069,
+		    -6.99747e-008 -1 6.81518e-007  0.00300997,
+		    -2.20921e-007 -1 3.42412e-008  0.292069 ]
+	}
+	DEF UnnamedTransformTranslationInterp_117 KfaPositionInterpolator {
+	  key	[ 0, 0.5, 1 ]
+	  keyTypes	[ 2, 2, 2 ]
+	  authorKey	[ 0, 0.5, 1 ]
+	  keyValue	[ 1.975 0.325075 -0.810275,
+		    2.03 0.275075 -0.690275,
+		    1.975 0.325075 -0.810275 ]
+	  authorKeyValue	[ 1.975 0.325075 -0.810275,
+		    2.03 0.275075 -0.690275,
+		    1.975 0.325075 -0.810275 ]
+	}
+	DEF UnnamedTransformRotationInterp_118 KfaOrientationInterpolator {
+	  key	[ 0, 0.5, 1 ]
+	  keyTypes	[ 2, 2, 2 ]
+	  authorKey	[ 0, 0.5, 1 ]
+	  keyValue	[ 0.228348 0.842113 -0.488573  2.39166,
+		    0.304763 0.750579 -0.586302  2.39761,
+		    0.228348 0.842113 -0.488573  2.39166 ]
+	  authorKeyValue	[ 0.228348 0.842113 -0.488573  2.39166,
+		    0.304763 0.750579 -0.586302  2.39761,
+		    0.228348 0.842113 -0.488573  2.39166 ]
+	}
+	DEF UnnamedTransformScaleOrientationInterp_119 KfaOrientationInterpolator {
+	  key	[ 0, 0.5, 1 ]
+	  keyTypes	[ 2, 2, 2 ]
+	  authorKey	[ 0, 0.5, 1 ]
+	  keyValue	[ 1.18182e-008 1 -6.11113e-009  2.35619,
+		    -3.21625e-006 -1 3.00582e-006  0.0041432,
+		    1.18182e-008 1 -6.11113e-009  2.35619 ]
+	  authorKeyValue	[ 1.18182e-008 1 -6.11113e-009  2.35619,
+		    -3.21625e-006 -1 3.00582e-006  0.0041432,
+		    1.18182e-008 1 -6.11113e-009  2.35619 ]
+	}
+	DEF UnnamedTransformTranslationInterp_120 KfaPositionInterpolator {
+	  key	[ 0, 0.5, 1 ]
+	  keyTypes	[ 2, 2, 2 ]
+	  authorKey	[ 0, 0.5, 1 ]
+	  keyValue	[ 2.3414 0.598125 -1.11662,
+		    2.4664 0.408125 -0.996625,
+		    2.3414 0.598125 -1.11662 ]
+	  authorKeyValue	[ 2.3414 0.598125 -1.11662,
+		    2.4664 0.408125 -0.996625,
+		    2.3414 0.598125 -1.11662 ]
+	}
+	DEF UnnamedTransformRotationInterp_121 KfaOrientationInterpolator {
+	  key	[ 0, 0.5, 1 ]
+	  keyTypes	[ 2, 2, 2 ]
+	  authorKey	[ 0, 0.5, 1 ]
+	  keyValue	[ 0.228348 0.842113 -0.488573  2.39166,
+		    0.304763 0.750579 -0.586302  2.39761,
+		    0.228348 0.842113 -0.488573  2.39166 ]
+	  authorKeyValue	[ 0.228348 0.842113 -0.488573  2.39166,
+		    0.304763 0.750579 -0.586302  2.39761,
+		    0.228348 0.842113 -0.488573  2.39166 ]
+	}
+	DEF UnnamedTransformScaleOrientationInterp_122 KfaOrientationInterpolator {
+	  key	[ 0, 0.5, 1 ]
+	  keyTypes	[ 2, 2, 2 ]
+	  authorKey	[ 0, 0.5, 1 ]
+	  keyValue	[ 1.18182e-008 1 -6.11113e-009  2.35619,
+		    -3.21625e-006 -1 3.00582e-006  0.0041432,
+		    1.18182e-008 1 -6.11113e-009  2.35619 ]
+	  authorKeyValue	[ 1.18182e-008 1 -6.11113e-009  2.35619,
+		    -3.21625e-006 -1 3.00582e-006  0.0041432,
+		    1.18182e-008 1 -6.11113e-009  2.35619 ]
+	}
+	DEF UnnamedTransformTranslationInterp_123 KfaPositionInterpolator {
+	  key	[ 0, 0.5, 1 ]
+	  keyTypes	[ 2, 2, 2 ]
+	  authorKey	[ 0, 0.5, 1 ]
+	  keyValue	[ 1.1889 -1.21155 -0.92885,
+		    1.0939 -1.14655 -0.81385,
+		    1.1889 -1.21155 -0.92885 ]
+	  authorKeyValue	[ 1.1889 -1.21155 -0.92885,
+		    1.0939 -1.14655 -0.81385,
+		    1.1889 -1.21155 -0.92885 ]
+	}
+	DEF UnnamedTransformRotationInterp_124 KfaOrientationInterpolator {
+	  key	[ 0, 0.5, 1 ]
+	  keyTypes	[ 2, 2, 2 ]
+	  authorKey	[ 0, 0.5, 1 ]
+	  keyValue	[ 0.0760897 -0.410009 0.908902  3.07297,
+		    0.0631415 -0.421249 0.904744  3.08281,
+		    0.0760897 -0.410009 0.908902  3.07297 ]
+	  authorKeyValue	[ 0.0760897 -0.410009 0.908902  3.07297,
+		    0.0631415 -0.421249 0.904744  3.08281,
+		    0.0760897 -0.410009 0.908902  3.07297 ]
+	}
+	DEF UnnamedTransformScaleOrientationInterp_125 KfaOrientationInterpolator {
+	  key	[ 0, 0.5, 1 ]
+	  keyTypes	[ 2, 2, 2 ]
+	  authorKey	[ 0, 0.5, 1 ]
+	  keyValue	[ -6.76535e-007 1 4.4355e-008  0.0366834,
+		    -1.08578e-006 -1 6.30281e-008  0.09978,
+		    -6.76535e-007 1 4.4355e-008  0.0366834 ]
+	  authorKeyValue	[ -6.76535e-007 1 4.4355e-008  0.0366834,
+		    -1.08578e-006 -1 6.30281e-008  0.09978,
+		    -6.76535e-007 1 4.4355e-008  0.0366834 ]
+	}
+	DEF UnnamedTransformTranslationInterp_126 KfaPositionInterpolator {
+	  key	[ 0, 0.5, 1 ]
+	  keyTypes	[ 2, 2, 2 ]
+	  authorKey	[ 0, 0.5, 1 ]
+	  keyValue	[ 1.1211 -1.57155 -1.33095,
+		    1.0361 -1.49655 -1.22595,
+		    1.1211 -1.57155 -1.33095 ]
+	  authorKeyValue	[ 1.1211 -1.57155 -1.33095,
+		    1.0361 -1.49655 -1.22595,
+		    1.1211 -1.57155 -1.33095 ]
+	}
+	DEF UnnamedTransformRotationInterp_127 KfaOrientationInterpolator {
+	  key	[ 0, 0.5, 1 ]
+	  keyTypes	[ 2, 2, 2 ]
+	  authorKey	[ 0, 0.5, 1 ]
+	  keyValue	[ 0.0760897 -0.410009 0.908902  3.07297,
+		    0.0631415 -0.421249 0.904744  3.08281,
+		    0.0760897 -0.410009 0.908902  3.07297 ]
+	  authorKeyValue	[ 0.0760897 -0.410009 0.908902  3.07297,
+		    0.0631415 -0.421249 0.904744  3.08281,
+		    0.0760897 -0.410009 0.908902  3.07297 ]
+	}
+	DEF UnnamedTransformScaleOrientationInterp_128 KfaOrientationInterpolator {
+	  key	[ 0, 0.5, 1 ]
+	  keyTypes	[ 2, 2, 2 ]
+	  authorKey	[ 0, 0.5, 1 ]
+	  keyValue	[ -6.76535e-007 1 4.4355e-008  0.0366834,
+		    -1.08578e-006 -1 6.30281e-008  0.09978,
+		    -6.76535e-007 1 4.4355e-008  0.0366834 ]
+	  authorKeyValue	[ -6.76535e-007 1 4.4355e-008  0.0366834,
+		    -1.08578e-006 -1 6.30281e-008  0.09978,
+		    -6.76535e-007 1 4.4355e-008  0.0366834 ]
+	}
+	DEF UnnamedTransformTranslationInterp_129 KfaPositionInterpolator {
+	  key	[ 0, 0.5, 1 ]
+	  keyTypes	[ 2, 2, 2 ]
+	  authorKey	[ 0, 0.5, 1 ]
+	  keyValue	[ -1.975 -0.3247 -0.810125,
+		    -2.03 -0.2747 -0.690125,
+		    -1.975 -0.3247 -0.810125 ]
+	  authorKeyValue	[ -1.975 -0.3247 -0.810125,
+		    -2.03 -0.2747 -0.690125,
+		    -1.975 -0.3247 -0.810125 ]
+	}
+	DEF UnnamedTransformRotationInterp_130 KfaOrientationInterpolator {
+	  key	[ 0, 0.5, 1 ]
+	  keyTypes	[ 2, 2, 2 ]
+	  authorKey	[ 0, 0.5, 1 ]
+	  keyValue	[ 0.374878 -0.46518 0.801919  2.71334,
+		    0.379149 -0.569581 0.729262  2.56579,
+		    0.374878 -0.46518 0.801919  2.71334 ]
+	  authorKeyValue	[ 0.374878 -0.46518 0.801919  2.71334,
+		    0.379149 -0.569581 0.729262  2.56579,
+		    0.374878 -0.46518 0.801919  2.71334 ]
+	}
+	DEF UnnamedTransformScaleOrientationInterp_131 KfaOrientationInterpolator {
+	  key	[ 0, 0.5, 1 ]
+	  keyTypes	[ 2, 2, 2 ]
+	  authorKey	[ 0, 0.5, 1 ]
+	  keyValue	[ 1.11746e-007 1 5.8293e-008  0.37725,
+		    1.77969e-006 -1 -9.27557e-007  0.0172496,
+		    1.11746e-007 1 5.8293e-008  0.37725 ]
+	  authorKeyValue	[ 1.11746e-007 1 5.8293e-008  0.37725,
+		    1.77969e-006 -1 -9.27557e-007  0.0172496,
+		    1.11746e-007 1 5.8293e-008  0.37725 ]
+	}
+	DEF UnnamedTransformTranslationInterp_132 KfaPositionInterpolator {
+	  key	[ 0, 0.5, 1 ]
+	  keyTypes	[ 2, 2, 2 ]
+	  authorKey	[ 0, 0.5, 1 ]
+	  keyValue	[ -2.3414 -0.5978 -1.11638,
+		    -2.4664 -0.4078 -0.996375,
+		    -2.3414 -0.5978 -1.11638 ]
+	  authorKeyValue	[ -2.3414 -0.5978 -1.11638,
+		    -2.4664 -0.4078 -0.996375,
+		    -2.3414 -0.5978 -1.11638 ]
+	}
+	DEF UnnamedTransformRotationInterp_133 KfaOrientationInterpolator {
+	  key	[ 0, 0.5, 1 ]
+	  keyTypes	[ 2, 2, 2 ]
+	  authorKey	[ 0, 0.5, 1 ]
+	  keyValue	[ 0.374878 -0.46518 0.801919  2.71334,
+		    0.379145 -0.569582 0.729263  2.56579,
+		    0.374878 -0.46518 0.801919  2.71334 ]
+	  authorKeyValue	[ 0.374878 -0.46518 0.801919  2.71334,
+		    0.379145 -0.569582 0.729263  2.56579,
+		    0.374878 -0.46518 0.801919  2.71334 ]
+	}
+	DEF UnnamedTransformScaleOrientationInterp_134 KfaOrientationInterpolator {
+	  key	[ 0, 0.5, 1 ]
+	  keyTypes	[ 2, 2, 2 ]
+	  authorKey	[ 0, 0.5, 1 ]
+	  keyValue	[ 1.11746e-007 1 5.8293e-008  0.37725,
+		    -2.70418e-007 1 -5.95991e-007  0.02362,
+		    1.11746e-007 1 5.8293e-008  0.37725 ]
+	  authorKeyValue	[ 1.11746e-007 1 5.8293e-008  0.37725,
+		    -2.70418e-007 1 -5.95991e-007  0.02362,
+		    1.11746e-007 1 5.8293e-008  0.37725 ]
+	}
+	DEF UnnamedTransformTranslationInterp_135 KfaPositionInterpolator {
+	  key	[ 0, 0.5, 1 ]
+	  keyTypes	[ 2, 2, 2 ]
+	  authorKey	[ 0, 0.5, 1 ]
+	  keyValue	[ -1.18865 1.2117 -0.9293,
+		    -1.09365 1.1467 -0.8143,
+		    -1.18865 1.2117 -0.9293 ]
+	  authorKeyValue	[ -1.18865 1.2117 -0.9293,
+		    -1.09365 1.1467 -0.8143,
+		    -1.18865 1.2117 -0.9293 ]
+	}
+	DEF UnnamedTransformRotationInterp_136 KfaOrientationInterpolator {
+	  key	[ 0, 0.5, 1 ]
+	  keyTypes	[ 2, 2, 2 ]
+	  authorKey	[ 0, 0.5, 1 ]
+	  keyValue	[ 0.0344558 0.910946 -0.411085  2.98918,
+		    0.0294959 0.9061 -0.422034  3.01511,
+		    0.0344558 0.910946 -0.411085  2.98918 ]
+	  authorKeyValue	[ 0.0344558 0.910946 -0.411085  2.98918,
+		    0.0294959 0.9061 -0.422034  3.01511,
+		    0.0344558 0.910946 -0.411085  2.98918 ]
+	}
+	DEF UnnamedTransformScaleOrientationInterp_137 KfaOrientationInterpolator {
+	  key	[ 0, 0.5, 1 ]
+	  keyTypes	[ 2, 2, 2 ]
+	  authorKey	[ 0, 0.5, 1 ]
+	  keyValue	[ 2.05845e-006 -1 3.17581e-007  0.0276216,
+		    5.04019e-007 1 -4.47317e-009  0.077397,
+		    2.05845e-006 -1 3.17581e-007  0.0276216 ]
+	  authorKeyValue	[ 2.05845e-006 -1 3.17581e-007  0.0276216,
+		    5.04019e-007 1 -4.47317e-009  0.077397,
+		    2.05845e-006 -1 3.17581e-007  0.0276216 ]
+	}
+	DEF UnnamedTransformTranslationInterp_138 KfaPositionInterpolator {
+	  key	[ 0, 0.5, 1 ]
+	  keyTypes	[ 2, 2, 2 ]
+	  authorKey	[ 0, 0.5, 1 ]
+	  keyValue	[ -1.12075 1.5716 -1.3315,
+		    -1.03575 1.4966 -1.2265,
+		    -1.12075 1.5716 -1.3315 ]
+	  authorKeyValue	[ -1.12075 1.5716 -1.3315,
+		    -1.03575 1.4966 -1.2265,
+		    -1.12075 1.5716 -1.3315 ]
+	}
+	DEF UnnamedTransformRotationInterp_139 KfaOrientationInterpolator {
+	  key	[ 0, 0.5, 1 ]
+	  keyTypes	[ 2, 2, 2 ]
+	  authorKey	[ 0, 0.5, 1 ]
+	  keyValue	[ 0.0344558 0.910946 -0.411084  2.98918,
+		    0.0294959 0.9061 -0.422034  3.01511,
+		    0.0344558 0.910946 -0.411084  2.98918 ]
+	  authorKeyValue	[ 0.0344558 0.910946 -0.411084  2.98918,
+		    0.0294959 0.9061 -0.422034  3.01511,
+		    0.0344558 0.910946 -0.411084  2.98918 ]
+	}
+	DEF UnnamedTransformTranslationInterp_140 KfaPositionInterpolator {
+	  key	[ 0, 0.5, 1 ]
+	  keyTypes	[ 2, 2, 2 ]
+	  authorKey	[ 0, 0.5, 1 ]
+	  keyValue	[ 1.1463 0.66355 0.825075,
+		    1.4013 1.27855 0.640075,
+		    1.1463 0.66355 0.825075 ]
+	  authorKeyValue	[ 1.1463 0.66355 0.825075,
+		    1.4013 1.27855 0.640075,
+		    1.1463 0.66355 0.825075 ]
+	}
+	DEF UnnamedTransformRotationInterp_141 KfaOrientationInterpolator {
+	  key	[ 0, 0.5, 1 ]
+	  keyTypes	[ 2, 2, 2 ]
+	  authorKey	[ 0, 0.5, 1 ]
+	  keyValue	[ 0.881167 0.402864 -0.247478  1.21761,
+		    0.822202 0.49504 -0.280926  1.20823,
+		    0.881167 0.402864 -0.247478  1.21761 ]
+	  authorKeyValue	[ 0.881167 0.402864 -0.247478  1.21761,
+		    0.822202 0.49504 -0.280926  1.20823,
+		    0.881167 0.402864 -0.247478  1.21761 ]
+	}
+	DEF UnnamedTransformScaleInterp_142 KfaPositionInterpolator {
+	  key	[ 0, 0.5, 1 ]
+	  keyTypes	[ 2, 2, 2 ]
+	  authorKey	[ 0, 0.5, 1 ]
+	  keyValue	[ 0.2 0.550381 0.2,
+		    0.2 0.543662 0.2,
+		    0.2 0.550381 0.2 ]
+	  authorKeyValue	[ 0.2 0.550381 0.2,
+		    0.2 0.543662 0.2,
+		    0.2 0.550381 0.2 ]
+	}
+	DEF UnnamedTransformScaleOrientationInterp_143 KfaOrientationInterpolator {
+	  key	[ 0, 0.5, 1 ]
+	  keyTypes	[ 2, 2, 2 ]
+	  authorKey	[ 0, 0.5, 1 ]
+	  keyValue	[ -2.85122e-007 1 1.1492e-007  0.141299,
+		    -5.07933e-007 -1 -3.71344e-008  0.0977221,
+		    -2.85122e-007 1 1.1492e-007  0.141299 ]
+	  authorKeyValue	[ -2.85122e-007 1 1.1492e-007  0.141299,
+		    -5.07933e-007 -1 -3.71344e-008  0.0977221,
+		    -2.85122e-007 1 1.1492e-007  0.141299 ]
+	}
+	DEF UnnamedTransformTranslationInterp_144 KfaPositionInterpolator {
+	  key	[ 0, 0.5, 1 ]
+	  keyTypes	[ 2, 2, 2 ]
+	  authorKey	[ 0, 0.5, 1 ]
+	  keyValue	[ 1.4019 0.91235 1.24422,
+		    1.6869 1.55735 1.00922,
+		    1.4019 0.91235 1.24422 ]
+	  authorKeyValue	[ 1.4019 0.91235 1.24422,
+		    1.6869 1.55735 1.00922,
+		    1.4019 0.91235 1.24422 ]
+	}
+	DEF UnnamedTransformRotationInterp_145 KfaOrientationInterpolator {
+	  key	[ 0, 0.5, 1 ]
+	  keyTypes	[ 2, 2, 2 ]
+	  authorKey	[ 0, 0.5, 1 ]
+	  keyValue	[ 0.881167 0.402864 -0.247478  1.21761,
+		    0.822202 0.49504 -0.280926  1.20823,
+		    0.881167 0.402864 -0.247478  1.21761 ]
+	  authorKeyValue	[ 0.881167 0.402864 -0.247478  1.21761,
+		    0.822202 0.49504 -0.280926  1.20823,
+		    0.881167 0.402864 -0.247478  1.21761 ]
+	}
+	DEF UnnamedTransformScaleInterp_146 KfaPositionInterpolator {
+	  key	[ 0, 0.5, 1 ]
+	  keyTypes	[ 2, 2, 2 ]
+	  authorKey	[ 0, 0.5, 1 ]
+	  keyValue	[ 0.2 0.550381 0.2,
+		    0.2 0.543662 0.2,
+		    0.2 0.550381 0.2 ]
+	  authorKeyValue	[ 0.2 0.550381 0.2,
+		    0.2 0.543662 0.2,
+		    0.2 0.550381 0.2 ]
+	}
+	DEF UnnamedTransformScaleOrientationInterp_147 KfaOrientationInterpolator {
+	  key	[ 0, 0.5, 1 ]
+	  keyTypes	[ 2, 2, 2 ]
+	  authorKey	[ 0, 0.5, 1 ]
+	  keyValue	[ -2.85122e-007 1 1.1492e-007  0.141299,
+		    -5.07933e-007 -1 -3.71344e-008  0.0977221,
+		    -2.85122e-007 1 1.1492e-007  0.141299 ]
+	  authorKeyValue	[ -2.85122e-007 1 1.1492e-007  0.141299,
+		    -5.07933e-007 -1 -3.71344e-008  0.0977221,
+		    -2.85122e-007 1 1.1492e-007  0.141299 ]
+	}
+	DEF UnnamedTransformTranslationInterp_148 KfaPositionInterpolator {
+	  key	[ 0, 0.5, 1 ]
+	  keyTypes	[ 2, 2, 2 ]
+	  authorKey	[ 0, 0.5, 1 ]
+	  keyValue	[ 0.917 -0.96335 -0.0652501,
+		    0.607 -0.95335 -0.04525,
+		    0.917 -0.96335 -0.0652501 ]
+	  authorKeyValue	[ 0.917 -0.96335 -0.0652501,
+		    0.607 -0.95335 -0.04525,
+		    0.917 -0.96335 -0.0652501 ]
+	}
+	DEF UnnamedTransformRotationInterp_149 KfaOrientationInterpolator {
+	  key	[ 0, 0.5, 1 ]
+	  keyTypes	[ 2, 2, 2 ]
+	  authorKey	[ 0, 0.5, 1 ]
+	  keyValue	[ -0.160275 -0.664697 0.729719  3.43153,
+		    -0.268168 -0.673038 0.68928  3.65379,
+		    -0.160275 -0.664697 0.729719  3.43153 ]
+	  authorKeyValue	[ -0.160275 -0.664697 0.729719  3.43153,
+		    -0.268168 -0.673038 0.68928  3.65379,
+		    -0.160275 -0.664697 0.729719  3.43153 ]
+	}
+	DEF UnnamedTransformScaleInterp_150 KfaPositionInterpolator {
+	  key	[ 0, 0.5, 1 ]
+	  keyTypes	[ 2, 2, 2 ]
+	  authorKey	[ 0, 0.5, 1 ]
+	  keyValue	[ 0.2 1.46579 0.2,
+		    0.2 1.52688 0.2,
+		    0.2 1.46579 0.2 ]
+	  authorKeyValue	[ 0.2 1.46579 0.2,
+		    0.2 1.52688 0.2,
+		    0.2 1.46579 0.2 ]
+	}
+	DEF UnnamedTransformScaleOrientationInterp_151 KfaOrientationInterpolator {
+	  key	[ 0, 0.5, 1 ]
+	  keyTypes	[ 2, 2, 2 ]
+	  authorKey	[ 0, 0.5, 1 ]
+	  keyValue	[ -1.39893e-007 -1 -2.11322e-008  0.107831,
+		    1.79989e-006 1 -5.75085e-006  0.000690534,
+		    -1.39893e-007 -1 -2.11322e-008  0.107831 ]
+	  authorKeyValue	[ -1.39893e-007 -1 -2.11322e-008  0.107831,
+		    1.79989e-006 1 -5.75085e-006  0.000690534,
+		    -1.39893e-007 -1 -2.11322e-008  0.107831 ]
+	}
+	DEF UnnamedTransformScaleOrientationInterp_152 KfaOrientationInterpolator {
+	  key	[ 0, 0.5, 1 ]
+	  keyTypes	[ 2, 2, 2 ]
+	  authorKey	[ 0, 0.5, 1 ]
+	  keyValue	[ -3.40146e-009 1 -2.06093e-009  1.5708,
+		    -1.77748e-007 1 9.33429e-009  0.0137588,
+		    -3.40146e-009 1 -2.06093e-009  1.5708 ]
+	  authorKeyValue	[ -3.40146e-009 1 -2.06093e-009  1.5708,
+		    -1.77748e-007 1 9.33429e-009  0.0137588,
+		    -3.40146e-009 1 -2.06093e-009  1.5708 ]
+	}
+	DEF UnnamedTransformScaleOrientationInterp_153 KfaOrientationInterpolator {
+	  key	[ 0, 0.5, 1 ]
+	  keyTypes	[ 2, 2, 2 ]
+	  authorKey	[ 0, 0.5, 1 ]
+	  keyValue	[ -2.2282e-007 -1 -9.91177e-008  0.0365206,
+		    0 0 1  0,
+		    -2.2282e-007 -1 -9.91177e-008  0.0365206 ]
+	  authorKeyValue	[ -2.2282e-007 -1 -9.91177e-008  0.0365206,
+		    0 0 1  0,
+		    -2.2282e-007 -1 -9.91177e-008  0.0365206 ]
+	}
+	DEF UnnamedTransformScaleOrientationInterp_154 KfaOrientationInterpolator {
+	  key	[ 0, 0.5 ]
+	  keyTypes	[ 2, 2 ]
+	  authorKey	[ 0, 0.5 ]
+	  keyValue	[ 3.84812e-008 1 4.99809e-008  0.269657,
+		    9.48812e-008 1 3.56078e-006  0.00239208 ]
+	  authorKeyValue	[ 3.84812e-008 1 4.99809e-008  0.269657,
+		    9.48812e-008 1 3.56078e-006  0.00239208 ]
+	}
+	DEF UnnamedTransformScaleOrientationInterp_155 KfaOrientationInterpolator {
+	  key	[ 0, 0.5 ]
+	  keyTypes	[ 2, 2 ]
+	  authorKey	[ 0, 0.5 ]
+	  keyValue	[ 3.84812e-008 1 4.99809e-008  0.269657,
+		    9.48812e-008 1 3.56078e-006  0.00239208 ]
+	  authorKeyValue	[ 3.84812e-008 1 4.99809e-008  0.269657,
+		    9.48812e-008 1 3.56078e-006  0.00239208 ]
+	}
+      ]
+    }
+  ]
+  translation	-1.0182 -0.53775 0.6158
+  scale	0.4 0.4 0.4
+  center	-2.98023e-008 0 2.98023e-008
+}
+USE _5
+USE _6
+USE _7
+USE _8
+USE _9
+USE _10
+USE _11
+USE _12
+USE _14
+USE _15
+USE _16
+USE _17
+USE _18
+USE _19
+USE _20
+USE _21
+USE _22
+USE _23
+USE _24
+USE _25
+USE _26
+USE _27
+USE _28
+USE _29
+USE _30
+USE _31
+USE _32
+USE _33
+USE _34
+USE _35
+USE _36
+USE _37
+USE _38
+USE _39
+USE _40
+USE _41
+USE _42
+USE _43
+USE _44
+USE _45
+USE _46
+Transform {
+  children	[
+    Shape {
+      appearance	Appearance {
+	material	Material {
+	}
+
+      }
+
+      geometry	Box {
+      }
+
+    }
+    DEF Animation0Trigger TouchSensor {
+    }
+  ]
+  translation	-4.52969 1 3.57628e-007
+  scale	0.47031 0.47031 0.47031
+}
+ROUTE Animation0Trigger.touchTime TO UnnamedAnimation0Time_4.set_startTime
+ROUTE UnnamedTransformTranslationInterp_56.value_changed TO _5.set_translation
+ROUTE UnnamedTransformTranslationInterp_57.value_changed TO _6.set_translation
+ROUTE UnnamedTransformTranslationInterp_58.value_changed TO _7.set_translation
+ROUTE UnnamedTransformTranslationInterp_59.value_changed TO _8.set_translation
+ROUTE UnnamedTransformTranslationInterp_60.value_changed TO _9.set_translation
+ROUTE UnnamedTransformTranslationInterp_61.value_changed TO _10.set_translation
+ROUTE UnnamedTransformTranslationInterp_62.value_changed TO _11.set_translation
+ROUTE UnnamedTransformTranslationInterp_48.value_changed TO _12.set_translation
+ROUTE UnnamedTransformTranslationInterp_63.value_changed TO _14.set_translation
+ROUTE UnnamedTransformTranslationInterp_64.value_changed TO _15.set_translation
+ROUTE UnnamedTransformTranslationInterp_65.value_changed TO _16.set_translation
+ROUTE UnnamedTransformTranslationInterp_66.value_changed TO _17.set_translation
+ROUTE UnnamedTransformTranslationInterp_67.value_changed TO _18.set_translation
+ROUTE UnnamedTransformTranslationInterp_68.value_changed TO _19.set_translation
+ROUTE UnnamedTransformTranslationInterp_69.value_changed TO _20.set_translation
+ROUTE UnnamedTransformTranslationInterp_52.value_changed TO _21.set_translation
+ROUTE UnnamedTransformRotationInterp_53.value_changed TO _21.set_rotation
+ROUTE UnnamedTransformScaleInterp_54.value_changed TO _21.set_scale
+ROUTE UnnamedTransformScaleOrientationInterp_55.value_changed TO _21.set_scaleOrientation
+ROUTE UnnamedTransformTranslationInterp_49.value_changed TO _22.set_translation
+ROUTE UnnamedTransformRotationInterp_50.value_changed TO _22.set_rotation
+ROUTE UnnamedTransformScaleOrientationInterp_51.value_changed TO _22.set_scaleOrientation
+ROUTE UnnamedTransformTranslationInterp_70.value_changed TO _23.set_translation
+ROUTE UnnamedTransformRotationInterp_71.value_changed TO _23.set_rotation
+ROUTE UnnamedTransformScaleInterp_72.value_changed TO _23.set_scale
+ROUTE UnnamedTransformTranslationInterp_73.value_changed TO _24.set_translation
+ROUTE UnnamedTransformRotationInterp_74.value_changed TO _24.set_rotation
+ROUTE UnnamedTransformScaleInterp_75.value_changed TO _24.set_scale
+ROUTE UnnamedTransformScaleOrientationInterp_152.value_changed TO _24.set_scaleOrientation
+ROUTE UnnamedTransformTranslationInterp_76.value_changed TO _25.set_translation
+ROUTE UnnamedTransformRotationInterp_87.value_changed TO _25.set_rotation
+ROUTE UnnamedTransformScaleInterp_77.value_changed TO _25.set_scale
+ROUTE UnnamedTransformScaleOrientationInterp_88.value_changed TO _25.set_scaleOrientation
+ROUTE UnnamedTransformTranslationInterp_78.value_changed TO _26.set_translation
+ROUTE UnnamedTransformRotationInterp_79.value_changed TO _26.set_rotation
+ROUTE UnnamedTransformScaleInterp_80.value_changed TO _26.set_scale
+ROUTE UnnamedTransformScaleOrientationInterp_155.value_changed TO _26.set_scaleOrientation
+ROUTE UnnamedTransformTranslationInterp_81.value_changed TO _27.set_translation
+ROUTE UnnamedTransformRotationInterp_82.value_changed TO _27.set_rotation
+ROUTE UnnamedTransformScaleInterp_83.value_changed TO _27.set_scale
+ROUTE UnnamedTransformScaleOrientationInterp_154.value_changed TO _27.set_scaleOrientation
+ROUTE UnnamedTransformTranslationInterp_84.value_changed TO _28.set_translation
+ROUTE UnnamedTransformRotationInterp_85.value_changed TO _28.set_rotation
+ROUTE UnnamedTransformScaleInterp_86.value_changed TO _28.set_scale
+ROUTE UnnamedTransformScaleOrientationInterp_153.value_changed TO _28.set_scaleOrientation
+ROUTE UnnamedTransformTranslationInterp_148.value_changed TO _29.set_translation
+ROUTE UnnamedTransformRotationInterp_149.value_changed TO _29.set_rotation
+ROUTE UnnamedTransformScaleInterp_150.value_changed TO _29.set_scale
+ROUTE UnnamedTransformScaleOrientationInterp_151.value_changed TO _29.set_scaleOrientation
+ROUTE UnnamedTransformTranslationInterp_140.value_changed TO _30.set_translation
+ROUTE UnnamedTransformRotationInterp_141.value_changed TO _30.set_rotation
+ROUTE UnnamedTransformScaleInterp_142.value_changed TO _30.set_scale
+ROUTE UnnamedTransformScaleOrientationInterp_143.value_changed TO _30.set_scaleOrientation
+ROUTE UnnamedTransformTranslationInterp_144.value_changed TO _31.set_translation
+ROUTE UnnamedTransformRotationInterp_145.value_changed TO _31.set_rotation
+ROUTE UnnamedTransformScaleInterp_146.value_changed TO _31.set_scale
+ROUTE UnnamedTransformScaleOrientationInterp_147.value_changed TO _31.set_scaleOrientation
+ROUTE UnnamedTransformTranslationInterp_89.value_changed TO _32.set_translation
+ROUTE UnnamedTransformRotationInterp_90.value_changed TO _32.set_rotation
+ROUTE UnnamedTransformScaleInterp_91.value_changed TO _32.set_scale
+ROUTE UnnamedTransformScaleOrientationInterp_92.value_changed TO _32.set_scaleOrientation
+ROUTE UnnamedTransformTranslationInterp_101.value_changed TO _33.set_translation
+ROUTE UnnamedTransformRotationInterp_102.value_changed TO _33.set_rotation
+ROUTE UnnamedTransformScaleInterp_103.value_changed TO _33.set_scale
+ROUTE UnnamedTransformScaleOrientationInterp_104.value_changed TO _33.set_scaleOrientation
+ROUTE UnnamedTransformTranslationInterp_109.value_changed TO _34.set_translation
+ROUTE UnnamedTransformRotationInterp_110.value_changed TO _34.set_rotation
+ROUTE UnnamedTransformScaleInterp_111.value_changed TO _34.set_scale
+ROUTE UnnamedTransformScaleOrientationInterp_112.value_changed TO _34.set_scaleOrientation
+ROUTE UnnamedTransformTranslationInterp_113.value_changed TO _35.set_translation
+ROUTE UnnamedTransformRotationInterp_114.value_changed TO _35.set_rotation
+ROUTE UnnamedTransformScaleInterp_115.value_changed TO _35.set_scale
+ROUTE UnnamedTransformScaleOrientationInterp_116.value_changed TO _35.set_scaleOrientation
+ROUTE UnnamedTransformTranslationInterp_105.value_changed TO _36.set_translation
+ROUTE UnnamedTransformRotationInterp_106.value_changed TO _36.set_rotation
+ROUTE UnnamedTransformScaleInterp_107.value_changed TO _36.set_scale
+ROUTE UnnamedTransformScaleOrientationInterp_108.value_changed TO _36.set_scaleOrientation
+ROUTE UnnamedTransformTranslationInterp_123.value_changed TO _37.set_translation
+ROUTE UnnamedTransformRotationInterp_124.value_changed TO _37.set_rotation
+ROUTE UnnamedTransformScaleOrientationInterp_125.value_changed TO _37.set_scaleOrientation
+ROUTE UnnamedTransformTranslationInterp_126.value_changed TO _38.set_translation
+ROUTE UnnamedTransformRotationInterp_127.value_changed TO _38.set_rotation
+ROUTE UnnamedTransformScaleOrientationInterp_128.value_changed TO _38.set_scaleOrientation
+ROUTE UnnamedTransformTranslationInterp_93.value_changed TO _39.set_translation
+ROUTE UnnamedTransformRotationInterp_94.value_changed TO _39.set_rotation
+ROUTE UnnamedTransformScaleInterp_95.value_changed TO _39.set_scale
+ROUTE UnnamedTransformScaleOrientationInterp_96.value_changed TO _39.set_scaleOrientation
+ROUTE UnnamedTransformTranslationInterp_117.value_changed TO _40.set_translation
+ROUTE UnnamedTransformRotationInterp_118.value_changed TO _40.set_rotation
+ROUTE UnnamedTransformScaleOrientationInterp_119.value_changed TO _40.set_scaleOrientation
+ROUTE UnnamedTransformTranslationInterp_120.value_changed TO _41.set_translation
+ROUTE UnnamedTransformRotationInterp_121.value_changed TO _41.set_rotation
+ROUTE UnnamedTransformScaleOrientationInterp_122.value_changed TO _41.set_scaleOrientation
+ROUTE UnnamedTransformTranslationInterp_135.value_changed TO _42.set_translation
+ROUTE UnnamedTransformRotationInterp_136.value_changed TO _42.set_rotation
+ROUTE UnnamedTransformScaleOrientationInterp_137.value_changed TO _42.set_scaleOrientation
+ROUTE UnnamedTransformTranslationInterp_138.value_changed TO _43.set_translation
+ROUTE UnnamedTransformRotationInterp_139.value_changed TO _43.set_rotation
+ROUTE UnnamedTransformTranslationInterp_97.value_changed TO _44.set_translation
+ROUTE UnnamedTransformRotationInterp_98.value_changed TO _44.set_rotation
+ROUTE UnnamedTransformScaleInterp_99.value_changed TO _44.set_scale
+ROUTE UnnamedTransformScaleOrientationInterp_100.value_changed TO _44.set_scaleOrientation
+ROUTE UnnamedTransformTranslationInterp_129.value_changed TO _45.set_translation
+ROUTE UnnamedTransformRotationInterp_130.value_changed TO _45.set_rotation
+ROUTE UnnamedTransformScaleOrientationInterp_131.value_changed TO _45.set_scaleOrientation
+ROUTE UnnamedTransformTranslationInterp_132.value_changed TO _46.set_translation
+ROUTE UnnamedTransformRotationInterp_133.value_changed TO _46.set_rotation
+ROUTE UnnamedTransformScaleOrientationInterp_134.value_changed TO _46.set_scaleOrientation
+ROUTE UnnamedAnimation0Time_4.fraction_changed TO UnnamedTransformTranslationInterp_47.set_fraction
+ROUTE UnnamedAnimation0Time_4.fraction_changed TO UnnamedTransformTranslationInterp_48.set_fraction
+ROUTE UnnamedAnimation0Time_4.fraction_changed TO UnnamedTransformTranslationInterp_49.set_fraction
+ROUTE UnnamedAnimation0Time_4.fraction_changed TO UnnamedTransformRotationInterp_50.set_fraction
+ROUTE UnnamedAnimation0Time_4.fraction_changed TO UnnamedTransformScaleOrientationInterp_51.set_fraction
+ROUTE UnnamedAnimation0Time_4.fraction_changed TO UnnamedTransformTranslationInterp_52.set_fraction
+ROUTE UnnamedAnimation0Time_4.fraction_changed TO UnnamedTransformRotationInterp_53.set_fraction
+ROUTE UnnamedAnimation0Time_4.fraction_changed TO UnnamedTransformScaleInterp_54.set_fraction
+ROUTE UnnamedAnimation0Time_4.fraction_changed TO UnnamedTransformScaleOrientationInterp_55.set_fraction
+ROUTE UnnamedAnimation0Time_4.fraction_changed TO UnnamedTransformTranslationInterp_56.set_fraction
+ROUTE UnnamedAnimation0Time_4.fraction_changed TO UnnamedTransformTranslationInterp_57.set_fraction
+ROUTE UnnamedAnimation0Time_4.fraction_changed TO UnnamedTransformTranslationInterp_58.set_fraction
+ROUTE UnnamedAnimation0Time_4.fraction_changed TO UnnamedTransformTranslationInterp_59.set_fraction
+ROUTE UnnamedAnimation0Time_4.fraction_changed TO UnnamedTransformTranslationInterp_60.set_fraction
+ROUTE UnnamedAnimation0Time_4.fraction_changed TO UnnamedTransformTranslationInterp_61.set_fraction
+ROUTE UnnamedAnimation0Time_4.fraction_changed TO UnnamedTransformTranslationInterp_62.set_fraction
+ROUTE UnnamedAnimation0Time_4.fraction_changed TO UnnamedTransformTranslationInterp_63.set_fraction
+ROUTE UnnamedAnimation0Time_4.fraction_changed TO UnnamedTransformTranslationInterp_64.set_fraction
+ROUTE UnnamedAnimation0Time_4.fraction_changed TO UnnamedTransformTranslationInterp_65.set_fraction
+ROUTE UnnamedAnimation0Time_4.fraction_changed TO UnnamedTransformTranslationInterp_66.set_fraction
+ROUTE UnnamedAnimation0Time_4.fraction_changed TO UnnamedTransformTranslationInterp_67.set_fraction
+ROUTE UnnamedAnimation0Time_4.fraction_changed TO UnnamedTransformTranslationInterp_68.set_fraction
+ROUTE UnnamedAnimation0Time_4.fraction_changed TO UnnamedTransformTranslationInterp_69.set_fraction
+ROUTE UnnamedAnimation0Time_4.fraction_changed TO UnnamedTransformTranslationInterp_70.set_fraction
+ROUTE UnnamedAnimation0Time_4.fraction_changed TO UnnamedTransformRotationInterp_71.set_fraction
+ROUTE UnnamedAnimation0Time_4.fraction_changed TO UnnamedTransformScaleInterp_72.set_fraction
+ROUTE UnnamedAnimation0Time_4.fraction_changed TO UnnamedTransformTranslationInterp_73.set_fraction
+ROUTE UnnamedAnimation0Time_4.fraction_changed TO UnnamedTransformRotationInterp_74.set_fraction
+ROUTE UnnamedAnimation0Time_4.fraction_changed TO UnnamedTransformScaleInterp_75.set_fraction
+ROUTE UnnamedAnimation0Time_4.fraction_changed TO UnnamedTransformTranslationInterp_76.set_fraction
+ROUTE UnnamedAnimation0Time_4.fraction_changed TO UnnamedTransformScaleInterp_77.set_fraction
+ROUTE UnnamedAnimation0Time_4.fraction_changed TO UnnamedTransformTranslationInterp_78.set_fraction
+ROUTE UnnamedAnimation0Time_4.fraction_changed TO UnnamedTransformRotationInterp_79.set_fraction
+ROUTE UnnamedAnimation0Time_4.fraction_changed TO UnnamedTransformScaleInterp_80.set_fraction
+ROUTE UnnamedAnimation0Time_4.fraction_changed TO UnnamedTransformTranslationInterp_81.set_fraction
+ROUTE UnnamedAnimation0Time_4.fraction_changed TO UnnamedTransformRotationInterp_82.set_fraction
+ROUTE UnnamedAnimation0Time_4.fraction_changed TO UnnamedTransformScaleInterp_83.set_fraction
+ROUTE UnnamedAnimation0Time_4.fraction_changed TO UnnamedTransformTranslationInterp_84.set_fraction
+ROUTE UnnamedAnimation0Time_4.fraction_changed TO UnnamedTransformRotationInterp_85.set_fraction
+ROUTE UnnamedAnimation0Time_4.fraction_changed TO UnnamedTransformScaleInterp_86.set_fraction
+ROUTE UnnamedAnimation0Time_4.fraction_changed TO UnnamedTransformRotationInterp_87.set_fraction
+ROUTE UnnamedAnimation0Time_4.fraction_changed TO UnnamedTransformScaleOrientationInterp_88.set_fraction
+ROUTE UnnamedAnimation0Time_4.fraction_changed TO UnnamedTransformTranslationInterp_89.set_fraction
+ROUTE UnnamedAnimation0Time_4.fraction_changed TO UnnamedTransformRotationInterp_90.set_fraction
+ROUTE UnnamedAnimation0Time_4.fraction_changed TO UnnamedTransformScaleInterp_91.set_fraction
+ROUTE UnnamedAnimation0Time_4.fraction_changed TO UnnamedTransformScaleOrientationInterp_92.set_fraction
+ROUTE UnnamedAnimation0Time_4.fraction_changed TO UnnamedTransformTranslationInterp_93.set_fraction
+ROUTE UnnamedAnimation0Time_4.fraction_changed TO UnnamedTransformRotationInterp_94.set_fraction
+ROUTE UnnamedAnimation0Time_4.fraction_changed TO UnnamedTransformScaleInterp_95.set_fraction
+ROUTE UnnamedAnimation0Time_4.fraction_changed TO UnnamedTransformScaleOrientationInterp_96.set_fraction
+ROUTE UnnamedAnimation0Time_4.fraction_changed TO UnnamedTransformTranslationInterp_97.set_fraction
+ROUTE UnnamedAnimation0Time_4.fraction_changed TO UnnamedTransformRotationInterp_98.set_fraction
+ROUTE UnnamedAnimation0Time_4.fraction_changed TO UnnamedTransformScaleInterp_99.set_fraction
+ROUTE UnnamedAnimation0Time_4.fraction_changed TO UnnamedTransformScaleOrientationInterp_100.set_fraction
+ROUTE UnnamedAnimation0Time_4.fraction_changed TO UnnamedTransformTranslationInterp_101.set_fraction
+ROUTE UnnamedAnimation0Time_4.fraction_changed TO UnnamedTransformRotationInterp_102.set_fraction
+ROUTE UnnamedAnimation0Time_4.fraction_changed TO UnnamedTransformScaleInterp_103.set_fraction
+ROUTE UnnamedAnimation0Time_4.fraction_changed TO UnnamedTransformScaleOrientationInterp_104.set_fraction
+ROUTE UnnamedAnimation0Time_4.fraction_changed TO UnnamedTransformTranslationInterp_105.set_fraction
+ROUTE UnnamedAnimation0Time_4.fraction_changed TO UnnamedTransformRotationInterp_106.set_fraction
+ROUTE UnnamedAnimation0Time_4.fraction_changed TO UnnamedTransformScaleInterp_107.set_fraction
+ROUTE UnnamedAnimation0Time_4.fraction_changed TO UnnamedTransformScaleOrientationInterp_108.set_fraction
+ROUTE UnnamedAnimation0Time_4.fraction_changed TO UnnamedTransformTranslationInterp_109.set_fraction
+ROUTE UnnamedAnimation0Time_4.fraction_changed TO UnnamedTransformRotationInterp_110.set_fraction
+ROUTE UnnamedAnimation0Time_4.fraction_changed TO UnnamedTransformScaleInterp_111.set_fraction
+ROUTE UnnamedAnimation0Time_4.fraction_changed TO UnnamedTransformScaleOrientationInterp_112.set_fraction
+ROUTE UnnamedAnimation0Time_4.fraction_changed TO UnnamedTransformTranslationInterp_113.set_fraction
+ROUTE UnnamedAnimation0Time_4.fraction_changed TO UnnamedTransformRotationInterp_114.set_fraction
+ROUTE UnnamedAnimation0Time_4.fraction_changed TO UnnamedTransformScaleInterp_115.set_fraction
+ROUTE UnnamedAnimation0Time_4.fraction_changed TO UnnamedTransformScaleOrientationInterp_116.set_fraction
+ROUTE UnnamedAnimation0Time_4.fraction_changed TO UnnamedTransformTranslationInterp_117.set_fraction
+ROUTE UnnamedAnimation0Time_4.fraction_changed TO UnnamedTransformRotationInterp_118.set_fraction
+ROUTE UnnamedAnimation0Time_4.fraction_changed TO UnnamedTransformScaleOrientationInterp_119.set_fraction
+ROUTE UnnamedAnimation0Time_4.fraction_changed TO UnnamedTransformTranslationInterp_120.set_fraction
+ROUTE UnnamedAnimation0Time_4.fraction_changed TO UnnamedTransformRotationInterp_121.set_fraction
+ROUTE UnnamedAnimation0Time_4.fraction_changed TO UnnamedTransformScaleOrientationInterp_122.set_fraction
+ROUTE UnnamedAnimation0Time_4.fraction_changed TO UnnamedTransformTranslationInterp_123.set_fraction
+ROUTE UnnamedAnimation0Time_4.fraction_changed TO UnnamedTransformRotationInterp_124.set_fraction
+ROUTE UnnamedAnimation0Time_4.fraction_changed TO UnnamedTransformScaleOrientationInterp_125.set_fraction
+ROUTE UnnamedAnimation0Time_4.fraction_changed TO UnnamedTransformTranslationInterp_126.set_fraction
+ROUTE UnnamedAnimation0Time_4.fraction_changed TO UnnamedTransformRotationInterp_127.set_fraction
+ROUTE UnnamedAnimation0Time_4.fraction_changed TO UnnamedTransformScaleOrientationInterp_128.set_fraction
+ROUTE UnnamedAnimation0Time_4.fraction_changed TO UnnamedTransformTranslationInterp_129.set_fraction
+ROUTE UnnamedAnimation0Time_4.fraction_changed TO UnnamedTransformRotationInterp_130.set_fraction
+ROUTE UnnamedAnimation0Time_4.fraction_changed TO UnnamedTransformScaleOrientationInterp_131.set_fraction
+ROUTE UnnamedAnimation0Time_4.fraction_changed TO UnnamedTransformTranslationInterp_132.set_fraction
+ROUTE UnnamedAnimation0Time_4.fraction_changed TO UnnamedTransformRotationInterp_133.set_fraction
+ROUTE UnnamedAnimation0Time_4.fraction_changed TO UnnamedTransformScaleOrientationInterp_134.set_fraction
+ROUTE UnnamedAnimation0Time_4.fraction_changed TO UnnamedTransformTranslationInterp_135.set_fraction
+ROUTE UnnamedAnimation0Time_4.fraction_changed TO UnnamedTransformRotationInterp_136.set_fraction
+ROUTE UnnamedAnimation0Time_4.fraction_changed TO UnnamedTransformScaleOrientationInterp_137.set_fraction
+ROUTE UnnamedAnimation0Time_4.fraction_changed TO UnnamedTransformTranslationInterp_138.set_fraction
+ROUTE UnnamedAnimation0Time_4.fraction_changed TO UnnamedTransformRotationInterp_139.set_fraction
+ROUTE UnnamedAnimation0Time_4.fraction_changed TO UnnamedTransformTranslationInterp_140.set_fraction
+ROUTE UnnamedAnimation0Time_4.fraction_changed TO UnnamedTransformRotationInterp_141.set_fraction
+ROUTE UnnamedAnimation0Time_4.fraction_changed TO UnnamedTransformScaleInterp_142.set_fraction
+ROUTE UnnamedAnimation0Time_4.fraction_changed TO UnnamedTransformScaleOrientationInterp_143.set_fraction
+ROUTE UnnamedAnimation0Time_4.fraction_changed TO UnnamedTransformTranslationInterp_144.set_fraction
+ROUTE UnnamedAnimation0Time_4.fraction_changed TO UnnamedTransformRotationInterp_145.set_fraction
+ROUTE UnnamedAnimation0Time_4.fraction_changed TO UnnamedTransformScaleInterp_146.set_fraction
+ROUTE UnnamedAnimation0Time_4.fraction_changed TO UnnamedTransformScaleOrientationInterp_147.set_fraction
+ROUTE UnnamedAnimation0Time_4.fraction_changed TO UnnamedTransformTranslationInterp_148.set_fraction
+ROUTE UnnamedAnimation0Time_4.fraction_changed TO UnnamedTransformRotationInterp_149.set_fraction
+ROUTE UnnamedAnimation0Time_4.fraction_changed TO UnnamedTransformScaleInterp_150.set_fraction
+ROUTE UnnamedAnimation0Time_4.fraction_changed TO UnnamedTransformScaleOrientationInterp_151.set_fraction
+ROUTE UnnamedAnimation0Time_4.fraction_changed TO UnnamedTransformScaleOrientationInterp_152.set_fraction
+ROUTE UnnamedAnimation0Time_4.fraction_changed TO UnnamedTransformScaleOrientationInterp_153.set_fraction
+ROUTE UnnamedAnimation0Time_4.fraction_changed TO UnnamedTransformScaleOrientationInterp_154.set_fraction
+ROUTE UnnamedAnimation0Time_4.fraction_changed TO UnnamedTransformScaleOrientationInterp_155.set_fraction
+ROUTE UnnamedTransformTranslationInterp_47.value_changed TO _0.set_translation
+
