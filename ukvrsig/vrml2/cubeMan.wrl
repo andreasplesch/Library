@@ -1,0 +1,1028 @@
+#VRML V2.0 utf8
+
+
+Group {
+  children [ 
+    WorldInfo {
+      title "Object Creator: Paul Isaacs
+Copyright: Public Domain
+"
+
+    },
+      
+    Transform {
+      translation 0 0 0
+      rotation 0 0 1  0
+      scale 0.0208 0.0208 0.0208
+      scaleOrientation 0 0 1  0
+      center 0 0 0
+      children 
+        Group {
+          children [ 
+            WorldInfo {
+              title "all motion"
+
+            },
+              
+            Transform {
+              translation 0 0 0
+              rotation 0 0 1  0
+              scale 1 1 1
+              scaleOrientation 0 0 1  0
+              center 0 0 0
+              children 
+                Group {
+                  children [ 
+                    WorldInfo {
+                      title "hips motion"
+
+                    },
+                      
+                    Transform {
+                      translation 0 0 0
+                      rotation 0 0 1  0
+                      scale 1 1 1
+                      scaleOrientation 0 0 1  0
+                      center 0 0 0
+                      children [ 
+                        Group {
+                          children [ 
+                            WorldInfo {
+                              title "hips data"
+
+                            },
+                              
+                            Transform {
+                              translation 0 0 0
+                              rotation 0 0 1  0
+                              scale 6.75 4.5 4.5
+                              scaleOrientation 0 0 1  0
+                              center 0 0 0
+                              children 
+                                Shape {
+                                  appearance 
+                                  Appearance {
+                                    material 
+                                    Material {
+
+                                    }
+
+                                  }
+                                  geometry 
+                                  Box {
+
+                                  }
+
+                                }
+
+                            } ]
+
+                        },
+                          
+                        Group {
+                          children [ 
+                            WorldInfo {
+                              title "lt thigh motion"
+
+                            },
+                              
+                            Transform {
+                              translation -3.5 0 1.3
+                              rotation 0 0 1  0
+                              scale 1 1 1
+                              scaleOrientation 0 0 1  0
+                              center 0 0 0
+                              children [ 
+                                Group {
+                                  children [ 
+                                    WorldInfo {
+                                      title "lt thigh data"
+
+                                    },
+                                      
+                                    Transform {
+                                      translation 0 -12 0
+                                      rotation 0 0 1  0
+                                      scale 3.25 12 2.5
+                                      scaleOrientation 0 0 1  0
+                                      center 0 0 0
+                                      children 
+                                        Shape {
+                                          appearance 
+                                          Appearance {
+                                            material 
+                                            Material {
+
+                                            }
+
+                                          }
+                                          geometry 
+                                          Box {
+
+                                          }
+
+                                        }
+
+                                    } ]
+
+                                },
+                                  
+                                Group {
+                                  children [ 
+                                    WorldInfo {
+                                      title "lt shin motion"
+
+                                    },
+                                      
+                                    Transform {
+                                      translation 0 -24 0
+                                      rotation 0 0 1  0
+                                      scale 1 1 1
+                                      scaleOrientation 0 0 1  0
+                                      center 0 0 0
+                                      children [ 
+                                        Group {
+                                          children [ 
+                                            WorldInfo {
+                                              title "lt shin data"
+
+                                            },
+                                              
+                                            Transform {
+                                              translation 0 -10.5 0
+                                              rotation 0 0 1  0
+                                              scale 2.5 10.5 2
+                                              scaleOrientation 0 0 1  0
+                                              center 0 0 0
+                                              children 
+                                                Shape {
+                                                  appearance 
+                                                  Appearance {
+                                                    material 
+                                                    Material {
+
+                                                    }
+
+                                                  }
+                                                  geometry 
+                                                  Box {
+
+                                                  }
+
+                                                }
+
+                                            } ]
+
+                                        },
+                                          
+                                        Group {
+                                          children [ 
+                                            WorldInfo {
+                                              title "lt foot motion"
+
+                                            },
+                                              
+                                            Transform {
+                                              translation 0 -21 0
+                                              rotation 0 0 1  0
+                                              scale 1 1 1
+                                              scaleOrientation 0 0 1  0
+                                              center 0 0 0
+                                              children 
+                                                Group {
+                                                  children [ 
+                                                    WorldInfo {
+                                                      title "lt foot data"
+
+                                                    },
+                                                      
+                                                    Transform {
+                                                      translation 0 0 6
+                                                      rotation 0 0 1  0
+                                                      scale 2.25 1.75 6
+                                                      scaleOrientation 0 0 1  0
+                                                      center 0 0 0
+                                                      children 
+                                                        Shape {
+                                                          appearance 
+                                                          Appearance {
+                                                            material 
+                                                            Material {
+
+                                                            }
+
+                                                          }
+                                                          geometry 
+                                                          Box {
+
+                                                          }
+
+                                                        }
+
+                                                    } ]
+
+                                                }
+
+                                            } ]
+
+                                        } ]
+
+                                    } ]
+
+                                } ]
+
+                            } ]
+
+                        },
+                          
+                        Group {
+                          children [ 
+                            WorldInfo {
+                              title "rt thigh motion"
+
+                            },
+                              
+                            Transform {
+                              translation 3.5 0 1.3
+                              rotation 0 0 1  0
+                              scale 1 1 1
+                              scaleOrientation 0 0 1  0
+                              center 0 0 0
+                              children [ 
+                                Group {
+                                  children [ 
+                                    WorldInfo {
+                                      title "rt thigh data"
+
+                                    },
+                                      
+                                    Transform {
+                                      translation 0 -12 0
+                                      rotation 0 0 1  0
+                                      scale 3.25 12 2.5
+                                      scaleOrientation 0 0 1  0
+                                      center 0 0 0
+                                      children 
+                                        Shape {
+                                          appearance 
+                                          Appearance {
+                                            material 
+                                            Material {
+
+                                            }
+
+                                          }
+                                          geometry 
+                                          Box {
+
+                                          }
+
+                                        }
+
+                                    } ]
+
+                                },
+                                  
+                                Group {
+                                  children [ 
+                                    WorldInfo {
+                                      title "rt shin motion"
+
+                                    },
+                                      
+                                    Transform {
+                                      translation 0 -24 0
+                                      rotation 0 0 1  0
+                                      scale 1 1 1
+                                      scaleOrientation 0 0 1  0
+                                      center 0 0 0
+                                      children [ 
+                                        Group {
+                                          children [ 
+                                            WorldInfo {
+                                              title "rt shin data"
+
+                                            },
+                                              
+                                            Transform {
+                                              translation 0 -10.5 0
+                                              rotation 0 0 1  0
+                                              scale 2.5 10.5 2
+                                              scaleOrientation 0 0 1  0
+                                              center 0 0 0
+                                              children 
+                                                Shape {
+                                                  appearance 
+                                                  Appearance {
+                                                    material 
+                                                    Material {
+
+                                                    }
+
+                                                  }
+                                                  geometry 
+                                                  Box {
+
+                                                  }
+
+                                                }
+
+                                            } ]
+
+                                        },
+                                          
+                                        Group {
+                                          children [ 
+                                            WorldInfo {
+                                              title "rt foot motion"
+
+                                            },
+                                              
+                                            Transform {
+                                              translation 0 -21 0
+                                              rotation 0 0 1  0
+                                              scale 1 1 1
+                                              scaleOrientation 0 0 1  0
+                                              center 0 0 0
+                                              children 
+                                                Group {
+                                                  children [ 
+                                                    WorldInfo {
+                                                      title "rt foot data"
+
+                                                    },
+                                                      
+                                                    Transform {
+                                                      translation 0 0 6
+                                                      rotation 0 0 1  0
+                                                      scale 2.25 1.75 6
+                                                      scaleOrientation 0 0 1  0
+                                                      center 0 0 0
+                                                      children 
+                                                        Shape {
+                                                          appearance 
+                                                          Appearance {
+                                                            material 
+                                                            Material {
+
+                                                            }
+
+                                                          }
+                                                          geometry 
+                                                          Box {
+
+                                                          }
+
+                                                        }
+
+                                                    } ]
+
+                                                }
+
+                                            } ]
+
+                                        } ]
+
+                                    } ]
+
+                                } ]
+
+                            } ]
+
+                        },
+                          
+                        Group {
+                          children [ 
+                            WorldInfo {
+                              title "abdomen motion"
+
+                            },
+                              
+                            Transform {
+                              translation 0 4.5 1.3
+                              rotation 0 0 1  0
+                              scale 1 1 1
+                              scaleOrientation 0 0 1  0
+                              center 0 0 0
+                              children [ 
+                                Group {
+                                  children [ 
+                                    WorldInfo {
+                                      title "abdomen data"
+
+                                    },
+                                      
+                                    Transform {
+                                      translation 0 3.25 0
+                                      rotation 0 0 1  0
+                                      scale 5.5 3.25 3
+                                      scaleOrientation 0 0 1  0
+                                      center 0 0 0
+                                      children 
+                                        Shape {
+                                          appearance 
+                                          Appearance {
+                                            material 
+                                            Material {
+
+                                            }
+
+                                          }
+                                          geometry 
+                                          Box {
+
+                                          }
+
+                                        }
+
+                                    } ]
+
+                                },
+                                  
+                                Group {
+                                  children [ 
+                                    WorldInfo {
+                                      title "chest motion"
+
+                                    },
+                                      
+                                    Transform {
+                                      translation 0 6.5 0
+                                      rotation 0 0 1  0
+                                      scale 1 1 1
+                                      scaleOrientation 0 0 1  0
+                                      center 0 0 0
+                                      children [ 
+                                        Group {
+                                          children [ 
+                                            WorldInfo {
+                                              title "chest data"
+
+                                            },
+                                              
+                                            Transform {
+                                              translation 0 6 0
+                                              rotation 0 0 1  0
+                                              scale 7 6 3.5
+                                              scaleOrientation 0 0 1  0
+                                              center 0 0 0
+                                              children 
+                                                Shape {
+                                                  appearance 
+                                                  Appearance {
+                                                    material 
+                                                    Material {
+
+                                                    }
+
+                                                  }
+                                                  geometry 
+                                                  Box {
+
+                                                  }
+
+                                                }
+
+                                            } ]
+
+                                        },
+                                          
+                                        Group {
+                                          children [ 
+                                            WorldInfo {
+                                              title "neck motion"
+
+                                            },
+                                              
+                                            Transform {
+                                              translation 0 12 0
+                                              rotation 0 0 1  0
+                                              scale 1 1 1
+                                              scaleOrientation 0 0 1  0
+                                              center 0 0 0
+                                              children [ 
+                                                Group {
+                                                  children [ 
+                                                    WorldInfo {
+                                                      title "neck data"
+
+                                                    },
+                                                      
+                                                    Transform {
+                                                      translation 0 2.25 0
+                                                      rotation 0 0 1  0
+                                                      scale 2.25 2.25 2.25
+                                                      scaleOrientation 0 0 1  0
+                                                      center 0 0 0
+                                                      children 
+                                                        Shape {
+                                                          appearance 
+                                                          Appearance {
+                                                            material 
+                                                            Material {
+
+                                                            }
+
+                                                          }
+                                                          geometry 
+                                                          Box {
+
+                                                          }
+
+                                                        }
+
+                                                    } ]
+
+                                                },
+                                                  
+                                                Group {
+                                                  children [ 
+                                                    WorldInfo {
+                                                      title "head motion"
+
+                                                    },
+                                                      
+                                                    Transform {
+                                                      translation 0 4.5 0
+                                                      rotation 0 0 1  0
+                                                      scale 1 1 1
+                                                      scaleOrientation 0 0 1  0
+                                                      center 0 0 0
+                                                      children 
+                                                        Group {
+                                                          children [ 
+                                                            WorldInfo {
+                                                              title "head data"
+
+                                                            },
+                                                              
+                                                            Transform {
+                                                              translation 0 5 0
+                                                              rotation 0 0 1  0
+                                                              scale 3 5 3.5
+                                                              scaleOrientation 0 0 1  0
+                                                              center 0 0 0
+                                                              children 
+                                                                Shape {
+                                                                  appearance 
+                                                                  Appearance {
+                                                                    material 
+                                                                    Material {
+
+                                                                    }
+
+                                                                  }
+                                                                  geometry 
+                                                                  Box {
+
+                                                                  }
+
+                                                                }
+
+                                                            } ]
+
+                                                        }
+
+                                                    } ]
+
+                                                } ]
+
+                                            } ]
+
+                                        },
+                                          
+                                        Group {
+                                          children [ 
+                                            WorldInfo {
+                                              title "lt shoulder motion"
+
+                                            },
+                                              
+                                            Transform {
+                                              translation 0 12 0
+                                              rotation 0 0 1  0
+                                              scale 1 1 1
+                                              scaleOrientation 0 0 1  0
+                                              center 0 0 0
+                                              children [ 
+                                                Group {
+                                                  children [ 
+                                                    WorldInfo {
+                                                      title "lt shoulder data"
+
+                                                    },
+                                                      
+                                                    Transform {
+                                                      translation -6 0 0
+                                                      rotation 0 0 1  0
+                                                      scale 6 1 2.25
+                                                      scaleOrientation 0 0 1  0
+                                                      center 0 0 0
+                                                      children 
+                                                        Shape {
+                                                          appearance 
+                                                          Appearance {
+                                                            material 
+                                                            Material {
+
+                                                            }
+
+                                                          }
+                                                          geometry 
+                                                          Box {
+
+                                                          }
+
+                                                        }
+
+                                                    } ]
+
+                                                },
+                                                  
+                                                Group {
+                                                  children [ 
+                                                    WorldInfo {
+                                                      title "lt upper arm motion"
+
+                                                    },
+                                                      
+                                                    Transform {
+                                                      translation -9.75 0 0
+                                                      rotation 0 0 1  0
+                                                      scale 1 1 1
+                                                      scaleOrientation 0 0 1  0
+                                                      center 0 0 0
+                                                      children [ 
+                                                        Group {
+                                                          children [ 
+                                                            WorldInfo {
+                                                              title "lt upper arm data"
+
+                                                            },
+                                                              
+                                                            Transform {
+                                                              translation 0 -6.5 0
+                                                              rotation 0 0 1  0
+                                                              scale 2.25 6.5 2.25
+                                                              scaleOrientation 0 0 1  0
+                                                              center 0 0 0
+                                                              children 
+                                                                Shape {
+                                                                  appearance 
+                                                                  Appearance {
+                                                                    material 
+                                                                    Material {
+
+                                                                    }
+
+                                                                  }
+                                                                  geometry 
+                                                                  Box {
+
+                                                                  }
+
+                                                                }
+
+                                                            } ]
+
+                                                        },
+                                                          
+                                                        Group {
+                                                          children [ 
+                                                            WorldInfo {
+                                                              title "lt lower arm motion"
+
+                                                            },
+                                                              
+                                                            Transform {
+                                                              translation 0 -13 0
+                                                              rotation 0 0 1  0
+                                                              scale 1 1 1
+                                                              scaleOrientation 0 0 1  0
+                                                              center 0 0 0
+                                                              children [ 
+                                                                Group {
+                                                                  children [ 
+                                                                    WorldInfo {
+                                                                      title "lt lower arm data"
+
+                                                                    },
+                                                                      
+                                                                    Transform {
+                                                                      translation 0 -6 0
+                                                                      rotation 0 0 1  0
+                                                                      scale 1.6 6 1.2
+                                                                      scaleOrientation 0 0 1  0
+                                                                      center 0 0 0
+                                                                      children 
+                                                                        Shape {
+                                                                          appearance 
+                                                                          Appearance {
+                                                                            material 
+                                                                            Material {
+
+                                                                            }
+
+                                                                          }
+                                                                          geometry 
+                                                                          Box {
+
+                                                                          }
+
+                                                                        }
+
+                                                                    } ]
+
+                                                                },
+                                                                  
+                                                                Group {
+                                                                  children [ 
+                                                                    WorldInfo {
+                                                                      title "lt hand motion"
+
+                                                                    },
+                                                                      
+                                                                    Transform {
+                                                                      translation 0 -12 0
+                                                                      rotation 0 0 1  0
+                                                                      scale 1 1 1
+                                                                      scaleOrientation 0 0 1  0
+                                                                      center 0 0 0
+                                                                      children 
+                                                                        Group {
+                                                                          children [ 
+                                                                            WorldInfo {
+                                                                              title "lt hand data"
+
+                                                                            },
+                                                                              
+                                                                            Transform {
+                                                                              translation 0 -1.8 0
+                                                                              rotation 0 0 1  0
+                                                                              scale 1.75 3.5999999 0.5
+                                                                              scaleOrientation 0 0 1  0
+                                                                              center 0 0 0
+                                                                              children 
+                                                                                Shape {
+                                                                                  appearance 
+                                                                                  Appearance {
+                                                                                    material 
+                                                                                    Material {
+
+                                                                                    }
+
+                                                                                  }
+                                                                                  geometry 
+                                                                                  Box {
+
+                                                                                  }
+
+                                                                                }
+
+                                                                            } ]
+
+                                                                        }
+
+                                                                    } ]
+
+                                                                } ]
+
+                                                            } ]
+
+                                                        } ]
+
+                                                    } ]
+
+                                                } ]
+
+                                            } ]
+
+                                        },
+                                          
+                                        Group {
+                                          children [ 
+                                            WorldInfo {
+                                              title "rt shoulder motion"
+
+                                            },
+                                              
+                                            Transform {
+                                              translation 0 12 0
+                                              rotation 0 0 1  0
+                                              scale 1 1 1
+                                              scaleOrientation 0 0 1  0
+                                              center 0 0 0
+                                              children [ 
+                                                Group {
+                                                  children [ 
+                                                    WorldInfo {
+                                                      title "rt shoulder data"
+
+                                                    },
+                                                      
+                                                    Transform {
+                                                      translation 6 0 0
+                                                      rotation 0 0 1  0
+                                                      scale 6 1 2.25
+                                                      scaleOrientation 0 0 1  0
+                                                      center 0 0 0
+                                                      children 
+                                                        Shape {
+                                                          appearance 
+                                                          Appearance {
+                                                            material 
+                                                            Material {
+
+                                                            }
+
+                                                          }
+                                                          geometry 
+                                                          Box {
+
+                                                          }
+
+                                                        }
+
+                                                    } ]
+
+                                                },
+                                                  
+                                                Group {
+                                                  children [ 
+                                                    WorldInfo {
+                                                      title "rt upper arm motion"
+
+                                                    },
+                                                      
+                                                    Transform {
+                                                      translation 9.75 0 0
+                                                      rotation 0 0 1  0
+                                                      scale 1 1 1
+                                                      scaleOrientation 0 0 1  0
+                                                      center 0 0 0
+                                                      children [ 
+                                                        Group {
+                                                          children [ 
+                                                            WorldInfo {
+                                                              title "rt upper arm data"
+
+                                                            },
+                                                              
+                                                            Transform {
+                                                              translation 0 -6.5 0
+                                                              rotation 0 0 1  0
+                                                              scale 2.25 6.5 2.25
+                                                              scaleOrientation 0 0 1  0
+                                                              center 0 0 0
+                                                              children 
+                                                                Shape {
+                                                                  appearance 
+                                                                  Appearance {
+                                                                    material 
+                                                                    Material {
+
+                                                                    }
+
+                                                                  }
+                                                                  geometry 
+                                                                  Box {
+
+                                                                  }
+
+                                                                }
+
+                                                            } ]
+
+                                                        },
+                                                          
+                                                        Group {
+                                                          children [ 
+                                                            WorldInfo {
+                                                              title "rt lower arm motion"
+
+                                                            },
+                                                              
+                                                            Transform {
+                                                              translation 0 -13 0
+                                                              rotation 0 0 1  0
+                                                              scale 1 1 1
+                                                              scaleOrientation 0 0 1  0
+                                                              center 0 0 0
+                                                              children [ 
+                                                                Group {
+                                                                  children [ 
+                                                                    WorldInfo {
+                                                                      title "rt lower arm data"
+
+                                                                    },
+                                                                      
+                                                                    Transform {
+                                                                      translation 0 -6 0
+                                                                      rotation 0 0 1  0
+                                                                      scale 1.6 6 1.2
+                                                                      scaleOrientation 0 0 1  0
+                                                                      center 0 0 0
+                                                                      children 
+                                                                        Shape {
+                                                                          appearance 
+                                                                          Appearance {
+                                                                            material 
+                                                                            Material {
+
+                                                                            }
+
+                                                                          }
+                                                                          geometry 
+                                                                          Box {
+
+                                                                          }
+
+                                                                        }
+
+                                                                    } ]
+
+                                                                },
+                                                                  
+                                                                Group {
+                                                                  children [ 
+                                                                    WorldInfo {
+                                                                      title "rt hand motion"
+
+                                                                    },
+                                                                      
+                                                                    Transform {
+                                                                      translation 0 -12 0
+                                                                      rotation 0 0 1  0
+                                                                      scale 1 1 1
+                                                                      scaleOrientation 0 0 1  0
+                                                                      center 0 0 0
+                                                                      children 
+                                                                        Group {
+                                                                          children [ 
+                                                                            WorldInfo {
+                                                                              title "rt hand data"
+
+                                                                            },
+                                                                              
+                                                                            Transform {
+                                                                              translation 0 -1.8 0
+                                                                              rotation 0 0 1  0
+                                                                              scale 1.75 3.5999999 0.5
+                                                                              scaleOrientation 0 0 1  0
+                                                                              center 0 0 0
+                                                                              children 
+                                                                                Shape {
+                                                                                  appearance 
+                                                                                  Appearance {
+                                                                                    material 
+                                                                                    Material {
+
+                                                                                    }
+
+                                                                                  }
+                                                                                  geometry 
+                                                                                  Box {
+
+                                                                                  }
+
+                                                                                }
+
+                                                                            } ]
+
+                                                                        }
+
+                                                                    } ]
+
+                                                                } ]
+
+                                                            } ]
+
+                                                        } ]
+
+                                                    } ]
+
+                                                } ]
+
+                                            } ]
+
+                                        } ]
+
+                                    } ]
+
+                                } ]
+
+                            } ]
+
+                        } ]
+
+                    } ]
+
+                }
+
+            } ]
+
+        }
+
+    } ]
+
+}

@@ -1,0 +1,123 @@
+#VRML V2.0 utf8
+
+
+Group {
+  children [ 
+    WorldInfo {
+      title "Unsupported node: WWWAnchor"
+
+    },
+      
+    WorldInfo {
+      title "This sample VRML file of a protein backbone ribbon of a DNA 
+                 molecule is anchored to the VRML file 3cro.wrl. The 
+                 NurbsSurface node is not part of VRML 1.0 but an extension to 
+                 it. Thus only VRML browsers that understand this extension can 
+                 read it. The VRML file was created at Imperial College by Omer 
+                 Casher (o.casher@ic.ac.uk, http://www.ch.ic.ac.uk/casher.html) 
+                 with the help of two IRIS Explorer modules that he developed,
+                 EyeBackbone and EyeRibbons, and a modified Render module. Full 
+                 Information on the molecule itself is contained in the PDB 
+                 file pdb3cro.ent. By extracting appropriate information from 
+                 the PDB file, subsets of interest from this VRML file can be 
+                 browsed."
+
+    },
+      
+    Group {
+      children 
+        Group {
+          children [ 
+            Group {
+              children 
+                Shape {
+                  appearance 
+                  Appearance {
+                    material 
+                    Material {
+                      diffuseColor 1 0.41404301 0
+
+                    }
+
+                  }
+                  geometry 
+                  IndexedFaceSet {
+                    coord 
+                    Coordinate {
+                      point [  ]
+
+                    }
+                    normal 
+                    Normal {
+                      vector [  ]
+
+                    }
+                    coordIndex [  ]
+                    normalIndex [  ]
+                    ccw TRUE
+                    solid FALSE
+                    convex TRUE
+                    creaseAngle 0
+
+                  }
+
+                }
+
+            },
+              
+            Group {
+              children 
+                Shape {
+                  appearance 
+                  Appearance {
+                    material 
+                    Material {
+                      diffuseColor 1 0.41404301 0
+
+                    }
+
+                  }
+                  geometry 
+                  IndexedFaceSet {
+                    coord 
+                    Coordinate {
+                      point [  ]
+
+                    }
+                    normal 
+                    Normal {
+                      vector [  ]
+
+                    }
+                    coordIndex [  ]
+                    normalIndex [  ]
+                    ccw TRUE
+                    solid FALSE
+                    convex TRUE
+                    creaseAngle 0
+
+                  }
+
+                }
+
+            } ]
+
+        }
+
+    },
+      
+    Switch {
+      whichChoice -1
+
+    },
+      
+    Group {
+      children 
+        WorldInfo {
+          title "Unsupported node: OrthographicCamera"
+
+        }
+
+    } ]
+
+}

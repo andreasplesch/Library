@@ -1,0 +1,68 @@
+#VRML V2.0 utf8
+
+
+Group {
+  children [ 
+    WorldInfo {
+      title "Created by OFF2VRML
+contact: Jason Mathews
+	 NASA/Goddard Space Flight Center
+	 Greenbelt, MD 20771
+	 Phone: (301) 286-6879
+	 E-mail: mathews@nssdc.gsfc.nasa.gov
+date:	 Fri Jun 2 17:49:24 1995
+"
+
+    },
+      
+    Group {
+      children 
+        Group {
+          children 
+            Shape {
+              appearance 
+              Appearance {
+                material 
+                Material {
+                  diffuseColor 0 0 1
+
+                }
+
+              }
+              geometry 
+              IndexedFaceSet {
+                coord 
+                Coordinate {
+                  point [ -1 -1 1,
+                      -1 1 1,
+                      1 1 1,
+                      1 -1 1,
+                      -1 -1 -1,
+                      -1 1 -1,
+                      1 1 -1,
+                      1 -1 -1 ]
+
+                }
+                normal 
+                Normal {
+                  vector [  ]
+
+                }
+                coordIndex [ 0, 1, 2, 3, -1, 4, 5, 1,
+                    0, -1, 2, 1, 5, 6, -1, 2,
+                    6, 7, 3, -1, 0, 3, 7, 4,
+                    -1, 7, 6, 5, 4, -1 ]
+                ccw TRUE
+                solid FALSE
+                convex TRUE
+                creaseAngle 0.5
+
+              }
+
+            }
+
+        }
+
+    } ]
+
+}

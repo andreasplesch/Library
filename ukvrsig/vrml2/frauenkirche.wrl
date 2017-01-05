@@ -1,0 +1,561 @@
+#VRML V2.0 utf8
+
+
+Group {
+  children 
+    Group {
+      children [ 
+        WorldInfo {
+          title "Unsupported node: PerspectiveCamera"
+
+        },
+          
+        Switch {
+          whichChoice -1
+          choice 
+            DirectionalLight {
+              on TRUE
+              intensity 1
+              color 1 1 1
+              direction 0.55599999 -0.62300003 -0.551
+
+            }
+
+        },
+          
+        Switch {
+          whichChoice 0
+          choice 
+            Group {
+              children 
+                DirectionalLight {
+                  on TRUE
+                  intensity 1
+                  color 1 1 1
+                  direction -0.25332201 -0.82695001 0.50197798
+
+                }
+
+            }
+
+        },
+          
+        Switch {
+          whichChoice 0
+          choice 
+            Group {
+              children 
+                DirectionalLight {
+                  on TRUE
+                  intensity 1
+                  color 1 1 1
+                  direction 0.81071299 0.361599 -0.46042401
+
+                }
+
+            }
+
+        },
+          
+        Switch {
+          whichChoice 0
+          choice 
+            Group {
+
+            }
+
+        },
+          
+        Group {
+
+        },
+          
+        Group {
+          children [ 
+            Group {
+              children 
+                Transform {
+                  translation -0.110451 -0.179561 -0.0244334
+                  rotation -0.99999994 -5.9566396e-008 -5.9568997e-008  1.5707902
+                  scale 0.99999702 1.0774601 0.45416701
+                  scaleOrientation 0 0 1  0
+                  center 0 0 0
+                  children 
+                    Group {
+                      children [ 
+                        WorldInfo {
+                          title "solid"
+
+                        },
+                          
+                        Shape {
+                          appearance 
+                          Appearance {
+                            material 
+                            Material {
+                              diffuseColor 0.31428599 0.074364699 0
+                              ambientIntensity 0.0031387371
+                              specularColor 0.76020402 0.58295399 0
+                              shininess 0.0408163
+
+                            }
+
+                          }
+                          geometry 
+                          Box {
+                            size 0.34017301 0.43524501 0.34017301
+
+                          }
+
+                        } ]
+
+                    }
+
+                }
+
+            },
+              
+            WorldInfo {
+              title "<Undefined info>"
+
+            },
+              
+            Group {
+              children 
+                Transform {
+                  translation -0.244133 -0.0079599796 0.29339901
+                  rotation 0 0 1  0
+                  scale 0.651308 1.01293 0.165318
+                  scaleOrientation 0 0 1  0
+                  center 0 0 0
+                  children 
+                    Group {
+                      children [ 
+                        WorldInfo {
+                          title "solid"
+
+                        },
+                          
+                        Shape {
+                          appearance 
+                          Appearance {
+                            material 
+                            Material {
+                              diffuseColor 0.0291577 0.026292199 0.026964201
+                              ambientIntensity 0.0069709397
+                              specularColor 0.64160901 0.65104401 0.97959203
+                              shininess 0.061224502
+
+                            }
+
+                          }
+                          geometry 
+                          Sphere {
+                            radius 0.061856002
+
+                          }
+
+                        } ]
+
+                    }
+
+                }
+
+            },
+              
+            WorldInfo {
+              title "<Undefined info>"
+
+            },
+              
+            Group {
+              children 
+                Transform {
+                  translation -0.246508 -0.083583802 0.241713
+                  rotation 3.4595901e-006 -1 -3.4596001e-006  1.5707999
+                  scale 0.89210099 0.77604902 0.88006902
+                  scaleOrientation 0 0 1  0
+                  center 0 0 0
+                  children 
+                    Group {
+                      children [ 
+                        WorldInfo {
+                          title "solid"
+
+                        },
+                          
+                        Shape {
+                          appearance 
+                          Appearance {
+                            material 
+                            Material {
+                              diffuseColor 0.31428599 0.074364699 0
+                              ambientIntensity 0.0031387371
+                              specularColor 0.76020402 0.58295399 0
+                              shininess 0.0408163
+
+                            }
+
+                          }
+                          geometry 
+                          Box {
+                            size 0.134619 0.50119799 0.134619
+
+                          }
+
+                        } ]
+
+                    }
+
+                }
+
+            },
+              
+            WorldInfo {
+              title "<Undefined info>"
+
+            },
+              
+            Group {
+              children 
+                Transform {
+                  translation -0.246511 0.230498 0.241734
+                  rotation 0 0 1  0
+                  scale 0.12183 0.591223 0.097694702
+                  scaleOrientation 0 0 1  0
+                  center 0 0 0
+                  children 
+                    Group {
+                      children [ 
+                        WorldInfo {
+                          title "solid"
+
+                        },
+                          
+                        Shape {
+                          appearance 
+                          Appearance {
+                            material 
+                            Material {
+                              diffuseColor 0.0291577 0.026292199 0.026964201
+                              ambientIntensity 0.0069709397
+                              specularColor 0.64160901 0.97620797 0.97959203
+                              shininess 0.061224502
+
+                            }
+
+                          }
+                          geometry 
+                          Cone {
+                            bottomRadius 0.095269099
+                            height 0.190538
+
+                          }
+
+                        } ]
+
+                    }
+
+                }
+
+            },
+              
+            WorldInfo {
+              title "<Undefined info>"
+
+            },
+              
+            Group {
+              children 
+                Transform {
+                  translation -0.246977 0.154286 0.24177
+                  rotation 0 0 1  0
+                  scale 0.99999899 0.81125599 1
+                  scaleOrientation 0.0059425468 0.99997979 5.7620373e-006  0.001953125
+                  center 0 0 0
+                  children 
+                    Group {
+                      children [ 
+                        WorldInfo {
+                          title "solid"
+
+                        },
+                          
+                        Shape {
+                          appearance 
+                          Appearance {
+                            material 
+                            Material {
+                              diffuseColor 0.0291577 0.026292199 0.026964201
+                              ambientIntensity 0.0069709397
+                              specularColor 0.64160901 0.97620797 0.97959203
+                              shininess 0.061224502
+
+                            }
+
+                          }
+                          geometry 
+                          Sphere {
+                            radius 0.081214301
+
+                          }
+
+                        } ]
+
+                    }
+
+                }
+
+            },
+              
+            WorldInfo {
+              title "<Undefined info>"
+
+            },
+              
+            Group {
+              children 
+                Transform {
+                  translation 0.0238705 -0.0075300802 0.29339901
+                  rotation 0 0 1  0
+                  scale 0.651308 1.01293 0.165318
+                  scaleOrientation 0 0 1  0
+                  center 0 0 0
+                  children 
+                    Group {
+                      children [ 
+                        WorldInfo {
+                          title "solid"
+
+                        },
+                          
+                        Shape {
+                          appearance 
+                          Appearance {
+                            material 
+                            Material {
+                              diffuseColor 0.0291577 0.026292199 0.026964201
+                              ambientIntensity 0.0069709397
+                              specularColor 0.64160901 0.65104401 0.97959203
+                              shininess 0.061224502
+
+                            }
+
+                          }
+                          geometry 
+                          Sphere {
+                            radius 0.061856002
+
+                          }
+
+                        } ]
+
+                    }
+
+                }
+
+            },
+              
+            WorldInfo {
+              title "<Undefined info>"
+
+            },
+              
+            Group {
+              children 
+                Transform {
+                  translation 0.021494601 -0.083154 0.241714
+                  rotation 2.0692601e-006 -1 -2.0692601e-006  1.5707999
+                  scale 0.89209998 0.776048 0.880068
+                  scaleOrientation 0 0 1  0
+                  center 0 0 0
+                  children 
+                    Group {
+                      children [ 
+                        WorldInfo {
+                          title "solid"
+
+                        },
+                          
+                        Shape {
+                          appearance 
+                          Appearance {
+                            material 
+                            Material {
+                              diffuseColor 0.31428599 0.074364699 0
+                              ambientIntensity 0.0031387371
+                              specularColor 0.76020402 0.58295399 0
+                              shininess 0.0408163
+
+                            }
+
+                          }
+                          geometry 
+                          Box {
+                            size 0.134619 0.50119799 0.134619
+
+                          }
+
+                        } ]
+
+                    }
+
+                }
+
+            },
+              
+            WorldInfo {
+              title "<Undefined info>"
+
+            },
+              
+            Group {
+              children 
+                Transform {
+                  translation 0.0214919 0.230928 0.241733
+                  rotation 0 0 1  0
+                  scale 0.12183 0.591223 0.097694598
+                  scaleOrientation 0 0 1  0
+                  center 0 0 0
+                  children 
+                    Group {
+                      children [ 
+                        WorldInfo {
+                          title "solid"
+
+                        },
+                          
+                        Shape {
+                          appearance 
+                          Appearance {
+                            material 
+                            Material {
+                              diffuseColor 0.0291577 0.026292199 0.026964201
+                              ambientIntensity 0.0069709397
+                              specularColor 0.64160901 0.97620797 0.97959203
+                              shininess 0.061224502
+
+                            }
+
+                          }
+                          geometry 
+                          Cone {
+                            bottomRadius 0.095269099
+                            height 0.190538
+
+                          }
+
+                        } ]
+
+                    }
+
+                }
+
+            },
+              
+            WorldInfo {
+              title "<Undefined info>"
+
+            },
+              
+            Group {
+              children 
+                Transform {
+                  translation 0.021026099 0.154715 0.24177
+                  rotation 0 0 1  0
+                  scale 1 0.81125498 1
+                  scaleOrientation 0.00063573284 0.9999997 6.4707583e-006  0.020356204
+                  center 0 0 0
+                  children 
+                    Group {
+                      children [ 
+                        WorldInfo {
+                          title "solid"
+
+                        },
+                          
+                        Shape {
+                          appearance 
+                          Appearance {
+                            material 
+                            Material {
+                              diffuseColor 0.0291577 0.026292199 0.026964201
+                              ambientIntensity 0.0069709397
+                              specularColor 0.64160901 0.97620797 0.97959203
+                              shininess 0.061224502
+
+                            }
+
+                          }
+                          geometry 
+                          Sphere {
+                            radius 0.081214301
+
+                          }
+
+                        } ]
+
+                    }
+
+                }
+
+            },
+              
+            WorldInfo {
+              title "<Undefined info>"
+
+            },
+              
+            Group {
+              children 
+                Transform {
+                  translation -0.109299 -0.098698497 -0.024215
+                  rotation -0.99999994 -5.9566098e-008 -5.9569093e-008  1.5707902
+                  scale 0.99999499 1.0774601 0.091271304
+                  scaleOrientation 0 0 1  0
+                  center 0 0 0
+                  children 
+                    Group {
+                      children [ 
+                        WorldInfo {
+                          title "solid"
+
+                        },
+                          
+                        Shape {
+                          appearance 
+                          Appearance {
+                            material 
+                            Material {
+                              diffuseColor 0.0291577 0.026292199 0.026964201
+                              ambientIntensity 0.0069709397
+                              specularColor 0.64160901 0.97620797 0.97959203
+                              shininess 0.061224502
+
+                            }
+
+                          }
+                          geometry 
+                          Box {
+                            size 0.34017301 0.43524501 0.34017301
+
+                          }
+
+                        } ]
+
+                    }
+
+                }
+
+            } ]
+
+        },
+          
+        WorldInfo {
+          title "7"
+
+        } ]
+
+    }
+
+}
