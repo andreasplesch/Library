@@ -1,0 +1,589 @@
+#VRML V2.0 utf8
+
+DEF Home Viewpoint {
+    position	-0.0471987 0.220774 11.435
+    description	"Home"
+}
+NavigationInfo {
+    type	[ "EXAMINE", "ANY" ]
+}
+Collision {
+    collide FALSE
+    children [
+	Group {
+	    children [
+		DEF Cameras Switch {
+		    whichChoice	-1
+		},
+		Group {
+		    children [
+			Group {
+			    children [
+				Transform {
+				    translation	-0.0423164 1.34048 0
+				    scale	0.51 0.51 0.51
+				    children [
+					Shape {
+					    appearance
+						Appearance {
+						    material
+							DEF _v2%1 Material {
+							    diffuseColor	0.3 0.3 0.3
+							}
+						}
+					    geometry
+						DEF _0 Sphere {
+						    radius	1
+						}
+					}
+				    ]
+				},
+				Transform {
+				    translation	1.17364 0.658571 0
+				    scale	0.51 0.51 0.51
+				    children [
+					Shape {
+					    appearance
+						Appearance {
+						    material USE _v2%1
+						}
+					    geometry USE _0
+					}
+				    ]
+				},
+				Transform {
+				    translation	1.16498 -0.7371 0
+				    scale	0.51 0.51 0.51
+				    children [
+					Shape {
+					    appearance
+						Appearance {
+						    material USE _v2%1
+						}
+					    geometry USE _0
+					}
+				    ]
+				},
+				Transform {
+				    translation	-0.0423164 -1.43732 0
+				    scale	0.51 0.51 0.51
+				    children [
+					Shape {
+					    appearance
+						Appearance {
+						    material USE _v2%1
+						}
+					    geometry USE _0
+					}
+				    ]
+				},
+				Transform {
+				    translation	-1.24961 -0.7371 0
+				    scale	0.51 0.51 0.51
+				    children [
+					Shape {
+					    appearance
+						Appearance {
+						    material USE _v2%1
+						}
+					    geometry USE _0
+					}
+				    ]
+				},
+				Transform {
+				    translation	-1.25827 0.658571 0
+				    scale	0.51 0.51 0.51
+				    children [
+					Shape {
+					    appearance
+						Appearance {
+						    material USE _v2%1
+						}
+					    geometry USE _0
+					}
+				    ]
+				}
+			    ]
+			}
+		    ]
+		},
+		Group {
+		    children [
+			Group {
+			    children [
+				Transform {
+				    translation	-0.0423164 3.10165 0
+				    scale	0.525 0.525 0.525
+				    children [
+					Shape {
+					    appearance
+						Appearance {
+						    material
+							Material {
+							    diffuseColor	0 0.8 0
+							}
+						}
+					    geometry
+						Sphere {
+						    radius	1
+						}
+					}
+				    ]
+				}
+			    ]
+			}
+		    ]
+		},
+		Group {
+		    children [
+			Group {
+			    children [
+				Transform {
+				    translation	2.10628 1.21157 0
+				    scale	0.36 0.36 0.36
+				    children [
+					Shape {
+					    appearance
+						Appearance {
+						    material
+							DEF _v2%3 Material {
+							    diffuseColor	0.8 0.8 0.8
+							}
+						}
+					    geometry
+						DEF _1 Sphere {
+						    radius	1
+						}
+					}
+				    ]
+				},
+				Transform {
+				    translation	2.10828 -1.27499 0
+				    scale	0.36 0.36 0.36
+				    children [
+					Shape {
+					    appearance
+						Appearance {
+						    material USE _v2%3
+						}
+					    geometry USE _1
+					}
+				    ]
+				},
+				Transform {
+				    translation	-0.0423164 -2.52284 0
+				    scale	0.36 0.36 0.36
+				    children [
+					Shape {
+					    appearance
+						Appearance {
+						    material USE _v2%3
+						}
+					    geometry USE _1
+					}
+				    ]
+				},
+				Transform {
+				    translation	-2.19291 -1.27499 0
+				    scale	0.36 0.36 0.36
+				    children [
+					Shape {
+					    appearance
+						Appearance {
+						    material USE _v2%3
+						}
+					    geometry USE _1
+					}
+				    ]
+				},
+				Transform {
+				    translation	-2.19091 1.21157 0
+				    scale	0.36 0.36 0.36
+				    children [
+					Shape {
+					    appearance
+						Appearance {
+						    material USE _v2%3
+						}
+					    geometry USE _1
+					}
+				    ]
+				}
+			    ]
+			}
+		    ]
+		},
+		Group {
+		    children [
+			Group {
+			    children [
+				Transform {
+				    translation	0.565662 0.999527 0
+				    rotation	0 0 1  4.20129
+				    scale	0.0999999 1.39412 0.1
+				    scaleOrientation	0 0 1  0
+				    children [
+					Shape {
+					    appearance
+						Appearance {
+						    material
+							DEF _v2%5 Material {
+							    diffuseColor	0.3 0.3 0.3
+							}
+						}
+					    geometry
+						DEF _2 Cylinder {
+						    radius	1
+						    height	1
+						}
+					}
+				    ]
+				},
+				Transform {
+				    translation	-0.650295 0.999527 0
+				    rotation	0 0 1  2.08189
+				    scale	0.0999999 1.39412 0.1
+				    scaleOrientation	0 0 1  0
+				    children [
+					Shape {
+					    appearance
+						Appearance {
+						    material USE _v2%5
+						}
+					    geometry
+						Cylinder {
+						    radius	1
+						    height	1
+						}
+					}
+				    ]
+				},
+				Transform {
+				    translation	-0.0423164 1.78077 0
+				    scale	0.1 0.880584 0.1
+				    children [
+					Shape {
+					    appearance
+						Appearance {
+						    material USE _v2%5
+						}
+					    geometry
+						Cylinder {
+						    radius	1
+						    height	1
+						}
+					}
+				    ]
+				},
+				Transform {
+				    translation	1.16931 -0.0392649 0
+				    rotation	0 0 1  3.1354
+				    scale	0.0999999 1.3957 0.1
+				    scaleOrientation	0 0 1  0
+				    children [
+					Shape {
+					    appearance
+						Appearance {
+						    material USE _v2%5
+						}
+					    geometry
+						Cylinder {
+						    radius	1
+						    height	1
+						}
+					}
+				    ]
+				},
+				Transform {
+				    translation	1.4068 0.79682 0
+				    rotation	0 0 -1  1.03558
+				    scale	0.1 0.542128 0.1
+				    scaleOrientation	0 0 1  0
+				    children [
+					Shape {
+					    appearance
+						Appearance {
+						    material USE _v2%5
+						}
+					    geometry
+						Cylinder {
+						    radius	1
+						    height	1
+						}
+					}
+				    ]
+				},
+				Transform {
+				    translation	0.56133 -1.08721 0
+				    rotation	0 0 1  2.09638
+				    scale	0.1 1.39566 0.1
+				    scaleOrientation	0 0 1  0
+				    children [
+					Shape {
+					    appearance
+						Appearance {
+						    material USE _v2%5
+						}
+					    geometry
+						Cylinder {
+						    radius	1
+						    height	1
+						}
+					}
+				    ]
+				},
+				Transform {
+				    translation	1.4008 -0.871572 0
+				    rotation	0 0 1  4.19416
+				    scale	0.1 0.542943 0.1
+				    scaleOrientation	0 0 1  0
+				    children [
+					Shape {
+					    appearance
+						Appearance {
+						    material USE _v2%5
+						}
+					    geometry
+						Cylinder {
+						    radius	1
+						    height	1
+						}
+					}
+				    ]
+				},
+				Transform {
+				    translation	-0.645962 -1.08721 0
+				    rotation	0 0 1  1.04522
+				    scale	0.1 1.39566 0.1
+				    scaleOrientation	0 0 1  0
+				    children [
+					Shape {
+					    appearance
+						Appearance {
+						    material USE _v2%5
+						}
+					    geometry
+						Cylinder {
+						    radius	1
+						    height	1
+						}
+					}
+				    ]
+				},
+				Transform {
+				    translation	-0.0423164 -1.7087 0
+				    rotation	0 0 1  3.14159
+				    scale	0.1 0.542761 0.1
+				    children [
+					Shape {
+					    appearance
+						Appearance {
+						    material USE _v2%5
+						}
+					    geometry
+						Cylinder {
+						    radius	1
+						    height	1
+						}
+					}
+				    ]
+				},
+				Transform {
+				    translation	-1.25394 -0.0392649 0
+				    rotation	0 0 1  0.00621481
+				    scale	0.1 1.3957 0.1
+				    scaleOrientation	0 0 1  0
+				    children [
+					Shape {
+					    appearance
+						Appearance {
+						    material USE _v2%5
+						}
+					    geometry
+						Cylinder {
+						    radius	1
+						    height	1
+						}
+					}
+				    ]
+				},
+				Transform {
+				    translation	-1.48544 -0.871572 0
+				    rotation	0 0 1  2.08903
+				    scale	0.1 0.542943 0.1
+				    scaleOrientation	0 0 1  0
+				    children [
+					Shape {
+					    appearance
+						Appearance {
+						    material USE _v2%5
+						}
+					    geometry
+						Cylinder {
+						    radius	1
+						    height	1
+						}
+					}
+				    ]
+				},
+				Transform {
+				    translation	-1.49143 0.79682 0
+				    rotation	0 0 1  1.03558
+				    scale	0.1 0.542129 0.1
+				    scaleOrientation	0 0 1  0
+				    children [
+					Shape {
+					    appearance
+						Appearance {
+						    material USE _v2%5
+						}
+					    geometry
+						Cylinder {
+						    radius	1
+						    height	1
+						}
+					}
+				    ]
+				}
+			    ]
+			}
+		    ]
+		},
+		Group {
+		    children [
+			Group {
+			    children [
+				Transform {
+				    translation	-0.0423164 2.66136 0
+				    rotation	0 0 1  3.14159
+				    scale	0.1 0.880584 0.1
+				    children [
+					Shape {
+					    appearance
+						Appearance {
+						    material
+							Material {
+							    diffuseColor	0 0.8 0
+							}
+						}
+					    geometry
+						Cylinder {
+						    radius	1
+						    height	1
+						}
+					}
+				    ]
+				}
+			    ]
+			}
+		    ]
+		},
+		Group {
+		    children [
+			Group {
+			    children [
+				Transform {
+				    translation	1.87312 1.07332 0
+				    rotation	0 0 1  2.10601
+				    scale	0.1 0.542128 0.1
+				    scaleOrientation	0 0 1  0
+				    children [
+					Shape {
+					    appearance
+						Appearance {
+						    material
+							DEF _v2%7 Material {
+							    diffuseColor	0.8 0.8 0.8
+							}
+						}
+					    geometry
+						DEF _3 Cylinder {
+						    radius	1
+						    height	1
+						}
+					}
+				    ]
+				},
+				Transform {
+				    translation	1.87246 -1.14051 0
+				    rotation	0 0 1  1.05257
+				    scale	0.1 0.542943 0.1
+				    scaleOrientation	0 0 1  0
+				    children [
+					Shape {
+					    appearance
+						Appearance {
+						    material USE _v2%7
+						}
+					    geometry
+						Cylinder {
+						    radius	1
+						    height	1
+						}
+					}
+				    ]
+				},
+				Transform {
+				    translation	-0.0423164 -2.25146 0
+				    scale	0.1 0.542761 0.1
+				    children [
+					Shape {
+					    appearance
+						Appearance {
+						    material USE _v2%7
+						}
+					    geometry
+						Cylinder {
+						    radius	1
+						    height	1
+						}
+					}
+				    ]
+				},
+				Transform {
+				    translation	-1.95709 -1.14051 0
+				    rotation	0 0 -1  1.05257
+				    scale	0.1 0.542943 0.1
+				    scaleOrientation	0 0 1  0
+				    children [
+					Shape {
+					    appearance
+						Appearance {
+						    material USE _v2%7
+						}
+					    geometry
+						Cylinder {
+						    radius	1
+						    height	1
+						}
+					}
+				    ]
+				},
+				Transform {
+				    translation	-1.95775 1.07332 0
+				    rotation	0 0 1  4.17718
+				    scale	0.1 0.542129 0.1
+				    scaleOrientation	0 0 1  0
+				    children [
+					Shape {
+					    appearance
+						Appearance {
+						    material USE _v2%7
+						}
+					    geometry
+						Cylinder {
+						    radius	1
+						    height	1
+						}
+					}
+				    ]
+				}
+			    ]
+			}
+		    ]
+		}
+	    ]
+	}
+    ]
+}
+

@@ -1,0 +1,235 @@
+#VRML V2.0 utf8
+
+WorldInfo {
+   title    "Chlorobenzene"
+}
+NavigationInfo {
+   type	    "EXAMINE"
+}
+DEF Home Viewpoint {
+    position    0  0 15
+    description "Home"
+}
+DEF Perspect Viewpoint {
+    position    -10.486 -6.486 6.705
+    orientation    0.6324 -0.6324 -0.3 1.1073875
+    description "Perspective"
+}
+DEF Axis Viewpoint {
+    position    0 15 0
+    orientation    1 0 0 -1.570796
+    description "Cl-C Axis"
+}
+DEF Ortho Viewpoint {
+    position    12.99 7.5 0
+    orientation    0.5 -0.866 0 -1.570796
+    description "Ortho"
+}
+DEF Meta Viewpoint {
+    position    12.99 -7.5 0
+    orientation    -0.5 -0.866 0 -1.570796
+    description "Meta"
+}
+DEF Para Viewpoint {
+    position    0 -15 0
+    orientation    1 0 0 1.570796
+    description "Para"
+}
+Group {
+   children [
+      Inline {
+	 url   "cl/chloro-1h/chloro_cl-1h.wrl"
+      }
+      Inline {
+	 url   "cl/chloro-2h/chloro_cl-2h.wrl"
+      }
+      Inline {
+	 url   "co/chloro-1h/chloro_co-1h.wrl"
+      }
+      Inline {
+	 url   "co/chloro-2h/chloro_co-2h.wrl"
+      }
+      Inline {
+	 url   "co/chloro-3h/chloro_co-3h.wrl"
+      }
+      Inline {
+	 url   "coc/chloro-2h/chloro_coc-2h.wrl"
+      }
+      Inline {
+	 url   "coh/chloro-2h/chloro_coh-2h.wrl"
+      }
+      Inline {
+	 url   "coh/chloro-3h/chloro_coh-3h.wrl"
+      }
+      Inline {
+	 url   "f/chloro-3h/chloro_f-3h.wrl"
+      }
+      Inline {
+	 url   "hoh/chloro-2h/chloro_hoh-2h.wrl"
+      }
+      Inline {
+	 url   "hoh/chloro-3h/chloro_hoh-3h.wrl"
+      }
+      Inline {
+	 url   "n1/chloro-2h/chloro_n1-2h.wrl"
+      }
+      Inline {
+	 url   "n2/chloro-3h/chloro_n2-3h.wrl"
+      }
+      Inline {
+	 url   "n3/chloro-2h/chloro_n3-2h.wrl"
+      }
+      Inline {
+	 url "hehxib/hehxib.wrl"
+      }
+      Inline {
+	 url "chlorobenzenemol.wrl"
+      }
+
+   ]
+}
+
+Collision
+{
+   collide FALSE
+   children
+   [
+      Group
+      {
+	 children DEF surf Switch
+	 {
+	    whichChoice 1
+	    choice
+	    [
+	       Group {
+		  children [
+		     Inline {
+			url "chlorobenzeneisop.wrl"
+		     }
+		     Inline {
+			url "chlorobenzeneison.wrl"
+		     }
+		  ]
+	       }
+	    ]
+	    whichChoice 2
+	    choice
+	    [
+	       Group {
+	          children [
+		     Transform {
+			children [
+			   Inline {
+			      url "chlorobenzenecs.wrl"
+			   }
+			]
+		     }
+	             DEF HudGroup Collision {
+	                children [
+	                   DEF HudProx ProximitySensor {
+	                      size 500 500 500
+	                   }
+	                   DEF HudXform Transform {
+	                      children [
+	                         Transform {
+	                            children [
+	                               Inline {
+	                                  url "colourbar.wrl"
+	                               }
+	                            ]
+	                            translation -80 25 -500
+	                            scale 175 175 175
+	                         }
+	                      ]
+	                   }
+	                ]
+	                collide FALSE
+	                proxy NULL
+	             }
+	          ]
+	       }
+	    ]
+	 }
+      }
+   ]
+}
+
+Group
+{
+   children
+   [
+      DEF HudGroupSurf Collision
+      {
+	 children
+	 [
+	    DEF HudProxSurf ProximitySensor
+	    {
+	       size 500 500 500
+	    }
+	    DEF HudXformSurf Transform
+	    {
+	       children
+	       [
+		  Transform
+		  {
+		     children
+		     [
+			DEF touchSensorTrigger TouchSensor {}
+			Shape
+			{
+			   appearance Appearance {material Material {diffuseColor 0 0 1}}
+			   geometry Text {fontStyle FontStyle{size 10.0 spacing 10.0} string["Toggle surface"]}
+			}
+			Transform
+			{
+			   children
+			   [
+			      Shape
+			      {
+				 appearance Appearance {material Material {transparency 1}}
+				 geometry Box {size 100 10 10}
+			      }
+			   ]
+			   translation 50 10 10
+			}
+		     ]
+		     translation -40 -35 -100
+		     rotation 0 0 1 0
+		     scale 0.2 0.2 0.2
+		  }
+	       ]
+	    }
+	 ]
+	 collide FALSE
+	 proxy NULL
+      }
+   ]
+}
+
+Group
+{
+   children DEF Surf Script
+   {
+      eventOut SFInt32 nextActive
+      eventIn SFTime clicked
+      field SFInt32 whichActive 0
+      url "vrmlscript: function clicked()
+      {
+	 whichActive = whichActive + 1;
+	 if (whichActive > 2)
+	 {
+	    whichActive = 0;
+	 }
+	 nextActive = whichActive;
+      }"
+   }
+}
+
+ROUTE HudProx.position_changed TO HudProx.set_center
+ROUTE HudProx.position_changed TO HudXform.set_translation
+ROUTE HudProx.orientation_changed TO HudXform.set_rotation
+ROUTE Surf.nextActive TO surf.set_whichChoice
+ROUTE touchSensorTrigger.touchTime TO Surf.clicked
+ROUTE HudProxSurf.position_changed TO HudProxSurf.set_center
+ROUTE HudProxSurf.position_changed TO HudXformSurf.set_translation
+ROUTE HudProxSurf.orientation_changed TO HudXformSurf.set_rotation
