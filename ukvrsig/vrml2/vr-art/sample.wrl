@@ -1,0 +1,205 @@
+#VRML V2.0 utf8
+
+
+Group {
+  children [ 
+    Group {
+      children 
+        Transform {
+          translation 0 4 0
+          children [ 
+            Group {
+              children 
+                Shape {
+                  appearance 
+                  Appearance {
+                    material 
+                    Material {
+                      emissiveColor 0.1 0.30000001 0.30000001
+
+                    }
+
+                  }
+                  geometry 
+                  Box {
+                    size 0.1 0.1 4
+
+                  }
+
+                }
+
+            },
+              
+            Transform {
+              rotation 0 0.99999994 0  1.5707902
+              children [ 
+                Group {
+                  children 
+                    Shape {
+                      appearance 
+                      Appearance {
+                        material 
+                        Material {
+                          emissiveColor 0.30000001 0.1 0.30000001
+
+                        }
+
+                      }
+                      geometry 
+                      Cylinder {
+                        radius 0.1
+                        height 0.2
+
+                      }
+
+                    }
+
+                },
+                  
+                Transform {
+                  rotation -0.99999994 0 0  1.5707902
+                  children 
+                    Group {
+                      children 
+                        Transform {
+                          rotation 0.99999994 0 0  1.5707902
+                          children 
+                            Transform {
+                              translation 0 -0.2 0
+                              children [ 
+                                Shape {
+                                  appearance 
+                                  Appearance {
+                                    material 
+                                    Material {
+                                      emissiveColor 0.30000001 0.30000001 0.1
+
+                                    }
+
+                                  }
+                                  geometry 
+                                  Cone {
+                                    bottomRadius 0.2
+                                    height 0.40000001
+
+                                  }
+
+                                },
+                                  
+                                Transform {
+                                  translation 0 0.40000001 0
+                                  children 
+                                    Shape {
+                                      appearance 
+                                      Appearance {
+                                        material 
+                                        Material {
+                                          emissiveColor 0.30000001 0.30000001 0.1
+
+                                        }
+
+                                      }
+                                      geometry 
+                                      Cylinder {
+                                        radius 0.02
+                                        height 0.40000001
+
+                                      }
+
+                                    }
+
+                                } ]
+
+                            }
+
+                        }
+
+                    }
+
+                } ]
+
+            } ]
+
+        }
+
+    },
+      
+    SpotLight {
+      on TRUE
+      intensity 0.89999998
+      color 1 1 1
+      location 0 4 0
+      direction 0 -1 0
+      cutOffAngle 0.69999999
+
+    },
+      
+    Group {
+      children 
+        Shape {
+          appearance 
+          Appearance {
+            material 
+            Material {
+
+            }
+
+          }
+          geometry 
+          IndexedFaceSet {
+            coord 
+            Coordinate {
+              point [ -2 0 -2,
+                  -2 0 2,
+                  2 0 2,
+                  2 0 -2,
+                  -2 4 -2,
+                  -2 4 2,
+                  2 4 2,
+                  2 4 -2 ]
+
+            }
+            normal 
+            Normal {
+              vector [  ]
+
+            }
+            coordIndex [ 0, 1, 2, 3, -1, 0, 4, 5,
+                1, -1, 0, 3, 7, 4, -1 ]
+            ccw TRUE
+            solid FALSE
+            convex TRUE
+            creaseAngle 0
+
+          }
+
+        }
+
+    },
+      
+    Group {
+      children [ 
+        WorldInfo {
+          title "Unsupported node: WWWAnchor"
+
+        },
+          
+        Group {
+          children 
+            Transform {
+              translation 0 1 0
+              children 
+                Inline {
+                  bboxCenter 0 0 0
+                  bboxSize 0 0 0
+                  url "http://www.foo.edu/3DObjects/cow.wrl"
+
+                }
+
+            }
+
+        } ]
+
+    } ]
+
+}

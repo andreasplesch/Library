@@ -1,0 +1,182 @@
+#VRML V2.0 utf8
+
+
+Group {
+  children [ 
+    WorldInfo {
+      title "Unsupported node: WWWAnchor"
+
+    },
+      
+    Transform {
+      scale 4 4 4
+      children [ 
+        Group {
+          children 
+            Transform {
+              translation -0.0099999998 0.016000001 -0.068999998
+              rotation 0 0 1  0
+              scale 1 1 0.88999999
+              scaleOrientation 0 0 1  0
+              center 0 0 0
+              children 
+                Shape {
+                  appearance 
+                  Appearance {
+                    material 
+                    Material {
+                      diffuseColor 0.30000001 0.5 0.25
+                      ambientIntensity 0.089453124
+                      shininess 0.50999999
+
+                    }
+
+                  }
+                  geometry 
+                  Box {
+                    size 0.41999999 0.47 0.41999999
+
+                  }
+
+                }
+
+            }
+
+        },
+          
+        Group {
+          children 
+            Transform {
+              translation 0.059999999 0.11 0.15000001
+              rotation 0 0 1  0
+              scale 1 1 1
+              scaleOrientation 0 0 1  0
+              center 0 0 0
+              children 
+                Shape {
+                  appearance 
+                  Appearance {
+                    material 
+                    Material {
+                      diffuseColor 0.2 0.1 0.30000001
+                      ambientIntensity 0.050191406
+                      shininess 0.133333
+
+                    }
+
+                  }
+                  geometry 
+                  DEF EyeCube Box {
+                    size 0.059999999 0.090000004 0.059999999
+
+                  }
+
+                }
+
+            }
+
+        },
+          
+        Group {
+          children 
+            Transform {
+              translation -0.079999998 0.1 0.15000001
+              rotation 0 0 1  0
+              scale 1 1 1
+              scaleOrientation 0 0 1  0
+              center 0 0 0
+              children 
+                Shape {
+                  appearance 
+                  Appearance {
+                    material 
+                    Material {
+                      diffuseColor 0.2 0.1 0.30000001
+                      ambientIntensity 0.050191406
+                      shininess 0.133333
+
+                    }
+
+                  }
+                  geometry 
+                  DEF EyeCube Box {
+                    size 0.059999999 0.090000004 0.059999999
+
+                  }
+
+                }
+
+            }
+
+        },
+          
+        Group {
+          children 
+            Transform {
+              translation 0.0040000002 -0.1 0.15000001
+              rotation 0 0 1  0
+              scale 1 1.02 1
+              scaleOrientation 0 1 0  0.78539801
+              center 0 0 0
+              children 
+                Shape {
+                  appearance 
+                  Appearance {
+                    material 
+                    Material {
+                      diffuseColor 0.91000003 0.44 0.34999999
+                      ambientIntensity 0.14371485
+                      specularColor 0.34999999 0.14 0
+                      shininess 0.13
+
+                    }
+
+                  }
+                  geometry 
+                  Box {
+                    size 0.30000001 0.059999999 0.059999999
+
+                  }
+
+                }
+
+            }
+
+        },
+          
+        Group {
+          children 
+            Transform {
+              translation -0.0063 0.023 0.13
+              rotation -0.088070765 0.025020102 0.99580008  0.54299992
+              scale 1 0.80000001 1
+              scaleOrientation 0 0 1  0
+              center 0 0 0
+              children 
+                Shape {
+                  appearance 
+                  Appearance {
+                    material 
+                    Material {
+                      diffuseColor 0.28 0.1 0.079999998
+                      ambientIntensity 0.036953125
+                      shininess 0.097000003
+
+                    }
+
+                  }
+                  geometry 
+                  Box {
+                    size 0.035999998 0.048 0.035999998
+
+                  }
+
+                }
+
+            }
+
+        } ]
+
+    } ]
+
+}
