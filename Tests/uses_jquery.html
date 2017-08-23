@@ -33,7 +33,7 @@ X3DCanvas {
 
 <script>
 	          // Create the sliders
-$(".slider").slider({min: 0, max: 255, step: 1, slide: function(e, ui) {
+$(".slider").slider({min: 0, max: 255, step: 1, value: 128, slide: function(e, ui) {
 	var newCol =   $("#redSlider").slider('option', 'value') + ", " 
 	     + $("#greenSlider").slider('option', 'value') + ", "  
 	     + $("#blueSlider").slider('option', 'value');              
