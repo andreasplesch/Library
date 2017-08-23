@@ -12,7 +12,7 @@ X3DCanvas {
 }
    </style>
    </head>
-   <body>
+   <body onload='init()'>
       <X3DCanvas url='  "https://cdn.rawgit.com/create3000/Library/master/Examples/LogoPieces/index.x3d"  '>
          <p>Your browser may not support all features required by Cobweb!</p>
       </X3DCanvas>
@@ -26,13 +26,12 @@ X3DCanvas {
             </ul>
         </div>
     </div>  
-
+</body>
 <!--script type="text/javascript" src="https://code.jquery.com/jquery-3.1.1.min.js"></script-->
 <link type="text/css" href="https://code.jquery.com/ui/1.12.1/themes/humanity/jquery-ui.css" rel="stylesheet" />
 <!--script type="text/javascript" src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script-->
 
 <script>
-document.onload='init()';
 function init() {
 X3D(function()
 	{
@@ -51,5 +50,5 @@ function (error)
 	});
 }
 </script>
-</body>
+
 </html>
