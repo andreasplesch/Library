@@ -33,23 +33,25 @@ X3DCanvas {
 
 <script>
 function init() {
-X3D(function()
-	{require(["jquery","jquery-ui"],
-		 function($, jqueryui){
+// X3D(function()
+// 	{require(["jquery","jquery-ui"],
+// 		 function($){
 	          // Create the sliders
-$(".slider").slider({min: 0, max: 255, step: 1, value: 128, slide: function(e, ui) {
+window.setTimeout(function(){
+	$(".slider").slider({min: 0, max: 255, step: 1, value: 128, slide: function(e, ui) {
 	var newCol =   $("#redSlider").slider('option', 'value') + ", " 
 	     + $("#greenSlider").slider('option', 'value') + ", "  
 	     + $("#blueSlider").slider('option', 'value');              
 	$("#ctrlContainer").css("background", "rgb("+newCol+")");
 }});
-		});
-	},
-function (error)
-	{
-  // Error callback, no browser.
-  console .error (error);
-	});
+}, 1000);
+// 		});
+// 	},
+// function (error)
+// 	{
+//   // Error callback, no browser.
+//   console .error (error);
+// 	});
 }
 </script>
 
