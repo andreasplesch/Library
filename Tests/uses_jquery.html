@@ -32,6 +32,7 @@ X3DCanvas {
 <script type="text/javascript" src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
 
 <script>
+	X3D(function(){
 	          // Create the sliders
 $(".slider").slider({min: 0, max: 255, step: 1, value: 128, slide: function(e, ui) {
 	var newCol =   $("#redSlider").slider('option', 'value') + ", " 
@@ -39,6 +40,7 @@ $(".slider").slider({min: 0, max: 255, step: 1, value: 128, slide: function(e, u
 	     + $("#blueSlider").slider('option', 'value');              
 	$("#ctrlContainer").css("background", "rgb("+newCol+")");
 }});
+	});
 </script>
 </body>
 </html>
