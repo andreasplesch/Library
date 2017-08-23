@@ -34,8 +34,8 @@ X3DCanvas {
 <script>
 function init() {
 X3D(function()
-	{require(["jquery"],
-		 function($){
+	{require(["jquery","jquery-ui"],
+		 function($, jqueryui){
 	          // Create the sliders
 $(".slider").slider({min: 0, max: 255, step: 1, value: 128, slide: function(e, ui) {
 	var newCol =   $("#redSlider").slider('option', 'value') + ", " 
