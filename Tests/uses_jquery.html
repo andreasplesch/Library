@@ -34,7 +34,8 @@ X3DCanvas {
 <script>
 function init() {
 X3D(function()
-	{
+	{require($,
+		 function($){
 	          // Create the sliders
 $(".slider").slider({min: 0, max: 255, step: 1, value: 128, slide: function(e, ui) {
 	var newCol =   $("#redSlider").slider('option', 'value') + ", " 
@@ -42,6 +43,7 @@ $(".slider").slider({min: 0, max: 255, step: 1, value: 128, slide: function(e, u
 	     + $("#blueSlider").slider('option', 'value');              
 	$("#ctrlContainer").css("background", "rgb("+newCol+")");
 }});
+		});
 	},
 function (error)
 	{
