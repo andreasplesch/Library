@@ -1,53 +1,47 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang = "en">
    <head>
-      <meta charset="utf-8">
-   
+      <meta charset = "utf-8">
+      <title>jQuery UI Slider functionality</title>
+ 
+		<!-- First  include Excite X3D -->
       <link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/create3000/excite/master/dist/excite.css"/>
       <script type="text/javascript" src="https://cdn.rawgit.com/create3000/excite/master/dist/excite.js"></script>
-      <script type="text/javascript" src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-      <script type="text/javascript" src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<link type="text/css" href="https://code.jquery.com/ui/1.12.1/themes/humanity/jquery-ui.css" rel="stylesheet" />
-
-   <style>
+	
+		<!-- Must  include jQuery UI after Excite X3D -->
+      <link href = "https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel = "stylesheet"/>
+      <script src = "https://code.jquery.com/jquery-latest.js"></script>
+      <script src = "https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+      
+      <style>
 X3DCanvas {
    width: 768px;
    height: 432px;
 }
-   </style>
-<script>
-//function init() {
-// X3D(function()
-// 	{require(["jquery","jquery-ui"],
-// 		 function($){
-	          // Create the sliders
-//window.setTimeout(function(){
+      </style>
+
+      <!-- Javascript -->
+      <script>
 $(function()
 {
-	$(".slider").slider({min: 0, max: 255, step: 1, value: 128, slide: function(e, ui) {
-	var newCol =   $("#redSlider").slider('option', 'value') + ", " 
-	     + $("#greenSlider").slider('option', 'value') + ", "  
-	     + $("#blueSlider").slider('option', 'value');              
-	$("#ctrlContainer").css("background", "rgb("+newCol+")");
+	// Create the sliders
+	$(".slider") .slider ({ min: 0, max: 255, step: 1, value: 128, slide: function(e, ui)
+	{
+		var newCol = $("#redSlider") .slider('option', 'value') + ", "
+		             + $("#greenSlider") .slider('option', 'value') + ", "
+		             + $("#blueSlider") .slider('option', 'value');
+
+		$("#ctrlContainer").css("background", "rgb("+newCol+")");
 	}});
 });
-//}, 1000);
-// 		});
-// 	},
-// function (error)
-// 	{
-//   // Error callback, no browser.
-//   console .error (error);
-// 	});
-//}
-</script>
-
+      </script>
    </head>
-   <body onload_='init()'>
+   
+   <body>
       <X3DCanvas url='  "https://cdn.rawgit.com/create3000/Library/master/Examples/LogoPieces/index.x3d"  '>
          <p>Your browser may not support all features required by Cobweb!</p>
       </X3DCanvas>
-   <div id="ctrlContainer">
+      <div id="ctrlContainer">
         <p>Change the color of the cube using the RGB sliders, which updates the "diffuseColor" attribute of the Material node using jQuery.</p>
         <div id="sliderContainer">
             <ul>
@@ -56,7 +50,6 @@ $(function()
                 <li><label>Blue</label><div id="blueSlider" class="slider"/></li>
             </ul>
         </div>
-    </div>  
-</body>
-
+      </div>  
+   </body>
 </html>
