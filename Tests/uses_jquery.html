@@ -15,23 +15,6 @@ X3DCanvas {
    height: 432px;
 }
    </style>
-   </head>
-   <body onload='init()'>
-      <X3DCanvas url='  "https://cdn.rawgit.com/create3000/Library/master/Examples/LogoPieces/index.x3d"  '>
-         <p>Your browser may not support all features required by Cobweb!</p>
-      </X3DCanvas>
-   <div id="ctrlContainer">
-        <p>Change the color of the cube using the RGB sliders, which updates the "diffuseColor" attribute of the Material node using jQuery.</p>
-        <div id="sliderContainer">
-            <ul>
-                <li><label>Red</label><div id="redSlider" class="slider"/></li>
-                <li><label>Green</label><div id="greenSlider" class="slider"/></li>
-                <li><label>Blue</label><div id="blueSlider" class="slider"/></li>
-            </ul>
-        </div>
-    </div>  
-</body>
-
 <script>
 function init() {
 // X3D(function()
@@ -58,5 +41,22 @@ $(function()
 // 	});
 }
 </script>
+
+   </head>
+   <body onload='init()'>
+      <X3DCanvas url='  "https://cdn.rawgit.com/create3000/Library/master/Examples/LogoPieces/index.x3d"  '>
+         <p>Your browser may not support all features required by Cobweb!</p>
+      </X3DCanvas>
+   <div id="ctrlContainer">
+        <p>Change the color of the cube using the RGB sliders, which updates the "diffuseColor" attribute of the Material node using jQuery.</p>
+        <div id="sliderContainer">
+            <ul>
+                <li><label>Red</label><div id="redSlider" class="slider"/></li>
+                <li><label>Green</label><div id="greenSlider" class="slider"/></li>
+                <li><label>Blue</label><div id="blueSlider" class="slider"/></li>
+            </ul>
+        </div>
+    </div>  
+</body>
 
 </html>
