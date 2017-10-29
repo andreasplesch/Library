@@ -1,18 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE X3D PUBLIC "ISO//Web3D//DTD X3D 3.0//EN" "http://www.web3d.org/specifications/x3d-3.0.dtd">
-<X3D profile='Full' >
+<!DOCTYPE X3D PUBLIC "ISO//Web3D//DTD X3D 3.3//EN" "http://www.web3d.org/specifications/x3d-3.3.dtd">
+<X3D profile='Immersive' version='3.3'  xmlns:xsd='http://www.w3.org/2001/XMLSchema-instance' xsd:noNamespaceSchemaLocation =' http://www.web3d.org/specifications/x3d-3.3.xsd '>
+<head>
+  <meta name='title' content='The Puppeteer'/> 
+  <meta name='description' content='Animation, media, events'/> 
+  <meta name='creator' content='Adeniké Turner'/> 
+  <meta name='created' content='2004'/> 
+  <meta name='modified' content='October 2017'/> 
+  <meta name='Image' content='todo.png'/> 
+  <meta name='hint' content='compliance fixes'/> 
+  <meta name='rights' content='Copyright (c) Adeniké Turner, 2004'/> 
+  <meta name='identifier' content=''/> 
+  <meta name='generator' content='Vizx3D, Virtock Tech.'/> 
+  <meta name='license' content='original model license unknown, further information welcome'/>
+  <meta name='note' content='for educational purposes, no rights for commercial use are implied'/>
+</head> 
 <Scene>
-<WorldInfo
-  title="The Puppeteer"
-  info='"This Web3D World was created with Vizx3D, a Web3D authoring tool"
-  "www.vizx3d.com"
-  "by Adenik"
-  " Turner"
-  "email: nt@xyz23.freeserve.co.uk"'
-/>
-<Transform DEF='dad_GROUND'
->
-
+<Transform DEF='dad_GROUND'>
   <Group DEF='GROUND'>
     <Transform DEF='dad_puppeteer'
       translation='0 1.7 0'
