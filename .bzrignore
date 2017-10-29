@@ -1,15 +1,5 @@
-*.Tpo
-*.o
-*.d
-*.Po
-*.Plo
-*.lo
-*.la
-*.lai
-*.so
-*.dirstamp
-*.so.*
 .git
-.libs
-.deps
+
+*.otf
+*.ttf
 
