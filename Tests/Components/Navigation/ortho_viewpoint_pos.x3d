@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE X3D PUBLIC "ISO//Web3D//DTD X3D 3.3//EN" "http://www.web3d.org/specifications/x3d-3.3.dtd">
+<X3D profile='Full' version='3.3' xmlns:xsd='http://www.w3.org/2001/XMLSchema-instance' xsd:noNamespaceSchemaLocation='http://www.web3d.org/specifications/x3d-3.3.xsd'>
+  <Scene>
+    <OrthoViewpoint position='1.5 1.5 10' fieldOfView='-2.5 -2.5 2.5 2.5' description='default' />
+    <!--
+    # since Box centers are between (0, 0 - 3, 3), and Box sizes are (2, 2, 2),
+    # so below field of view should force the browser to *exactly* align
+    # window borders so they match Boxes borders (in the shorter axis,
+    # usually vertical; in the other axis you will see slightly more)
+    -->
+    <OrthoViewpoint position='1.5 1.5 10' fieldOfView='-2.5 -3.5 2.5 3.5' description='taller' />
+    <Shape DEF='S'>
+      <Appearance>
+        <Material diffuseColor='1 1 0' />
+      </Appearance>
+      <Box />
+    </Shape>
+    <Transform translation='3 0 0'>
+      <Shape USE='S' />
+    </Transform>
+    <Transform translation='0 3 0'>
+      <Shape USE='S' />
+    </Transform>
+    <Transform translation='3 3 0'>
+      <Shape USE='S' />
+    </Transform>
+    <Transform translation='0 0 -3'>
+      <Shape USE='S' />
+    </Transform>
+    <Transform translation='3 0 -3'>
+      <Shape USE='S' />
+    </Transform>
+    <Transform translation='0 3 -3'>
+      <Shape USE='S' />
+    </Transform>
+    <Transform translation='3 3 -3'>
+      <Shape USE='S' />
+    </Transform>
+  </Scene>
+</X3D>
