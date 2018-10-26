@@ -90,7 +90,8 @@ scene.addRoute(
   scene.getNamedNode('ts'), 'fraction_changed',
   sceme.getNamedNode('si'), 'set_fraction'
   );
-
+//output to XML for testing
+var XML = scene.toXMLString();
 
 
 
