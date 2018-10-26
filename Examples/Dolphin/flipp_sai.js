@@ -94,6 +94,7 @@ scene.addRoute(
   );
 //output to XML for testing
 var XML = scene.toXMLString();
+browser.replaceWorld(scene);
 
 
 
