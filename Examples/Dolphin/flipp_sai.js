@@ -3,10 +3,10 @@ X-ITE flavored, external SAI to create in memory scene
 */
 //load X-ITE, with script tag or import
 //..
-function createDolphinScene() 
+function createDolphinScene(browser) 
 {
 
-var browser = X3D.getBrowser(X3D.createBrowser());
+//var browser = X3D.getBrowser(X3D.createBrowser());
 var scene = browser.createScene();
 scene.setProfile = 'Immersive';
 scene.setEncoding = 'SCRIPTED';
@@ -97,7 +97,7 @@ scene.addRoute(
   );
 //output to XML for testing
 var XML = scene.toXMLString();
-browser.replaceWorld(scene);
+//browser.replaceWorld(scene);
 
 return scene;
 };
