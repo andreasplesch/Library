@@ -82,15 +82,15 @@ scene.rootNodes.push(ci);
 //routes
 scene.addRoute(
   scene.getNamedNode('ci'), 'value_changed',
-  sceme.getNamedNode('pointList'), 'set_point'
+  scene.getNamedNode('pointList'), 'set_point'
   );
 scene.addRoute(
   scene.getNamedNode('si'), 'value_changed',
-  sceme.getNamedNode('ci'), 'set_fraction'
+  scene.getNamedNode('ci'), 'set_fraction'
   );
 scene.addRoute(
   scene.getNamedNode('ts'), 'fraction_changed',
-  sceme.getNamedNode('si'), 'set_fraction'
+  scene.getNamedNode('si'), 'set_fraction'
   );
 //output to XML for testing
 var XML = scene.toXMLString();
