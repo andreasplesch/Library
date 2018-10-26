@@ -18,8 +18,9 @@ X3DCanvas {
    </body>
    <script>
       X3D(function(){
-         X3D.getBrowser(document.querySelector('X3DCanvas')).replaceWorld(
-         createDolphinScene()
+         var browser=X3D.getBrowser(document.querySelector('X3DCanvas'));
+         var scene=createDolphinScene(browser);
+         browser.replaceWorld(scene);
          );
       });
       //document.body.append(browser.getElement()[0]);//browser is global from script
