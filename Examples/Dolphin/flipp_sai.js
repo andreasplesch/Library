@@ -5,10 +5,6 @@ X-ITE flavored, external SAI to create in memory scene
 //..
 function createDolphinScene() 
 {
-  var scene;
-
-  X3D(function()
-  {
 
 var browser = X3D.getBrowser(X3D.createBrowser());
 var scene = browser.createScene();
@@ -103,8 +99,7 @@ scene.addRoute(
 var XML = scene.toXMLString();
 browser.replaceWorld(scene);
 
-  });
-  return scene;
+return scene;
 };
 
 
