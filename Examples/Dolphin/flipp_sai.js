@@ -8,8 +8,8 @@ function createDolphinScene(browser)
 
 //var browser = X3D.getBrowser(X3D.createBrowser());
 var scene = browser.createScene();
-scene.setProfile = browser.supportedProfiles.find(
-  function(profile) {return profile.name === 'Immersive'});
+scene.setProfile (browser.supportedProfiles.find(
+  function(profile) {return profile.name === 'Immersive'}));
 scene.setEncoding = 'SCRIPTED';
 //specification version only from xml attribute or vrml, is readOnly per spec.
 //scene header
