@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <meta charset="utf-8">
+      <link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/create3000/x_ite/latest/dist/x_ite.css"/>
+      <script type="text/javascript" src="https://cdn.rawgit.com/create3000/x_ite/latest/dist/x_ite.js"></script>
+      
+   <style>
+X3DCanvas {
+   width: 100%;
+   height: 400px;
+}
+   </style>
+   </head>
+   <body>
+      <X3DCanvas></X3DCanvas>
+   </body>
+   <script>
+      X3D(function(){
+         var browser=X3D.getBrowser(document.querySelector('X3DCanvas'));
+         //browser.replaceWorld(scene);
+         browser.replaceWorld(browser.createX3DFromString(scene.toXMLString()));
+      });
+      //document.body.append(browser.getElement()[0]);//browser is global from script
+   </script>
+</html>
