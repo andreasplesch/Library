@@ -17,8 +17,12 @@ X3DCanvas {
    </body>
    <script>
       X3D(function(){
-         var browser=X3D.getBrowser(document.querySelector('X3DCanvas'));
-         //browser.replaceWorld(scene);
+         var browser = X3D.getBrowser(document.querySelector('X3DCanvas'));
+         var scene = browser.createScene();
+         var bg = new X3D.SFNode(scene.createNode('Background', false));
+         bg.skyColor = X3D.MFColor(X3D.SFColor(0, 0, 1));
+         scene.rootNodes.push(bg);
+         //browser.replaceWorld(scene);//does not work
          browser.replaceWorld(browser.createX3DFromString(scene.toXMLString()));
       });
       //document.body.append(browser.getElement()[0]);//browser is global from script
