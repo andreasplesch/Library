@@ -18,9 +18,10 @@ scene.setMetaData('title','flipp.x3d');
 //add other metadata
 //first root node
 //x-ite requires two-step node creation process
-//createNode creates internal node
+//createNode(,false) creates internal node
 //SFNode is wrapper for easy access to fields
 //var vp = new X3D.SFNode(scene.createNode('Viewpoint', false));
+//createNode(,true) creates accessible node
 var vp = scene.createNode('Viewpoint');
 //since we are outside of script node, we need the X3D namespace/object
 vp.position = new X3D.SFVec3f(0, 0, 800);
@@ -35,17 +36,13 @@ var trafo = scene.createNode('Transform');
 scene.updateNamedNode('trans', trafo);
 trafo.rotation = new X3D.SFRotation(1, 0, 0, 0.78);
 //build up children field
-//var shape = new X3D.SFNode(scene.createNode('Shape', false));
 var shape = scene.createNode('Shape');
-//shape.appearance = new X3D.SFNode(scene.createNode('Appearance', false));
 shape.appearance = scene.createNode('Appearance');
-//shape.appearance.material = new X3D.SFNode(scene.createNode('Material', false));
 shape.appearance.material = scene.createNode('Material');
 scene.updateNamedNode('mat', shape.appearance.material); // also works
 shape.appearance.material.ambientIntensity=0.52;
 shape.appearance.material.diffuseColor=new X3D.SFColor(0.337255, 0.4, 0.788235);
 shape.appearance.material.specularColor=new X3D.SFColor(1, 1, 1);
-//shape.geometry = new X3D.SFNode(scene.createNode('IndexedFaceSet', false));
 shape.geometry = scene.createNode('IndexedFaceSet');
 shape.geometry.creaseAngle = 2;
 shape.geometry.coordIndex = new X3D.MFInt32(
@@ -70,7 +67,6 @@ shape.geometry.coord.point = new X3D.MFVec3f(
 trafo.children = new X3D.MFNode(shape); // just one child
 scene.rootNodes.push(trafo);
 //TimeSensor
-//var ts = new X3D.SFNode(scene.createNode('TimeSensor', false));
 var ts = scene.createNode('TimeSensor');
 scene.updateNamedNode('ts', ts);
 ts.cycleInterval = 2;
@@ -83,7 +79,6 @@ si.key = new X3D.MFFloat(0, 0.5, 1);
 si.keyValue = new X3D.MFFloat(0, 1, 0);
 scene.rootNodes.push(si);
 //coordinate interpolator
-//var ci = new X3D.SFNode(scene.createNode('CoordinateInterpolator', false));
 var ci = scene.createNode('CoordinateInterpolator');
 scene.updateNamedNode('ci', ci);
 ci.key = new X3D.MFFloat(0, 0.5, 1);
