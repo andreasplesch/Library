@@ -1,0 +1,47 @@
+<Scene>
+<HAnimHumanoid DEF='gltf_import' info='"authorName=Adam Smith" "authorEmail=aa" "copyright=(C) 2019 Adam Smith - aa" "humanoidVersion=2.0"' name='nonHumanoid' version='2.0'>
+  <Coordinate DEF='SKINCOORD' containerField='skinCoord' point='
+   -0.25000     0.00000    -0.20000 
+    0.25000     0.00000    -0.20000 
+   -0.25000     0.00000     0.00000 
+    0.25000     0.00000     0.00000 
+   -0.25000     0.00000     0.20000 
+    0.25000     0.00000     0.20000
+'/>
+  <HAnimJoint DEF='glTFrootnode' containerField='skeleton' name='HumanoidRoot' skinCoordIndex='' skinCoordWeight=''> 
+    <HAnimJoint DEF='node_1' name='firstglTFjoint' skinCoordIndex='' skinCoordWeight=''
+     translation='0 -0.2 0' rotation='-1 0 0 1.57'>
+      <HAnimJoint DEF='node_1_IBM' translation='0 0 0.2' name='IBMfirstglTFjoint' skinCoordIndex='0 1' skinCoordWeight='1 1'/>
+      <HAnimJoint DEF='node_2' name='secondglTFjoint' skinCoordIndex='' skinCoordWeight=''
+       translation='0 0 0.2' rotation='-1 0 0 0.5235'>
+        <HAnimJoint DEF='node_2_IBM' translation='0 0 0' name='IBMsecondglTFjoint' skinCoordIndex='2 3 4 5' skinCoordWeight='1 1 1 1'/>
+      </HAnimJoint>
+    </HAnimJoint>
+  </HAnimJoint>
+  <Group containerField='skin'>
+    <Shape DEF='Plane'>
+      <Appearance>
+        <Material diffuseColor='0 0 1' transparency='0.5'/>
+      </Appearance> 
+      <IndexedTriangleSet solid='false' index='
+    0     1    2 
+    2     1    3 
+    2     3    4 
+    4     3    5 
+      '>
+        <Coordinate USE='SKINCOORD'/>
+      </IndexedTriangleSet>
+    </Shape>
+  </Group>
+  <!-- top-level joint references --> 
+  <HAnimJoint USE='glTFrootnode' containerField='joints'/> 
+  <HAnimJoint USE='node_1' containerField='joints'/>
+  <HAnimJoint USE='node_1_IBM' containerField='joints'/>
+  <HAnimJoint USE='node_2' containerField='joints'/>
+  <HAnimJoint USE='node_2_IBM' containerField='joints'/>
+</HAnimHumanoid>
+<TimeSensor DEF='ani0clock' cycleInterval='2' loop='true'/>
+<OrientationInterpolator DEF='ani0rotator' key='0 0.5 1' keyValue='-1 0 0 0 -1 0 0 0.7854 -1 0 0 0'/>
+<ROUTE fromNode='ani0clock' fromField='fraction_changed' toNode='ani0rotator' toField='set_fraction'/>
+<ROUTE fromNode='ani0rotator' fromField='value_changed' toNode='node_2' toField='set_rotation'/>
+</Scene>
