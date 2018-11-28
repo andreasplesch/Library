@@ -20,7 +20,7 @@
   <Group containerField='skin'>
     <Shape DEF='Plane'>
       <Appearance>
-        <Material diffuseColor='1 1 0' transparency='0.0'/>
+        <Material emissiveColor='1 1 0' transparency='0.0'/>
       </Appearance> 
       <IndexedTriangleSet solid='false' index='
     0     1    2 
