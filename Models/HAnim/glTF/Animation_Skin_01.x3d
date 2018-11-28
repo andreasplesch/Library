@@ -12,8 +12,7 @@
     <HAnimJoint DEF='node_1' name='firstglTFjoint' skinCoordIndex='' skinCoordWeight=''
      translation='0 -0.2 0' rotation='-1 0 0 1.57'>
       <HAnimJoint DEF='node_1_IBM' translation='0 0 0.2' name='IBMfirstglTFjoint' skinCoordIndex='0 1' skinCoordWeight='1 1'/>
-      <HAnimJoint DEF='node_2' name='secondglTFjoint' skinCoordIndex='' skinCoordWeight=''
-       translation='0 0 0.2' rotation='-1 0 0 0.5235'>
+      <HAnimJoint DEF='node_2' name='secondglTFjoint' translation='0 0 0.2' rotation='-1 0 0 0.5235'>
         <HAnimJoint DEF='node_2_IBM' translation='0 0 0' name='IBMsecondglTFjoint' skinCoordIndex='2 3 4 5' skinCoordWeight='1 1 1 1'/>
       </HAnimJoint>
     </HAnimJoint>
