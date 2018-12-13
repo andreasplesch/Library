@@ -9,7 +9,7 @@
         <HAnimJoint DEF='hanim_HumanoidRoot' containerField='skeleton' center='0 0.875 0' name='HumanoidRoot'>
           <HAnimSite DEF='hanim_RootView1' name='RootFront'>
             <Transform DEF='hanimcordsys' scale='0.175 0.175 0.175'>
-              <Inline url='"JointCoordinateAxes.x3dv"'/>
+              <!--Inline url='"JointCoordinateAxes.x3dv"'/-->
               <Viewpoint DEF='ballView' description='hanimcoord View'/>
             </Transform>
           </HAnimSite>
