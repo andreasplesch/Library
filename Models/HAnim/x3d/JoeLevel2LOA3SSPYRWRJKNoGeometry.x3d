@@ -1364,7 +1364,9 @@
     <ROUTE fromNode='Stop_r_pinky1RotInterp' fromField='value_changed' toNode='hanim_r_pinky1' toField='set_rotation'/>
     <ROUTE fromNode='Stop_r_pinky2RotInterp' fromField='value_changed' toNode='hanim_r_pinky2' toField='set_rotation'/>
     <ROUTE fromNode='Stop_r_pinky3RotInterp' fromField='value_changed' toNode='hanim_r_pinky3' toField='set_rotation'/>
-    <ROUTE fromNode='HudProx' fromField='orientation_changed' toNode='HudXform' toField='set_rotation'/>
+    
+  <!--ROUTE fromNode='HudProx' fromField='orientation_changed' toNode='HudXform' toField='set_rotation'/-->
+  
     <ROUTE fromNode='Stand_Touch' fromField='touchTime' toNode='PitchTimer' toField='set_stopTime'/>
     <ROUTE fromNode='Stand_Touch' fromField='touchTime' toNode='YawTimer' toField='set_stopTime'/>
     <ROUTE fromNode='Stand_Touch' fromField='touchTime' toNode='RollTimer' toField='set_stopTime'/>
@@ -1446,6 +1448,6 @@
     <ROUTE fromNode='Stop_Touch' fromField='touchTime' toNode='JumpTimer' toField='set_stopTime'/>
     <ROUTE fromNode='Stop_Touch' fromField='touchTime' toNode='KickTimer' toField='set_stopTime'/>
     <ROUTE fromNode='Stop_Touch' fromField='touchTime' toNode='StopTimer' toField='set_startTime'/>
-    <ROUTE fromNode='HudProx' fromField='position_changed' toNode='HudXform' toField='set_translation'/>
+    <!--ROUTE fromNode='HudProx' fromField='position_changed' toNode='HudXform' toField='set_translation'/-->
   </Scene>
 </X3D>
