@@ -101,17 +101,17 @@
 '/>
   <HAnimJoint DEF='glTFrootnode' containerField='skeleton' name='HumanoidRoot' skinCoordIndex='' skinCoordWeight=''> 
     <HAnimJoint DEF='node_2' name='firstglTFjoint' skinCoordIndex='' skinCoordWeight=''
-     translation='0.0,
-                -3.156060017772689e-7,
+     translation='0.0
+                -3.156060017772689e-7
                 -4.1803297996521'
-     rotation='-1, 0, 0, 4.712389' 
+     rotation='-1 0 0 4.712389' 
      rotquat='  -0.7047404050827026,
                 -0.0,
                 -0.0,
                 -0.7094652056694031'>
       <HAnimJoint DEF='node_2_IBM' name='IBMfirstglTFjoint' 
           translation='0.00000     4.18024     0.02793'
-          rotation=' 1, 0, 0, 1.5707963'
+          rotation=' 1 0 0 1.5707963'
           matrix='
     1.00000     0.00000     0.00000     0.00000 
     0.00000     0.00668    -0.99998     0.00000 
@@ -121,12 +121,12 @@
           skinCoordWeight=' 1.00000,1.00000,0.73860,1.00000,0.73860,1.00000,0.73860,1.00000,0.73860,1.00000,0.73860,1.00000,0.73860,1.00000,0.73860,1.00000,0.73860,1.00000,0.73860,1.00000,0.73860,1.00000,0.73860,1.00000,0.73860,1.00000,0.73860,1.00000,0.73860,1.00000,0.73860,1.00000,0.73860,1.00000,0.73860,1.00000,0.73860,1.00000,0.73860,1.00000,0.73860,1.00000,0.73860,1.00000,0.73860,1.00000,0.73860,1.00000,0.73860,1.00000,0.73860,1.00000,0.73860,1.00000,1.00000,0.73860,1.00000,0.73860,1.00000,0.73860,1.00000,0.73860,0.73860,0.73860' />
       <HAnimJoint DEF='node_3' name='secondglTFjoint' skinCoordIndex='' skinCoordWeight=''
        translation='
-                0.0,
-                4.18717098236084,
+                0.0
+                4.18717098236084
                 0.0' >
         <HAnimJoint DEF='node_3_IBM' name='IBMsecondglTFjoint'
            translation='-0.00000    -0.00682     0.02796'
-           rotation='1, 0, 0, 1.5707963'
+           rotation='1 0 0 1.5707963'
            matrix='
     1.00000    -0.00058     0.00000     0.00000 
     0.00000     0.00258    -1.00000     0.00000 
@@ -141,8 +141,8 @@
     <Shape DEF='skinMesh'>
       <Appearance>
         <Material diffuseColor='
-                    0.27963539958000185,
-                    0.6399999856948853,
+                    0.27963539958000185
+                    0.6399999856948853
                     0.21094389259815217' transparency='0.0'/>
       </Appearance> 
       <IndexedTriangleSet solid='true' ccw='false' index='
