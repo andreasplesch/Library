@@ -12,13 +12,48 @@
 <body>
     <X3D xmlns="http://www.web3d.org/specifications/x3d-namespace" showStat="true" showLog="true" width="500px" height="500px">
         <Scene>
-            <!--DirectionalLight direction='-1 -1 -1' intensity='0.4'></DirectionalLight>
-            <DirectionalLight direction='1 -1 -1' intensity='0.4'></DirectionalLight-->
+            <DirectionalLight direction='-1 -1 -1' intensity='0.4'></DirectionalLight>
+            <DirectionalLight direction='1 -1 -1' intensity='0.4'></DirectionalLight>
             <Viewpoint position='0 0 10'></Viewpoint>
             <Background skyColor='0.5 0.5 0.5'></Background>
-            <Transform>
-                <Inline onload='handleLoad(event)' id="inline" nameSpaceName="test1" mapDEFToID="true" url="RiggedSimple.x3d" bboxsize='100 100 100'></Inline>
+            <Transform DEF='fivex3x3'>
+            <Transform DEF='fivex3'>
+                <Transform DEF='five'>
+                    <Transform>
+                        <Inline onload='handleLoad(event)' id="inline" nameSpaceName="test1" mapDEFToID="true" url="RiggedSimple.x3d" bboxsize='100 100 100'></Inline>
+                    </Transform>
+                    <Transform translation='-1 0 0'>
+                        <Inline url="RiggedSimple.x3d" bboxsize='100 100 100'></Inline>
+                    </Transform>
+                    <Transform translation='1 0 0'>
+                        <Inline url="RiggedSimple.x3d" bboxsize='100 100 100'></Inline>
+                    </Transform>
+                    <Transform translation='-2 0 0'>
+                        <Inline url="RiggedSimple.x3d" bboxsize='100 100 100'></Inline>
+                    </Transform>
+                    <Transform translation='2 0 0'>
+                        <Inline url="RiggedSimple.x3d" bboxsize='100 100 100'></Inline>
+                    </Transform>
+                </Transform>
+                <Transform rotation='0 1 0 1.07'>
+                    <Transform USE='five'></Transform>
+                </Transform>
+                <Transform rotation='0 1 0 -1.07'>
+                    <Transform USE='five'></Transform>
+                </Transform>
             </Transform>
+            <Transform rotation='1 0 0 -1.07'>
+                <Transform USE='fivex3'></Transform>
+            </Transform>
+            <Transform rotation='1 0 0 1.07'>
+                <Transform USE='fivex3'></Transform>
+            </Transform>
+            </Transform>
+            <Transform rotation='0 1 0 0.535'>
+                <Transform USE='fivex3x3'></Transform>
+            </Transform>
+            
+            
         </Scene>
     </X3D>
     <label for="x3d-select">Choose an example:</label>
