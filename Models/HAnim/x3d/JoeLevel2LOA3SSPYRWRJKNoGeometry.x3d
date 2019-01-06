@@ -549,7 +549,7 @@
     </Group>
     <Group DEF='Interface'>
       <Transform DEF='cordsysfloor' scale='0.175 0.175 0.175'>
-        <Inline url='"JointCoordinateAxes.x3dv"'/>
+        <!--Inline url='"JointCoordinateAxes.x3dv"'/-->
       </Transform>
       <ProximitySensor DEF='HudProx' size='50 50 50'/>
       <Transform DEF='HudXform'>
