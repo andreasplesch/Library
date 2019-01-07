@@ -31,7 +31,7 @@
 	<Background
 		groundColor="0.60000002384185791 0.60000002384185791 0.60000002384185791"
 		skyColor="0.75 0.75 0.75" />
-	<HAnimHumanoid DEF="HUMANOID"
+	<!--HAnimHumanoid DEF="HUMANOID"
 		name="Humanoid"
 		version="2.0">
 		<HAnimJoint DEF="hanim_HumanoidRoot" containerField="skeleton"
@@ -1939,6 +1939,7 @@
 	<ROUTE fromNode="Kick_vl5Yaw" fromField="value_changed" toNode="hanim_vl5" toField="set_rotation" />
 	<ROUTE fromNode="Kick_whole_bodyRotInterp" fromField="value_changed" toNode="hanim_HumanoidRoot" toField="set_rotation" />
 	<ROUTE fromNode="Kick_whole_bodyTransInterp" fromField="value_changed" toNode="hanim_HumanoidRoot" toField="set_translation" />
+	-->
 	<Group DEF="Interface">
 		<Transform DEF="cordsysfloor"
 			scale="0.17499999701976776 0.17499999701976776 0.17499999701976776">
