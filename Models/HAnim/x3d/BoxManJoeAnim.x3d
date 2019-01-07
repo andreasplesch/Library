@@ -1943,8 +1943,8 @@
 	<Group DEF="Interface">
 		<Transform DEF="cordsysfloor"
 			scale="0.17499999701976776 0.17499999701976776 0.17499999701976776">
-			<Inline
-				url='"JointCoordinateAxes.x3d"' />
+			<!--Inline
+				url='"JointCoordinateAxes.x3d"' /-->
 		</Transform>
 		<!--ProximitySensor DEF="HudProx"
 			size="50 50 50" /-->
@@ -2149,7 +2149,7 @@
 	</Group>
 	<!--ROUTE fromNode="HudProx" fromField="position_changed" toNode="HudXform" toField="set_translation" />
 	<ROUTE fromNode="HudProx" fromField="orientation_changed" toNode="HudXform" toField="set_rotation" /-->
-	<ROUTE fromNode="Stand_Touch" fromField="touchTime" toNode="PitchTimer" toField="set_stopTime" />
+	<!--ROUTE fromNode="Stand_Touch" fromField="touchTime" toNode="PitchTimer" toField="set_stopTime" />
 	<ROUTE fromNode="Stand_Touch" fromField="touchTime" toNode="YawTimer" toField="set_stopTime" />
 	<ROUTE fromNode="Stand_Touch" fromField="touchTime" toNode="RollTimer" toField="set_stopTime" />
 	<ROUTE fromNode="Stand_Touch" fromField="touchTime" toNode="WalkTimer" toField="set_stopTime" />
@@ -2229,6 +2229,6 @@
 	<ROUTE fromNode="Stop_Touch" fromField="touchTime" toNode="RunTimer" toField="set_stopTime" />
 	<ROUTE fromNode="Stop_Touch" fromField="touchTime" toNode="JumpTimer" toField="set_stopTime" />
 	<ROUTE fromNode="Stop_Touch" fromField="touchTime" toNode="KickTimer" toField="set_stopTime" />
-	<ROUTE fromNode="Stop_Touch" fromField="touchTime" toNode="StopTimer" toField="set_startTime" />
+	<ROUTE fromNode="Stop_Touch" fromField="touchTime" toNode="StopTimer" toField="set_startTime" /-->
 </Scene>
 </X3D>
