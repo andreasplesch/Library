@@ -9,14 +9,13 @@
     <component name='Layout' level='2'/>
     <component name='Time' level='2'/>
     <meta name='comment' content='World of Titania'/>
-    <meta name='created' content='Sun, 08 Jul 2018 09:58:21 GMT'/>
-    <meta name='creator' content='Holger Seelig'/>
+    <meta name='created' content='Oct 2019 '/>
+    <meta name='creator' content='Holger Seelig, AP'/>
     <meta name='generator' content='Titania V4.5.7, http://titania.create3000.de'/>
-    <meta name='identifier' content='file:///home/holger/Projekte/Sunrise/src/drive/user/test/components/Followers/ScalarChaser/ScalarChaser.O.x3d'/>
     <meta name='modified' content='Sun, 23 Jun 2019 13:23:54 GMT'/>
   </head>
   <Scene>
-    <ExternProtoDeclare name='SFFloat' url='"./SFFloat.x3d#SFFloat"'>
+    <!--ExternProtoDeclare name='SFFloat' url='"./SFFloat.x3d#SFFloat"'>
       <field accessType='inputOnly' type='SFTime' name='set_triggerTime'/>
       <field accessType='inputOutput' type='SFFloat' name='keyValue'/>
       <field accessType='outputOnly' type='SFFloat' name='value_changed'/>
@@ -102,7 +101,7 @@ function set_pointSize (value, time)
         <ROUTE fromNode='_3' fromField='enabled_changed' toNode='_4' toField='set_boolean'/>
         <ROUTE fromNode='PointSizeInterpolator' fromField='value_changed' toNode='PointSizeScript' toField='set_pointSize'/>
       </ProtoBody>
-    </ProtoDeclare>
+    </ProtoDeclare-->
     <WorldInfo/>
     <Script DEF='EnterWorldScript'>
       <field accessType='outputOnly' type='SFBool' name='initialized'/>
@@ -122,7 +121,7 @@ function initialize ()
 }
 ]]>
     </Script>
-	    <Viewpoint
+        <Viewpoint
             position='0 0 3.35629'/>
         <Transform DEF='Earth_8'>
           <Shape>
