@@ -16,7 +16,7 @@
     <meta name='modified' content='Sun, 23 Jun 2019 13:23:54 GMT'/>
   </head>
   <Scene>
-    <ExternProtoDeclare name='SFFloat' url='"https://gist.githubusercontent.com/andreasplesch/632c8960e0c737cdfb03f6f611d6fe03/raw/56d554d8ffd5f55ec834968ba74c58140aa47d8e/SFFloat.x3d#SFFloat"'>
+    <ExternProtoDeclare name='SFFloat' url='"./SFFloat.x3d#SFFloat"'>
       <field accessType='inputOnly' type='SFTime' name='set_triggerTime'/>
       <field accessType='inputOutput' type='SFFloat' name='keyValue'/>
       <field accessType='outputOnly' type='SFFloat' name='value_changed'/>
@@ -153,7 +153,7 @@ function initialize ()
           </Transform>
         </Billboard>
         <Inline DEF='Cities'
-            url='"https://gist.githubusercontent.com/andreasplesch/63db03d6b5129b01aa27213809859b1d/raw/69a2abde4acbb5e6bae5c55ecd7786c09be81ba1/cities.x3d"'/>
+            url='"./cities.x3d"'/>
       </Layer>
       <LayoutLayer DEF='HUD_9'>
         <Layout/>
