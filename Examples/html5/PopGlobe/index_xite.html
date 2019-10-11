@@ -135,11 +135,11 @@
   </div>
 
   <div id="info">
-    <strong><a href="http://www.x3dom.org/">x3dom WebGL Globe</a></strong> <span class="bull">&bull;</span> Inspired by the Google Data Arts Team <span class="bull">&bull;</span> Data acquired from <a href="http://sedac.ciesin.columbia.edu/gpw/">SEDAC</a>
+    <strong><a href="http://create3000.de/x_ite/xhtml-dom-integration">x_ite-dom WebGL Globe</a></strong> <span class="bull">&bull;</span> Inspired by the Google Data Arts Team <span class="bull">&bull;</span> Data acquired from <a href="http://sedac.ciesin.columbia.edu/gpw/">SEDAC</a>
   </div>
 
   <div id="currentInfo">
-    <span id="year1995" class="year">1995</span>
+    <span id="year1995" class="year active">1995</span>
     <span id="year2000" class="year">2000</span>
     <span id="year2005" class="year">2005</span>
   </div>
@@ -159,7 +159,7 @@
   <script type="text/javascript">
 
       var years = ['1995','2000','2005'];
-      var triggerSelectors = ['[DEF="EnableYear"]','[DEF="_15"]','[DEF="_20"]'];
+      //var triggerSelectors = ['[DEF="EnableYear"]','[DEF="_15"]','[DEF="_20"]'];
       var chaserDestinations = [0, 0.5, 1];
       var container = document.getElementById('container');
       //var globe = new DAT.Globe(container);
@@ -183,7 +183,7 @@
 //              var trigger = document.querySelector(triggerSelectors[t]);
 //              trigger.setAttribute('set_boolean','true');
              var chaser = document.querySelector('[DEF="AnimateCities"]');
-             chaser.setAttribute('set_destination', chaserDestinations[t]);
+             chaser.setAttribute('destination', chaserDestinations[t]);
              
            };
          };
