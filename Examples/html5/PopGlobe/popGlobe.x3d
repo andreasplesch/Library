@@ -121,7 +121,7 @@ function initialize ()
 }
 ]]>
     </Script>
-        <Viewpoint
+        <Viewpoint description='optimal'
             position='0 0 3.35629'/>
         <Transform DEF='Earth_8'>
           <Shape>
