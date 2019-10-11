@@ -122,11 +122,7 @@ function initialize ()
 }
 ]]>
     </Script>
-    <LayerSet
-        activeLayer='1'
-        order='0, 1, 2'>
-      <Layer DEF='Earth'>
-        <Viewpoint
+	    <Viewpoint
             position='0 0 3.35629'/>
         <Transform DEF='Earth_8'>
           <Shape>
@@ -154,6 +150,13 @@ function initialize ()
         </Billboard>
         <Inline DEF='Cities'
             url='"./cities.x3d"'/>
+        <ScalarChaser DEF='AnimateCities'
+            duration='0.6'/>
+    <!--LayerSet
+        activeLayer='1'
+        order='0, 1, 2'>
+      <Layer DEF='Earth'>
+        
       </Layer>
       <LayoutLayer DEF='HUD_9'>
         <Layout/>
@@ -316,7 +319,7 @@ function initialize ()
           </Anchor>
         </LayoutGroup>
       </LayoutLayer>
-    </LayerSet>
+    </LayerSet-->
     <IMPORT inlineDEF='Cities' importedDEF='PointInterpolator'/>
 
     <ROUTE fromNode='AnimateCities' fromField='value_changed' toNode='PointInterpolator' toField='set_fraction'/>
