@@ -323,7 +323,7 @@ function initialize ()
     <IMPORT inlineDEF='Cities' importedDEF='PointInterpolator'/>
 
     <ROUTE fromNode='AnimateCities' fromField='value_changed' toNode='PointInterpolator' toField='set_fraction'/>
-    <ROUTE fromNode='_14' fromField='isOver' toNode='_15' toField='set_boolean'/>
+    <!--ROUTE fromNode='_14' fromField='isOver' toNode='_15' toField='set_boolean'/>
     <ROUTE fromNode='_19' fromField='isOver' toNode='_20' toField='set_boolean'/>
     <ROUTE fromNode='_11' fromField='isOver' toNode='EnableYear' toField='set_boolean'/>
     <ROUTE fromNode='EnableYear' fromField='inputTrue' toNode='DisableOthers' toField='set_boolean'/>
@@ -347,6 +347,6 @@ function initialize ()
     <ROUTE fromNode='EnableYear' fromField='inputTrue' toNode='_10' toField='set_enabled'/>
     <ROUTE fromNode='_21' fromField='inputNegate' toNode='_13' toField='set_enabled'/>
     <ROUTE fromNode='DisableOthers' fromField='inputNegate' toNode='_13' toField='set_enabled'/>
-    <ROUTE fromNode='_15' fromField='inputTrue' toNode='_13' toField='set_enabled'/>
+    <ROUTE fromNode='_15' fromField='inputTrue' toNode='_13' toField='set_enabled'/-->
   </Scene>
 </X3D>
