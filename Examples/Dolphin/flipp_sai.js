@@ -9,8 +9,7 @@ function createDolphinScene(browser)
 
 //var browser = X3D.getBrowser(X3D.createBrowser());
 var scene = browser.createScene();
-scene.setProfile ( browser.supportedProfiles.find(
-  function(profile) {return profile.name === 'Immersive'}) );
+scene.setProfile ( browser.getProfile('Immersive') );
 scene.setEncoding ( 'SCRIPTED' );
 //specification version only from xml attribute or vrml, is readOnly per spec.
 //scene header
@@ -24,7 +23,7 @@ scene.setMetaData('title','flipp.x3d');
 //createNode(,true) creates accessible node
 var vp = scene.createNode('Viewpoint');
 //since we are outside of script node, we need the X3D namespace/object
-vp.position = new X3D.SFVec3f(0, 0, 800);
+vp.position = new X3D.SFVec3f(0, 0, 600);
 vp.description = 'cam0 description';
 //conformant SAI way of DEF setting
 scene.updateNamedNode('cam0', vp);
