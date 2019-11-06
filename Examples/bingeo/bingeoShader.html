@@ -11,61 +11,65 @@
 	<x3d xmlns="http://www.web3d.org/specifications/x3d-namespace" showStat="false" showLog="false" x="0px" y="0px"
 		width="512px" height="512px">
 		<Scene>
+		<Viewpoint position="680.32636 357.08604 160.90422" orientation="0.36959 0.57356 0.73105 2.35696" description="perspective"></Viewpoint>
+		<Shape>
+				<Appearance>
+				<!--Material></Material-->
+					<ComposedShader>
 
-			<Transform translation='0 0 1'>
-				<Shape>
-						<Appearance>
-							<ComposedShader>
-								<!-- The "display:none;" CSS attribute is just a trick to prevent the browser from rendering the shader code during page loading -->
-								<ShaderPart type='VERTEX' style="display:none;">
-									attribute vec3 position;
-									attribute vec3 color;
-						
-									uniform mat4 modelViewProjectionMatrix;
-						
-									varying vec3 col;
-						
-									void main()
-									{
-									gl_Position = modelViewProjectionMatrix * vec4(position, 1.0);
-									gl_PointSize = max( 200.0 / gl_Position.w, 1.0);
-									col = color;
-									}
-								</ShaderPart>
-								<ShaderPart type='FRAGMENT' style="display:none;">
-									#ifdef GL_FRAGMENT_PRECISION_HIGH
-									precision highp float;
-									#else
-									precision mediump float;
-									#endif
-						
-									uniform vec3 light0_Direction;
-									uniform sampler2D u_texture;
-						
-									varying vec3 col;
-						
-									void main()
-									{
-									gl_FragColor = vec4(col, 1.0);
-									}
-								</ShaderPart>
-							</ComposedShader>
-						</Appearance>
-						<binaryGeometry id="bg0" DEF='BG_0'
-                        vertexCount='1146222'
-                        primType='"POINTS"'
-                        position='247.080001831 126.869995117 -19.8899993896'
-                        size='563.619995117 505.299987793 84.7600021362'
-                        coord='aopt50BG_0_coordBinary.bin+8'
-                        color='aopt50BG_0_colorBinary.bin+4'
-                        coordType='Int16' colorType='Uint8'>
-            </binaryGeometry>
-          </Shape>
-					
-			</Transform>
-			
+						<ShaderPart type='VERTEX' style="display:none;">
+attribute vec4 position;
+attribute vec3 color;
+
+uniform mat4 modelViewProjectionMatrix;
+
+varying vec3 col;
+
+void main()
+{
+	vec3 bgCenter = vec3(247.0800, 126.8700, -19.8900);
+	vec3 bgSize = vec3(563.6200, 505.3000, 84.7600);
+	float bgPrecisionMax = 32767.0;
+	vec3 vertPosition = position.xyz;
+	vertPosition = bgCenter + bgSize * vertPosition / bgPrecisionMax;
+
+
+	gl_Position = modelViewProjectionMatrix * vec4(vertPosition, 1.0);
+	gl_PointSize = max( 200.0 / gl_Position.w, 1.0);
+	col = color / 255.0;
+}
+						</ShaderPart>
+						<ShaderPart type='FRAGMENT' style="display:none;">
+#ifdef GL_FRAGMENT_PRECISION_HIGH
+precision highp float;
+#else
+precision mediump float;
+#endif
+
+uniform vec3 light0_Direction;
+uniform sampler2D u_texture;
+
+varying vec3 col;
+
+void main()
+{
+	gl_FragColor = vec4(col, 1.0);
+}
+						</ShaderPart>
+					</ComposedShader>
+				</Appearance>
+				<!--Sphere></Sphere-->
+				<binaryGeometry id="bg0" DEF='BG_0'
+					vertexCount='1146222'
+					primType='"POINTS"'
+					position='247.080001831 126.869995117 -19.8899993896'
+					size='563.619995117 505.299987793 84.7600021362'
+					coord='aopt50BG_0_coordBinary.bin+8'
+					color='aopt50BG_0_colorBinary.bin+4'
+					coordType='Int16' colorType='Uint8'>
+				</binaryGeometry>
+          		</Shape>
 		</Scene>
 	</x3d>
 </body>
-
 </html>
