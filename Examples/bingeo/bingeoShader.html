@@ -1,0 +1,71 @@
+<html >
+
+<head>
+	<title></title>
+	<link rel="stylesheet" type="text/css" href="https://x3dom.org/download/dev/x3dom.css" />
+	<script type="text/javascript" src="https://x3dom.org/download/dev/x3dom-full.debug.js"></script>
+</head>
+
+<body>
+
+	<x3d xmlns="http://www.web3d.org/specifications/x3d-namespace" showStat="false" showLog="false" x="0px" y="0px"
+		width="512px" height="512px">
+		<Scene>
+
+			<Transform translation='0 0 1'>
+				<Shape>
+						<Appearance>
+							<ComposedShader>
+								<!-- The "display:none;" CSS attribute is just a trick to prevent the browser from rendering the shader code during page loading -->
+								<ShaderPart type='VERTEX' style="display:none;">
+									attribute vec3 position;
+									attribute vec3 color;
+						
+									uniform mat4 modelViewProjectionMatrix;
+						
+									varying vec3 col;
+						
+									void main()
+									{
+									gl_Position = modelViewProjectionMatrix * vec4(position, 1.0);
+									gl_PointSize = max( 200.0 / gl_Position.w, 1.0);
+									col = color;
+									}
+								</ShaderPart>
+								<ShaderPart type='FRAGMENT' style="display:none;">
+									#ifdef GL_FRAGMENT_PRECISION_HIGH
+									precision highp float;
+									#else
+									precision mediump float;
+									#endif
+						
+									uniform vec3 light0_Direction;
+									uniform sampler2D u_texture;
+						
+									varying vec3 col;
+						
+									void main()
+									{
+									gl_FragColor = vec4(col, 1.0);
+									}
+								</ShaderPart>
+							</ComposedShader>
+						</Appearance>
+						<binaryGeometry id="bg0" DEF='BG_0'
+                        vertexCount='1146222'
+                        primType='"POINTS"'
+                        position='247.080001831 126.869995117 -19.8899993896'
+                        size='563.619995117 505.299987793 84.7600021362'
+                        coord=''
+                        color=''
+                        coordType='Int16' colorType='Uint8'>
+            </binaryGeometry>
+          </Shape>
+					
+			</Transform>
+			
+		</Scene>
+	</x3d>
+</body>
+
+</html>
