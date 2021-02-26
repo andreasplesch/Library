@@ -28,7 +28,7 @@
 //       points.removeChild(normal);
 //       points.appendChild(normal);
       var color = points.querySelector('Color');
-      color.setAttribute('color', Jezero_Crator_delta_rgb_aa + Jezero_Crator_delta_rgb_ab);
+      color.setAttribute('color', Jezero_Crator_delta_rgb_aa + " " + Jezero_Crator_delta_rgb_ab);
 
 //       points.removeChild(color);
 //       points.appendChild(color);
@@ -52,10 +52,10 @@
     <div class="group">
         <X3D xmlns="http://www.web3d.org/specifications/x3d-namespace" id="x3d" showStat="false" showLog="false" x="0px" y="0px" width="600px" height="400px" style="border: 1px solid #000; background-color: darkslategray;">
         <Scene>
-        <!--Environment id="gamma" frustumCulling='false' gammaCorrectionDefault="linear"></Environment--> 
+        <Environment id="gamma" frustumCulling='false' gammaCorrectionDefault="none"></Environment> 
         <NavigationInfo headlight='false'></NavigationInfo>
             <Viewpoint position="-3898.70507 -5506.10814 -6413.62404" orientation="0.96372 0.11849 -0.23917 2.46358" 
-	zNear="85.07208" zFar="91461.18721" centerOfRotation="-1100.09011 -46.01501 -768.71139" 
+	zNear="85.07208" zFar="91461.18721" centerOfRotation="-1100.09011 -46.01501 -768.71139"></Viewpoint>
            <Transform rotation="1 0 0 -1.57" center="0 0 0" scale="1 1 1" scaleOrientation="0 0 1 0" translation="0 0 0" bboxCenter="0 0 0" bboxSize="-1 -1 -1" containerField="children">
                     <Shape >
                       <PointSet>
