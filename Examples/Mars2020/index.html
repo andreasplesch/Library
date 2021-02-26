@@ -6,27 +6,69 @@
     <title>Point cloud Percy</title>
     <script type="text/javascript" src="https://6037205c8820e100079d41fd--x3dom.netlify.app/x3dom.js"></script>
     <script type="text/javascript" src="JEZ_ctx_B_MOLA_20m_aa.js"></script>
+    <script type="text/javascript" src="JEZ_ctx_B_MOLA_20m_ab.js"></script>
+    <script type="text/javascript" src="JEZ_ctx_B_MOLA_20m_ac.js"></script>
+    <!--
+    <script type="text/javascript" src="JEZ_ctx_B_MOLA_20m_normal_aa.js"></script>
+    <script type="text/javascript" src="JEZ_ctx_B_MOLA_20m_normal_ab.js"></script>
+    <script type="text/javascript" src="JEZ_ctx_B_MOLA_20m_normal_ac.js"></script>
+    -->
+    <script type="text/javascript" src="Jezero_Crator_delta_rgb_aa.js"></script>
+    <script type="text/javascript" src="Jezero_Crator_delta_rgb_ab.js"></script>
     <link rel="stylesheet" type="text/css" href="https://6037205c8820e100079d41fd--x3dom.netlify.app/x3dom.css" />
 </head>
+<script>
+    function init()
+    {
+      var points = document.querySelector('PointSet');
+      var coord = points.querySelector('Coordinate');
+      coord.setAttribute('point', JEZ_ctx_B_MOLA_20m_aa + JEZ_ctx_B_MOLA_20m_ab + JEZ_ctx_B_MOLA_20m_ac);
+//       var normal = points.querySelector('Normal');
+//       normal.setAttribute('vector', JEZ_ctx_B_MOLA_20m_normal_aa + JEZ_ctx_B_MOLA_20m_normal_ab + JEZ_ctx_B_MOLA_20m_normal_ac);
+//       points.removeChild(normal);
+//       points.appendChild(normal);
+      var color = points.querySelector('Color');
+      color.setAttribute('color', Jezero_Crator_delta_rgb_aa + Jezero_Crator_delta_rgb_ab);
+
+//       points.removeChild(color);
+//       points.appendChild(color);
+    }
+    app = document.querySelector('Appearance');
+    //tex = app.querySelector('PixelTexture').cloneNode(true);
+    function toggleTex()
+    {
+        var t = app.querySelector('PixelTexture');
+        if ( t )
+        {
+            tex = app.removeChild(t);   
+        }
+        else
+        {
+            app.appendChild(tex);
+        }
+    }
+    </script>
 <body onload='init()'>
     <div class="group">
         <X3D xmlns="http://www.web3d.org/specifications/x3d-namespace" id="x3d" showStat="false" showLog="false" x="0px" y="0px" width="600px" height="400px" style="border: 1px solid #000; background-color: darkslategray;">
         <Scene>
-            <Viewpoint description="Face On view" position="0 0 16" fieldOfView="0.7854" jump="true" orientation="0 0 1 0" centerOfRotation="0 0 0" retainUserOffsets="false" containerField="children">
-            </Viewpoint>    
-            <Transform rotation="1 0 0 1.57" center="0 0 0" scale="1 1 1" scaleOrientation="0 0 1 0" translation="0 0 0" bboxCenter="0 0 0" bboxSize="-1 -1 -1" containerField="children">
+        <!--Environment id="gamma" frustumCulling='false' gammaCorrectionDefault="linear"></Environment--> 
+        <NavigationInfo headlight='false'></NavigationInfo>
+            <Viewpoint position="-3898.70507 -5506.10814 -6413.62404" orientation="0.96372 0.11849 -0.23917 2.46358" 
+	zNear="85.07208" zFar="91461.18721" centerOfRotation="-1100.09011 -46.01501 -768.71139" 
+           <Transform rotation="1 0 0 -1.57" center="0 0 0" scale="1 1 1" scaleOrientation="0 0 1 0" translation="0 0 0" bboxCenter="0 0 0" bboxSize="-1 -1 -1" containerField="children">
                     <Shape >
                       <PointSet>
-                        <Coordinate point="0 0 0, -10 -10 0, 10 -10 0, -10 10 0, 10 10, 0">
+                        <Coordinate point="0 0 0, -10 -10 0, 10 -10 0, -10 10 0, 10 10 0">
                         </Coordinate>
                         <Normal DEF="cloud-normals" vector="">
                         </Normal>
-                        <Color color="">
+                        <Color color="1 0 0, 0 1 0, 0 0 1, 0 1 1, 1 0 1">
                         </Color>
                       </PointSet>
                       <Appearance>
-                        <Material diffuseColor="1 0 0"></Material>
-                        <PointProperties pointSizeMaxValue='100' pointSizeMinValue='1' pointSizeScaleFactor='100' attenuation='1 1 0' containerField='pointProperties'>
+                        <!--<Material _diffuseColor="0.4 0.4 0" _emissiveColor="0.5 0.4 0"></Material>-->
+                        <PointProperties pointSizeMaxValue='100' pointSizeMinValue='2' pointSizeScaleFactor='100' attenuation='1 1 0' containerField='pointProperties'>
                         </PointProperties>
                         <!--
                         <PixelTexture DEF='PixelColors' image='3 3 2
@@ -44,26 +86,5 @@
         </Scene>
       </X3D>
     </div>
-    <script>
-    function init()
-    {
-      var points = document.querySelector('PointSet');
-      var coord = points.querySelector('Coordinate');
-      coord.setAttribute('point', JEZ_ctx_B_MOLA_20m_aa);
-    app = document.querySelector('Appearance');
-    //tex = app.querySelector('PixelTexture').cloneNode(true);
-    function toggleTex()
-    {
-        var t = app.querySelector('PixelTexture');
-        if ( t )
-        {
-            tex = app.removeChild(t);   
-        }
-        else
-        {
-            app.appendChild(tex);
-        }
-    }
-    </script>
 </body>
 </html>
