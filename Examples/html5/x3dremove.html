@@ -8,18 +8,13 @@
 <body>
 <h1>x3d.remove()</h1>
 <script>
-    function redNose()
-    {
-        
-    }
-    function addInline() {
-        var trafo=document.createElement('Transform');
-        trafo.innerHTML='<Inline url="Deer.x3d"></Inline>';
-        document.querySelector('scene').appendChild(trafo);
+    function removeX3D() {
+        document.querySelector('background').remove();
+        setTimeout( e => document.querySelector('x3d').remove() , 100 );
     }
 </script>
 <p>
-    <button onclick='document.querySelector("x3d").remove()'>Test x3d.remove() triggering missing doc console error.</button>
+    <button onclick='removeX3D()'>Test x3d.remove() triggering missing doc console error.</button>
 </p>
 <x3d width='500px' height='400px'>
     <scene id="scMain" render="true" visible="true" bboxcenter="0,0,0" bboxsize="-1,-1,-1" pickmode="idBuf" dopickpass="true">
@@ -35,16 +30,7 @@
         
         <background def="blues" groundcolor="0 1 0" skyangle="1.35 1.45 1.52 1.57" skycolor="0 0 1 0.11764 0.5747 1 0 0.74901 1 0.52941 0.80784 0.92156 1 1 1" groundangle="" backurl="" bottomurl="" fronturl="" lefturl="" righturl="" topurl=""></background>
 
-            <!--Transform translation="0 0 9" rotation="1 0 0 -1.5708" visible="True" onclick="ShowEgContextMenu(this, event);" render="true" bboxCenter="0,0,0" bboxSize="-1,-1,-1" center="0,0,0" scale="1,1,1" scaleOrientation="0,0,0,0">
-                <Shape DEF="shape_egWallSW" render="true" visible="true" bboxCenter="0,0,0" bboxSize="-1,-1,-1" isPickable="true" id="Base__shape_egWallSW">
-                    <Appearance sortType="auto" alphaClipThreshold="0.1">
-                        <Material ambientIntensity="0.2" diffuseColor="0.8 0.8 0.8" emissiveColor="0,0,0" shininess="0.2" specularColor="0,0,0"></Material>
-                        <ImageTexture DEF="itegWallSW" url="/images/textures/darkgraygrid.png" repeatS="true" repeatT="true" scale="true" hideChildren="true" id="Base__itegWallSW"></ImageTexture>
-                        <TextureTransform DEF="ttegWallSW" scale="10 4" rotation="0" translation="0 0" center="0,0" id="Base__ttegWallSW"></TextureTransform>
-                    </Appearance>
-                    <ElevationGrid egid="717316d2-d0fa-4609-b3fb-48ef044d206c" egname="Wall SW" DEF="egWallSW" xDimension="10" xSpacing="1" zDimension="4" zSpacing="1" solid="true" height="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0" ccw="true" useGeoCache="true" lit="true" colorPerVertex="true" normalPerVertex="true" id="Base__egWallSW"></ElevationGrid>
-                </Shape>
-            </Transform-->
+            
         
     </scene>
     </x3d>
