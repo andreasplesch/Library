@@ -19,24 +19,36 @@
 <!-- SAVED VIEW0 MBD_A -->
 <Switch whichChoice='0' id='swView0'><Group>
 <Transform translation='0. 0. -40.53'>
-<Shape><Appearance><Material diffuseColor='1 0 0'/></Appearance>
- <Sphere radius='20'/></Shape>
+<Shape>
+    <Appearance>
+    <Material diffuseColor='1 0 0'></Material>
+    </Appearance>
+    <Sphere radius='20'></Sphere>
+</Shape>
 </Transform>
 </Group></Switch>
 
 <!-- SAVED VIEW1 MBD_B -->
 <Switch whichChoice='0' id='swView1'><Group>
 <Transform translation='0. 3.038 0.'>
-<Shape><Appearance><Material diffuseColor='0 1 0'/></Appearance>
- <Sphere radius='20'/></Shape>
+<Shape>
+    <Appearance>
+    <Material diffuseColor='0 1 0'></Material>
+    </Appearance>
+    <Sphere radius='20'></Sphere>
+</Shape>
 </Transform>
 </Group></Switch>
 
 <!-- PART GEOMETRY -->
 <Switch whichChoice='0' id='swPRT'><Group onclick='handleGroupClick(event)'>
 <Transform translation='40.038 0. 0.'>
-<Shape><Appearance><Material diffuseColor='0 0 1'/></Appearance>
- <Box size='10 10 10'/></Shape>
+<Shape>
+    <Appearance>
+    <Material diffuseColor='0 0 1'></Material>
+    </Appearance>
+     <Box size='10 10 10'></Box>
+</Shape>
 </Transform>
 </Group></Switch>
 
@@ -60,35 +72,49 @@
 <td valign='top'>
 
 <!-- Part geometry checkbox -->
-<input type='checkbox' checked onclick='togPRT(this.value)'/>Part geometry (blue)
+<input type='checkbox' checked onclick='togPRT(this.value)'>Part geometry (blue)
 
 <!-- Saved view checkboxes -->
-<br><input type='checkbox' checked onclick='togView0(this.value)'/>MBD_A (red)
-<br><input type='checkbox' checked onclick='togView1(this.value)'/>MBD_B (green)
+<br><input type='checkbox' checked onclick='togView0(this.value)'>MBD_A (red)
+<br><input type='checkbox' checked onclick='togView1(this.value)'>MBD_B (green)
 </td></tr></table>
 
 <!-- PRT switch -->
-<script>function togPRT(choice){
- if (!document.getElementById('swPRT').checked) {document.getElementById('swPRT').setAttribute('whichChoice', -1);} else {document.getElementById('swPRT').setAttribute('whichChoice', 0);}
+<script>
+function togPRT(choice){
+ if (!document.getElementById('swPRT').checked)
+    {document.getElementById('swPRT').setAttribute('whichChoice', -1);} 
+ else 
+    {document.getElementById('swPRT').setAttribute('whichChoice', 0);}
  document.getElementById('swPRT').checked = !document.getElementById('swPRT').checked;
 }</script>
  
 <!-- View0 MBD_A switch -->
-<script>function togView0(choice){
- if (!document.getElementById('swView0').checked) {document.getElementById('swView0').setAttribute('whichChoice', -1);} else {document.getElementById('swView0').setAttribute('whichChoice', 0);}
+<script>
+function togView0(choice){
+ if (!document.getElementById('swView0').checked)
+    {document.getElementById('swView0').setAttribute('whichChoice', -1);}
+ else
+    {document.getElementById('swView0').setAttribute('whichChoice', 0);}
  document.getElementById('swView0').checked = !document.getElementById('swView0').checked;
 }</script>
 
 <!-- View1 MBD_B switch -->
-<script>function togView1(choice){
+<script>
+function togView1(choice){
  if (!document.getElementById('swView1').checked) {document.getElementById('swView1').setAttribute('whichChoice', -1);} else {document.getElementById('swView1').setAttribute('whichChoice', 0);}
  document.getElementById('swView1').checked = !document.getElementById('swView1').checked;
-}</script>
+}
+</script>
 
 <script>
 document.onload = function() {
   var view = document.getElementById('MBD_A');
-  view.addEventListener('isActive', function() {alert('MBD_A');}, false);
+  //view.addEventListener('isActive', function() {alert('MBD_A');}, false);
+  view.addEventListener('outputchange', function(event) {
+      alert('MBD_A changed:' + event.fieldName + " is " + event.value );
+      }, false);
+
 }
 </script>
 
