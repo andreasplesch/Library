@@ -7,7 +7,7 @@
 </head>
 <script>
     var x3dstr = `
-    <x3d id="x3dGameRoom" class="w-100 h-100" showlog="true" width="1978px" height="1220px" style="">
+    <x3d id="x3dGameRoom" class="w-100 h-100" showlog="true" width="600px" height="400px" style="">
     <scene id="scMain" render="true" visible="true" bboxcenter="0,0,0" bboxsize="-1,-1,-1" pickmode="idBuf" dopickpass="true">
         <pointlight id="plDmLight" location="0 5 0" ambientintensity="0.2" intensity="0.1" radius="100" color="1 1 1" on="True" shadowmapsize="1024" znear="-1" zfar="-1" attenuation="1,0,0"></pointlight>
         <navigationinfo id="vpFrontNi" headlight="false" type="EXAMINE" typeparams="-0.4,60,0.05,2.8" explorationmode="all" avatarsize="0.25,1.6,0.75" walkdamping="2" speed="1" transitiontime="1" transitiontype="LINEAR "></navigationinfo>
@@ -19,7 +19,8 @@
     var holder = document.createElement('holder');
     holder.innerHTML = x3dstr;
     function addX3D() {
-        document.querySelector('#x3dcontainer').appendChild(holder););
+        document.querySelector('#x3dcontainer').appendChild(holder);
+        x3dom.reload();
     }
 </script>
 <body>
