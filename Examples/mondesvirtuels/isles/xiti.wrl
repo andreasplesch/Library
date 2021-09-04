@@ -1,0 +1,37 @@
+#VRML V2.0 utf8
+
+PROTO Xiti [
+	exposedField MFString Xiti_url		[]
+	field SFVec3f  Xiti_pos				0 0 0
+	field SFVec3f  Xiti_size 			1 1 1
+]{
+
+	DEF	XitiCube Transform {
+		translation	IS Xiti_pos
+		children [
+		
+			Shape {
+		
+			geometry Box {
+					size IS	Xiti_size
+				}
+
+				appearance Appearance {
+					material Material {
+
+					}
+
+					texture	ImageTexture {
+						url	IS Xiti_url
+						#url	"http://logv17.xiti.com/hit.xiti?s=65289&p=monde_iles_flottantes"
+					}
+				}
+			}
+		
+		]
+		
+	
+	} 
+
+}
+
