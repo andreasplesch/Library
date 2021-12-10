@@ -24,7 +24,7 @@ html, body {
 }
 
 
-X3DCanvas {
+X3D {
 	width: 100%;
 	height: 100%;
 }
@@ -39,11 +39,10 @@ X3DCanvas {
 </head>
 
   <body onload='init()'>
-<X3DCanvas trace='true'>	  
     <X3D >
         <Scene DEF='scene'>
 		<Viewpoint position="13.71854 10.00018 18.01263" orientation="-0.66475 0.73173 0.15059 0.81072" description='start'></Viewpoint>
-		<Background transparency="0.99" skyColor='0 0 0' groundColor='0.7 0.7 0.7' />
+		<!--Background transparency="0.99" skyColor='0 0 0' groundColor='0.7 0.7 0.7' /-->
 
             <!-- EXAMPLE TEAPOT SHAPE -->
 		<Transform id="teapotTranslation">
@@ -69,13 +68,13 @@ X3DCanvas {
 			    	<Appearance>
 				    <Material diffuseColor='0.7 0.7 0.7'></Material>
 				</Appearance>                    
-			    	<Rectangle2D solid='false' size='16 16' />
+			    	<Plane solid='false' size='16 16' />
 			</Shape>
 		    </Transform>
             
 		<!-- TRANSLATION GIZMO (CONTAINING PLANE SENSOR AND SENSOR GEOMETRY) -->
 		<Group>
-			<PlaneSensor autoOffset='true' axisRotation='1 0 0 -1.57' minPosition='-6 0' maxPosition='6 0' inoutputchanged='processTranslationGizmoEvent(event)'>
+			<PlaneSensor autoOffset='true' axisRotation='1 0 0 -1.57' minPosition='-6 0' maxPosition='6 0' onoutputchange='processTranslationGizmoEvent(event)'>
 			</PlaneSensor>
 
 			<Transform id='translationHandleTransform'>
@@ -106,7 +105,7 @@ X3DCanvas {
 						
                     <!-- Rotation Handle X -->					
                     <Group>
-                        <CylinderSensor DEF='aroundX' autoOffset='false' axisRotation='0 0 1 -1.57' inoutputchange='processRotationGizmoEvent(event);'>
+                        <CylinderSensor DEF='aroundX' autoOffset='false' axisRotation='0 0 1 -1.57' onoutputchange='processRotationGizmoEvent(event);'>
                         </CylinderSensor>
 
                         <Transform>
@@ -126,7 +125,7 @@ X3DCanvas {
 
                     <!-- Rotation Handle Y -->
                     <Group>
-                        <CylinderSensor DEF='aroundY' autoOffset='false' inoutputchange='processRotationGizmoEvent(event);'>
+                        <CylinderSensor DEF='aroundY' autoOffset='false' onoutputchange='processRotationGizmoEvent(event);'>
                         </CylinderSensor>
 
                         <Transform>
@@ -148,7 +147,7 @@ X3DCanvas {
 
                     <!-- Rotation Handle Z -->
                     <Group>
-                        <CylinderSensor DEF='aroundZ' autoOffset='false' axisRotation='1 0 0 -1.57' inoutputchange='processRotationGizmoEvent(event);'>
+                        <CylinderSensor DEF='aroundZ' autoOffset='false' axisRotation='1 0 0 -1.57' onoutputchange='processRotationGizmoEvent(event);'>
                         </CylinderSensor>
 
                         <Transform>
@@ -210,101 +209,112 @@ X3DCanvas {
 -->
         </Scene>
     </X3D>
-</X3DCanvas> 
   </body>
   
 <script> <![CDATA[
 function init() {
 	var planeSensor = document.querySelector("PlaneSensor");
 	//planeSensor.addEventListener("x3dPlaneSensor_translation_changed", processTranslationGizmoEvent);
-    	planeSensor.addEventListener("x3d_translation_changed", processTranslationGizmoEvent);
+    	//planeSensor.addEventListener("x3d_translation_changed", processTranslationGizmoEvent);
     	var cylSensorX = document.querySelector("CylinderSensor[DEF='aroundX']");
 	//cylSensorX.addEventListener("x3dCylinderSensor_rotation_changed", processRotationGizmoEvent);
 	//cylSensorX.addEventListener("x3dCylinderSensor_isActive", processRotationGizmoActiveEvent);
-	cylSensorX.addEventListener("x3d_rotation_changed", processRotationGizmoEvent);
-	cylSensorX.addEventListener("x3d_isActive", processRotationGizmoActiveEvent);
+	//cylSensorX.addEventListener("x3d_rotation_changed", processRotationGizmoEvent);
+	//cylSensorX.addEventListener("x3d_isActive", processRotationGizmoActiveEvent);
 	var cylSensorY = document.querySelector("CylinderSensor[DEF='aroundY']");
 	//cylSensorY.addEventListener("x3dCylinderSensor_rotation_changed", processRotationGizmoEvent);
 	//cylSensorY.addEventListener("x3dCylinderSensor_isActive", processRotationGizmoActiveEvent);
-	cylSensorY.addEventListener("x3d_rotation_changed", processRotationGizmoEvent);
-	cylSensorY.addEventListener("x3d_isActive", processRotationGizmoActiveEvent);
+	//cylSensorY.addEventListener("x3d_rotation_changed", processRotationGizmoEvent);
+	//cylSensorY.addEventListener("x3d_isActive", processRotationGizmoActiveEvent);
 	var cylSensorZ = document.querySelector("CylinderSensor[DEF='aroundZ']");
 	//cylSensorZ.addEventListener("x3dCylinderSensor_rotation_changed", processRotationGizmoEvent);
 	//cylSensorZ.addEventListener("x3dCylinderSensor_isActive", processRotationGizmoActiveEvent);
-	cylSensorZ.addEventListener("x3d_rotation_changed", processRotationGizmoEvent);
-	cylSensorZ.addEventListener("x3d_isActive", processRotationGizmoActiveEvent);
+	//cylSensorZ.addEventListener("x3d_rotation_changed", processRotationGizmoEvent);
+	//cylSensorZ.addEventListener("x3d_isActive", processRotationGizmoActiveEvent);
 	
 	//var currentGizmoRotation       = new x3dom.fields.SFMatrix4f();
-    	//var currentGizmoRotationOffset = new x3dom.fields.SFMatrix4f();
-	    var currentGizmoRotation = new X3D.SFRotation() ; // without onload, chrome complains because it executes this before cobweb is available, for some reason
-	    var currentGizmoRotationOffset = new X3D.SFRotation() ;
+	//var currentGizmoRotationOffset = new x3dom.fields.SFMatrix4f();
+    //var currentGizmoRotation = new x3dom.fields.Quaternion() ; // without onload, chrome complains because it executes this before cobweb is available, for some reason
+    //var currentGizmoRotationOffset = new x3dom.fields.Quaternion() ;
+	var currentGizmoRotation = new x3dom.fields.SFRotation() ;
+    var currentGizmoRotationOffset = new x3dom.fields.SFRotation() ;
+	//var currentGizmoRotation = new X3D.SFRotation() ; // without onload, chrome complains because it executes this before cobweb is available, for some reason
+    //var currentGizmoRotationOffset = new X3D.SFRotation() ;
 	
 	/*
-     	* Callback function, invoked on translation gizmo output.
-     	*/
+	* Callback function, invoked on translation gizmo output.
+	*/
 
-    function processTranslationGizmoEvent(event)
+    processTranslationGizmoEvent = function processTranslationGizmoEvent(event)
     {
 		var sensorToWorldMatrix, translationValue;
 		
-		//if (event.fieldName === 'translation_changed')
+		if (event.fieldName === 'translation_changed')
         {
 			//convert the sensor's output from sensor coordinates to world coordinates (i.e., include its 'axisRotation')
             //sensorToWorldMatrix = x3dom.fields.SFMatrix4f.parseRotation(event.target.getAttribute("axisRotation"));	
-			
 			//translationValue = sensorToWorldMatrix.multMatrixVec(event.value);
-			translationValue = event.detail.value.toString();
+			translationValue = event.target.getFieldValue("axisRotation").multiVec(event.value);
+			//translationValue = event.detail.value.toString();
 			//transform the affected sensor geometry
-			//document.getElementById('translationHandleTransform').setFieldValue('translation', translationValue);
-			document.getElementById('translationHandleTransform').setAttribute('translation', translationValue);
-			//document.getElementById('rotationHandleTransform').setFieldValue('translation', translationValue);
-			document.getElementById('rotationHandleTransform').setAttribute('translation', translationValue);
+			document.getElementById('translationHandleTransform').setFieldValue('translation', translationValue);
+			//document.getElementById('translationHandleTransform').setAttribute('translation', translationValue);
+			document.getElementById('rotationHandleTransform').setFieldValue('translation', translationValue);
+			//document.getElementById('rotationHandleTransform').setAttribute('translation', translationValue);
 			
 			//transform the affected element
 			//document.getElementById('teapotTranslation').setFieldValue('translation', translationValue);			
 			document.getElementById('teapotTranslation').setAttribute('translation', translationValue);			
 		}
+
 	}	
     /*
      * Callback function, invoked on rotation gizmo output.
      */
-    function processRotationGizmoEvent(event)
-    	{		
+    processRotationGizmoEvent = function processRotationGizmoEvent(event)
+	{		
         var sensorToWorldMatrix, rotationMatrixWorld;
-   	var sensorRotation;
-        //if (event.fieldName === 'rotation_changed')
+   	    var sensorRotation, sensorAxisRotation;
+        if (event.fieldName === 'rotation_changed')
         {
             //convert the sensor's output from sensor coordinates to world coordinates (i.e., include its 'axisRotation')
             //sensorToWorldMatrix = x3dom.fields.SFMatrix4f.parseRotation(event.target.getAttribute("axisRotation"));			
+			sensorAxisRotation = event.target.getFieldValue("axisRotation");
 			//rotationMatrixWorld = sensorToWorldMatrix.mult(event.value.toMatrix());
-		var sensorRotation = event.detail.value;	
+			var sensorRotation = sensorAxisRotation.multiply(event.value).multiply(sensorAxisRotation.inverse());	
+			//var sensorRotation = event.detail.value;	
 			//create an offset that applies the current rotation in world coordinates,
 			//but doesn't change the orientation of the coordinate system
             //currentGizmoRotationOffset = rotationMatrixWorld.mult(sensorToWorldMatrix.inverse());			
-		currentGizmoRotationOffset = sensorRotation;
-		//console.log(sensorRotation.getValue().toString());
+            //console.log(currentGizmoRotationOffset);
+		    currentGizmoRotationOffset = sensorRotation;
+			//console.log(sensorRotation.getValue().toString());
 		
             applyRotationGizmoTransformations();
         }
+        processRotationGizmoActiveEvent(event);// since x3dom has only one listener
+
 	}
-	function processRotationGizmoActiveEvent(event)
+	processRotationGizmoActiveEvent = function processRotationGizmoActiveEvent(event)
 	{
 		
-		//if (event.fieldName === 'isActive' && event.value === false)
-		if (event.detail.value === false)
+		if (event.fieldName === 'isActive' && event.value === false)
+		//if (event.detail.value === false)
 		
 		{
 		    //incorporate the current rotation offset, interpreted globally, into the stored rotation value
-		    //currentGizmoRotation = currentGizmoRotationOffset.multiply(currentGizmoRotation);
+		    //currentGizmoRotation = currentGizmoRotationOffset.mult(currentGizmoRotation);
 			currentGizmoRotation = currentGizmoRotation.multiply(currentGizmoRotationOffset);
 
-				//reset current rotation offset to zero rotation
+			//reset current rotation offset to zero rotation
 		    //currentGizmoRotationOffset = new x3dom.fields.SFMatrix4f();
-			currentGizmoRotationOffset = new X3D.SFRotation();
+			//currentGizmoRotationOffset = new x3dom.fields.Quaternion();
+			currentGizmoRotationOffset = new x3dom.fields.SFRotation();
+			//currentGizmoRotationOffset = new X3D.SFRotation();
 
 		    applyRotationGizmoTransformations();
 		}
-    	}
+	}
 	    
     /*
      * Applies the current transformations, computed from the rotation gizmo output, to the scene
@@ -319,7 +329,9 @@ function init() {
         
         //set matrix value in column major format, as required by the MatrixTransform node
         //teapotRotationNode.setFieldValue("matrix", transformMatrix.transpose());
-	teapotRotationNode.setAttribute("rotation", transformRotation.toString());
+        //teapotRotationNode.setFieldValue("rotation", transformRotation);
+	    teapotRotationNode.setAttribute("rotation", transformRotation.toString());
+	    
     }
 }
 ]]>
