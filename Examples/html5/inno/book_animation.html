@@ -35,13 +35,13 @@
 <script>
 
   function openbook() {
-    const ts=document.querySelector('Inline').querySelector('TimeSensor');
+    const ts=document.querySelector('Inline').querySelector('[DEF=TIMEOpen]');
     ts.setAttribute('loop', false);
     ts.setAttribute('startTime', Date.now()/1000);
   }
 
   function closebook() {
-    const ts=document.querySelector('Inline').querySelector('TimeSensorClose');
+    const ts=document.querySelector('Inline').querySelector('[DEF=TIMEClose]');
     ts.setAttribute('loop', false);
     ts.setAttribute('startTime', Date.now()/1000);
   }
