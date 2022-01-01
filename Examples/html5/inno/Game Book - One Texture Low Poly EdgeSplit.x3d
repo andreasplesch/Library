@@ -11,10 +11,10 @@
 		                type='"EXAMINE", "ANY"'
 		                avatarSize="0.25, 1.75, 0.75"
 		                />
-		<Background DEF="WO_World"
+		<!--Background DEF="WO_World"
 		            groundColor="0.051 0.051 0.051"
 		            skyColor="0.051 0.051 0.051"
-		            />
+		            /-->
 		<Transform DEF="paper003_TRANSFORM"
 		           translation="0.200657 0.006342 0.106779"
 		           scale="0.203200 0.203200 0.203200"
