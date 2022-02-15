@@ -36,14 +36,24 @@
 </head>
 <script>
 
-  function openbook() {
+  function openBook() {
     const ts=document.querySelector('Inline').querySelector('[DEF=TIMEOpen]');
     ts.setAttribute('loop', false);
     ts.setAttribute('startTime', Date.now()/1000);
   }
 
-  function closebook() {
+  function closeBook() {
     const ts=document.querySelector('Inline').querySelector('[DEF=TIMEClose]');
+    ts.setAttribute('loop', false);
+    ts.setAttribute('startTime', Date.now()/1000);
+  }
+  function flipRight() {
+    const ts=document.querySelector('Inline').querySelector('[DEF=TIMEFlipRight]');
+    ts.setAttribute('loop', false);
+    ts.setAttribute('startTime', Date.now()/1000);
+  }
+  function flipLeft() {
+    const ts=document.querySelector('Inline').querySelector('[DEF=TIMEFlipLeft]');
     ts.setAttribute('loop', false);
     ts.setAttribute('startTime', Date.now()/1000);
   }
@@ -53,8 +63,10 @@
 <X3D _disableKeys='true'>
   <!--h1 class='heading'>INNOVATE</h1-->
   <div class='buttons'>
-      <button onclick='openbook()'>Open</button>
-      <button onclick='closebook()'>Close</button>
+      <button onclick='openBook()'>Open</button>
+      <button onclick='closeBook()'>Close</button>
+	  <button onclick='flipRight()'>Page Forwards</button>
+	  <button onclick='flipLeft()'>Page Backwards</button>
   </div>
 
   <Scene>
