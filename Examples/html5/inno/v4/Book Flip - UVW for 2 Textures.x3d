@@ -152,7 +152,7 @@
 			           _translation="-4.251698 -4.463028 -0.192007"
 			           >
 				<Transform DEF="RightPageFlip_ifs_TRANSFORM"
-				           translation="0 0 -0.0"
+				           translation="0 0 -0.16"
 				           >
 					<Group DEF="group_ME_RightPageFlip" visible='false'>
 						<Shape>
