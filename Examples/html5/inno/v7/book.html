@@ -1,0 +1,156 @@
+<html>
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <title>INNOVATE THE FUTURE, InnovationsoftheWorld.com</title>
+    <script type='text/javascript' src='https://www.x3dom.org/download/dev/x3dom.debug.js'> </script>
+    <link rel='stylesheet' type='text/css' href='https://www.x3dom.org/download/x3dom.css'/>
+    <style>
+        html, body {
+            margin: 0px;
+            padding: 0px;
+            border: 0px;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background: linear-gradient(rgb(128 128 128 / 50%), rgb(255 255 255 / 49%));
+        }
+
+        X3D {
+            width: 100%;
+            height: 100%;
+        }
+
+        .buttons {
+          position: fixed;
+          top: 90%;
+          right: 50%;
+        }
+
+        .heading {
+          position: fixed;
+          right: 50%;
+          opacity: 10%;
+          font-family: sans-serif;
+        }
+    </style>
+</head>
+<script>
+
+//patch x3dom
+x3dom.Texture.prototype.update = function()
+{
+	if ( x3dom.isa(this.node, x3dom.nodeTypes.Text) )
+	{
+		this.updateText();
+	}
+	else
+	{
+		this.updateTexture();
+	}
+//AP: this prevents USE Appearance update
+    //this.node.validateGLObject();
+};
+
+  let currentPage = 1;
+  pageTextures = [
+  '"All Pages - Gaming - 0th Page.jpg"',
+  '"All Pages - Gaming - 1st Page.jpg"',
+  '"All Pages - Gaming - 2nd Page.jpg"',
+  '"All Pages - Gaming - 3rd Page.jpg"',
+  '"All Pages - Gaming - 4th Page.jpg"'
+  ];
+  const maxPage = pageTextures.length - 1;
+  const minPage = 0;
+  
+  function openBook() {
+    const ts=document.querySelector('Inline').querySelector('[DEF=TIMEOpen]');
+    ts.setAttribute('startTime', Date.now()/1000);
+  }
+
+  function closeBook() {
+    const ts=document.querySelector('Inline').querySelector('[DEF=TIMEClose]');
+    ts.setAttribute('startTime', Date.now()/1000);
+  }
+  function flipRight() {
+    if (currentPage == maxPage) return;
+    const ts=document.querySelector('Inline').querySelector('[DEF=TIMEFlipRight]');
+    ts.setAttribute('startTime', Date.now()/1000);
+  }
+  function flipLeft() {
+    if (currentPage == minPage) return;
+    const ts=document.querySelector('Inline').querySelector('[DEF=TIMEFlipLeft]');
+    ts.setAttribute('startTime', Date.now()/1000);
+  }
+  //event handler called from x3dom
+  function flippingRight(event) {
+    if (event.fieldName == "isActive") {
+	    if  (event.value == true) {
+		  //console.log ('right page flip started');
+		}
+		if  (event.value == false) {
+		  //console.log ('right page flip ended');
+		  setPage(++currentPage);
+		}
+	}
+  }
+  function flippingLeft(event) {
+    if (event.fieldName == "isActive") {
+	    if  (event.value == true) { 
+		  //console.log ('left page flip started');
+		}
+		if  (event.value == false) {
+		  //console.log ('left page flip ended');
+		  setPage(--currentPage);
+		}
+	}
+  }
+  function setPage(page) {
+    //currentPage = page < 0 ? 0 : page % (maxPage+1);
+	//console.log(currentPage);
+	const current002 = document.querySelector('Inline').querySelector('[DEF=paper002_current]');
+    const next002 = document.querySelector('Inline').querySelector('[DEF=paper002_next]');
+    const previous002 = document.querySelector('Inline').querySelector('[DEF=paper002_previous]');
+    const current003 = document.querySelector('Inline').querySelector('[DEF=paper003_current]');
+    const next003 = document.querySelector('Inline').querySelector('[DEF=paper003_next]');
+    const previous003 = document.querySelector('Inline').querySelector('[DEF=paper003_previous]');
+    const currentTex = document.querySelector('Inline').querySelector('[DEF=currentPageTex]');
+    const nextTex = document.querySelector('Inline').querySelector('[DEF=nextPageTex]');
+    const previousTex = document.querySelector('Inline').querySelector('[DEF=previousPageTex]');
+    currentTex.setAttribute('url', pageTextures[currentPage]);
+	current002.setAttribute('visible', true);
+	current003.setAttribute('visible', true);
+	nextTex.setAttribute('url', pageTextures[currentPage + 1]);
+	next002.setAttribute('visible', false);
+	next003.setAttribute('visible', false);
+	previousTex.setAttribute('url', pageTextures[currentPage - 1]);
+	previous002.setAttribute('visible', false);
+	previous003.setAttribute('visible', false);
+  }
+
+</script>
+<body>
+<X3D _disableKeys='true'>
+  <!--h1 class='heading'>INNOVATE</h1-->
+  <div class='buttons'>
+      <button onclick='openBook()'>Open</button>
+      <button onclick='closeBook()'>Close</button>
+	  <button onclick='flipRight()'>Next</button>
+	  <button onclick='flipLeft()'>Back</button>
+  </div>
+
+  <Scene>
+    <Viewpoint position="-85.83730 47.35550 12.73049" orientation="-0.00620 0.70340 0.71077 3.15277" 
+	zNear="0.10000" zFar="1000.00000" centerOfRotation="-85.14868 6.07984 12.30043" fieldOfView="0.78540" description="start"></Viewpoint>
+	<!--DirectionalLight color="1,1,1" intensity="0.5" on="true" direction="1 -1 1">
+    </DirectionalLight>
+    <DirectionalLight color="1,1,1" intensity="0.5" on="true" direction="-1 -1 1">
+    </DirectionalLight>
+	<DirectionalLight color="1,1,1" intensity="0.5" on="true" direction="1 1 -1">
+    </DirectionalLight>
+    <DirectionalLight color="1,1,1" intensity="0.5" on="true" direction="-1 1 -1">
+    </DirectionalLight-->
+    <Inline url='"Book Flip - UVW for 2 Textures.x3d"' namespacename='book'></Inline>
+  </Scene>
+</X3D>
+</body>
+</html>
