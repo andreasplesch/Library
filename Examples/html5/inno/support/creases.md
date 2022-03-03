@@ -17,3 +17,6 @@ Finally, export as X3D. The IFS will have Coordinate points and the coordIndex w
 
 # Transferring the split vertices to the Interpolator for animation
 
+The split vertices need to be transferred from the IFS to the CoordinateInterpolator. For this, the indices of the split vertices need to be identified, so that the new vertices can be added to the unsplit coordinates in the interpolator, by duplicating positions.
+Luckily, it turns out that the new, split vertices can be easily identified in the IFS. Blender just adds them to the end of vertices point field in the Coordinate node. Then, searching through all positions of the unsplit, original list of indices, gives the original index for any of the added vertices. This index can then be used to find the positions also for split vertices in the animation.
+There is js which does all this in the .html files, for each object.
