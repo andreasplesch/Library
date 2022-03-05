@@ -107,8 +107,8 @@ x3dom.Texture.prototype.update = function()
 	}
   }
   function setPage(page) {
-    preloadNext.src = pageTextures[currentPage + 1].replaceAll('"','');
-    preloadPrevious.src = pageTextures[currentPage - 1].replaceAll('"','');
+    preloadNext.src = pageTextures[Math.min(maxPage, currentPage + 1)].replaceAll('"','');
+    preloadPrevious.src = pageTextures[Math.max(minPage, currentPage - 1)].replaceAll('"','');
 	const inline = document.querySelector('Inline');
 	const current002 = inline.querySelector('[DEF=paper002_current]');
     const next002 = inline.querySelector('[DEF=paper002_next]');
