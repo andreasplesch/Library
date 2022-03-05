@@ -47,12 +47,12 @@ x3dom.Texture.prototype.update = function()
 	{
 		this.updateTexture();
 	}
-//AP: this prevents USE Appearance update
+//AP: this prevented USE Appearance updates
     //this.node.validateGLObject();
 };
 
   let currentPage = 1;
-  pageTextures = [
+  const pageTextures = [
   '"All Pages - Gaming - 0th Page.jpg"',
   '"All Pages - Gaming - 1st Page.jpg"',
   '"All Pages - Gaming - 2nd Page.jpg"',
@@ -61,6 +61,8 @@ x3dom.Texture.prototype.update = function()
   ];
   const maxPage = pageTextures.length - 1;
   const minPage = 0;
+  const preloadNext = new Image();
+  const preloadPrevious = new Image();
   
   function openBook() {
     const ts=document.querySelector('Inline').querySelector('[DEF=TIMEOpen]');
@@ -105,17 +107,18 @@ x3dom.Texture.prototype.update = function()
 	}
   }
   function setPage(page) {
-    //currentPage = page < 0 ? 0 : page % (maxPage+1);
-	//console.log(currentPage);
-	const current002 = document.querySelector('Inline').querySelector('[DEF=paper002_current]');
-    const next002 = document.querySelector('Inline').querySelector('[DEF=paper002_next]');
-    const previous002 = document.querySelector('Inline').querySelector('[DEF=paper002_previous]');
-    const current003 = document.querySelector('Inline').querySelector('[DEF=paper003_current]');
-    const next003 = document.querySelector('Inline').querySelector('[DEF=paper003_next]');
-    const previous003 = document.querySelector('Inline').querySelector('[DEF=paper003_previous]');
-    const currentTex = document.querySelector('Inline').querySelector('[DEF=currentPageTex]');
-    const nextTex = document.querySelector('Inline').querySelector('[DEF=nextPageTex]');
-    const previousTex = document.querySelector('Inline').querySelector('[DEF=previousPageTex]');
+    preloadNext.src = pageTextures[currentPage + 1].replaceAll('"','');
+    preloadPrevious.src = pageTextures[currentPage - 1].replaceAll('"','');
+	const inline = document.querySelector('Inline');
+	const current002 = inline.querySelector('[DEF=paper002_current]');
+    const next002 = inline.querySelector('[DEF=paper002_next]');
+    const previous002 = inline.querySelector('[DEF=paper002_previous]');
+    const current003 = inline.querySelector('[DEF=paper003_current]');
+    const next003 = inline.querySelector('[DEF=paper003_next]');
+    const previous003 = inline.querySelector('[DEF=paper003_previous]');
+    const currentTex = inline.querySelector('[DEF=currentPageTex]');
+    const nextTex = inline.querySelector('[DEF=nextPageTex]');
+    const previousTex = inline.querySelector('[DEF=previousPageTex]');
     currentTex.setAttribute('url', pageTextures[currentPage]);
 	current002.setAttribute('visible', true);
 	current003.setAttribute('visible', true);
