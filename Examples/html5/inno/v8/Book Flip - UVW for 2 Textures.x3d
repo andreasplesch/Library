@@ -16,7 +16,7 @@
 		            skyColor="0.051 0.051 0.051"
 		            /-->
        <!--Transform DEF='Yup' center='-86.2 4 12' rotation='1 0 0 -1.57'-->					
-		<Transform DEF='spin_TRAFO' center='-86.2 4 12' scale='1.186 1 1'>
+		<Transform DEF='spin_TRAFO' center='-86.2 4 12' scale='1.17 1 1'>
 		<TouchSensor DEF='book_TOUCH'></TouchSensor>
 		<Transform DEF="book_TRANSFORM"
 		           translation="-92.315819 2.547369 13.725975"
