@@ -53,7 +53,7 @@
 											          shininess="0.1"
 											          transparency="0"
 											          />
-											<ImageTexture DEF='currentPageTex' url='"All Pages - Gaming - 1st Page.jpg"'></ImageTexture>
+											<ImageTexture DEF='currentPageTex' crossOrigin='anonymous' url='"All Pages - Gaming - 1st Page.jpg"'></ImageTexture>
 										</Appearance>
 										<IndexedFaceSet DEF='IFS_paper002' solid="false"
 										                creaseAngle="3.14"
@@ -70,7 +70,7 @@
 									<Shape DEF='paper002_next' visible='false'>
 										<Appearance DEF='app_next'>
 											<Material USE="MA_Max_MaterialID_0"/>
-											<ImageTexture DEF='nextPageTex' url='"All Pages - Gaming - 2nd Page.jpg"'></ImageTexture>
+											<ImageTexture DEF='nextPageTex' crossOrigin='anonymous' url='"All Pages - Gaming - 2nd Page.jpg"'></ImageTexture>
 										</Appearance>
 										<IndexedFaceSet USE='IFS_paper002'> 
 										</IndexedFaceSet>
@@ -78,7 +78,7 @@
 									<Shape DEF='paper002_previous' visible='false'>
 										<Appearance DEF='app_previous'>
 											<Material USE="MA_Max_MaterialID_0"/>
-											<ImageTexture DEF='previousPageTex' url='"All Pages - Gaming - 0th Page.jpg"'></ImageTexture>
+											<ImageTexture DEF='previousPageTex' crossOrigin='anonymous' url='"All Pages - Gaming - 0th Page.jpg"'></ImageTexture>
 										</Appearance>
 										<IndexedFaceSet USE='IFS_paper002'> 
 										</IndexedFaceSet>
@@ -148,7 +148,7 @@
 										  shininess="0.01"
 										  transparency="0"
 							    />
-								<ImageTexture DEF='coverPageTex' url='"All Pages - Gaming - cover Page.jpg"'></ImageTexture>
+								<ImageTexture DEF='coverPageTex' crossOrigin='anonymous' url='"All Pages - Gaming - cover Page.jpg"'></ImageTexture>
 							</Appearance>
 							<IndexedFaceSet solid="false"
 							                creaseAngle="0"
