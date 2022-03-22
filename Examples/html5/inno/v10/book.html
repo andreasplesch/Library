@@ -1,0 +1,301 @@
+<html>
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+        <title>Story Book, InnovationsoftheWorld.com</title>
+        <script type='text/javascript' src='https://www.x3dom.org/download/dev/x3dom.debug.js'></script>
+        <link rel='stylesheet' type='text/css' href='https://www.x3dom.org/download/x3dom.css'/>
+        <style>
+            html, body {
+                margin: 0px;
+                padding: 0px;
+                border: 0px;
+                width: 100%;
+                height: 100%;
+                overflow: hidden;
+                background: linear-gradient(rgb(128 128 128 / 50%), rgb(255 255 255 / 49%));
+            }
+
+            X3D {
+                width: 100%;
+                height: 100%;
+            }
+
+            .buttons {
+                position: fixed;
+                top: 90%;
+                right: 50%;
+            }
+
+            .heading {
+                position: fixed;
+                right: 50%;
+                opacity: 10%;
+                font-family: sans-serif;
+            }
+        </style>
+    </head>
+    <script>
+
+        //patch x3dom
+        x3dom.Texture.prototype.update = function() {
+            if (x3dom.isa(this.node, x3dom.nodeTypes.Text)) {
+                this.updateText();
+            } else {
+                this.updateTexture();
+            }
+            //AP: this prevented USE Appearance updates
+            //this.node.validateGLObject();
+        };
+
+        x3dom.Utils.createTexture2D = function(gl, doc, src, bgnd, crossOrigin, scale, genMipMaps, flipY, tex) {
+            flipY = flipY || false;
+
+            var texture = gl.createTexture();
+
+            //Create a 4 pixel texture to prevent 'texture not complete' warning
+			//AP: change to white here, could be any RGB color
+            var data = new Uint8Array([255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255]);
+            gl.bindTexture(gl.TEXTURE_2D, texture);
+            gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, 2, 2, 0, gl.RGBA, gl.UNSIGNED_BYTE, data);
+            if (genMipMaps) {
+                gl.generateMipmap(gl.TEXTURE_2D);
+            }
+            gl.bindTexture(gl.TEXTURE_2D, null);
+
+            texture.ready = false;
+
+            if (src == null || src == "") {
+                return texture;
+            }
+
+            var image = new Image();
+
+            switch (crossOrigin.toLowerCase()) {
+            case "anonymous":
+                {
+                    image.crossOrigin = "anonymous";
+                }
+                break;
+            case "use-credentials":
+                {
+                    image.crossOrigin = "use-credentials";
+                }
+                break;
+            case "none":
+                {//this is needed to omit the default case, if default is none, erase this and the default case
+                }
+                break;
+            default:
+                {
+                    if (x3dom.Utils.forbiddenBySOP(src)) {
+                        image.crossOrigin = "anonymous";
+                    }
+                }
+            }
+
+            if (tex && tex.getOrigChannelCount() === 0) {
+                var xhr = new XMLHttpRequest();
+                xhr.open("GET", src);
+
+                xhr.onloadstart = function() {
+                    xhr.responseType = "arraybuffer";
+                }
+                ;
+
+                xhr.onload = function() {
+                    var mimeType = xhr.getResponseHeader("Content-Type")
+                      , imageData = new Uint8Array(xhr.response)
+                      , channelcount = x3dom.Utils.detectChannelCount(imageData, mimeType);
+
+                    if (channelcount) {
+                        tex.setOrigChannelCount(channelcount);
+                    }
+
+                    image.src = x3dom.Utils.arrayBufferToObjectURL(imageData, mimeType);
+                }
+                ;
+
+                x3dom.RequestManager.addRequest(xhr);
+            } else {
+                image.src = src;
+            }
+
+            doc.incrementDownloads();
+
+            image.onload = function() {
+                texture.originalWidth = image.width;
+                texture.originalHeight = image.height;
+
+                if (scale) {
+                    image = x3dom.Utils.scaleImage(image);
+                }
+
+                if (bgnd == true || flipY == true) {
+                    gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, true);
+                }
+                gl.bindTexture(gl.TEXTURE_2D, texture);
+                //gl.pixelStorei(gl.UNPACK_PREMULTIPLY_ALPHA_WEBGL, false);
+                gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, image);
+                if (genMipMaps) {
+                    gl.generateMipmap(gl.TEXTURE_2D);
+                }
+                gl.bindTexture(gl.TEXTURE_2D, null);
+                if (bgnd == true || flipY == true) {
+                    gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, false);
+                }
+
+                //Save image size
+                texture.width = image.width;
+                texture.height = image.height;
+                texture.ready = true;
+
+                doc.decrementDownloads();
+                doc.needRender = true;
+            }
+            ;
+
+            image.onerror = function(error) {
+                x3dom.Utils.tryDDSLoading(texture, gl, doc, src, genMipMaps, flipY, tex).then(function() {
+                    doc.decrementDownloads();
+                    doc.needRender = true;
+                }, function() {
+                    x3dom.debug.logError("[Utils|createTexture2D] Can't load Image: " + src);
+                    doc.decrementDownloads();
+                });
+            }
+            ;
+
+            return texture;
+        }
+        ;
+
+        let currentPage = 1;
+        const pageTextures = ['"All Pages - Gaming - 0th Page.jpg"', '"All Pages - Gaming - 1st Page.jpg"', '"All Pages - Gaming - 2nd Page.jpg"', '"All Pages - Gaming - 3rd Page.jpg"', '"All Pages - Gaming - 4th Page.jpg"'];
+        const maxPage = pageTextures.length - 1;
+        const minPage = 0;
+        const preloadNext = new Image();
+        const preloadPrevious = new Image();
+		const preloadNextAfterNext = new Image();
+        const preloadPreviousBeforePrevious = new Image();
+		preloadImages();
+		
+		function preloadImages() {
+		    preloadNext.src = pageTextures[Math.min(maxPage, currentPage + 1)].replaceAll('"', '');
+            preloadPrevious.src = pageTextures[Math.max(minPage, currentPage - 1)].replaceAll('"', '');
+            preloadNextAfterNext.src = pageTextures[Math.min(maxPage, currentPage + 2)].replaceAll('"', '');
+            preloadPreviousBeforePrevious.src = pageTextures[Math.max(minPage, currentPage - 2)].replaceAll('"', '');
+		}
+        function openBook() {
+            currentPage = Math.floor(Math.random() * maxPage);
+            setPage(currentPage);
+            const ts = document.querySelector('Inline').querySelector('[DEF=TIMEOpen]');
+            ts.setAttribute('startTime', Date.now() / 1000);
+        }
+        function closeBook() {
+            const ts = document.querySelector('Inline').querySelector('[DEF=TIMEClose]');
+            ts.setAttribute('startTime', Date.now() / 1000);
+        }
+        function flipRight() {
+            if (currentPage == maxPage)
+                return;
+            const ts = document.querySelector('Inline').querySelector('[DEF=TIMEFlipRight]');
+            ts.setAttribute('startTime', Date.now() / 1000);
+        }
+        function flipLeft() {
+            if (currentPage == minPage)
+                return;
+            const ts = document.querySelector('Inline').querySelector('[DEF=TIMEFlipLeft]');
+            ts.setAttribute('startTime', Date.now() / 1000);
+        }
+        //event handler called from x3dom
+        function flippingRight(event) {
+            if (event.fieldName == "isActive") {
+                if (event.value == true) {//console.log ('right page flip started');
+                }
+                if (event.value == false) {
+                    //console.log ('right page flip ended');
+                    setPage(++currentPage);
+                }
+            }
+        }
+        function flippingLeft(event) {
+            if (event.fieldName == "isActive") {
+                if (event.value == true) {//console.log ('left page flip started');
+                }
+                if (event.value == false) {
+                    //console.log ('left page flip ended');
+                    setPage(--currentPage);
+                }
+            }
+        }
+        function setPage(page) {
+            preloadImages();
+            const inline = document.querySelector('Inline');
+            const current002 = inline.querySelector('[DEF=paper002_current]');
+            const next002 = inline.querySelector('[DEF=paper002_next]');
+            const previous002 = inline.querySelector('[DEF=paper002_previous]');
+            const current003 = inline.querySelector('[DEF=paper003_current]');
+            const next003 = inline.querySelector('[DEF=paper003_next]');
+            const previous003 = inline.querySelector('[DEF=paper003_previous]');
+            const currentTex = inline.querySelector('[DEF=currentPageTex]');
+            const nextTex = inline.querySelector('[DEF=nextPageTex]');
+            const previousTex = inline.querySelector('[DEF=previousPageTex]');
+            currentTex.setAttribute('url', pageTextures[currentPage]);
+            current002.setAttribute('visible', true);
+            current003.setAttribute('visible', true);
+            nextTex.setAttribute('url', pageTextures[currentPage + 1]);
+            next002.setAttribute('visible', false);
+            next003.setAttribute('visible', false);
+            previousTex.setAttribute('url', pageTextures[currentPage - 1]);
+            previous002.setAttribute('visible', false);
+            previous003.setAttribute('visible', false);
+        }
+        function resetView() {
+            document.querySelector('X3D').runtime.resetView();
+            document.querySelector('Inline').querySelector('[DEF=spin_TRAFO]').setAttribute('rotation', '0 0 1 0');
+        }
+		function customizeBook() {
+            //rescale Story Book
+            const w0 = 252;
+            const h0 = 288;
+            const d0 = 20;
+            const w = 155;
+            const h = 220;
+            const d = 15;
+            const x_scale = w / w0;
+            const y_scale = h / h0;
+            const z_scale = d / d0;
+            document.querySelector('Inline').querySelector("[DEF=StoryBookScaler]").setAttribute("scale",`${x_scale} ${z_scale} ${y_scale}`);
+            //also have to adjust spin center
+            const spin_x0 = -86.2;
+            const spin_y0 = 12;
+            const spin_z0 = 4;
+            document.querySelector('Inline').querySelector("[DEF=spin_TRAFO]").setAttribute("center",`${spin_x0 * x_scale} ${spin_z0 * z_scale} ${spin_y0 * y_scale}`);
+        }
+    </script>
+    <body>
+        <X3D _disableKeys='true'>
+            <!--h1 class='heading'>INNOVATE</h1-->
+            <div class='buttons'>
+                <button onclick='resetView()'>Reset</button>
+                <button onclick='openBook()'>Open</button>
+                <button onclick='closeBook()'>Close</button>
+                <button onclick='flipRight()'>Next</button>
+                <button onclick='flipLeft()'>Back</button>
+            </div>
+            <Scene>
+                <Viewpoint position="-53.70200 43.05402 6.98912" orientation="-0.00663 0.72794 0.68561 3.14310" 
+	zNear="0.10000" zFar="1000.00000" centerOfRotation="-53.32450 6.07524 9.20735" fieldOfView="0.78540" description="start"></Viewpoint>
+    <!--DirectionalLight color="1,1,1" intensity="0.5" on="true" direction="1 -1 1">
+    </DirectionalLight>
+    <DirectionalLight color="1,1,1" intensity="0.5" on="true" direction="-1 -1 1">
+    </DirectionalLight>
+	<DirectionalLight color="1,1,1" intensity="0.5" on="true" direction="1 1 -1">
+    </DirectionalLight>
+    <DirectionalLight color="1,1,1" intensity="0.5" on="true" direction="-1 1 -1">
+    </DirectionalLight-->
+                <Inline onload='customizeBook()' url='"StoryBook Flip - UVW for 2 Textures.x3d"' namespacename='book'></Inline>
+            </Scene>
+        </X3D>
+    </body>
+</html>
