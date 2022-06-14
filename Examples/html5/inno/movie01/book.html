@@ -46,6 +46,316 @@
             //AP: this prevented USE Appearance updates
             //this.node.validateGLObject();
         };
+	    
+	x3dom.Texture.prototype.updateTexture = function ()
+	{
+	    var gl = this.gl;
+	    var doc = this.doc;
+	    var tex = this.node;
+
+	    // Set sampler
+	    this.samplerName = tex._type;
+
+	    // Set texture type
+	    if ( x3dom.isa( tex, x3dom.nodeTypes.X3DEnvironmentTextureNode ) )
+	    {
+		this.type = gl.TEXTURE_CUBE_MAP;
+	    }
+	    else
+	    {
+		this.type = gl.TEXTURE_2D;
+	    }
+
+	    // Set texture format
+	    if ( x3dom.isa( tex, x3dom.nodeTypes.PixelTexture ) )
+	    {
+		switch ( tex._vf.image.comp )
+		{
+		    case 1:
+			this.format = gl.LUMINANCE;
+			break;
+		    case 2:
+			this.format = gl.LUMINANCE_ALPHA;
+			break;
+		    case 3:
+			this.format = gl.RGB;
+			break;
+		    case 4:
+			this.format = gl.RGBA;
+			break;
+		}
+	    }
+	    else
+	    {
+		this.format = gl.RGBA;
+	    }
+
+	    // Set texture min, mag, wrapS and wrapT
+	    if ( tex._cf.textureProperties.node !== null )
+	    {
+		var texProp = tex._cf.textureProperties.node;
+
+		this.wrapS = x3dom.Utils.boundaryModesDic( gl, texProp._vf.boundaryModeS );
+		this.wrapT = x3dom.Utils.boundaryModesDic( gl, texProp._vf.boundaryModeT );
+
+		this.minFilter = x3dom.Utils.minFilterDic( gl, texProp._vf.minificationFilter );
+		this.magFilter = x3dom.Utils.magFilterDic( gl, texProp._vf.magnificationFilter );
+
+		this.anisotropicDegree = Math.min( Math.max( texProp._vf.anisotropicDegree, 1.0 ), x3dom.caps.MAX_ANISOTROPY );
+
+		if ( texProp._vf.generateMipMaps === true )
+		{
+		    this.genMipMaps = true;
+
+		    if ( this.minFilter == gl.NEAREST )
+		    {
+			this.minFilter = gl.NEAREST_MIPMAP_NEAREST;
+		    }
+		    else if ( this.minFilter == gl.LINEAR )
+		    {
+			this.minFilter = gl.LINEAR_MIPMAP_LINEAR;
+		    }
+
+		    if ( this.texture && ( this.texture.ready || this.texture.textureCubeReady ) )
+		    {
+			gl.bindTexture( this.type, this.texture );
+			gl.generateMipmap( this.type );
+			gl.bindTexture( this.type, null );
+		    }
+		}
+		else
+		{
+		    this.genMipMaps = false;
+
+		    if ( ( this.minFilter == gl.LINEAR_MIPMAP_LINEAR ) ||
+			( this.minFilter == gl.LINEAR_MIPMAP_NEAREST ) )
+		    {
+			this.minFilter = gl.LINEAR;
+		    }
+		    else if ( ( this.minFilter == gl.NEAREST_MIPMAP_LINEAR ) ||
+			( this.minFilter == gl.NEAREST_MIPMAP_NEAREST ) )
+		    {
+			this.minFilter = gl.NEAREST;
+		    }
+		}
+	    }
+	    else
+	    {
+		if ( tex._vf.repeatS == false )
+		{
+		    this.wrapS = gl.CLAMP_TO_EDGE;
+		}
+		else
+		{
+		    this.wrapS = gl.REPEAT;
+		}
+
+		if ( tex._vf.repeatT == false )
+		{
+		    this.wrapT = gl.CLAMP_TO_EDGE;
+		}
+		else
+		{
+		    this.wrapT = gl.REPEAT;
+		}
+
+		if ( this.samplerName == "displacementMap" )
+		{
+		    this.wrapS = gl.CLAMP_TO_EDGE;
+		    this.wrapT = gl.CLAMP_TO_EDGE;
+		    this.minFilter = gl.NEAREST;
+		    this.magFilter = gl.NEAREST;
+		}
+	    }
+
+	    // Looking for child texture
+	    var childTex = ( tex._video && tex._needPerFrameUpdate === true );
+
+	    // Set texture
+	    if ( tex._isCanvas && tex._canvas )
+	    {
+		if ( this.texture == null )
+		{
+		    this.texture = gl.createTexture();
+		}
+		this.texture.width = tex._canvas.width;
+		this.texture.height = tex._canvas.height;
+		this.texture.ready = true;
+
+		gl.bindTexture( this.type, this.texture );
+		gl.texImage2D( this.type, 0, this.format, this.format, gl.UNSIGNED_BYTE, tex._canvas );
+		if ( this.genMipMaps )
+		{
+		    gl.generateMipmap( this.type );
+		}
+		gl.bindTexture( this.type, null );
+	    }
+
+	    else if ( x3dom.isa( tex, x3dom.nodeTypes.RenderedTexture ) )
+	    {
+		if ( tex._webgl && tex._webgl.fbo )
+		{
+		    if ( tex._webgl.fbo.dtex && tex._vf.depthMap )
+		    {
+			this.texture = tex._webgl.fbo.dtex;
+		    }
+		    else
+		    {
+			this.texture = tex._webgl.fbo.tex;
+		    }
+		}
+		else
+		{
+		    this.texture = null;
+		    x3dom.debug.logError( "Try updating RenderedTexture without FBO initialized!" );
+		}
+		if ( this.texture )
+		{
+		    this.texture.ready = true;
+		}
+	    }
+	    else if ( x3dom.isa( tex, x3dom.nodeTypes.PixelTexture ) )
+	    {
+		if ( tex._vf.origChannelCount == 0 ) {tex.setOrigChannelCount( tex._vf.image.comp );}
+
+		if ( this.texture == null )
+		{
+		    if ( this.node._DEF )
+		    {
+			this.texture = this.cache.getTexture2DByDEF( gl, this.node._nameSpace, this.node._DEF );
+		    }
+		    else
+		    {
+			this.texture = gl.createTexture();
+		    }
+		}
+		this.texture.width = tex._vf.image.width;
+		this.texture.height = tex._vf.image.height;
+		this.texture.ready = true;
+
+		var pixelArr = tex._vf.image.array;
+		var pixelArrfont_size = tex._vf.image.width * tex._vf.image.height * tex._vf.image.comp;
+
+		var pixels = new Uint8Array( pixelArrfont_size );
+
+		pixels.set( pixelArr );
+
+		gl.bindTexture( this.type, this.texture );
+		gl.pixelStorei( gl.UNPACK_ALIGNMENT, 1 );
+		gl.texImage2D( this.type, 0, this.format,
+		    tex._vf.image.width, tex._vf.image.height, 0,
+		    this.format, gl.UNSIGNED_BYTE, pixels );
+		if ( this.genMipMaps )
+		{
+		    gl.generateMipmap( this.type );
+		}
+		gl.bindTexture( this.type, null );
+	    }
+	    else if ( x3dom.isa( tex, x3dom.nodeTypes.MovieTexture ) || childTex )
+	    {
+		var that = this;
+		var p = document.getElementsByTagName( "body" )[ 0 ];
+
+		if ( this.texture == null )
+		{
+		    this.texture = gl.createTexture();
+		}
+
+		if ( this.dashtexture )
+		{
+		    var element_vid = document.createElement( "div" );
+		    element_vid.setAttribute( "class", "dash-video-player" + x3dom.Texture.textNum );
+		    tex._video = document.createElement( "video" );
+		    tex._video.setAttribute( "preload", "auto" );
+		    tex._video.setAttribute( "muted", "muted" );
+
+		    var scriptToRun = document.createElement( "script" );
+		    scriptToRun.setAttribute( "type", "text/javascript" );
+		    scriptToRun.innerHTML = "startDashVideo(\"" + tex._vf.url[ 0 ] +
+			"\",\".dash-video-player" + x3dom.Texture.textNum + " video\")";
+		    element_vid.appendChild( scriptToRun );
+		    element_vid.appendChild( tex._video );
+		    p.appendChild( element_vid );
+		    tex._video.style.visibility = "hidden";
+		    tex._video.style.display = "none";
+		}
+		else
+		{
+		    if ( !childTex )
+		    {
+			tex._video = document.createElement( "video" );
+			tex._video.setAttribute( "preload", "auto" );
+			tex._video.setAttribute( "muted", "" );
+			p.appendChild( tex._video );
+			tex._video.style.visibility = "hidden";
+			tex._video.style.display = "none";
+		    }
+
+		    for ( var i = 0; i < tex._vf.url.length; i++ )
+		    {
+			var videoUrl = tex._nameSpace.getURL( tex._vf.url[ i ] );
+			x3dom.debug.logInfo( "Adding video file: " + videoUrl );
+			var src = document.createElement( "source" );
+			src.setAttribute( "src", videoUrl );
+			tex._video.appendChild( src );
+		    }
+		}
+
+		var updateMovie = function ()
+		{
+		    gl.bindTexture( that.type, that.texture );
+		    gl.texImage2D( that.type, 0, that.format, that.format, gl.UNSIGNED_BYTE, tex._video );
+		    if ( that.genMipMaps )
+		    {
+			gl.generateMipmap( that.type );
+		    }
+		    gl.bindTexture( that.type, null );
+		    that.texture.ready = true;
+		    doc.needRender = true;
+		};
+
+		var startVideo = function ()
+		{
+		    var promise = tex._video.play();
+		    promise
+		    .then( () => {
+			tex._intervalID = setInterval( updateMovie, 16 );}
+		    )
+		    .catch( (err) => {
+			    console.log("rejected: " + err);
+			    setTimeout( startVideo, 1000 );}
+		     );
+		};
+
+		var videoDone = function ()
+		{
+		    clearInterval( tex._intervalID );
+		    if ( tex._vf.loop === true )
+		    {
+			tex._video.play();
+			tex._intervalID = setInterval( updateMovie, 16 );
+		    }
+		};
+
+		// Start listening for the canplaythrough event, so we do not
+		// start playing the video until we can do so without stuttering
+		tex._video.addEventListener( "canplaythrough", startVideo, true );
+
+		// Start listening for the ended event, so we can stop the
+		// texture update when the video is finished playing
+		tex._video.addEventListener( "ended", videoDone, true );
+	    }
+	    else if ( x3dom.isa( tex, x3dom.nodeTypes.X3DEnvironmentTextureNode ) )
+	    {
+		this.texture = this.cache.getTextureCube( gl, doc, tex.getTexUrl(), false,
+		    tex._vf.crossOrigin, tex._vf.scale, this.genMipMaps, tex._vf.flipY );
+	    }
+	    else
+	    {
+		this.texture = this.cache.getTexture2D( gl, doc, tex._nameSpace.getURL( tex._vf.url[ 0 ] ),
+		    false, tex._vf.crossOrigin, tex._vf.scale, this.genMipMaps, tex._vf.flipY, tex );
+	    }
+	};
 
         x3dom.Utils.createTexture2D = function(gl, doc, src, bgnd, crossOrigin, scale, genMipMaps, flipY, tex) {
             flipY = flipY || false;
