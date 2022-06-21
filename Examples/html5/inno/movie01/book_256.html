@@ -283,11 +283,11 @@
 		{
 		    if ( !childTex )
 		    {
-			tex._video = document.createElement( "video" );
-			tex._video.setAttribute( "preload", "auto" );
-			tex._video.setAttribute( "muted", "" );
-      tex._video.setAttribute( "playsinline", "" );
-      tex._video.crossOrigin = "anonymous";
+                tex._video = document.createElement( "video" );
+                tex._video.setAttribute( "preload", "auto" );
+                tex._video.setAttribute( "muted", "" );
+                tex._video.setAttribute( "playsinline", "" );
+                tex._video.crossOrigin = "anonymous";
 			//p.appendChild( tex._video ); // should not be necessary
 			//tex._video.style.visibility = "hidden";
 			//tex._video.style.display = "none";
@@ -557,15 +557,15 @@
             current002.setAttribute('visible', true);
             current003.setAttribute('visible', true);
             nextTex.setAttribute('url', pageTextures[currentPage + 1]);
-            setTimeout( function(){ // try to prevent flickering
+            setTimeout( function(){ // try to prevent flickering; better use an event
                 next002.setAttribute('visible', false);
                 next003.setAttribute('visible', false);
-            }, 100 );
+            }, 200 );
             previousTex.setAttribute('url', pageTextures[currentPage - 1]);
             setTimeout( function(){
                 previous002.setAttribute('visible', false);
                 previous003.setAttribute('visible', false);
-            }, 100 );
+            }, 200 );
         }
         function resetView() {
             document.querySelector('X3D').runtime.resetView();
