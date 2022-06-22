@@ -493,10 +493,10 @@
         preloadImages();
 		
         function preloadImages() {
-            preloadNext.src = pageTextures[Math.min(maxPage, currentPage + 1)].replaceAll('"', '');
-            preloadPrevious.src = pageTextures[Math.max(minPage, currentPage - 1)].replaceAll('"', '');
-            preloadNextAfterNext.src = pageTextures[Math.min(maxPage, currentPage + 2)].replaceAll('"', '');
-            preloadPreviousBeforePrevious.src = pageTextures[Math.max(minPage, currentPage - 2)].replaceAll('"', '');
+            preloadNext.src = pageTextures[Math.min(maxPage, currentPage + 1)].replace(/"/g, '');
+            preloadPrevious.src = pageTextures[Math.max(minPage, currentPage - 1)].replace(/"/g, '');
+            preloadNextAfterNext.src = pageTextures[Math.min(maxPage, currentPage + 2)].replace(/"/g, '');
+            preloadPreviousBeforePrevious.src = pageTextures[Math.max(minPage, currentPage - 2)].replace(/"/g, '');
         }
         function openBook() {
             currentPage = Math.floor(Math.random() * maxPage);
