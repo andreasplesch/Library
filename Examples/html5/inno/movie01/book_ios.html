@@ -290,14 +290,14 @@
                 tex._video.setAttribute( "playsinline", "" );
                 tex._video.crossOrigin = "anonymous";
           //iOS needs this?
-          p.appendChild( tex._video ); // should not be necessary
+                p.appendChild( tex._video ); // should not be necessary
 	          		//tex._video.style.visibility = "hidden";
 			          //tex._video.style.display = "none";
-                //tex._video.style.transform = "scale(0.0001, 0.0001)";
-            //tex._video.style.opacity = "0";
-            tex._video.style.position = "fixed";
-            tex._video.style.bottom = "0px";
-            tex._video.style.right = "0px";
+                tex._video.style.transform = "scale(0.0001, 0.0001)";
+                tex._video.style.opacity = "0";
+                tex._video.style.position = "fixed";
+                tex._video.style.bottom = "0px";
+                tex._video.style.right = "0px";
 		    }
 
 		    for ( var i = 0; i < tex._vf.url.length; i++ )
@@ -606,10 +606,7 @@
         }
     </script>
     <body>
-	 <!--video preload="auto" muted="" autoplay="" playsinline="" crossorigin="anonymous" style="position: fixed;bottom: 0px;/* right: 0px; */">
-		 <source src="bigbuck256.mp4">
-	    </video-->
-        <X3D disableKeys='true'>
+        <X3D _disableKeys='true'>
             <div class='buttons'>
                 <button onclick='resetView()'>Reset</button>
                 <button onclick='openBook()'>Open</button>
