@@ -605,8 +605,10 @@
         }
     </script>
     <body>
-        <X3D disableKeys='true'>
-            <!--h1 class='heading'>INNOVATE</h1-->
+	 <video preload="auto" muted="" playsinline="" crossorigin="anonymous" style="position: fixed;bottom: 0px;/* right: 0px; */">
+		 <source src="bigbuck256.mp4">
+	    </video>
+        <!--X3D disableKeys='true'>
             <div class='buttons'>
                 <button onclick='resetView()'>Reset</button>
                 <button onclick='openBook()'>Open</button>
@@ -615,20 +617,11 @@
                 <button onclick='flipLeft()'>Back</button>
             </div>
             <Scene>
-            <!--Viewpoint position="-83.92688 51.23723 13.12658" orientation="0.01003 0.70837 0.70577 3.12051" 
-	zNear="0.10000" zFar="1000.00000" centerOfRotation="-85.29314 4.27657 13.29883" fieldOfView="0.78540" description="defaultBook"></Viewpoint-->
                 <Viewpoint position="0 60 0" orientation="0.00 0.707 0.707 3.1415" 
 	zNear="0.10000" zFar="1000.00000" centerOfRotation="0 0 0" fieldOfView="0.78540" description="start"></Viewpoint>
-    <!--DirectionalLight color="1,1,1" intensity="0.5" on="true" direction="1 -1 1">
-    </DirectionalLight>
-    <DirectionalLight color="1,1,1" intensity="0.5" on="true" direction="-1 -1 1">
-    </DirectionalLight>
-	<DirectionalLight color="1,1,1" intensity="0.5" on="true" direction="1 1 -1">
-    </DirectionalLight>
-    <DirectionalLight color="1,1,1" intensity="0.5" on="true" direction="-1 1 -1">
-    </DirectionalLight-->
+    
                 <Inline onload='initBook()' url='"StoryBook Flip - UVW for 2 Textures.x3d"' namespacename='book'></Inline>
             </Scene>
-        </X3D>
+        </X3D-->
     </body>
 </html>
