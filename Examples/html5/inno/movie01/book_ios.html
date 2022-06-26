@@ -281,7 +281,7 @@
 		}
 		else
 		{
-		    if ( !childTex && !tex._video )
+		    if ( !childTex )
 		    {
                 tex._video = document.createElement( "video" );
                 tex._video.setAttribute( "preload", "auto" );
@@ -308,6 +308,7 @@
 			src.setAttribute( "src", videoUrl );
 			tex._video.appendChild( src );
 		    }
+		    tex._video.load();
 		}
 
 		var updateMovie = function ()
