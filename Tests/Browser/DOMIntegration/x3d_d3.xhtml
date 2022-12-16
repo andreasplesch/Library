@@ -139,49 +139,49 @@ var vp2 = document.querySelector('Viewpoint[description="offset"]');
 var vpp = document.querySelector('#position');
 
 ///*
-ts.addEventListener('x3d_isOver', function(evt) {
+ts.addEventListener('isOver', function(evt) {
 	var e = evt.detail;
 	if (e.value) {
 		coords.textContent = " " + e.fields.hitPoint_changed;
 		//alert('isOver event:'+evt.value+'\nHitPoint: '+evt.fields.hitPoint_changed)
 	}
 	});
-ts.addEventListener('x3d_hitPoint_changed', function(evt) {
+ts.addEventListener('hitPoint_changed', function(evt) {
 	var e = evt.detail;
 	if (e.value) {
 		hitpt.textContent = " " + e.value;
 		//alert('isOver event:'+evt.value+'\nHitPoint: '+evt.fields.hitPoint_changed)
 	}
 	});
-ks.addEventListener('x3d_keyPress', function(evt) {
+ks.addEventListener('keyPress', function(evt) {
 	var e = evt.detail;
 	//if (evt.value) {
 		kp.textContent = " " + e.value;
 		//alert('isOver event:'+evt.value+'\nHitPoint: '+evt.fields.hitPoint_changed)
 	//}
 	});
-tms.addEventListener('x3d_fraction_changed', function(evt) {
+tms.addEventListener('fraction_changed', function(evt) {
 	var e = evt.detail;
 	//if (evt.value) {
 		tmp.textContent = " " + e.value;
 		//alert('isOver event:'+evt.value+'\nHitPoint: '+evt.fields.hitPoint_changed)
 	//}
 	});
-si.addEventListener('x3d_value_changed', function(evt) {
+si.addEventListener('value_changed', function(evt) {
 	var e = evt.detail;
 	//if (evt.value) {
 		sip.textContent = " " + e.value;
 		//alert('isOver event:'+evt.value+'\nHitPoint: '+evt.fields.hitPoint_changed)
 	//}
 	});
-vp1.addEventListener('x3d_position', function(evt) {
+vp1.addEventListener('position', function(evt) {
 	var e = evt.detail;
 	//if (evt.value) {
 		vpp.textContent = " " + e.value;
 		//alert('isOver event:'+evt.value+'\nHitPoint: '+evt.fields.hitPoint_changed)
 	//}
 	});
-vp2.addEventListener('x3d_position', function(evt) {
+vp2.addEventListener('position', function(evt) {
 	var e = evt.detail;
 	//if (evt.value) {
 		vpp.textContent = " " + e.value;
