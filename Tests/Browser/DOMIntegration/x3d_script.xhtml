@@ -165,39 +165,34 @@ var tms = document.querySelector('TimeSensor');
 var tmp = document.querySelector('#time');
 
 ///*
-ts.addEventListener('x3d_isOver', function(evt) {
+ts.addEventListener('isOver', function(evt) {
 	var e = evt.detail;
 	if (e.value) {
-		coords.textContent = e.name + " " + e.fields.hitPoint_changed;
-		//alert('isOver event:'+evt.value+'\nHitPoint: '+evt.fields.hitPoint_changed)
+		coords.textContent = e.name + " " + e.node.hitPoint_changed;
 	}
 	});
-ts.addEventListener('x3d_hitPoint_changed', function(evt) {
+ts.addEventListener('hitPoint_changed', function(evt) {
 	var e = evt.detail;
 	if (e.value) {
 		hitpt.textContent = " " + e.value;
-		//alert('isOver event:'+evt.value+'\nHitPoint: '+evt.fields.hitPoint_changed)
 	}
 	});
-ps.addEventListener('x3d_isActive', function(evt) {
+ps.addEventListener('isActive', function(evt) {
 	var e = evt.detail;
 	//if (evt.value) {
 		pp.textContent = " " + e.value;
-		//alert('isOver event:'+evt.value+'\nHitPoint: '+evt.fields.hitPoint_changed)
 	//}
 	});
-ks.addEventListener('x3d_keyPress', function(evt) {
+ks.addEventListener('keyPress', function(evt) {
 	var e = evt.detail;
 	//if (evt.value) {
 		kp.textContent = " " + e.value;
-		//alert('isOver event:'+evt.value+'\nHitPoint: '+evt.fields.hitPoint_changed)
 	//}
 	});
-tms.addEventListener('x3d_fraction_changed', function(evt) {
+tms.addEventListener('fraction_changed', function(evt) {
 	var e = evt.detail;
 	//if (evt.value) {
 		tmp.textContent = " " + e.value;
-		//alert('isOver event:'+evt.value+'\nHitPoint: '+evt.fields.hitPoint_changed)
 	//}
 	});
 ///*
