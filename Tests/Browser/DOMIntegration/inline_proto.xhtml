@@ -102,14 +102,14 @@ x3d-canvas {
 		protoScene.appendChild(trafo);
 	}
 	function removeProtoInstance() {
-		var newCubes = document.querySelectorAll('[DEF="cubes"] > Scene > Transform');
+		var newCubes = document.querySelectorAll('[DEF="cubes"] Scene > Transform');
 		if (newCubes === null) {return;}
 		var lastCubes  = newCubes[newCubes.length - 1];
 		lastCubes.remove();
 		counter = counter - step;
 	}
 	function rotateCubes(event) {
-		var newCubes = document.querySelectorAll('[DEF="cubes"] > Scene > Transform');
+		var newCubes = document.querySelectorAll('[DEF="cubes"] Scene > Transform');
 		if (newCubes === null) {return;}
 		var lastCubes  = newCubes[newCubes.length - 1];
 		var rotationField = lastCubes.querySelector('ProtoInstance > fieldValue[name="rotation"]');
