@@ -168,7 +168,7 @@ var tmp = document.querySelector('#time');
 ts.addEventListener('isOver', function(evt) {
 	var e = evt.detail;
 	if (e.value) {
-		coords.textContent = e.name + " " + e.fields.hitPoint_changed;
+		coords.textContent = e.name + " " + e.node.hitPoint_changed;
 		//alert('isOver event:'+evt.value+'\nHitPoint: '+evt.fields.hitPoint_changed)
 	}
 	});
