@@ -21,7 +21,7 @@
 </head>
 <body>
 <h3>X3D glTF  Inlines</h3>
-    <X3D xmlns="http://www.web3d.org/specifications/x3d-namespace" showStat="true" showLog="true" width="600px" height="400px">
+    <X3D xmlns="http://www.web3d.org/specifications/x3d-namespace" showStat="true" showLog="true" width="800px" height="800px">
         <Environment gammaCorrectionDefault="none"></Environment>
         <Scene>
             <!--Background skyColor='0, 0, 0.1'></Background-->
@@ -32,11 +32,17 @@
     </X3D>
     <label _style='margin: 5px;' for="x3d-select1">Choose a glTF&nbsp&nbsp&nbsp&nbsp example:</label>
     <select id="x3d-select1" onchange='handleChange(event)'>
+        <option>Crusader Shield Damara.glb</option>
         <option>1.glb</option>
+        <option>5.glb</option>
+        <option>android.glb</option>
+        <option>sample.glb</option>
+        <option>knot2.glb</option>
         
-        <option value="none" selected>--Please choose a x3d scene--</option>
+        <option value="none" selected>--Please choose a glTF/glb example--</option>
     </select>
-    <textarea id='InlineContent' style="margin: 10px; width: calc( 100% - 10px ); height: 200px; display: block;"></textarea>
+    <textarea id='InlineContent' style="margin: 10px; width: calc( 100% - 10px ); height: 400px; display: block;"></textarea>
+    <!--
     <h3>dom access</h3>
     <div>
       <ul>
@@ -45,6 +51,7 @@
           </li>
       </ul>
     </div>
+    -->
 </body>
 <script>
     const inline = document.querySelector( '#Inline' );
