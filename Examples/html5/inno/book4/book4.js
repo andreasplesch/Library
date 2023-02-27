@@ -13,6 +13,7 @@ var BK = {
 		bUrlPage: 0,
 		iPageCurrent: 1,
 		iPageLast: 25,
+		aMoviePages: [3], // array of mp4 movie pages
 		oPreloadNext: new Image(),
 		oPreloadNextAfterNext: new Image(),
 		oPreloadPrevious: new Image(),
@@ -140,15 +141,16 @@ init(event) {
 	var eA, iI;
 	eA = event.target.querySelector("Inline");
 	eA.setAttribute("url", "book4.x3d");
-	eA.onload = function(){
-		iI = window.setInterval(function(){
-			eA = document.querySelector('Inline');
-			if (eA){
-				window.clearInterval(iI);
-				BK.A.init2();
-			}
-		}, 20);
-	}
+	eA.onload = BK.A.init2;
+	// eA.onload = function(){
+	// 	iI = window.setInterval(function(){
+	// 		eA = document.querySelector('Inline');
+	// 		if (eA){
+	// 			window.clearInterval(iI);
+	// 			BK.A.init2();
+	// 		}
+		// }, 20);
+	//}
 
 
 },
@@ -252,12 +254,7 @@ init2: function(event){
 	eI = document.querySelector("Inline");
 	eA = eI.querySelector("[DEF=coverPageTex]");
 	BK.A.covertexture(eA);
-	eA = eI.querySelector("[DEF=previousPageTex]");
-	eA.setAttribute("url", "./" + (BK.V.iPageCurrent - 2) + ".jpg");
-	eA = eI.querySelector("[DEF=currentPageTex]");
-	eA.setAttribute("url", "./" + (BK.V.iPageCurrent + 0) + ".jpg");
-	eA = eI.querySelector("[DEF=nextPageTex]");
-	eA.setAttribute("url", "./" + (BK.V.iPageCurrent + 2) + ".jpg");
+	BK.A.setX3DTexture();
 	eA = document.querySelector('Inline').querySelector('[DEF=spinCLOCK]');
 	eA.setAttribute('startTime', Date.now () / 1000);
 	if (BK.A.dg("cor")){
@@ -270,7 +267,61 @@ init2: function(event){
 	}
 },
 
+setX3DTexture: function(){
+	var eI, eA;
+	eI = document.querySelector("Inline");
+	eA = eI.querySelector("[DEF=previousPageTex]");
+	//eA.setAttribute("url", "./" + (BK.V.iPageCurrent - 2) + ".jpg");
+	BK.A.imageormovie(eA, BK.V.iPageCurrent - 2);
+	eA = eI.querySelector("[DEF=currentPageTex]");
+	BK.A.imageormovie(eA, BK.V.iPageCurrent - 0);
+	//eA.setAttribute("url", "./" + (BK.V.iPageCurrent + 0) + ".jpg");
+	eA = eI.querySelector("[DEF=nextPageTex]");
+	BK.A.imageormovie(eA, BK.V.iPageCurrent + 2);
+	//eA.setAttribute("url", "./" + (BK.V.iPageCurrent + 2) + ".jpg");
+},
 
+imageormovie: function(eA, iPage){
+	if ( BK.V.aMoviePages.indexOf(iPage) > -1 ) // a movie page
+	{
+		if (eA.nodeName.toLowerCase() == 'movietexture')
+		{
+			eA.setAttribute("url", "./" + iPage + ".mp4");
+		}
+		else
+		{
+			eA.replaceWith( BK.A.movie(iPage, eA.getAttribute("DEF") ) );
+		}
+	}
+	else
+	{
+		if (eA.nodeName.toLowerCase() == 'imagetexture')
+		{
+			eA.setAttribute("url", "./" + iPage + ".jpg");
+		}
+		else
+		{
+			eA.replaceWith( BK.A.image(iPage, eA.getAttribute("DEF") ) );
+		}
+	}
+},
+
+image: function(iPage, sDef){
+	var eA = document.createElement("ImageTexture");
+	eA.setAttribute("DEF", sDef);
+	eA.setAttribute("crossOrigin", "anonymous");
+	eA.setAttribute("url","./" + iPage + ".jpg");
+	return eA;
+},
+
+movie: function(iPage, sDef){
+	var eA = document.createElement("MovieTexture");
+	eA.setAttribute("DEF", sDef);
+	eA.setAttribute("crossOrigin", "anonymous");
+	eA.setAttribute("url","./" + iPage + ".mp4");
+	eA.setAttribute("loop", "true");
+	return eA;
+},
 
 modalclose: function(){
 	var eA;
@@ -380,12 +431,7 @@ pagestexture: function(){
 	eA.setAttribute("visible", false);
 	eA = eI.querySelector("[DEF=paper003_previous]");
 	eA.setAttribute("visible", false);
-	eA = eI.querySelector("[DEF=currentPageTex]");
-	eA.setAttribute("url", "./" + BK.V.iPageCurrent + ".jpg");
-	eA = eI.querySelector("[DEF=nextPageTex]");
-	eA.setAttribute("url", "./" + (BK.V.iPageCurrent + 2) + ".jpg");
-	eA = eI.querySelector("[DEF=previousPageTex]");
-	eA.setAttribute("url", "./" + (BK.V.iPageCurrent - 2) + ".jpg");
+	BK.A.setX3DTexture();
 	sU = "";
 	BK.V.aPageUrls.forEach(function(aU){
 		if (aU[0] == BK.V.iPageCurrent){
