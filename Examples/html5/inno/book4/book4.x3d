@@ -130,13 +130,17 @@
 										</IndexedFaceSet>
 									</Shape>
 									<Shape DEF='paper003_next' visible='false'>
-										<Appearance USE='app_next'>
+										<Appearance _USE='app_next'>
+											<Material USE="MA_Max_MaterialID_0"></Material>
+										  	<ImageTexture DEF='nextPageTex003'></ImageTexture>
 										</Appearance>
 										<IndexedFaceSet USE='IFS_paper003'>
 										</IndexedFaceSet>
 									</Shape>
 									<Shape DEF='paper003_previous' visible='false'>
-										<Appearance USE='app_previous'>
+										<Appearance _USE='app_previous'>
+											<Material USE="MA_Max_MaterialID_0"></Material>
+											<ImageTexture DEF='previousPageTex003'></ImageTexture>
 										</Appearance>
 										<IndexedFaceSet USE='IFS_paper003'>
 										</IndexedFaceSet>

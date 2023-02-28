@@ -271,14 +271,18 @@ setX3DTexture: function(){
 	var eI, eA;
 	eI = document.querySelector("Inline");
 	eA = eI.querySelector("[DEF=previousPageTex]");
-	//eA.setAttribute("url", "./" + (BK.V.iPageCurrent - 2) + ".jpg");
 	BK.A.imageormovie(eA, BK.V.iPageCurrent - 2);
+	eA = eI.querySelector("[DEF=previousPageTex003]"); //right
+	BK.A.imageormovie(eA, BK.V.iPageCurrent - 2);
+	//eA.setAttribute("url", "./" + (BK.V.iPageCurrent - 2) + ".jpg");
 	eA = eI.querySelector("[DEF=currentPageTex]"); //left
 	BK.A.imageormovie(eA, BK.V.iPageCurrent - 0);
 	eA = eI.querySelector("[DEF=currentPageTex003]"); //right
 	BK.A.imageormovie(eA, BK.V.iPageCurrent - 0);
 	//eA.setAttribute("url", "./" + (BK.V.iPageCurrent + 0) + ".jpg");
 	eA = eI.querySelector("[DEF=nextPageTex]");
+	BK.A.imageormovie(eA, BK.V.iPageCurrent + 2);
+	eA = eI.querySelector("[DEF=nextPageTex003]");
 	BK.A.imageormovie(eA, BK.V.iPageCurrent + 2);
 	//eA.setAttribute("url", "./" + (BK.V.iPageCurrent + 2) + ".jpg");
 },
