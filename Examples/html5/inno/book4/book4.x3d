@@ -115,7 +115,7 @@
 									<Shape DEF='paper003_current'>
 										<Appearance _USE='app_current'>
 										  <Material USE="MA_Max_MaterialID_0"></Material>
-										  <ImageTexture DEF='currentPageTex003'></ImageTexture-->
+										  <ImageTexture DEF='currentPageTex003'></ImageTexture>
 										</Appearance>
 										<IndexedFaceSet DEF='IFS_paper003' solid="false"
 										                creaseAngle="3.14"
