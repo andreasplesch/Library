@@ -508,3 +508,477 @@ pagestexture: function(){
 
 
 console.log("book4js");
+
+//patch x3dom
+
+x3dom.Texture.prototype.updateTexture = function ()
+{
+    var gl = this.gl;
+    var doc = this.doc;
+    var tex = this.node;
+
+    // Set sampler
+    this.samplerName = tex._type;
+
+    // Set texture type
+    if ( x3dom.isa( tex, x3dom.nodeTypes.X3DEnvironmentTextureNode ) )
+    {
+        this.type = gl.TEXTURE_CUBE_MAP;
+    }
+    else
+    {
+        this.type = gl.TEXTURE_2D;
+    }
+
+    // Set texture format
+    if ( x3dom.isa( tex, x3dom.nodeTypes.PixelTexture ) )
+    {
+        switch ( tex._vf.image.comp )
+        {
+            case 1:
+                this.format = gl.LUMINANCE;
+                break;
+            case 2:
+                this.format = gl.LUMINANCE_ALPHA;
+                break;
+            case 3:
+                this.format = gl.RGB;
+                break;
+            case 4:
+                this.format = gl.RGBA;
+                break;
+        }
+    }
+    else
+    {
+        this.format = gl.RGBA;
+    }
+
+    // Set texture min, mag, wrapS and wrapT
+    if ( tex._cf.textureProperties.node !== null )
+    {
+        var texProp = tex._cf.textureProperties.node;
+
+        this.wrapS = x3dom.Utils.boundaryModesDic( gl, texProp._vf.boundaryModeS );
+        this.wrapT = x3dom.Utils.boundaryModesDic( gl, texProp._vf.boundaryModeT );
+
+        this.minFilter = x3dom.Utils.minFilterDic( gl, texProp._vf.minificationFilter );
+        this.magFilter = x3dom.Utils.magFilterDic( gl, texProp._vf.magnificationFilter );
+
+        this.anisotropicDegree = Math.min( Math.max( texProp._vf.anisotropicDegree, 1.0 ), x3dom.caps.MAX_ANISOTROPY );
+
+        if ( texProp._vf.generateMipMaps === true )
+        {
+            this.genMipMaps = true;
+
+            if ( this.minFilter == gl.NEAREST )
+            {
+                this.minFilter = gl.NEAREST_MIPMAP_NEAREST;
+            }
+            else if ( this.minFilter == gl.LINEAR )
+            {
+                this.minFilter = gl.LINEAR_MIPMAP_LINEAR;
+            }
+
+            if ( this.texture && ( this.texture.ready || this.texture.textureCubeReady ) )
+            {
+                gl.bindTexture( this.type, this.texture );
+                gl.generateMipmap( this.type );
+                gl.bindTexture( this.type, null );
+            }
+        }
+        else
+        {
+            this.genMipMaps = false;
+
+            if ( ( this.minFilter == gl.LINEAR_MIPMAP_LINEAR ) ||
+                ( this.minFilter == gl.LINEAR_MIPMAP_NEAREST ) )
+            {
+                this.minFilter = gl.LINEAR;
+            }
+            else if ( ( this.minFilter == gl.NEAREST_MIPMAP_LINEAR ) ||
+                ( this.minFilter == gl.NEAREST_MIPMAP_NEAREST ) )
+            {
+                this.minFilter = gl.NEAREST;
+            }
+        }
+    }
+    else
+    {
+        if ( tex._vf.repeatS == false )
+        {
+            this.wrapS = gl.CLAMP_TO_EDGE;
+        }
+        else
+        {
+            this.wrapS = gl.REPEAT;
+        }
+
+        if ( tex._vf.repeatT == false )
+        {
+            this.wrapT = gl.CLAMP_TO_EDGE;
+        }
+        else
+        {
+            this.wrapT = gl.REPEAT;
+        }
+
+        if ( this.samplerName == "displacementMap" )
+        {
+            this.wrapS = gl.CLAMP_TO_EDGE;
+            this.wrapT = gl.CLAMP_TO_EDGE;
+            this.minFilter = gl.NEAREST;
+            this.magFilter = gl.NEAREST;
+        }
+    }
+
+    // Looking for child texture
+    var childTex = ( tex._video && tex._needPerFrameUpdate === true );
+
+    // Set texture
+    if ( tex._isCanvas && tex._canvas )
+    {
+        if ( this.texture == null )
+        {
+            this.texture = gl.createTexture();
+        }
+        this.texture.width = tex._canvas.width;
+        this.texture.height = tex._canvas.height;
+        this.texture.ready = true;
+
+        gl.bindTexture( this.type, this.texture );
+        gl.texImage2D( this.type, 0, this.format, this.format, gl.UNSIGNED_BYTE, tex._canvas );
+        if ( this.genMipMaps )
+        {
+            gl.generateMipmap( this.type );
+        }
+        gl.bindTexture( this.type, null );
+    }
+
+    else if ( x3dom.isa( tex, x3dom.nodeTypes.RenderedTexture ) )
+    {
+        if ( tex._webgl && tex._webgl.fbo )
+        {
+            if ( tex._webgl.fbo.dtex && tex._vf.depthMap )
+            {
+                this.texture = tex._webgl.fbo.dtex;
+            }
+            else
+            {
+                this.texture = tex._webgl.fbo.tex;
+            }
+        }
+        else
+        {
+            this.texture = null;
+            x3dom.debug.logError( "Try updating RenderedTexture without FBO initialized!" );
+        }
+        if ( this.texture )
+        {
+            this.texture.ready = true;
+        }
+    }
+    else if ( x3dom.isa( tex, x3dom.nodeTypes.PixelTexture ) )
+    {
+        if ( tex._vf.origChannelCount == 0 ) {tex.setOrigChannelCount( tex._vf.image.comp );}
+
+        if ( this.texture == null )
+        {
+            if ( this.node._DEF )
+            {
+                this.texture = this.cache.getTexture2DByDEF( gl, this.node._nameSpace, this.node._DEF );
+            }
+            else
+            {
+                this.texture = gl.createTexture();
+            }
+        }
+        this.texture.width = tex._vf.image.width;
+        this.texture.height = tex._vf.image.height;
+        this.texture.ready = true;
+
+        var pixelArr = tex._vf.image.array;
+        var pixelArrfont_size = tex._vf.image.width * tex._vf.image.height * tex._vf.image.comp;
+
+        var pixels = new Uint8Array( pixelArrfont_size );
+
+        pixels.set( pixelArr );
+
+        gl.bindTexture( this.type, this.texture );
+        gl.pixelStorei( gl.UNPACK_ALIGNMENT, 1 );
+        gl.texImage2D( this.type, 0, this.format,
+            tex._vf.image.width, tex._vf.image.height, 0,
+            this.format, gl.UNSIGNED_BYTE, pixels );
+        if ( this.genMipMaps )
+        {
+            gl.generateMipmap( this.type );
+        }
+        gl.bindTexture( this.type, null );
+    }
+    else if ( x3dom.isa( tex, x3dom.nodeTypes.MovieTexture ) || childTex )
+    {
+        var that = this;
+        var p = document.getElementsByTagName( "body" )[ 0 ];
+
+        if ( this.texture == null )
+        {
+            this.texture = gl.createTexture();
+        }
+
+        if ( this.dashtexture )
+        {
+            var element_vid = document.createElement( "div" );
+            element_vid.setAttribute( "class", "dash-video-player" + x3dom.Texture.textNum );
+            tex._video = document.createElement( "video" );
+            tex._video.setAttribute( "preload", "auto" );
+            tex._video.setAttribute( "muted", "muted" );
+
+            var scriptToRun = document.createElement( "script" );
+            scriptToRun.setAttribute( "type", "text/javascript" );
+            scriptToRun.innerHTML = "startDashVideo(\"" + tex._vf.url[ 0 ] +
+                "\",\".dash-video-player" + x3dom.Texture.textNum + " video\")";
+            element_vid.appendChild( scriptToRun );
+            element_vid.appendChild( tex._video );
+            p.appendChild( element_vid );
+            tex._video.style.visibility = "hidden";
+            tex._video.style.display = "none";
+        }
+        else
+        {
+            if ( !childTex && !tex._video )
+            {
+                tex._video = document.createElement( "video" );
+                tex._video.setAttribute( "preload", "auto" );
+                tex._video.setAttribute( "muted", "muted" );
+                tex._video.setAttribute( "autoplay", "" );
+                tex._video.setAttribute( "playsinline", "" );
+                tex._video.crossOrigin = "anonymous";
+                // p.appendChild( tex._video );
+                // tex._video.style.visibility = "hidden";
+                // tex._video.style.display = "none";
+                // tex._video.load();
+            }
+
+            tex._video.querySelectorAll( "source" ).forEach(
+                function( source )
+                {
+                    source.remove();
+                }
+            );
+            
+            for ( var i = 0; i < tex._vf.url.length; i++ )
+            {
+                var videoUrl = tex._nameSpace.getURL( tex._vf.url[ i ] );
+                x3dom.debug.logInfo( "Adding video file: " + videoUrl );
+                var src = document.createElement( "source" );
+                src.setAttribute( "src", videoUrl );
+                tex._video.appendChild( src );
+            }
+            tex._video.load();
+        }
+
+        var requestAnimFrameId = 0;
+
+        var updateMovie = function ()
+        {
+            gl.bindTexture( that.type, that.texture );
+            gl.texImage2D( that.type, 0, that.format, that.format, gl.UNSIGNED_BYTE, tex._video );
+            if ( that.genMipMaps )
+            {
+                gl.generateMipmap( that.type );
+            }
+            gl.bindTexture( that.type, null );
+            that.texture.ready = true;
+            that.doc.needRender = true;
+            window.requestAnimFrame( updateMovie );
+        };
+
+        var startVideo = function ()
+        {
+            //x3dom.debug.logInfo( "startVideo" );
+            window.removeEventListener( "mousedown", startVideo );
+            window.removeEventListener( "keydown", startVideo );
+            if ( !( tex._video instanceof HTMLMediaElement ) )
+            {
+                x3dom.debug.logInfo( "No video exists." );
+                return;
+            }
+            tex._video.playbackRate = tex._vf.speed;
+            tex._video.play()
+                .then( function fulfilled ()
+                {
+                    if ( requestAnimFrameId )
+                    {
+                        x3dom.debug.logInfo( "The video has already started, startVideo() is called repeatedly." );
+                        // clearInterval( tex._intervalID );
+                        // tex._intervalID = null;
+                    }
+                    // tex._intervalID = setInterval( updateMovie, 16 );
+                    requestAnimFrameId = window.requestAnimFrame(updateMovie);
+                } )
+                .catch( function rejected ( err )
+                {
+                    x3dom.debug.logInfo( "Waiting for interaction: " + err );
+                    window.addEventListener( "mousedown", startVideo );
+                    window.addEventListener( "keydown", startVideo );
+                } );
+        };
+
+        var pauseVideo = function ()
+        {
+            //x3dom.debug.logInfo( "pauseVideo" );
+            window.removeEventListener( "mousedown", startVideo );
+            window.removeEventListener( "keydown", startVideo );
+            tex._video.pause();
+            // clearInterval( tex._intervalID );
+            // tex._intervalID = null;
+            window.cancelAnimationFrame( requestAnimFrameId );
+        };
+
+        var videoDone = function ()
+        {
+            // clearInterval( tex._intervalID );
+            // tex._intervalID = null;
+            window.cancelAnimationFrame( requestAnimFrameId );
+            requestAnimFrameId = 0;
+            if ( tex._vf.loop === true )
+            {
+                startVideo();
+                // tex._video.play();
+                // tex._intervalID = setInterval( updateMovie, 16 );
+            }
+        };
+
+        tex._video.startVideo = startVideo;
+        tex._video.pauseVideo = pauseVideo;
+
+        // Start listening for the canplaythrough event, so we do not
+        // start playing the video until we can do so without stuttering
+        tex._video.addEventListener( "canplaythrough", startVideo, true );
+
+        // Start listening for the ended event, so we can stop the
+        // texture update when the video is finished playing
+        tex._video.addEventListener( "ended", videoDone, true );
+    }
+    else if ( x3dom.isa( tex, x3dom.nodeTypes.X3DEnvironmentTextureNode ) )
+    {
+        this.texture = this.cache.getTextureCube( gl, doc, tex.getTexUrl(), false,
+            tex._vf.crossOrigin, tex._vf.scale, this.genMipMaps, tex._vf.flipY );
+    }
+    else
+    {
+        this.texture = this.cache.getTexture2D( gl, doc, tex._nameSpace.getURL( tex._vf.url[ 0 ] ),
+            false, tex._vf.crossOrigin, tex._vf.scale, this.genMipMaps, tex._vf.flipY, tex );
+    }
+};
+
+
+x3dom.Texture.prototype.update = function() {
+	if (x3dom.isa(this.node, x3dom.nodeTypes.Text)) {
+		this.updateText();
+	} else {
+		this.updateTexture();
+	}
+	//AP: this prevented USE Appearance updates
+	//this.node.validateGLObject();
+};
+
+
+
+x3dom.Utils.createTexture2D = function(gl, doc, src, bgnd, crossOrigin, scale, genMipMaps, flipY, tex) {
+	flipY = flipY || false;
+	var texture = gl.createTexture();
+	//Create a 4 pixel texture to prevent 'texture not complete' warning
+	//AP: change to white here, could be any RGB color
+	var data = new Uint8Array([255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255]);
+	gl.bindTexture(gl.TEXTURE_2D, texture);
+	gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, 2, 2, 0, gl.RGBA, gl.UNSIGNED_BYTE, data);
+	if (genMipMaps) {
+		gl.generateMipmap(gl.TEXTURE_2D);
+	}
+	gl.bindTexture(gl.TEXTURE_2D, null);
+	texture.ready = false;
+	if (src == null || src == "") {
+		return texture;
+	}
+	var image = new Image();
+	switch (crossOrigin.toLowerCase()) {
+		case "anonymous":
+		{
+			image.crossOrigin = "anonymous";
+		}
+		break;
+		case "use-credentials":
+		{
+			image.crossOrigin = "use-credentials";
+		}
+		break;
+		case "none":
+		{//this is needed to omit the default case, if default is none, erase this and the default case
+		}
+		break;
+		default:
+		{
+			if (x3dom.Utils.forbiddenBySOP(src)) {
+				image.crossOrigin = "anonymous";
+			}
+		}
+	}
+	if (tex && tex.getOrigChannelCount() === 0) {
+		var xhr = new XMLHttpRequest();
+		xhr.open("GET", src);
+		xhr.onloadstart = function() {
+			xhr.responseType = "arraybuffer";
+		}
+		xhr.onload = function() {
+			var mimeType = xhr.getResponseHeader("Content-Type")
+				, imageData = new Uint8Array(xhr.response)
+				, channelcount = x3dom.Utils.detectChannelCount(imageData, mimeType);
+			if (channelcount) {
+				tex.setOrigChannelCount(channelcount);
+			}
+			image.src = x3dom.Utils.arrayBufferToObjectURL(imageData, mimeType);
+		}
+		x3dom.RequestManager.addRequest(xhr);
+	} else {
+		image.src = src;
+	}
+	doc.incrementDownloads();
+	image.onload = function() {
+		texture.originalWidth = image.width;
+		texture.originalHeight = image.height;
+		if (scale) {
+			image = x3dom.Utils.scaleImage(image);
+		}
+		if (bgnd == true || flipY == true) {
+			gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, true);
+		}
+		gl.bindTexture(gl.TEXTURE_2D, texture);
+		//gl.pixelStorei(gl.UNPACK_PREMULTIPLY_ALPHA_WEBGL, false);
+		gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, image);
+		if (genMipMaps) {
+			gl.generateMipmap(gl.TEXTURE_2D);
+		}
+		gl.bindTexture(gl.TEXTURE_2D, null);
+		if (bgnd == true || flipY == true) {
+			gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, false);
+		}
+		//Save image size
+		texture.width = image.width;
+		texture.height = image.height;
+		texture.ready = true;
+		doc.decrementDownloads();
+		doc.needRender = true;
+	};
+	image.onerror = function(error) {
+		x3dom.Utils.tryDDSLoading(texture, gl, doc, src, genMipMaps, flipY, tex).then(function() {
+			doc.decrementDownloads();
+			doc.needRender = true;
+		}, function() {
+			x3dom.debug.logError("[Utils|createTexture2D] Can't load Image: " + src);
+			doc.decrementDownloads();
+		});
+	};
+	return texture;
+};
+
