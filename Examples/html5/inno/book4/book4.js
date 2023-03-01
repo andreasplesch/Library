@@ -308,7 +308,7 @@ switchShape: function(sPos, iPage){
 	{
 		eA.setAttribute("loop", true);
 	}
-	eI.querySelectorAll("Switch").forEach(
+	eI.querySelectorAll("Switch[DEF*="+sPos+"]").forEach(
 		function(eSwitch){
 			eSwitch.setAttribute("whichChoice", iChoice);
 		}
