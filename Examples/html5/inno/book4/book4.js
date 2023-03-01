@@ -294,6 +294,7 @@ switchShape: function(sPos, iPage){
 	var eI, eA;
 	var sExt = ".jpg";
 	var sTexSel = "DEF="+sPos+"PageTex";
+	var sTexSel003 = "DEF="+sPos+"PageTex003";
 	var iChoice = 0; // image, 1 movie
 	eI = document.querySelector("Inline");
 	if ( BK.V.aMoviePages.indexOf(iPage) > -1 ) // a movie page
@@ -304,10 +305,12 @@ switchShape: function(sPos, iPage){
 	}
 	eA = eI.querySelector("["+sTexSel+"]");
 	eA.setAttribute("url", "./" + iPage + sExt);
-	if ( BK.V.aMoviePages.indexOf(iPage) > -1 ) // a movie page
-	{
-		eA.setAttribute("loop", true);
-	}
+	eA = eI.querySelector("["+sTexSel003+"]");
+	eA && eA.setAttribute("url", "./" + iPage + sExt);
+	// if ( BK.V.aMoviePages.indexOf(iPage) > -1 ) // a movie page
+	// {
+	// 	eA.setAttribute("loop", true);
+	// }
 	eI.querySelectorAll("Switch[DEF*="+sPos+"]").forEach(
 		function(eSwitch){
 			eSwitch.setAttribute("whichChoice", iChoice);
