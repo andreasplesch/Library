@@ -268,23 +268,51 @@ init2: function(event){
 },
 
 setX3DTexture: function(){
-	var eI, eA;
-	eI = document.querySelector("Inline");
-	eA = eI.querySelector("[DEF=previousPageTex]");
-	BK.A.imageormovie(eA, BK.V.iPageCurrent - 2);
-	eA = eI.querySelector("[DEF=previousPageTex003]"); //right
-	BK.A.imageormovie(eA, BK.V.iPageCurrent - 2);
-	//eA.setAttribute("url", "./" + (BK.V.iPageCurrent - 2) + ".jpg");
-	eA = eI.querySelector("[DEF=currentPageTex]"); //left
-	BK.A.imageormovie(eA, BK.V.iPageCurrent - 0);
-	eA = eI.querySelector("[DEF=currentPageTex003]"); //right
-	BK.A.imageormovie(eA, BK.V.iPageCurrent - 0);
-	//eA.setAttribute("url", "./" + (BK.V.iPageCurrent + 0) + ".jpg");
-	eA = eI.querySelector("[DEF=nextPageTex]");
-	BK.A.imageormovie(eA, BK.V.iPageCurrent + 2);
-	eA = eI.querySelector("[DEF=nextPageTex003]");
-	BK.A.imageormovie(eA, BK.V.iPageCurrent + 2);
+	// var eI, eA;
+	// eI = document.querySelector("Inline");
+	// eA = eI.querySelector("[DEF=previousPageTex]");
+	// BK.A.imageormovie(eA, BK.V.iPageCurrent - 2);
+	// eA = eI.querySelector("[DEF=previousPageTex003]"); //right
+	// BK.A.imageormovie(eA, BK.V.iPageCurrent - 2);
+	BK.A.switchShape("previous", BK.V.iPageCurrent - 2);
+	BK.A.switchShape("current",  BK.V.iPageCurrent - 0);
+	BK.A.switchShape("next",     BK.V.iPageCurrent + 2);
+	// //eA.setAttribute("url", "./" + (BK.V.iPageCurrent - 2) + ".jpg");
+	// eA = eI.querySelector("[DEF=currentPageTex]"); //left
+	// BK.A.imageormovie(eA, BK.V.iPageCurrent - 0);
+	// eA = eI.querySelector("[DEF=currentPageTex003]"); //right
+	// BK.A.imageormovie(eA, BK.V.iPageCurrent - 0);
+	// //eA.setAttribute("url", "./" + (BK.V.iPageCurrent + 0) + ".jpg");
+	// eA = eI.querySelector("[DEF=nextPageTex]");
+	// BK.A.imageormovie(eA, BK.V.iPageCurrent + 2);
+	// eA = eI.querySelector("[DEF=nextPageTex003]");
+	// BK.A.imageormovie(eA, BK.V.iPageCurrent + 2);
 	//eA.setAttribute("url", "./" + (BK.V.iPageCurrent + 2) + ".jpg");
+},
+
+switchShape: function(sPos, iPage){
+	var eI, eA;
+	var sExt = ".jpg";
+	var sTexSel = "[DEF="+sPos+"PageTex]";
+	var iChoice = 0; // image, 1 movie
+	eI = document.querySelector("Inline");
+	if ( BK.V.aMoviePages.indexOf(iPage) > -1 ) // a movie page
+	{
+		sExt = ".mp4";
+		sTexSel += "_movie";
+		iChoice = 1;
+	}
+	eA = eI.querySelector(sTexSel);
+	eA.setAttribute("url", "./" + iPage + sExt);
+	if ( BK.V.aMoviePages.indexOf(iPage) > -1 ) // a movie page
+	{
+		eA.setAttribute("loop", true);
+	}
+	eI.querySelectorAll("Switch").forEach(
+		function(eSwitch){
+			eSwitch.setAttribute("whichChoice", iChoice);
+		}
+	)
 },
 
 imageormovie: function(eA, iPage){
