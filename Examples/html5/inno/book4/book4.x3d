@@ -81,7 +81,7 @@
 										<Shape DEF='paper002_current_movie'>
 											<Appearance DEF='app_current_movie'>
 												<Material USE="MA_Max_MaterialID_0" />
-												<MovieTexture DEF='currentPageTex_movie' crossOrigin='anonymous' />
+												<MovieTexture DEF='currentPageTex_movie' url='""' crossOrigin='anonymous' />
 											</Appearance>
 											<IndexedFaceSet USE='IFS_paper002' />
 										</Shape>
@@ -97,7 +97,7 @@
 										<Shape DEF='paper002_next_movie'>
 											<Appearance DEF='app_next_image'>
 												<Material USE="MA_Max_MaterialID_0"/>
-												<MovieTexture DEF='nextPageTex_movie' crossOrigin='anonymous' />
+												<MovieTexture DEF='nextPageTex_movie' url='""' crossOrigin='anonymous' />
 											</Appearance>
 											<IndexedFaceSet USE='IFS_paper002' /> 
 										</Shape>
@@ -106,14 +106,14 @@
 										<Shape DEF='paper002_previous_image'>
 											<Appearance DEF='app_previous_image'>
 												<Material USE="MA_Max_MaterialID_0"/>
-												<ImageTexture DEF='previousPageTex' crossOrigin='anonymous'/>
+												<ImageTexture DEF='previousPageTex' crossOrigin='anonymous' />
 											</Appearance>
 											<IndexedFaceSet USE='IFS_paper002' /> 
 										</Shape>
 										<Shape DEF='paper002_previous_movie'>
 											<Appearance DEF='app_previous_movie'>
 												<Material USE="MA_Max_MaterialID_0"/>
-												<MovieTexture DEF='previousPageTex_movie' crossOrigin='anonymous'/>
+												<MovieTexture DEF='previousPageTex_movie' url='""' crossOrigin='anonymous' />
 											</Appearance>
 											<IndexedFaceSet USE='IFS_paper002' /> 
 										</Shape>
