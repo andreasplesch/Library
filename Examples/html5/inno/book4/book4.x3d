@@ -264,7 +264,7 @@
 								<IndexedFaceSet USE='front_face' />
 							</Shape>
 						</Switch>
-						<Switch DEF='rightpage_next' whichCHoice="0">
+						<Switch DEF='rightpage_next' whichChoice="0">
 							<Shape DEF='rightpage_next_image'>
 								<Appearance USE='app_next_image' />
 								<IndexedFaceSet DEF='back_face' solid="false"

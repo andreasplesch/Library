@@ -308,10 +308,6 @@ switchShape: function(sPos, iPage){
 	eA.setAttribute("url", "./" + iPage + sExt);
 	eA = eI.querySelector("["+sTexSel003+"]");
 	eA && eA.setAttribute("url", "./" + iPage + sExt);
-	// if ( BK.V.aMoviePages.indexOf(iPage) > -1 ) // a movie page
-	// {
-	// 	eA.setAttribute("loop", true);
-	// }
 	eI.querySelectorAll("Switch[DEF*="+sPos+"]").forEach(
 		function(eSwitch){
 			eSwitch.setAttribute("whichChoice", iChoice);
