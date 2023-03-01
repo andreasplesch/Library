@@ -293,7 +293,7 @@ setX3DTexture: function(){
 switchShape: function(sPos, iPage){
 	var eI, eA;
 	var sExt = ".jpg";
-	var sTexSel = "[DEF="+sPos+"PageTex]";
+	var sTexSel = "DEF="+sPos+"PageTex";
 	var iChoice = 0; // image, 1 movie
 	eI = document.querySelector("Inline");
 	if ( BK.V.aMoviePages.indexOf(iPage) > -1 ) // a movie page
@@ -302,7 +302,7 @@ switchShape: function(sPos, iPage){
 		sTexSel += "_movie";
 		iChoice = 1;
 	}
-	eA = eI.querySelector(sTexSel);
+	eA = eI.querySelector("["+sTexSel+"]");
 	eA.setAttribute("url", "./" + iPage + sExt);
 	if ( BK.V.aMoviePages.indexOf(iPage) > -1 ) // a movie page
 	{
