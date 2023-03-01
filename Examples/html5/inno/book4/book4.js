@@ -301,6 +301,7 @@ switchShape: function(sPos, iPage){
 	{
 		sExt = ".mp4";
 		sTexSel += "_movie";
+		sTexSel003 += "_movie";
 		iChoice = 1;
 	}
 	eA = eI.querySelector("["+sTexSel+"]");

@@ -161,7 +161,7 @@
 											</IndexedFaceSet>
 										</Shape>
 										<Shape DEF='paper003_current_movie'>
-											<Appearance USE='app_current_movie' >
+											<Appearance _USE='app_current_movie' >
 												<Material USE="MA_Max_MaterialID_0" />
 												<MovieTexture DEF='currentPageTex003_movie' loop="true" url='""' crossOrigin='anonymous' />
 											</Appearance>
