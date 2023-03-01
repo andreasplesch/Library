@@ -175,7 +175,7 @@
 											<IndexedFaceSet USE='IFS_paper003' />
 										</Shape>
 									</Switch>
-									<Switch DEF='paper003_next' whichChoice="0">
+									<Switch DEF='paper003_previous' whichChoice="0">
 										<Shape DEF='paper003_previous_image'>
 											<Appearance _USE='app_previous_image' />
 											<IndexedFaceSet USE='IFS_paper003' />

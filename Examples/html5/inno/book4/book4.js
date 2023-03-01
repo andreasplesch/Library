@@ -315,47 +315,47 @@ switchShape: function(sPos, iPage){
 	)
 },
 
-imageormovie: function(eA, iPage){
-	if ( BK.V.aMoviePages.indexOf(iPage) > -1 ) // a movie page
-	{
-		if (eA.nodeName.toLowerCase() == 'movietexture')
-		{
-			eA.setAttribute("url", "./" + iPage + ".mp4");
-		}
-		else
-		{
-			eA.replaceWith( BK.A.movie(iPage, eA.getAttribute("DEF") ) );
-		}
-	}
-	else
-	{
-		if (eA.nodeName.toLowerCase() == 'imagetexture')
-		{
-			eA.setAttribute("url", "./" + iPage + ".jpg");
-		}
-		else
-		{
-			eA.replaceWith( BK.A.image(iPage, eA.getAttribute("DEF") ) );
-		}
-	}
-},
+// imageormovie: function(eA, iPage){
+// 	if ( BK.V.aMoviePages.indexOf(iPage) > -1 ) // a movie page
+// 	{
+// 		if (eA.nodeName.toLowerCase() == 'movietexture')
+// 		{
+// 			eA.setAttribute("url", "./" + iPage + ".mp4");
+// 		}
+// 		else
+// 		{
+// 			eA.replaceWith( BK.A.movie(iPage, eA.getAttribute("DEF") ) );
+// 		}
+// 	}
+// 	else
+// 	{
+// 		if (eA.nodeName.toLowerCase() == 'imagetexture')
+// 		{
+// 			eA.setAttribute("url", "./" + iPage + ".jpg");
+// 		}
+// 		else
+// 		{
+// 			eA.replaceWith( BK.A.image(iPage, eA.getAttribute("DEF") ) );
+// 		}
+// 	}
+// },
 
-image: function(iPage, sDef){
-	var eA = document.createElement("ImageTexture");
-	eA.setAttribute("DEF", sDef);
-	eA.setAttribute("crossOrigin", "anonymous");
-	eA.setAttribute("url","./" + iPage + ".jpg");
-	return eA;
-},
+// image: function(iPage, sDef){
+// 	var eA = document.createElement("ImageTexture");
+// 	eA.setAttribute("DEF", sDef);
+// 	eA.setAttribute("crossOrigin", "anonymous");
+// 	eA.setAttribute("url","./" + iPage + ".jpg");
+// 	return eA;
+// },
 
-movie: function(iPage, sDef){
-	var eA = document.createElement("MovieTexture");
-	eA.setAttribute("DEF", sDef);
-	eA.setAttribute("crossOrigin", "anonymous");
-	eA.setAttribute("url","./" + iPage + ".mp4");
-	eA.setAttribute("loop", "true");
-	return eA;
-},
+// movie: function(iPage, sDef){
+// 	var eA = document.createElement("MovieTexture");
+// 	eA.setAttribute("DEF", sDef);
+// 	eA.setAttribute("crossOrigin", "anonymous");
+// 	eA.setAttribute("url","./" + iPage + ".mp4");
+// 	eA.setAttribute("loop", "true");
+// 	return eA;
+// },
 
 modalclose: function(){
 	var eA;
