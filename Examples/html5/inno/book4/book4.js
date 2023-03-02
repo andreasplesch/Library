@@ -479,6 +479,7 @@ pagestexture: function(){
 		window.history.pushState
 		("", "", BK.V.sUrlPage + "?page=" + BK.V.iPageCurrent);
 	}
+	BK.A.setX3DTexture();
 	eI = document.querySelector("Inline");
 	eA = eI.querySelector("[DEF=paper002_current]");
 	eA.setAttribute("visible", true);
@@ -492,7 +493,6 @@ pagestexture: function(){
 	eA.setAttribute("visible", false);
 	eA = eI.querySelector("[DEF=paper003_previous]");
 	eA.setAttribute("visible", false);
-	BK.A.setX3DTexture();
 	sU = "";
 	BK.V.aPageUrls.forEach(function(aU){
 		if (aU[0] == BK.V.iPageCurrent){
