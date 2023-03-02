@@ -36,7 +36,7 @@ createVideo : function(){
 	v.autoplay = true;
 	v.crossOrigin = "anonymous";
 	return v;
-}
+},
 	
 bookclose : function(){
 	var eA;
