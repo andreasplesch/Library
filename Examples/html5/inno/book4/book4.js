@@ -18,13 +18,25 @@ var BK = {
 		oPreloadNextAfterNext: new Image(),
 		oPreloadPrevious: new Image(),
 		oPreloadPreviousBeforePrevious: new Image(),
+		oPreloadNextMovie: BK.A.createVideo(),
+		oPreloadNextAfterNextMovie: BK.A.createVideo(),
+		oPreloadPreviousMovie: BK.A.createVideo(),
+		oPreloadPreviousBeforePreviousMovie: BK.A.createVideo(),
 		sUrlPage: "",
 		sUrlPageLink: "",
 		sUserDevice : 0,
 	},
 	
-	
 	A: {
+
+createVideo : function(){
+	var v = document.createElement('video');
+	v.preload = "auto";
+	v.muted = true;
+	v.autoplay = true;
+	v.crossOrigin = "anonymous";
+	return v;
+}
 	
 bookclose : function(){
 	var eA;
@@ -294,20 +306,20 @@ switchShape: function(sPos, iPage){
 	var eI, eA;
 	var sExt = ".jpg";
 	var sTexSel = "DEF="+sPos+"PageTex";
-	var sTexSel003 = "DEF="+sPos+"PageTex003";
+	// var sTexSel003 = "DEF="+sPos+"PageTex003";
 	var iChoice = 0; // image, 1 movie
 	eI = document.querySelector("Inline");
 	if ( BK.V.aMoviePages.indexOf(iPage) > -1 ) // a movie page
 	{
 		sExt = ".mp4";
 		sTexSel += "_movie";
-		sTexSel003 += "_movie";
+		// sTexSel003 += "_movie";
 		iChoice = 1;
 	}
 	eA = eI.querySelector("["+sTexSel+"]");
 	eA.setAttribute("url", "./" + iPage + sExt);
-	eA = eI.querySelector("["+sTexSel003+"]");
-	eA && eA.setAttribute("url", "./" + iPage + sExt);
+	// eA = eI.querySelector("["+sTexSel003+"]");
+	// eA && eA.setAttribute("url", "./" + iPage + sExt);
 	eI.querySelectorAll("Switch[DEF*="+sPos+"]").forEach(
 		function(eSwitch){
 			eSwitch.setAttribute("whichChoice", iChoice);
@@ -437,10 +449,17 @@ pageprevbusy: function(event) {
 
 
 pagespreload() {
-	BK.V.oPreloadNext.src = "./" + (BK.V.iPageCurrent + 2) + ".jpg";
-	BK.V.oPreloadPrevious.src = "./" + (BK.V.iPageCurrent - 2) + ".jpg";
-	BK.V.oPreloadNextAfterNext.src = "./" + (BK.V.iPageCurrent + 4) + ".jpg";
-	BK.V.oPreloadPreviousBeforePrevious.src = "./" + (BK.V.iPageCurrent - 4) + ".jpg";
+	var iNext = BK.V.iPageCurrent + 2;
+	var iNextNext = BK.V.iPageCurrent + 4;
+	var iPrevious = BK.V.iPageCurrent - 2;
+	var iPreviousPrevious = BK.V.iPageCurrent - 4;
+	var sType = function (iPage) { return BK.V.aMoviePages.indexOf(iPage) > -1 ? "Movie" : "" };
+	var sExt = function (iPage) { return BK.V.aMoviePages.indexOf(iPage) > -1 ? ".mp4" : ".jpg" };
+
+	BK.V["oPreloadNext"+sType(iNext)].src = "./" + iNext + sExt(iNext);
+	BK.V["oPreloadPrevious"+sType(iPrevious)].src = "./" + iPrevious + sExt(iPrevious);
+	BK.V["oPreloadNextAfterNext"+sType(iNextNext)].src = "./" + iNextNext + sExt(iNextNext);
+	BK.V["oPreloadPreviousBeforePrevious"+sType(iPreviousPrevious)].src = "./" + iPreviousPrevious + sExt(iPreviousPrevious);;
 },
 
 
