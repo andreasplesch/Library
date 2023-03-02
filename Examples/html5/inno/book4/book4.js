@@ -1,14 +1,12 @@
+var createVideo = function(){
+	var v = document.createElement('video');
+	v.muted = true;
+	v.autoplay = true;
+	v.crossOrigin = "anonymous";
+	return v;
+};		
 
 var BK = {
-
-	createVideo : function(){
-		var v = document.createElement('video');
-		v.preload = "auto";
-		v.muted = true;
-		v.autoplay = true;
-		v.crossOrigin = "anonymous";
-		return v;
-	},		
 
 	V: {
 		aPageUrls: '[]',
@@ -26,10 +24,10 @@ var BK = {
 		oPreloadNextAfterNext: new Image(),
 		oPreloadPrevious: new Image(),
 		oPreloadPreviousBeforePrevious: new Image(),
-		oPreloadNextMovie: BK.createVideo(),
-		oPreloadNextAfterNextMovie: BK.createVideo(),
-		oPreloadPreviousMovie: BK.createVideo(),
-		oPreloadPreviousBeforePreviousMovie: BK.createVideo(),
+		oPreloadNextMovie: createVideo(),
+		oPreloadNextAfterNextMovie: createVideo(),
+		oPreloadPreviousMovie: createVideo(),
+		oPreloadPreviousBeforePreviousMovie: createVideo(),
 		sUrlPage: "",
 		sUrlPageLink: "",
 		sUserDevice : 0,
@@ -305,22 +303,33 @@ switchShape: function(sPos, iPage){
 	var eI, eA;
 	var sExt = ".jpg";
 	var sTexSel = "DEF="+sPos+"PageTex";
+	var sTexSelSuffix = "";
 	// var sTexSel003 = "DEF="+sPos+"PageTex003";
 	var iChoice = 0; // image, 1 movie
 	eI = document.querySelector("Inline");
 	if ( BK.V.aMoviePages.indexOf(iPage) > -1 ) // a movie page
 	{
 		sExt = ".mp4";
-		sTexSel += "_movie";
+		sTexSelSuffix = "_movie";
 		// sTexSel003 += "_movie";
 		iChoice = 1;
 	}
-	eA = eI.querySelector("["+sTexSel+"]");
+	eA = eI.querySelector("["+sTexSel+sTexSelSuffix+"]");
 	eA.setAttribute("url", "./" + iPage + sExt);
 	// eA = eI.querySelector("["+sTexSel003+"]");
 	// eA && eA.setAttribute("url", "./" + iPage + sExt);
 	eI.querySelectorAll("Switch[DEF*="+sPos+"]").forEach(
 		function(eSwitch){
+			var oldChoice = eSwitch.getAttribute("whichChoice");
+			if ( oldChoice == iChoice ) return
+			if ( oldChoice == 0 && iChoice == 1 ) // turn on loop
+			{
+				eA.setAttribute("loop", true);
+			}
+			if ( oldChoice == 1 && iChoice == 0 ) // turn off loop
+			{
+				eI.querySelector("["+sTexSel+"_movie"+"]").setAttribute("loop", false);
+			}
 			eSwitch.setAttribute("whichChoice", iChoice);
 		}
 	)
