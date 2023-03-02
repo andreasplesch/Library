@@ -95,7 +95,7 @@
 											<IndexedFaceSet USE='IFS_paper002' /> 
 										</Shape>
 										<Shape DEF='paper002_next_movie'>
-											<Appearance DEF='app_next_image'>
+											<Appearance DEF='app_next_movie'>
 												<Material USE="MA_Max_MaterialID_0"/>
 												<MovieTexture DEF='nextPageTex_movie' loop="true" url='""' crossOrigin='anonymous' />
 											</Appearance>
