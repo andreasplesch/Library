@@ -1,7 +1,15 @@
 
 var BK = {
 
-	
+	createVideo : function(){
+		var v = document.createElement('video');
+		v.preload = "auto";
+		v.muted = true;
+		v.autoplay = true;
+		v.crossOrigin = "anonymous";
+		return v;
+	},		
+
 	V: {
 		aPageUrls: '[]',
 		sCenterRotation: "0 0 0",
@@ -18,21 +26,13 @@ var BK = {
 		oPreloadNextAfterNext: new Image(),
 		oPreloadPrevious: new Image(),
 		oPreloadPreviousBeforePrevious: new Image(),
-		oPreloadNextMovie: BK.V.createVideo(),
-		oPreloadNextAfterNextMovie: BK.V.createVideo(),
-		oPreloadPreviousMovie: BK.V.createVideo(),
-		oPreloadPreviousBeforePreviousMovie: BK.V.createVideo(),
+		oPreloadNextMovie: BK.createVideo(),
+		oPreloadNextAfterNextMovie: BK.createVideo(),
+		oPreloadPreviousMovie: BK.createVideo(),
+		oPreloadPreviousBeforePreviousMovie: BK.createVideo(),
 		sUrlPage: "",
 		sUrlPageLink: "",
 		sUserDevice : 0,
-		createVideo : function(){
-			var v = document.createElement('video');
-			v.preload = "auto";
-			v.muted = true;
-			v.autoplay = true;
-			v.crossOrigin = "anonymous";
-			return v;
-		},		
 	},
 	
 	A: {
