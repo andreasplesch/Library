@@ -808,6 +808,10 @@ x3dom.Texture.prototype.updateTexture = function ()
 
         var updateMovie = function ()
         {
+			if ( tex._video.ended || tex._video.paused )
+			{
+				return
+			}
             gl.bindTexture( that.type, that.texture );
             gl.texImage2D( that.type, 0, that.format, that.format, gl.UNSIGNED_BYTE, tex._video );
             if ( that.genMipMaps )
@@ -817,7 +821,7 @@ x3dom.Texture.prototype.updateTexture = function ()
             gl.bindTexture( that.type, null );
             that.texture.ready = true;
             that.doc.needRender = true;
-            window.requestAnimFrame( updateMovie );
+            requestAnimFrameId = window.requestAnimFrame( updateMovie );
         };
 
         var startVideo = function ()
