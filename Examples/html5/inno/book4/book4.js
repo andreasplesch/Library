@@ -18,25 +18,24 @@ var BK = {
 		oPreloadNextAfterNext: new Image(),
 		oPreloadPrevious: new Image(),
 		oPreloadPreviousBeforePrevious: new Image(),
-		oPreloadNextMovie: BK.A.createVideo(),
-		oPreloadNextAfterNextMovie: BK.A.createVideo(),
-		oPreloadPreviousMovie: BK.A.createVideo(),
-		oPreloadPreviousBeforePreviousMovie: BK.A.createVideo(),
+		oPreloadNextMovie: BK.V.createVideo(),
+		oPreloadNextAfterNextMovie: BK.V.createVideo(),
+		oPreloadPreviousMovie: BK.V.createVideo(),
+		oPreloadPreviousBeforePreviousMovie: BK.V.createVideo(),
 		sUrlPage: "",
 		sUrlPageLink: "",
 		sUserDevice : 0,
+		createVideo : function(){
+			var v = document.createElement('video');
+			v.preload = "auto";
+			v.muted = true;
+			v.autoplay = true;
+			v.crossOrigin = "anonymous";
+			return v;
+		},		
 	},
 	
 	A: {
-
-createVideo : function(){
-	var v = document.createElement('video');
-	v.preload = "auto";
-	v.muted = true;
-	v.autoplay = true;
-	v.crossOrigin = "anonymous";
-	return v;
-},
 	
 bookclose : function(){
 	var eA;
