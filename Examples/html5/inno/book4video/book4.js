@@ -1,3 +1,10 @@
+var createVideo = function(){
+	var v = document.createElement('video');
+	v.muted = true;
+	v.autoplay = true;
+	v.crossOrigin = "anonymous";
+	return v;
+};		
 
 var BK = {
 
@@ -13,16 +20,16 @@ var BK = {
 		bUrlPage: 0,
 		iPageCurrent: 1,
 		iPageLast: 25,
-		oPreloadNext: new Image(),
-		oPreloadNextAfterNext: new Image(),
-		oPreloadPrevious: new Image(),
-		oPreloadPreviousBeforePrevious: new Image(),
+		oPreloadNext: createVideo(), //new Image(),
+		oPreloadNextAfterNext: createVideo(), //new Image(),
+		oPreloadPrevious: createVideo(), //new Image(),
+		oPreloadPreviousBeforePrevious: createVideo(), //new Image(),
 		sUrlPage: "",
 		sUrlPageLink: "",
 		sUserDevice : 0,
+		sMediaExt: ".mp4"
 	},
-	
-	
+		
 	A: {
 	
 bookclose : function(){
@@ -50,6 +57,7 @@ bookclose : function(){
 bookhelp: function(){
 	BK.A.modalopen();
 },
+
 
 
 bookopen: function(){
@@ -140,17 +148,17 @@ init(event) {
 	var eA, iI;
 	eA = event.target.querySelector("Inline");
 	eA.setAttribute("url", "book4.x3d");
-	eA.onload = function(){
-		iI = window.setInterval(function(){
-			eA = document.querySelector('Inline');
-			if (eA){
-				window.clearInterval(iI);
-				BK.A.init2();
-			}
-		}, 20);
+	eA.onload = BK.A.init2;
+	
+	// eA.onload = function(){
+	// 	iI = window.setInterval(function(){
+	// 		eA = document.querySelector('Inline');
+	// 		if (eA){
+	// 			window.clearInterval(iI);
+	// 			BK.A.init2();
+	// 		}
+	// 	}, 20);
 	}
-
-
 },
 
 
@@ -252,12 +260,13 @@ init2: function(event){
 	eI = document.querySelector("Inline");
 	eA = eI.querySelector("[DEF=coverPageTex]");
 	BK.A.covertexture(eA);
+	var sExt = BK.V.sMediaExt;
 	eA = eI.querySelector("[DEF=previousPageTex]");
-	eA.setAttribute("url", "./" + (BK.V.iPageCurrent - 2) + ".jpg");
+	eA.setAttribute("url", "./" + (BK.V.iPageCurrent - 2) + sExt);
 	eA = eI.querySelector("[DEF=currentPageTex]");
-	eA.setAttribute("url", "./" + (BK.V.iPageCurrent + 0) + ".jpg");
+	eA.setAttribute("url", "./" + (BK.V.iPageCurrent + 0) + sExt);
 	eA = eI.querySelector("[DEF=nextPageTex]");
-	eA.setAttribute("url", "./" + (BK.V.iPageCurrent + 2) + ".jpg");
+	eA.setAttribute("url", "./" + (BK.V.iPageCurrent + 2) + sExt);
 	eA = document.querySelector('Inline').querySelector('[DEF=spinCLOCK]');
 	eA.setAttribute('startTime', Date.now () / 1000);
 	if (BK.A.dg("cor")){
@@ -352,16 +361,18 @@ pageprevbusy: function(event) {
 
 
 pagespreload() {
-	BK.V.oPreloadNext.src = "./" + (BK.V.iPageCurrent + 2) + ".jpg";
-	BK.V.oPreloadPrevious.src = "./" + (BK.V.iPageCurrent - 2) + ".jpg";
-	BK.V.oPreloadNextAfterNext.src = "./" + (BK.V.iPageCurrent + 4) + ".jpg";
-	BK.V.oPreloadPreviousBeforePrevious.src = "./" + (BK.V.iPageCurrent - 4) + ".jpg";
+	var sExt = BK.V.sMediaExt;
+	BK.V.oPreloadNext.src = "./" + (BK.V.iPageCurrent + 2) + sExt;
+	BK.V.oPreloadPrevious.src = "./" + (BK.V.iPageCurrent - 2) + sExt;
+	BK.V.oPreloadNextAfterNext.src = "./" + (BK.V.iPageCurrent + 4) + sExt;
+	BK.V.oPreloadPreviousBeforePrevious.src = "./" + (BK.V.iPageCurrent - 4) + sExt;
 },
 
 
 
 pagestexture: function(){
 	var sUrl, oA, oB, eI, eA, sU;
+	var sExt = BK.V.sMediaExt;
 	BK.A.pagespreload();
 	if (BK.V.bUrlPage){
 		window.history.pushState
@@ -381,11 +392,11 @@ pagestexture: function(){
 	eA = eI.querySelector("[DEF=paper003_previous]");
 	eA.setAttribute("visible", false);
 	eA = eI.querySelector("[DEF=currentPageTex]");
-	eA.setAttribute("url", "./" + BK.V.iPageCurrent + ".jpg");
+	eA.setAttribute("url", "./" + BK.V.iPageCurrent + sExt);
 	eA = eI.querySelector("[DEF=nextPageTex]");
-	eA.setAttribute("url", "./" + (BK.V.iPageCurrent + 2) + ".jpg");
+	eA.setAttribute("url", "./" + (BK.V.iPageCurrent + 2) + sExt);
 	eA = eI.querySelector("[DEF=previousPageTex]");
-	eA.setAttribute("url", "./" + (BK.V.iPageCurrent - 2) + ".jpg");
+	eA.setAttribute("url", "./" + (BK.V.iPageCurrent - 2) + sExt);
 	sU = "";
 	BK.V.aPageUrls.forEach(function(aU){
 		if (aU[0] == BK.V.iPageCurrent){

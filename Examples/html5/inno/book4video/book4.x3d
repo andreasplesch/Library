@@ -4,7 +4,7 @@
 	<head>
 		<meta name="filename" content="Book Flip - UVW for 2 Textures.x3d" />
 		<meta name="generator" content="Blender 2.93.7" />
-        <meta name="author, X3D conversion, integration" content="Andreas Plesch, 2022 for Global Village Ventures" />
+        <meta name="author, X3D conversion, integration" content="Andreas Plesch, 2023 for Global Village Ventures" />
         <meta name="skeletal animation, model" content="Hossein Nafisinia, 2022 for Global Village Ventures" />
 	</head>
 	<Scene>
@@ -63,7 +63,7 @@
 											          shininess="0.1"
 											          transparency="0"
 											          />
-											<ImageTexture DEF='currentPageTex' crossOrigin='anonymous'></ImageTexture>
+											<MovieTexture DEF='currentPageTex' crossOrigin='anonymous'></MovieTexture>
 										</Appearance>
 										<IndexedFaceSet DEF='IFS_paper002' solid="false"
 										                creaseAngle="3.14"
@@ -80,7 +80,7 @@
 									<Shape DEF='paper002_next' visible='false'>
 										<Appearance DEF='app_next'>
 											<Material USE="MA_Max_MaterialID_0"/>
-											<ImageTexture DEF='nextPageTex' crossOrigin='anonymous'></ImageTexture>
+											<MovieTexture DEF='nextPageTex' crossOrigin='anonymous'></MovieTexture>
 										</Appearance>
 										<IndexedFaceSet USE='IFS_paper002'> 
 										</IndexedFaceSet>
@@ -88,7 +88,7 @@
                                     <Shape DEF='paper002_previous' visible='false'>
 										<Appearance DEF='app_previous'>
 											<Material USE="MA_Max_MaterialID_0"/>
-											<ImageTexture DEF='previousPageTex' crossOrigin='anonymous'></ImageTexture>
+											<MovieTexture DEF='previousPageTex' crossOrigin='anonymous'></MovieTexture>
 										</Appearance>
 										<IndexedFaceSet USE='IFS_paper002'> 
 										</IndexedFaceSet>
@@ -113,9 +113,9 @@
 							           >
 								<Group DEF="group_ME_paper_000">
 									<Shape DEF='paper003_current'>
-										<Appearance _USE='app_current'>
-										  <Material USE="MA_Max_MaterialID_0"></Material>
-										  <ImageTexture USE='currentPageTex'></ImageTexture>
+										<Appearance USE='app_current'>
+										  <!-- <Material USE="MA_Max_MaterialID_0"></Material>
+										  <ImageTexture USE='currentPageTex'></ImageTexture> -->
 										</Appearance>
 										<IndexedFaceSet DEF='IFS_paper003' solid="false"
 										                creaseAngle="3.14"
