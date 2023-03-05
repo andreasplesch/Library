@@ -63,7 +63,7 @@
 											          shininess="0.1"
 											          transparency="0"
 											          />
-											<MovieTexture DEF='currentPageTex' crossOrigin='anonymous'></MovieTexture>
+											<MovieTexture DEF='currentPageTex' loop='true' crossOrigin='anonymous'></MovieTexture>
 										</Appearance>
 										<IndexedFaceSet DEF='IFS_paper002' solid="false"
 										                creaseAngle="3.14"
@@ -80,7 +80,7 @@
 									<Shape DEF='paper002_next' visible='false'>
 										<Appearance DEF='app_next'>
 											<Material USE="MA_Max_MaterialID_0"/>
-											<MovieTexture DEF='nextPageTex' crossOrigin='anonymous'></MovieTexture>
+											<MovieTexture DEF='nextPageTex' loop='true' crossOrigin='anonymous'></MovieTexture>
 										</Appearance>
 										<IndexedFaceSet USE='IFS_paper002'> 
 										</IndexedFaceSet>
@@ -88,7 +88,7 @@
                                     <Shape DEF='paper002_previous' visible='false'>
 										<Appearance DEF='app_previous'>
 											<Material USE="MA_Max_MaterialID_0"/>
-											<MovieTexture DEF='previousPageTex' crossOrigin='anonymous'></MovieTexture>
+											<MovieTexture DEF='previousPageTex' loop='true' crossOrigin='anonymous'></MovieTexture>
 										</Appearance>
 										<IndexedFaceSet USE='IFS_paper002'> 
 										</IndexedFaceSet>
