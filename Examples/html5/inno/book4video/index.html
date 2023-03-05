@@ -635,6 +635,7 @@ X3D {
 
         var updateMovie = function ()
         {
+			if ( tex._video.ended || tex._video.paused ) {return;}
             if ( requestFrameId == 0 ) {return;}
             gl.bindTexture( that.type, that.texture );
             gl.texImage2D( that.type, 0, that.format, that.format, gl.UNSIGNED_BYTE, tex._video );
