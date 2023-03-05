@@ -577,6 +577,11 @@ X3D {
         if ( this.texture == null )
         {
             this.texture = gl.createTexture();
+			var data = new Uint8Array([255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255]);
+			gl.bindTexture(gl.TEXTURE_2D, this.texture);
+			gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, 2, 2, 0, gl.RGBA, gl.UNSIGNED_BYTE, data);
+			gl.bindTexture(gl.TEXTURE_2D, null);
+			this.texture.ready = false;
         }
 
         if ( this.dashtexture )
