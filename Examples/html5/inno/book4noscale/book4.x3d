@@ -23,7 +23,7 @@
      blender y as cm is close
      rescale x,z, and keep y -->
         
-        <Transform scale='1.112 0.524 1'>
+        <Transform scale='1 1 1' _scale='1.112 0.524 1'>
 <!-- center weird blender coordinates to book origin using cover transforms and coord extents --> 
 		<Transform translation='86.129934 -4.16092 -13.751'>
 		<TouchSensor DEF='book_TOUCH'></TouchSensor>
