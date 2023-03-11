@@ -91,7 +91,7 @@ bookreset: function(){
 bookscalecenter: function(){
 	var eA, sA, aSz, aSc, aMd, aSp, aCn;
 	aMd = [252, 288, 20];
-	aSz = [246, 281, 21];
+	aSz = [252, 288, 20];
 	aSp = ("0 0 0").split(" ");
 	aSc = [aSz[0] / aMd[0], aSz[2] / aMd[2], aSz[1] / aMd[1]];
 	aCn = [aSp[0] * aSc[0], aSp[2] * aSc[2], aSp[1] * aSc[1]];
