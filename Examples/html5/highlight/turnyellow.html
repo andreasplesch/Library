@@ -1,0 +1,43 @@
+<html>
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <title>Highlight Shapes</title>
+    <script type='text/javascript' src='https://www.x3dom.org/download/dev/x3dom.debug.js'> </script>
+    <link rel='stylesheet' type='text/css' href='https://www.x3dom.org/download/x3dom.css'/>
+</head>
+<body onload="init()">
+<h1>Highlight by mouse</h1>
+<x3d>
+  <scene onmouseover="highlight(event)" onmouseout="lowlight(event)" >
+    <transform translation="-2 0 0">
+      <shape>
+        <appearance>
+          <material diffusecolor="1 0 0"></material>
+        </appearance>
+        <cone></cone>
+      </shape>
+    </transform>
+    <transform translation="2 0 0">
+      <shape>
+        <appearance>
+          <material diffusecolor="0 0 1"></material>
+        </appearance>
+        <sphere></sphere>
+      </shape>
+    </transform>
+  </scene>
+  </x3d>
+  <script>
+    function init() {
+      return
+    }
+    function highlight(e) {
+      console.log(e)
+    }
+    function lowlight(e) {
+      console.log(e)
+    }
+  </script>
+  </body>
+  
+  
