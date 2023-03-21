@@ -1,0 +1,78 @@
+<html>
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <title>Highlight Shapes</title>
+    <script type='text/javascript' src='https://www.x3dom.org/download/dev/x3dom.debug.js'> </script>
+    <link rel='stylesheet' type='text/css' href='https://www.x3dom.org/download/x3dom.css'/>
+</head>
+<body onload="init()">
+<h1>Highlight by mouse</h1>
+<x3d style>
+  <scene onmouseover="hilite(event)" onmouseout="restore(event)">
+    <transform translation="-2 0 0">
+      <shape class="withBox" id='cone'>
+        <appearance>
+          <material diffusecolor="1 0 0"></material>
+        </appearance>
+        <cone></cone>
+      </shape>
+    </transform>
+    <transform translation="2 0 0">
+      <shape class="withBox" id='sphere'>
+        <appearance>
+          <material diffusecolor="0 0 1"></material>
+        </appearance>
+        <sphere></sphere>
+      </shape>
+    </transform>
+  </scene>
+</x3d>
+<script>
+  mat_store = {};
+  yellow_mat = document.createElement( 'material' );
+  yellow_mat.setAttribute( 'emissivecolor', '1 1 0' );
+  yellow_mat.setAttribute( 'diffusecolor', '0 0 0' );
+  function init() {
+    rt = document.querySelector('x3d').runtime;
+    document.querySelectorAll('.withBox').forEach( ( domNode ) => attachBBox( domNode ); );
+    return
+  }
+  function attachBox( domNode ) {
+    let box = document.createElement('shape');
+    box.id = domNode.id + '_bbox';
+    box.setAttribute('isPickable', false);
+    let app = document.createElement('appearance');
+    let mat = document.createElement('material');
+    app.appendChild(mat);
+    box.appendChild(app);
+    let geo = document.createElement('box');
+    box.setAttribute('size','2 2 2');
+    box.appendChild(geo);
+    domNode.parentNode.appendChild(box);
+  }
+  function hilite( e ) { // "highlight" function name seems reserved
+    if ( mat_store[e.target.id] ) return;
+    let mat = e.target.querySelector( 'material' );
+    mat_store[e.target.id] = mat.cloneNode();
+    replaceAttributes( yellow_mat, mat ); //mat.replaceWith(yellow_mat.cloneNode());
+    // e.target.addEventListener("mouseout", lowlight, false);
+    //console.log(e);
+  }
+  function restore( e ) {
+    let mat = e.target.querySelector('material');
+    replaceAttributes( mat_store[e.target.id], mat );// mat.replaceWith(mat_store[e.target.id].cloneNode());
+    mat_store[e.target.id] == null;
+    delete mat_store[e.target.id];
+    // e.target.addEventListener("mouseover", hilite, false);
+    // console.log(e);
+  }
+  function replaceAttributes( fromNode, toNode ) {
+    for ( var attr of toNode.attributes ) {
+      toNode.removeAttributeNode( attr );
+    };
+    for ( var attr of fromNode.attributes ) {
+      toNode.setAttributeNode( attr.cloneNode() );
+    }
+  }
+</script>
+</body>
