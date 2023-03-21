@@ -14,7 +14,7 @@
         <appearance>
           <material diffusecolor="1 0 0"></material>
         </appearance>
-        <cone></cone>
+        <cone height='3'></cone>
       </shape>
     </transform>
     <transform translation="2 0 0">
@@ -25,54 +25,88 @@
         <sphere></sphere>
       </shape>
     </transform>
+    <transform translation="0 2 0">
+      <shape id='cyl'>
+        <appearance>
+          <material diffusecolor="1 0 1"></material>
+        </appearance>
+        <cylinder></cylinder>
+      </shape>
+    </transform>
   </scene>
 </x3d>
 <script>
-  mat_store = {};
-  yellow_mat = document.createElement( 'material' );
-  yellow_mat.setAttribute( 'emissivecolor', '1 1 0' );
-  yellow_mat.setAttribute( 'diffusecolor', '0 0 0' );
+  // mat_store = {};
+  // yellow_mat = document.createElement( 'material' );
+  // yellow_mat.setAttribute( 'emissivecolor', '1 1 0' );
+  // yellow_mat.setAttribute( 'diffusecolor', '0 0 0' );
   function init() {
     rt = document.querySelector('x3d').runtime;
-    document.querySelectorAll('.withBox').forEach( ( domNode ) => attachBBox( domNode ); );
+    document.querySelectorAll('.withBox').forEach( ( domNode ) => { attachBBox( domNode ); } );
     return
   }
-  function attachBox( domNode ) {
+  function attachBBox( domNode ) {
+    let bbox = rt.getBBox( domNode );
+    if ( !bbox ) return;
+    let boxTrafo = document.createElement('transform');
+    let bsize = bbox.max.subtract(bbox.min).divide(1.9); // box is 2 wide by default
+    let bcenter = bbox.max.add(bbox.min).divide(2);
+    boxTrafo.setAttribute('translation', [bcenter.x, bcenter.y, bcenter.z].join());
+    boxTrafo.setAttribute('scale', [bsize.x, bsize.y, bsize.z].join());
+    boxTrafo.setAttribute('visible', false);
+    boxTrafo.id = domNode.id + '_bbox';
     let box = document.createElement('shape');
-    box.id = domNode.id + '_bbox';
     box.setAttribute('isPickable', false);
     let app = document.createElement('appearance');
     let mat = document.createElement('material');
+    mat.setAttribute('transparency', 0.4);
+    mat.setAttribute('emissivecolor', '1 1 0');
+    mat.setAttribute('diffusecolor', '0.2 0.2 0.0');
     app.appendChild(mat);
+    let tex = document.createElement('pixeltexture');
+    tex.setAttribute('image',`5 5 2
+    0xFFFF 0xFFFF 0xFFFF 0xFFFF 0xFFFF
+    0xFFFF 0x0000 0x0000 0x0000 0xFFFF
+    0xFFFF 0x0000 0x0000 0x0000 0xFFFF
+    0xFFFF 0x0000 0x0000 0x0000 0xFFFF
+    0xFFFF 0xFFFF 0xFFFF 0xFFFF 0xFFFF`);
+    app.appendChild(tex);
     box.appendChild(app);
     let geo = document.createElement('box');
-    box.setAttribute('size','2 2 2');
     box.appendChild(geo);
-    domNode.parentNode.appendChild(box);
+    boxTrafo.appendChild(box);
+    domNode.parentNode.appendChild(boxTrafo);
   }
   function hilite( e ) { // "highlight" function name seems reserved
-    if ( mat_store[e.target.id] ) return;
-    let mat = e.target.querySelector( 'material' );
-    mat_store[e.target.id] = mat.cloneNode();
-    replaceAttributes( yellow_mat, mat ); //mat.replaceWith(yellow_mat.cloneNode());
+    let bbox = e.target.parentNode.querySelector('#' + e.target.id + '_bbox');
+    if ( !bbox ) return
+    bbox.setAttribute('visible', true);
+    //if ( mat_store[e.target.id] ) return;
+    // let mat = e.target.querySelector( 'material' );
+    // mat_store[e.target.id] = mat.cloneNode();
+    // replaceAttributes( yellow_mat, mat ); //mat.replaceWith(yellow_mat.cloneNode());
     // e.target.addEventListener("mouseout", lowlight, false);
     //console.log(e);
   }
   function restore( e ) {
-    let mat = e.target.querySelector('material');
-    replaceAttributes( mat_store[e.target.id], mat );// mat.replaceWith(mat_store[e.target.id].cloneNode());
-    mat_store[e.target.id] == null;
-    delete mat_store[e.target.id];
+    let bbox = e.target.parentNode.querySelector('#' + e.target.id + '_bbox');
+    if ( !bbox ) return
+    bbox.setAttribute('visible', false);
+    
+    // let mat = e.target.querySelector('material');
+    // replaceAttributes( mat_store[e.target.id], mat );// mat.replaceWith(mat_store[e.target.id].cloneNode());
+    // mat_store[e.target.id] == null;
+    // delete mat_store[e.target.id];
     // e.target.addEventListener("mouseover", hilite, false);
     // console.log(e);
   }
-  function replaceAttributes( fromNode, toNode ) {
-    for ( var attr of toNode.attributes ) {
-      toNode.removeAttributeNode( attr );
-    };
-    for ( var attr of fromNode.attributes ) {
-      toNode.setAttributeNode( attr.cloneNode() );
-    }
-  }
+  // function replaceAttributes( fromNode, toNode ) {
+  //   for ( var attr of toNode.attributes ) {
+  //     toNode.removeAttributeNode( attr );
+  //   };
+  //   for ( var attr of fromNode.attributes ) {
+  //     toNode.setAttributeNode( attr.cloneNode() );
+  //   }
+  // }
 </script>
 </body>
