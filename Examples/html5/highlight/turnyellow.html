@@ -7,10 +7,10 @@
 </head>
 <body onload="init()">
 <h1>Highlight by mouse</h1>
-<x3d>
-  <scene onmouseover="highlight(event)" onmouseout="lowlight(event)" >
+<x3d style>
+  <scene onmouseover="hilite(event)" onmouseout="restore(event)">
     <transform translation="-2 0 0">
-      <shape>
+      <shape id='cone'>
         <appearance>
           <material diffusecolor="1 0 0"></material>
         </appearance>
@@ -18,7 +18,7 @@
       </shape>
     </transform>
     <transform translation="2 0 0">
-      <shape>
+      <shape id='sphere'>
         <appearance>
           <material diffusecolor="0 0 1"></material>
         </appearance>
@@ -26,18 +26,38 @@
       </shape>
     </transform>
   </scene>
-  </x3d>
-  <script>
-    function init() {
-      return
+</x3d>
+<script>
+  mat_store = {};
+  yellow_mat = document.createElement( 'material' );
+  yellow_mat.setAttribute( 'emissivecolor', '1 1 0' );
+  yellow_mat.setAttribute( 'diffusecolor', '0 0 0' );
+  function init() {
+    return
+  }
+  function hilite( e ) { // "highlight" function name seems reserved
+    if ( mat_store[e.target.id] ) return;
+    let mat = e.target.querySelector( 'material' );
+    mat_store[e.target.id] = mat.cloneNode();
+    replaceAttributes( yellow_mat, mat ); //mat.replaceWith(yellow_mat.cloneNode());
+    // e.target.addEventListener("mouseout", lowlight, false);
+    //console.log(e);
+  }
+  function restore( e ) {
+    let mat = e.target.querySelector('material');
+    replaceAttributes( mat_store[e.target.id], mat );// mat.replaceWith(mat_store[e.target.id].cloneNode());
+    mat_store[e.target.id] == null;
+    delete mat_store[e.target.id];
+    // e.target.addEventListener("mouseover", hilite, false);
+    // console.log(e);
+  }
+  function replaceAttributes( fromNode, toNode ) {
+    for ( var attr of toNode.attributes ) {
+      toNode.removeAttributeNode( attr );
+    };
+    for ( var attr of fromNode.attributes ) {
+      toNode.setAttributeNode( attr.cloneNode() );
     }
-    function highlight(e) {
-      console.log(e)
-    }
-    function lowlight(e) {
-      console.log(e)
-    }
-  </script>
-  </body>
-  
-  
+  }
+</script>
+</body>
