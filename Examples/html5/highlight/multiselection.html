@@ -1,0 +1,102 @@
+<html>
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <title>Highlight Shapes</title>
+    <script type='text/javascript' src='https://www.x3dom.org/download/dev/x3dom.debug.js'> </script>
+    <link rel='stylesheet' type='text/css' href='https://www.x3dom.org/download/x3dom.css'/>
+    <style>
+      body { width: 100% }
+    </style>
+</head>
+<body onload="init()">
+<h1>Highlight with outline</h1>
+<x3d>
+  <scene onclick="toggle(event)" _onmouseout="restore(event)">
+    <transform translation="-2 0 0">
+      <shape class="withBox" id='cone'>
+        <appearance>
+          <material diffusecolor="1 0 0"></material>
+        </appearance>
+        <cone height='3'></cone>
+      </shape>
+    </transform>
+    <transform translation="2 0 0">
+      <shape class="withBox" id='sphere'>
+        <appearance>
+          <material diffusecolor="0 0 1"></material>
+        </appearance>
+        <sphere></sphere>
+      </shape>
+    </transform>
+    <transform translation="0 2 0" rotation='0 1 0 1.05'>
+      <shape class="withBox" id='cyl'>
+        <appearance>
+          <material diffusecolor="1 0 1"></material>
+        </appearance>
+        <box size='1 2 3'></box>
+      </shape>
+    </transform>
+  </scene>
+</x3d>
+<script>
+  // mat_store = {};
+  // yellow_mat = document.createElement( 'material' );
+  // yellow_mat.setAttribute( 'emissivecolor', '1 1 0' );
+  // yellow_mat.setAttribute( 'diffusecolor', '0 0 0' );
+  function init() {
+    rt = document.querySelector('x3d').runtime;
+    document.querySelectorAll('.withBox').forEach( ( domNode ) => { attachBBox( domNode ); } );
+    return
+  }
+  function attachBBox( domNode ) {
+    let bbox = rt.getBBox( domNode );
+    if ( !bbox ) return;
+    let boxTrafo = document.createElement('transform');
+    let bsize = bbox.max.subtract(bbox.min);
+    const margin = 0.2;
+    let bscale = bsize.add( new x3dom.fields.SFVec3f(margin, margin, margin) );// box is 2 wide by default
+    let bcenter = bbox.max.add(bbox.min).divide(2);
+    boxTrafo.setAttribute('center', [bcenter.x, bcenter.y, bcenter.z].join());
+    boxTrafo.setAttribute('scale', [bscale.x/bsize.x, bscale.y/bsize.y, bscale.z/bsize.z].join());
+    boxTrafo.setAttribute('visible', false);
+    boxTrafo.id = domNode.id + '_bbox';
+    let box = document.createElement('shape');
+    box.setAttribute('isPickable', false);
+    let app = document.createElement('appearance');
+    let mat = document.createElement('material');
+    mat.setAttribute('transparency', 0);
+    mat.setAttribute('emissivecolor', '0 0 0');
+    mat.setAttribute('diffusecolor', '0 0 0.0');
+    app.appendChild(mat);
+    // let tex = document.createElement('pixeltexture');
+    // tex.setAttribute('image',`5 5 2
+    // 0xFFFF 0xFFFF 0xFFFF 0xFFFF 0xFFFF
+    // 0xFFFF 0x0000 0x0000 0x0000 0xFFFF
+    // 0xFFFF 0x0000 0x0000 0x0000 0xFFFF
+    // 0xFFFF 0x0000 0x0000 0x0000 0xFFFF
+    // 0xFFFF 0xFFFF 0xFFFF 0xFFFF 0xFFFF`);
+    //app.appendChild(tex);
+    box.appendChild(app);
+    let geo = domNode._x3domNode._cf.geometry.node._xmlNode.cloneNode();
+    geo.setAttribute('ccw', false);
+    box.appendChild(geo);
+    boxTrafo.appendChild(box);
+    domNode.parentNode.appendChild(boxTrafo);
+  }
+  function toggle( e ) { // "highlight" function name seems reserved
+    let bbox = e.target.parentNode.querySelector('#' + e.target.id + '_bbox');
+    if ( !bbox ) return
+    bbox.setAttribute('visible', bbox.getAttribute('visible') !== 'true');
+  }
+  function hilite( e ) { // "highlight" function name seems reserved
+    let bbox = e.target.parentNode.querySelector('#' + e.target.id + '_bbox');
+    if ( !bbox ) return
+    bbox.setAttribute('visible', true);
+  }
+  function restore( e ) {
+    let bbox = e.target.parentNode.querySelector('#' + e.target.id + '_bbox');
+    if ( !bbox ) return
+    bbox.setAttribute('visible', false);
+  }
+</script>
+</body>
