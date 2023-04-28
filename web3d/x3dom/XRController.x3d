@@ -1,0 +1,19 @@
+<X3D>
+  <Scene>
+    <Shape>
+      <Appearance DEF='a0'>
+        <Material diffuseColor='0.1 0.1 0.1' specularColor='0.05 0.05 0.05'/>
+      </Appearance>
+      <Cylinder height='16' radius='2.5' subdivision='8'/>
+    </Shape>
+    <Transform translation='0 8 -2'>
+      <Shape>
+        <Appearance USE='a0'/>
+        <Extrusion 
+         crossSection='-0.25 -2, -0.5 0, -0.25 2, 0.25 2, 0.5 0, 0.25 -2, -0.25 -2'
+         spine='0 0 0, -3.5 0 1.5, -5 0 5, -3.5 0 8.5, 0 0 10, 3.5 0 8.5, 5 0 5, 3.5 0 1.5, 0 0 0'>
+        </Extrusion>
+      </Shape>
+    </Transform>
+  </Scene>
+</X3D>
