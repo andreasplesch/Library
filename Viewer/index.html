@@ -89,8 +89,8 @@
 </X3D>`
 
                 if (url.searchParams.get('url')) {
-                    editor.getDoc().setValue("loading " + url[1]);
                     url = url.search.match(/\?url=(.*)/);
+                    editor.getDoc().setValue("loading " + url[1]);
                     var content = await fetch(url[1]).then((r)=>r.ok ? r.text() : "not ok")
                 }
                 editor.getDoc().setValue(content);
