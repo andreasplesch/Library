@@ -16,31 +16,35 @@
                 width: 100%;
                 height: 100%;
                 margin: 0px;
+                overflow: auto;
             }
             .CodeMirror {
                 resize: horizontal;
-                height: 100%;
+                height: calc(100% - 94px);
+                border-right: black double thick;
                 width: 60%;
                 float: left;
             }
             .x3d-container {
                 /* width: 40%; */
-                height: 100%;
+                height: calc(100% - 94px);
                 overflow: hidden;
                 /* float: right; */
             }
         </style>
     </head>
     <body onload='load()'>
-        <form>
-            Edit and click to load:<button type='button' onclick='updatex3d();'>Update</button>
-            Remove any initial white space.
+        <form style="margin: 8px;">
+          <h3>
+            X3DOM editor: Edit X3D code and click button to load: <button type="button" onclick="updatex3d();"> Update </button>
+          </h3>   
+            Make sure to remove any initial white space. You can load external links with index.html?url=https://server/my.x3d
         </form>
         <textarea name="x3dcontent" id='x3dcontent' rows="30" cols="120"></textarea>
         <div class="x3d-container">
         <x3d _style="height:400px; width:40%">
             <scene>
-                <inline onload='fitscene()' namespacename="x3dembed" id="inline" contentType="model/x3d+xml" url="data:text/plain;charset=utf-8;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4NCjwhRE9DVFlQRSBYM0QgUFVCTElDICJJU08vL1dlYjNELy9EVEQgWDNEIDMuMy8vRU4iICJodHRwOi8vd3d3LndlYjNkLm9yZy9zcGVjaWZpY2F0aW9ucy94M2QtMy4zLmR0ZCI+DQo8WDNEIHByb2ZpbGU9J0ludGVyY2hhbmdlJyB2ZXJzaW9uPSczLjMnICB4bWxuczp4c2Q9J2h0dHA6Ly93d3cudzMub3JnLzIwMDEvWE1MU2NoZW1hLWluc3RhbmNlJyB4c2Q6bm9OYW1lc3BhY2VTY2hlbWFMb2NhdGlvbiA9JyBodHRwOi8vd3d3LndlYjNkLm9yZy9zcGVjaWZpY2F0aW9ucy94M2QtMy4zLnhzZCAnPg0KPFNjZW5lPg0KPEJhY2tncm91bmQgc2t5Q29sb3I9JzEgMSAxJy8+DQo8Vmlld3BvaW50IGRlc2NyaXB0aW9uPSdCb29rIFZpZXcnIG9yaWVudGF0aW9uPSctMC43NDcgLTAuNjI0IC0wLjIzMSAxLjA1JyBwb3NpdGlvbj0nLTEuODEgMy4xMiAyLjU5Jy8+DQo8U2hhcGU+DQo8Qm94IHNpemU9JzEgMiAzJy8+DQo8QXBwZWFyYW5jZT4NCjxNYXRlcmlhbC8+DQo8L0FwcGVhcmFuY2U+DQo8L1NoYXBlPg0KPC9TY2VuZT4NCjwvWDNEPg=="></inline>
+                <inline onload='fitscene()' namespacename="x3dembed" id="inline" contentType="model/x3d+xml" url=""></inline>
             </scene>
         </x3d>
         </div>
@@ -70,13 +74,26 @@
             
             async function load() {
                 var url = new URL(document.location.href);
+                var content =
+`<X3D>
+        <Scene>
+                <Background skyColor='1 1 1'/>
+                <Viewpoint description='Book View' orientation='-0.747 -0.624 -0.231 1.05' position='-1.81 3.12 2.59'/>
+                <Shape>
+                        <Box size='1 2 3'/>
+                        <Appearance>
+                                <Material/>
+                        </Appearance>
+                </Shape>
+        </Scene>
+</X3D>`
+
                 if (url.searchParams.get('url')) {
-                    var content = "";
                     url = url.search.match(/\?url=(.*)/);
                     var content = await fetch(url[1]).then((r)=>r.ok ? r.text() : "not ok")
-                    editor.getDoc().setValue(content);
-                    updatex3d();
                 }
+                editor.getDoc().setValue(content);
+                updatex3d();
             }
 
             function updatex3d() {
@@ -95,6 +112,6 @@
             }
         </script>
         <script type="text/javascript" src="https://x3dom.org/download/dev/x3dom-full.debug.js"></script>
-        <script type="text/javascript" src="https://x3dom.org/download/dev/ammo.js"></script>
+        <script type="text/javascript" _src="https://x3dom.org/download/dev/ammo.js"></script>
     </body>
 </html>
