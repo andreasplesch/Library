@@ -17,7 +17,7 @@
     html, body { width:100%; height:100%; margin:0px; }
   </style>
 </head>
-<body>
+<body onload='load()'>
   <form>
 Edit and click to load:<button type='button' onclick='updatex3d();'>Update</button>
 Remove any initial white space.
@@ -39,8 +39,8 @@ Remove any initial white space.
               matchBrackets: true,
               matchTags: {bothTags: true}
            });
-    var inline = document.getElementById("inline");
-           
+    
+    var inline = document.getElementById("inline");      
            /*
            editor.on("changes", function(){
               var browser = X3D.getBrowser(x3dele);
@@ -48,7 +48,20 @@ Remove any initial white space.
               browser.replaceWorld(browser.createX3DFromString(content));
            });
            */
-           
+    
+    function load() {
+      var url = new URL(document.location.href);
+      if (url.searchParams.get('url')) {
+        var content = "";
+        url = url.search.match(/\?url=(.*)\/);
+        fetch(url[1])
+        .then( (r) => r.ok ? r.text() : "not ok" )
+        .then( (r) => content = r )
+        .catch (m) => content = m );
+        editor.getDoc().setValue(content);
+        updatex3d();
+    }
+      
     function updatex3d() {
       //var browser = X3D.getBrowser(x3dele);
       editor.save();
