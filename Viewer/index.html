@@ -91,7 +91,12 @@
                 if (url.searchParams.get('url')) {
                     url = url.search.match(/\?url=(.*)/);
                     editor.getDoc().setValue("loading " + url[1]);
-                    var content = await fetch(url[1]).then((r)=>r.ok ? r.text() : "not ok")
+                    try {
+                        var r = await fetch(url[1]);
+                        content = r.ok ? r.text() : "not ok";
+                    } catch (error) {
+                        content = error.toString();
+                    }
                 }
                 editor.getDoc().setValue(content);
                 updatex3d();
