@@ -16,7 +16,7 @@
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.8.0/addon/search/search.js"></script>
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.8.0/addon/search/searchcursor.js"></script>
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.8.0/addon/dialog/dialog.js"></script>
-        
+        <script type="text/javascript" src="https://x3dom.org/download/dev/x3dom-full.debug.js"></script>
         <style>
             html, body {
                 width: 100%;
@@ -24,6 +24,7 @@
                 margin: 0px;
                 overflow: auto;
             }
+
             .CodeMirror {
                 resize: horizontal;
                 height: calc(100% - 94px);
@@ -31,28 +32,36 @@
                 width: 60%;
                 float: left;
             }
+
             .x3d-container {
                 /* width: 40%; */
                 height: calc(100% - 94px);
                 overflow: hidden;
                 /* float: right; */
             }
+
+            button {
+                font-size: inherit;
+            }
         </style>
     </head>
     <body onload='load()'>
         <form style="margin: 8px;">
-          <h3>
-            X3DOM editor: Edit X3D code and click button to load: <button type="button" onclick="updatex3d();"> Update </button>
-          </h3>   
+            <h3>
+                X3DOM editor: Edit X3D code and click button to load: <button type="button" onclick="updatex3d();">Update</button>
+            </h3>
             Make sure to remove any initial white space. You can load external links with index.html?url=https://server/my.x3d
+        
+        
+        
         </form>
         <textarea name="x3dcontent" id='x3dcontent' rows="30" cols="120"></textarea>
         <div class="x3d-container">
-        <x3d _style="height:400px; width:40%">
-            <scene>
-                <inline onload='fitscene()' namespacename="x3dembed" id="inline" contentType="model/x3d+xml" url=""></inline>
-            </scene>
-        </x3d>
+            <x3d>
+                <scene>
+                    <inline onload='fitscene()' namespacename="x3dembed" id="inline" contentType="model/x3d+xml" url=""></inline>
+                </scene>
+            </x3d>
         </div>
         <script>
             var editor = CodeMirror.fromTextArea(document.getElementById("x3dcontent"), {
@@ -78,23 +87,21 @@
             function fitscene() {
                 document.querySelector('x3d').runtime.fitAll();
             }
-            
+
             async function load() {
                 var url = new URL(document.location.href);
-                var content =
-`<X3D>
-        <Scene>
-                <Background skyColor='1 1 1'/>
-                <Viewpoint description='Book View' orientation='-0.747 -0.624 -0.231 1.05' position='-1.81 3.12 2.59'/>
-                <Shape>
-                        <Box size='1 2 3'/>
-                        <Appearance>
-                                <Material/>
-                        </Appearance>
-                </Shape>
-        </Scene>
-</X3D>`
-
+                var content = `<X3D>
+  <Scene>
+    <Background skyColor='1 1 1'/>
+    <Viewpoint description='Book View' orientation='-0.747 -0.624 -0.231 1.05' position='-1.81 3.12 2.59'/>
+    <Shape>
+      <Box size='1 2 3'/>
+      <Appearance>
+        <Material/>
+      </Appearance>
+    </Shape>
+  </Scene>
+</X3D`
                 if (url.searchParams.get('url')) {
                     url = url.search.match(/\?url=(.*)/);
                     editor.getDoc().setValue("loading " + url[1]);
@@ -110,11 +117,25 @@
             }
 
             function updatex3d() {
-                //var browser = X3D.getBrowser(x3dele);
                 editor.save();
+                var browser = document.querySelector('x3d').runtime
                 var content = editor.getDoc().getValue();
-                var dataurl = "data:text/plain;base64," + btoa(content);
-                inline.setAttribute("url", dataurl);
+                var x3d = browser.createX3DFromString(content);
+                browser.replaceWorld(x3d);
+                var x3dNode = document.querySelector('x3d');
+                x3dNode.removeAttribute("width");
+                x3dNode.removeAttribute("height");
+                //x3dNode.removeAttribute("style");
+                x3dNode.style.width = null;
+                x3dNode.style.height = null;
+                //x3dNode.runtime.getCanvas().removeAttribute("style");
+                x3dNode.runtime.getCanvas().style.width = null;
+                x3dNode.runtime.getCanvas().style.height = null;
+
+                document.querySelector('x3d').runtime.fitAll();
+
+                // var dataurl = "data:text/plain;base64," + btoa(content);
+                // inline.setAttribute("url", dataurl);
             }
 
             function loadX3d(id, content) {
@@ -124,7 +145,6 @@
                 browser.replaceWorld(browser.createX3DFromString(content));
             }
         </script>
-        <script type="text/javascript" src="https://x3dom.org/download/dev/x3dom-full.debug.js"></script>
         <script type="text/javascript" _src="https://x3dom.org/download/dev/ammo.js"></script>
     </body>
 </html>
