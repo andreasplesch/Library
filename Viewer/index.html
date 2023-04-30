@@ -100,7 +100,7 @@
                     editor.getDoc().setValue("loading " + url[1]);
                     try {
                         var r = await fetch(url[1]);
-                        content = r.ok ? r.text() : "not ok";
+                        content = r.ok ? await r.text() : "not ok";
                     } catch (error) {
                         content = error.toString();
                     }
