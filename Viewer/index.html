@@ -86,7 +86,8 @@
            */
 
             function fitscene() {
-                document.querySelector('x3d').runtime.fitAll();
+                var rt = document.querySelector('x3d').runtime;
+                if (! rt.getActiveBindable('Viewpoint')) rt.fitAll();
             }
 
             async function load() {
@@ -135,7 +136,7 @@
                 x3dNode.runtime.getCanvas().style.width = null;
                 x3dNode.runtime.getCanvas().style.height = null;
 
-                document.querySelector('x3d').runtime.fitAll();
+                fitscene();
 
                 // var dataurl = "data:text/plain;base64," + btoa(content);
                 // inline.setAttribute("url", dataurl);
