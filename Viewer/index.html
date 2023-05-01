@@ -76,6 +76,7 @@
             });
 
             var inline = document.getElementById("inline");
+            var baseURL;
             /*
            editor.on("changes", function(){
               var browser = X3D.getBrowser(x3dele);
@@ -89,7 +90,6 @@
             }
 
             async function load() {
-                var baseURL;
                 var url = new URL(document.location.href);
                 var content = `<X3D>
   <Scene>
@@ -104,21 +104,21 @@
   </Scene>
 </X3D`
                 if (url.searchParams.get('url')) {
-                    url = url.search.match(/\?url=(.*)/);
-                    editor.getDoc().setValue("loading " + url[1]);
+                    var query_url = url.search.match(/\?url=(.*)/);
+                    editor.getDoc().setValue("loading " + query_url[1]);
                     try {
-                        var r = await fetch(url[1]);
+                        var r = await fetch(query_url[1]);
                         content = r.ok ? await r.text() : "not ok";
-                        baseURL = url[1];
+                        if ( url.protocol !== "data:") baseURL = query_url[1];
                     } catch (error) {
                         content = error.toString();
                     }
                 }
                 editor.getDoc().setValue(content);
-                updatex3d(baseURL);
+                updatex3d();
             }
 
-            function updatex3d(baseURL) {
+            function updatex3d() {
                 editor.save();
                 var browser = document.querySelector('x3d').runtime
                 var content = editor.getDoc().getValue();
