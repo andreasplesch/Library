@@ -109,7 +109,7 @@
                     try {
                         var r = await fetch(query_url[1]);
                         content = r.ok ? await r.text() : "not ok";
-                        if ( url.protocol !== "data:") baseURL = query_url[1];
+                        if ( new URL(query_url[1]).protocol !== "data:") baseURL = query_url[1];
                     } catch (error) {
                         content = error.toString();
                     }
