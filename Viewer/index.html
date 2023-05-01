@@ -89,6 +89,7 @@
             }
 
             async function load() {
+                var baseURL;
                 var url = new URL(document.location.href);
                 var content = `<X3D>
   <Scene>
@@ -108,19 +109,21 @@
                     try {
                         var r = await fetch(url[1]);
                         content = r.ok ? await r.text() : "not ok";
+                        baseURL = url[1];
                     } catch (error) {
                         content = error.toString();
                     }
                 }
                 editor.getDoc().setValue(content);
-                updatex3d();
+                updatex3d(baseURL);
             }
 
-            function updatex3d() {
+            function updatex3d(baseURL) {
                 editor.save();
                 var browser = document.querySelector('x3d').runtime
                 var content = editor.getDoc().getValue();
                 var x3d = browser.createX3DFromString(content);
+                if (baseURL) x3d.setAttribute('baseURL', baseURL);
                 browser.replaceWorld(x3d);
                 var x3dNode = document.querySelector('x3d');
                 x3dNode.removeAttribute("width");
