@@ -7,6 +7,7 @@
         <link href="https://x3dom.org/download/dev//x3dom.css" rel="stylesheet" type="text/css"/>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.8.0/codemirror.min.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.8.0/addon/dialog/dialog.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.8.0/addon/hint/show-hint.css">
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.8.0/codemirror.min.js"></script>
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.8.0/mode/xml/xml.min.js"></script>
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.8.0/addon/edit/matchbrackets.min.js"></script>
@@ -16,6 +17,10 @@
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.8.0/addon/search/search.js"></script>
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.8.0/addon/search/searchcursor.js"></script>
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.8.0/addon/dialog/dialog.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.8.0/addon/hint/show-hint.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.8.0/addon/hint/xml-hint.js"></script>
+
+
         <script type="text/javascript" src="./x3dom-full.debug.js" _src="https://x3dom.org/download/dev/x3dom-full.debug.js"></script>
         <style>
             html, body {
@@ -31,6 +36,10 @@
                 border-right: black double thick;
                 width: 60%;
                 float: left;
+            }
+
+            .CodeMirror-matchingtag {
+                background: rgb(219 204 183 / 30%);
             }
 
             .x3d-container {
@@ -51,10 +60,7 @@
                 X3DOM editor: Edit X3D code and click button to load: <button type="button" onclick="updatex3d();">Update</button>
             </h3>
             Make sure to remove any initial white space. You can load external links with index.html?url=https://server/my.x3d .
-            <a target="_blank" href='https://codemirror.net/5/doc/manual.html#commands'>&#x2328 &#x1F13A&#x1F134&#x1F148&#x1F131&#x1F13E&#x1F130&#x1F141&#x1F133 </a>
-        
-        
-        
+            <a target="_blank" href='https://codemirror.net/5/doc/manual.html#commands'>&#x2328 &#x1F13A &#x1F134 &#x1F148 &#x1F131 &#x1F13E &#x1F130 &#x1F141 &#x1F133</a>
         </form>
         <textarea name="x3dcontent" id='x3dcontent' rows="30" cols="120"></textarea>
         <div class="x3d-container">
@@ -65,6 +71,67 @@
             </x3d>
         </div>
         <script>
+            var x3d_tags = {
+                "!top": ["X3D", "Scene"],
+                "!attrs": {
+                    DEF: null
+                },
+                X3D: {
+                    children: ["Scene"]
+                },
+                Transform: {
+                    attrs: {
+                        rotation: ["0 1 0 0"],
+                        scale: ["1 1 1"],
+                        translation: ["0 0 0 0"]
+                    }
+                },
+                Shape: {
+                    children: ["Appearance", "IndexedLineSet", "Box", "Extrusion"],
+                },
+                Appearance: {
+                    children: ["Material", "ImageTexture", "PixelTexture"],
+                },
+                Material: {
+                        attrs: {
+                                "diffuseColor": ["0.8 0.8 0.8"],
+                                "emissiveColor": ["0 0 0"],
+                                "specularColor": ["0.1 0.1 0.1"],
+                                "shininess": ["0.1"],
+                                "transparency": ["0"]
+                        }
+                }
+            };
+
+            function completeAfter(cm, pred) {
+                var cur = cm.getCursor();
+                if (!pred || pred())
+                    setTimeout(function() {
+                        if (!cm.state.completionActive)
+                            cm.showHint({
+                                completeSingle: false
+                            });
+                    }, 100);
+                return CodeMirror.Pass;
+            }
+
+            function completeIfAfterLt(cm) {
+                return completeAfter(cm, function() {
+                    var cur = cm.getCursor();
+                    return cm.getRange(CodeMirror.Pos(cur.line, cur.ch - 1), cur) == "<";
+                });
+            }
+
+            function completeIfInTag(cm) {
+                return completeAfter(cm, function() {
+                    var tok = cm.getTokenAt(cm.getCursor());
+                    if (tok.type == "string" && (!/['"]/.test(tok.string.charAt(tok.string.length - 1)) || tok.string.length == 1))
+                        return false;
+                    var inner = CodeMirror.innerMode(cm.getMode(), tok.state).state;
+                    return inner.tagName;
+                });
+            }
+                
             var editor = CodeMirror.fromTextArea(document.getElementById("x3dcontent"), {
                 lineNumbers: true,
                 mode: "xml",
@@ -73,6 +140,17 @@
                 autoCloseTags: true,
                 matchTags: {
                     bothTags: true
+                },
+                hintOptions: {
+                    schemaInfo: x3d_tags
+                },
+                extraKeys: {
+                    "'<'": completeAfter,
+                    "'/'": completeIfAfterLt,
+                    "' '": completeIfInTag,
+                    "'='": completeIfInTag,
+                    "Ctrl-Space": "autocomplete",
+                    "Ctrl-J": "toMatchingTag"
                 }
             });
 
@@ -88,7 +166,8 @@
 
             function fitscene() {
                 var rt = document.querySelector('x3d').runtime;
-                if (! rt.getActiveBindable('Viewpoint')) rt.fitAll();
+                if (!rt.getActiveBindable('Viewpoint'))
+                    rt.fitAll();
             }
 
             async function load() {
@@ -111,7 +190,8 @@
                     try {
                         var r = await fetch(query_url[1]);
                         content = r.ok ? await r.text() : "not ok";
-                        if ( new URL(query_url[1]).protocol !== "data:") baseURL = query_url[1];
+                        if (new URL(query_url[1]).protocol !== "data:")
+                            baseURL = query_url[1];
                     } catch (error) {
                         content = error.toString();
                     }
@@ -125,7 +205,8 @@
                 var browser = document.querySelector('x3d').runtime
                 var content = editor.getDoc().getValue();
                 var x3d = browser.createX3DFromString(content);
-                if (baseURL) x3d.setAttribute('baseURL', baseURL);
+                if (baseURL)
+                    x3d.setAttribute('baseURL', baseURL);
                 browser.replaceWorld(x3d);
                 var x3dNode = document.querySelector('x3d');
                 x3dNode.removeAttribute("width");
