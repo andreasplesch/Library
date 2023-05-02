@@ -19,8 +19,6 @@
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.8.0/addon/dialog/dialog.js"></script>
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.8.0/addon/hint/show-hint.js"></script>
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.8.0/addon/hint/xml-hint.js"></script>
-
-
         <script type="text/javascript" src="./x3dom-full.debug.js" _src="https://x3dom.org/download/dev/x3dom-full.debug.js"></script>
         <style>
             html, body {
@@ -93,16 +91,2433 @@
                     children: ["Material", "ImageTexture", "PixelTexture"],
                 },
                 Material: {
-                        attrs: {
-                                "diffuseColor": ["0.8 0.8 0.8"],
-                                "emissiveColor": ["0 0 0"],
-                                "specularColor": ["0.1 0.1 0.1"],
-                                "shininess": ["0.1"],
-                                "transparency": ["0"]
-                        }
+                    attrs: {
+                        "diffuseColor": ["0.8 0.8 0.8"],
+                        "emissiveColor": ["0 0 0"],
+                        "specularColor": ["0.1 0.1 0.1"],
+                        "shininess": ["0.1"],
+                        "transparency": ["0"]
+                    }
                 }
             };
 
+            var x3d_allattr = {
+                "Anchor": {
+                    "attrs": {
+                        "bboxCenter": ["0 0 0"],
+                        "bboxSize": ["-1 -1 -1"],
+                        "description": [""],
+                        "parameter": [""],
+                        "url": [""],
+                        "containerField": ["children"]
+                    }
+                },
+                "Appearance": {
+                    "attrs": {
+                        "containerField": ["appearance"]
+                    }
+                },
+                "Arc2D": {
+                    "attrs": {
+                        "endAngle": ["1.570796"],
+                        "radius": ["1"],
+                        "startAngle": ["0"],
+                        "containerField": ["geometry"]
+                    }
+                },
+                "ArcClose2D": {
+                    "attrs": {
+                        "closureType": ["PIE"],
+                        "endAngle": ["1.570796"],
+                        "radius": ["1"],
+                        "solid": ["false"],
+                        "startAngle": ["0"],
+                        "containerField": ["geometry"]
+                    }
+                },
+                "AudioClip": {
+                    "attrs": {
+                        "description": [""],
+                        "loop": ["false"],
+                        "pauseTime": ["0"],
+                        "pitch": ["1.0"],
+                        "resumeTime": ["0"],
+                        "startTime": ["0"],
+                        "stopTime": ["0"],
+                        "url": [""],
+                        "containerField": ["source"]
+                    }
+                },
+                "Background": {
+                    "attrs": {
+                        "backUrl": [""],
+                        "bottomUrl": [""],
+                        "frontUrl": [""],
+                        "groundAngle": [""],
+                        "groundColor": [""],
+                        "leftUrl": [""],
+                        "rightUrl": [""],
+                        "skyAngle": [""],
+                        "skyColor": ["0 0 0"],
+                        "topUrl": [""],
+                        "transparency": ["0"],
+                        "containerField": ["children"]
+                    }
+                },
+                "BallJoint": {
+                    "attrs": {
+                        "anchorPoint": ["0 0 0"],
+                        "forceOutput": ["\"NONE\""],
+                        "containerField": ["joints"]
+                    }
+                },
+                "Billboard": {
+                    "attrs": {
+                        "axisOfRotation": ["0 1 0"],
+                        "bboxCenter": ["0 0 0"],
+                        "bboxSize": ["-1 -1 -1"],
+                        "containerField": ["children"]
+                    }
+                },
+                "BlendedVolumeStyle": {
+                    "attrs": {
+                        "enabled": ["true"],
+                        "weightConstant1": ["0.5"],
+                        "weightConstant2": ["0.5"],
+                        "weightFunction1": ["CONSTANT"],
+                        "weightFunction2": ["CONSTANT"],
+                        "containerField": ["renderStyle"]
+                    }
+                },
+                "BooleanFilter": {
+                    "attrs": {
+                        "containerField": ["children"]
+                    }
+                },
+                "BooleanSequencer": {
+                    "attrs": {
+                        "key": [""],
+                        "keyValue": [""],
+                        "containerField": ["children"]
+                    }
+                },
+                "BooleanToggle": {
+                    "attrs": {
+                        "toggle": ["false"],
+                        "containerField": ["children"]
+                    }
+                },
+                "BooleanTrigger": {
+                    "attrs": {
+                        "containerField": ["children"]
+                    }
+                },
+                "BoundaryEnhancementVolumeStyle": {
+                    "attrs": {
+                        "boundaryOpacity": ["0.9"],
+                        "enabled": ["true"],
+                        "opacityFactor": ["2"],
+                        "retainedOpacity": ["0.2"],
+                        "containerField": ["renderStyle"]
+                    }
+                },
+                "BoundedPhysicsModel": {
+                    "attrs": {
+                        "enabled": ["true"],
+                        "containerField": ["physics"]
+                    }
+                },
+                "Box": {
+                    "attrs": {
+                        "size": ["2 2 2"],
+                        "solid": ["true"],
+                        "containerField": ["geometry"]
+                    }
+                },
+                "CADAssembly": {
+                    "attrs": {
+                        "bboxCenter": ["0 0 0"],
+                        "bboxSize": ["-1 -1 -1"],
+                        "name": [""],
+                        "containerField": ["children"]
+                    }
+                },
+                "CADFace": {
+                    "attrs": {
+                        "bboxCenter": ["0 0 0"],
+                        "bboxSize": ["-1 -1 -1"],
+                        "name": [""],
+                        "containerField": ["children"]
+                    }
+                },
+                "CADLayer": {
+                    "attrs": {
+                        "bboxCenter": ["0 0 0"],
+                        "bboxSize": ["-1 -1 -1"],
+                        "name": [""],
+                        "visible": [""],
+                        "containerField": ["children"]
+                    }
+                },
+                "CADPart": {
+                    "attrs": {
+                        "bboxCenter": ["0 0 0"],
+                        "bboxSize": ["-1 -1 -1"],
+                        "center": ["0 0 0"],
+                        "name": [""],
+                        "rotation": ["0 0 1 0"],
+                        "scale": ["1 1 1"],
+                        "scaleOrientation": ["0 0 1 0"],
+                        "translation": ["0 0 0"],
+                        "containerField": ["children"]
+                    }
+                },
+                "CartoonVolumeStyle": {
+                    "attrs": {
+                        "colorSteps": ["4"],
+                        "enabled": ["true"],
+                        "orthogonalColor": ["1 1 1 1"],
+                        "parallelColor": ["0 0 0 1"],
+                        "containerField": ["renderStyle"]
+                    }
+                },
+                "Circle2D": {
+                    "attrs": {
+                        "radius": ["1"],
+                        "containerField": ["geometry"]
+                    }
+                },
+                "ClipPlane": {
+                    "attrs": {
+                        "enabled": ["true"],
+                        "plane": ["0 1 0 0"],
+                        "containerField": ["children"]
+                    }
+                },
+                "CollidableOffset": {
+                    "attrs": {
+                        "bboxCenter": ["0 0 0"],
+                        "bboxSize": ["-1 -1 -1"],
+                        "enabled": ["true"],
+                        "rotation": ["0 0 1 0"],
+                        "translation": ["0 0 0"],
+                        "containerField": ["children"]
+                    }
+                },
+                "CollidableShape": {
+                    "attrs": {
+                        "bboxCenter": ["0 0 0"],
+                        "bboxSize": ["-1 -1 -1"],
+                        "enabled": ["true"],
+                        "rotation": ["0 0 1 0"],
+                        "translation": ["0 0 0"],
+                        "containerField": ["children"]
+                    }
+                },
+                "Collision": {
+                    "attrs": {
+                        "bboxCenter": ["0 0 0"],
+                        "bboxSize": ["-1 -1 -1"],
+                        "enabled": ["true"],
+                        "containerField": ["children"]
+                    }
+                },
+                "CollisionCollection": {
+                    "attrs": {
+                        "appliedParameters": ["\"BOUNCE\""],
+                        "bboxCenter": ["0 0 0"],
+                        "bboxSize": ["-1 -1 -1"],
+                        "bounce": ["0"],
+                        "enabled": ["true"],
+                        "frictionCoefficients": ["0 0"],
+                        "minBounceSpeed": ["0.1"],
+                        "slipFactors": ["0 0"],
+                        "softnessConstantForceMix": ["0.0001"],
+                        "softnessErrorCorrection": ["0.8"],
+                        "surfaceSpeed": ["0 0"],
+                        "containerField": ["collider"]
+                    }
+                },
+                "CollisionSensor": {
+                    "attrs": {
+                        "enabled": ["true"],
+                        "containerField": ["children"]
+                    }
+                },
+                "CollisionSpace": {
+                    "attrs": {
+                        "bboxCenter": ["0 0 0"],
+                        "bboxSize": ["-1 -1 -1"],
+                        "enabled": ["true"],
+                        "useGeometry": ["false"],
+                        "containerField": ["children"]
+                    }
+                },
+                "Color": {
+                    "attrs": {
+                        "color": [""],
+                        "containerField": ["color"]
+                    }
+                },
+                "ColorChaser": {
+                    "attrs": {
+                        "duration": ["1"],
+                        "initialDestination": ["0.8 0.8 0.8"],
+                        "initialValue": ["0.8 0.8 0.8"],
+                        "containerField": ["children"]
+                    }
+                },
+                "ColorDamper": {
+                    "attrs": {
+                        "initialDestination": ["0.8 0.8 0.8"],
+                        "initialValue": ["0.8 0.8 0.8"],
+                        "order": ["3"],
+                        "tau": ["0.3"],
+                        "tolerance": ["-1"],
+                        "containerField": ["children"]
+                    }
+                },
+                "ColorInterpolator": {
+                    "attrs": {
+                        "key": [""],
+                        "keyValue": [""],
+                        "containerField": ["children"]
+                    }
+                },
+                "ColorRGBA": {
+                    "attrs": {
+                        "color": [""],
+                        "containerField": ["color"]
+                    }
+                },
+                "component": {
+                    "attrs": {
+                        "level": [""],
+                        "name": [""]
+                    }
+                },
+                "ComposedCubeMapTexture": {
+                    "attrs": {
+                        "containerField": ["texture"]
+                    }
+                },
+                "ComposedShader": {
+                    "attrs": {
+                        "language": [""],
+                        "containerField": ["shaders"]
+                    }
+                },
+                "ComposedTexture3D": {
+                    "attrs": {
+                        "repeatR": ["false"],
+                        "repeatS": ["false"],
+                        "repeatT": ["false"],
+                        "containerField": ["texture"]
+                    }
+                },
+                "ComposedVolumeStyle": {
+                    "attrs": {
+                        "enabled": ["true"],
+                        "containerField": ["renderStyle"]
+                    }
+                },
+                "Cone": {
+                    "attrs": {
+                        "bottom": ["true"],
+                        "bottomRadius": ["1"],
+                        "height": ["2"],
+                        "side": ["true"],
+                        "solid": ["true"],
+                        "containerField": ["geometry"]
+                    }
+                },
+                "ConeEmitter": {
+                    "attrs": {
+                        "angle": ["0.7854"],
+                        "direction": ["0 1 0"],
+                        "mass": ["0"],
+                        "position": ["0 0 0"],
+                        "speed": ["0"],
+                        "surfaceArea": ["0"],
+                        "variation": ["0.25"],
+                        "containerField": ["emitter"]
+                    }
+                },
+                "connect": {
+                    "attrs": {
+                        "nodeField": [""],
+                        "protoField": [""]
+                    }
+                },
+                "Contact": {
+                    "attrs": {
+                        "appliedParameters": ["\"BOUNCE\""],
+                        "bounce": ["0"],
+                        "contactNormal": ["0 1 0"],
+                        "depth": ["0"],
+                        "frictionCoefficients": ["0 0"],
+                        "frictionDirection": ["0 1 0"],
+                        "minBounceSpeed": ["0"],
+                        "position": ["0 0 0"],
+                        "slipCoefficients": ["0 0"],
+                        "softnessConstantForceMix": ["0.0001"],
+                        "softnessErrorCorrection": ["0.8"],
+                        "surfaceSpeed": ["0 0"],
+                        "containerField": ["contacts"]
+                    }
+                },
+                "Contour2D": {
+                    "attrs": {
+                        "containerField": ["trimmingContour"]
+                    }
+                },
+                "ContourPolyline2D": {
+                    "attrs": {
+                        "controlPoint": [""],
+                        "containerField": ["children"]
+                    }
+                },
+                "Coordinate": {
+                    "attrs": {
+                        "point": [""],
+                        "containerField": ["coord"]
+                    }
+                },
+                "CoordinateChaser": {
+                    "attrs": {
+                        "duration": ["1"],
+                        "initialDestination": ["0 0 0"],
+                        "initialValue": ["0 0 0"],
+                        "containerField": ["children"]
+                    }
+                },
+                "CoordinateDamper": {
+                    "attrs": {
+                        "initialDestination": ["0 0 0"],
+                        "initialValue": ["0 0 0"],
+                        "order": ["3"],
+                        "tau": ["0.3"],
+                        "tolerance": ["-1"],
+                        "containerField": ["children"]
+                    }
+                },
+                "CoordinateDouble": {
+                    "attrs": {
+                        "point": [""],
+                        "containerField": ["coord"]
+                    }
+                },
+                "CoordinateInterpolator": {
+                    "attrs": {
+                        "key": [""],
+                        "keyValue": [""],
+                        "containerField": ["children"]
+                    }
+                },
+                "CoordinateInterpolator2D": {
+                    "attrs": {
+                        "key": [""],
+                        "keyValue": [""],
+                        "containerField": ["children"]
+                    }
+                },
+                "Cylinder": {
+                    "attrs": {
+                        "bottom": ["true"],
+                        "height": ["2"],
+                        "radius": ["1"],
+                        "side": ["true"],
+                        "solid": ["true"],
+                        "top": ["true"],
+                        "containerField": ["geometry"]
+                    }
+                },
+                "CylinderSensor": {
+                    "attrs": {
+                        "autoOffset": ["true"],
+                        "axisRotation": ["0 1 0 0"],
+                        "description": [""],
+                        "diskAngle": ["0.26179167"],
+                        "enabled": ["true"],
+                        "maxAngle": ["-1"],
+                        "minAngle": ["0"],
+                        "offset": ["0"],
+                        "containerField": ["children"]
+                    }
+                },
+                "DirectionalLight": {
+                    "attrs": {
+                        "ambientIntensity": ["0"],
+                        "color": ["1 1 1"],
+                        "direction": ["0 0 -1"],
+                        "global": ["false"],
+                        "intensity": ["1"],
+                        "on": ["true"],
+                        "containerField": ["children"]
+                    }
+                },
+                "DISEntityManager": {
+                    "attrs": {
+                        "address": ["localhost"],
+                        "applicationID": ["0"],
+                        "port": ["0"],
+                        "siteID": ["0"],
+                        "containerField": ["children"]
+                    }
+                },
+                "DISEntityTypeMapping": {
+                    "attrs": {
+                        "category": ["0"],
+                        "country": ["0"],
+                        "domain": ["0"],
+                        "extra": ["0"],
+                        "kind": ["0"],
+                        "specific": ["0"],
+                        "subcategory": ["0"],
+                        "url": [""],
+                        "containerField": ["mapping"]
+                    }
+                },
+                "Disk2D": {
+                    "attrs": {
+                        "innerRadius": ["0"],
+                        "outerRadius": ["1"],
+                        "solid": ["false"],
+                        "containerField": ["geometry"]
+                    }
+                },
+                "DoubleAxisHingeJoint": {
+                    "attrs": {
+                        "anchorPoint": ["0 0 0"],
+                        "axis1": ["0 0 0"],
+                        "axis2": ["0 0 0"],
+                        "desiredAngularVelocity1": ["0"],
+                        "desiredAngularVelocity2": ["0"],
+                        "forceOutput": ["\"NONE\""],
+                        "maxAngle1": ["3.141592653"],
+                        "maxTorque1": ["0"],
+                        "maxTorque2": ["0"],
+                        "minAngle1": ["-3.141592653"],
+                        "stop1Bounce": ["0"],
+                        "stop1ConstantForceMix": ["0.001"],
+                        "stop1ErrorCorrection": ["0.8"],
+                        "suspensionErrorCorrection": ["0.8"],
+                        "suspensionForce": ["0"],
+                        "containerField": ["joints"]
+                    }
+                },
+                "EaseInEaseOut": {
+                    "attrs": {
+                        "easeInEaseOut": [""],
+                        "key": [""],
+                        "containerField": ["children"]
+                    }
+                },
+                "EdgeEnhancementVolumeStyle": {
+                    "attrs": {
+                        "edgeColor": ["0 0 0 1"],
+                        "enabled": ["true"],
+                        "gradientThreshold": ["0.4"],
+                        "containerField": ["renderStyle"]
+                    }
+                },
+                "ElevationGrid": {
+                    "attrs": {
+                        "ccw": ["true"],
+                        "colorPerVertex": ["true"],
+                        "creaseAngle": ["0"],
+                        "height": ["0 0 0 0"],
+                        "normalPerVertex": ["true"],
+                        "solid": ["true"],
+                        "xDimension": ["2"],
+                        "xSpacing": ["1.0"],
+                        "zDimension": ["2"],
+                        "zSpacing": ["1.0"],
+                        "containerField": ["geometry"]
+                    }
+                },
+                "EspduTransform": {
+                    "attrs": {
+                        "address": ["localhost"],
+                        "applicationID": ["0"],
+                        "articulationParameterArray": [""],
+                        "articulationParameterChangeIndicatorArray": [""],
+                        "articulationParameterCount": ["0"],
+                        "articulationParameterDesignatorArray": [""],
+                        "articulationParameterIdPartAttachedToArray": [""],
+                        "articulationParameterTypeArray": [""],
+                        "bboxCenter": ["0 0 0"],
+                        "bboxSize": ["-1 -1 -1"],
+                        "center": ["0 0 0"],
+                        "collisionType": ["0"],
+                        "deadReckoning": ["0"],
+                        "detonationLocation": ["0 0 0"],
+                        "detonationRelativeLocation": ["0 0 0"],
+                        "detonationResult": ["0"],
+                        "enabled": ["true"],
+                        "entityCategory": ["0"],
+                        "entityCountry": ["0"],
+                        "entityDomain": ["0"],
+                        "entityExtra": ["0"],
+                        "entityID": ["0"],
+                        "entityKind": ["0"],
+                        "entitySpecific": ["0"],
+                        "entitySubcategory": ["0"],
+                        "eventApplicationID": ["0"],
+                        "eventEntityID": ["0"],
+                        "eventNumber": ["0"],
+                        "eventSiteID": ["0"],
+                        "fireMissionIndex": ["0"],
+                        "fired1": ["false"],
+                        "fired2": ["false"],
+                        "firingRange": ["0"],
+                        "firingRate": ["0"],
+                        "forceID": ["0"],
+                        "fuse": ["0"],
+                        "geoCoords": ["0 0 0"],
+                        "geoSystem": ["\"GD\" \"WE\""],
+                        "linearAcceleration": ["0 0 0"],
+                        "linearVelocity": ["0 0 0"],
+                        "marking": [""],
+                        "multicastRelayHost": [""],
+                        "multicastRelayPort": ["0"],
+                        "munitionApplicationID": ["0"],
+                        "munitionEndPoint": ["0 0 0"],
+                        "munitionEntityID": ["0"],
+                        "munitionQuantity": ["0"],
+                        "munitionSiteID": ["0"],
+                        "munitionStartPoint": ["0 0 0"],
+                        "networkMode": ["standAlone"],
+                        "port": ["0"],
+                        "readInterval": ["0.1"],
+                        "rotation": ["0 0 1 0"],
+                        "rtpHeaderExpected": ["false"],
+                        "scale": ["1 1 1"],
+                        "scaleOrientation": ["0 0 1 0"],
+                        "siteID": ["0"],
+                        "translation": ["0 0 0"],
+                        "warhead": ["0"],
+                        "writeInterval": ["1.0"],
+                        "containerField": ["children"]
+                    }
+                },
+                "ExplosionEmitter": {
+                    "attrs": {
+                        "mass": ["0"],
+                        "position": ["0 0 0"],
+                        "speed": ["0"],
+                        "surfaceArea": ["0"],
+                        "variation": ["0.25"],
+                        "containerField": ["emitter"]
+                    }
+                },
+                "EXPORT": {
+                    "attrs": {
+                        "AS": [""],
+                        "localDEF": [""]
+                    }
+                },
+                "ExternProtoDeclare": {
+                    "attrs": {
+                        "appinfo": [""],
+                        "documentation": [""],
+                        "name": [""],
+                        "url": [""]
+                    }
+                },
+                "Extrusion": {
+                    "attrs": {
+                        "beginCap": ["true"],
+                        "ccw": ["true"],
+                        "convex": ["true"],
+                        "creaseAngle": ["0.0"],
+                        "crossSection": ["1 1 1 -1 -1 -1 -1 1 1 1"],
+                        "endCap": ["true"],
+                        "orientation": ["0 0 1 0"],
+                        "scale": ["1 1"],
+                        "solid": ["true"],
+                        "spine": ["0 0 0 0 1 0"],
+                        "containerField": ["geometry"]
+                    }
+                },
+                "field": {
+                    "attrs": {
+                        "accessType": [""],
+                        "appinfo": [""],
+                        "documentation": [""],
+                        "name": [""],
+                        "type": [""],
+                        "value": [""]
+                    }
+                },
+                "fieldValue": {
+                    "attrs": {
+                        "name": [""],
+                        "value": [""]
+                    }
+                },
+                "FillProperties": {
+                    "attrs": {
+                        "filled": ["true"],
+                        "hatchColor": ["1 1 1"],
+                        "hatchStyle": ["1"],
+                        "hatched": ["true"],
+                        "containerField": ["fillProperties"]
+                    }
+                },
+                "FloatVertexAttribute": {
+                    "attrs": {
+                        "name": [""],
+                        "numComponents": ["4"],
+                        "value": [""],
+                        "containerField": ["attrib"]
+                    }
+                },
+                "Fog": {
+                    "attrs": {
+                        "color": ["1 1 1"],
+                        "fogType": ["LINEAR"],
+                        "visibilityRange": ["0"],
+                        "containerField": ["children"]
+                    }
+                },
+                "FogCoordinate": {
+                    "attrs": {
+                        "depth": [""],
+                        "containerField": ["fogCoord"]
+                    }
+                },
+                "FontStyle": {
+                    "attrs": {
+                        "family": ["\"SERIF\""],
+                        "horizontal": ["true"],
+                        "justify": ["\"BEGIN\""],
+                        "language": [""],
+                        "leftToRight": ["true"],
+                        "size": ["1.0"],
+                        "spacing": ["1.0"],
+                        "style": ["PLAIN"],
+                        "topToBottom": ["true"],
+                        "containerField": ["fontStyle"]
+                    }
+                },
+                "ForcePhysicsModel": {
+                    "attrs": {
+                        "enabled": ["true"],
+                        "force": ["0 -9.8 0"],
+                        "containerField": ["physics"]
+                    }
+                },
+                "GeneratedCubeMapTexture": {
+                    "attrs": {
+                        "size": ["128"],
+                        "update": ["NONE"],
+                        "containerField": ["texture"]
+                    }
+                },
+                "GeoCoordinate": {
+                    "attrs": {
+                        "geoSystem": ["\"GD\" \"WE\""],
+                        "point": [""],
+                        "containerField": ["coord"]
+                    }
+                },
+                "GeoElevationGrid": {
+                    "attrs": {
+                        "ccw": ["true"],
+                        "colorPerVertex": ["true"],
+                        "creaseAngle": ["0"],
+                        "geoGridOrigin": ["0 0 0"],
+                        "geoSystem": ["\"GD\" \"WE\""],
+                        "height": ["0 0 0 0"],
+                        "normalPerVertex": ["true"],
+                        "solid": ["true"],
+                        "xDimension": ["2"],
+                        "xSpacing": ["1.0"],
+                        "yScale": ["1"],
+                        "zDimension": ["2"],
+                        "zSpacing": ["1.0"],
+                        "containerField": ["geometry"]
+                    }
+                },
+                "GeoLocation": {
+                    "attrs": {
+                        "bboxCenter": ["0 0 0"],
+                        "bboxSize": ["-1 -1 -1"],
+                        "geoCoords": ["0 0 0"],
+                        "geoSystem": ["\"GD\" \"WE\""],
+                        "containerField": ["children"]
+                    }
+                },
+                "GeoLOD": {
+                    "attrs": {
+                        "bboxCenter": ["0 0 0"],
+                        "bboxSize": ["-1 -1 -1"],
+                        "center": ["0 0 0"],
+                        "child1Url": [""],
+                        "child2Url": [""],
+                        "child3Url": [""],
+                        "child4Url": [""],
+                        "geoSystem": ["\"GD\" \"WE\""],
+                        "range": ["10"],
+                        "rootUrl": [""],
+                        "containerField": ["children"]
+                    }
+                },
+                "GeoMetadata": {
+                    "attrs": {
+                        "summary": [""],
+                        "url": [""],
+                        "containerField": ["children"]
+                    }
+                },
+                "GeoOrigin": {
+                    "attrs": {
+                        "geoCoords": ["0 0 0"],
+                        "geoSystem": ["\"GD\" \"WE\""],
+                        "rotateYUp": ["false"],
+                        "containerField": ["geoOrigin"]
+                    }
+                },
+                "GeoPositionInterpolator": {
+                    "attrs": {
+                        "geoSystem": ["\"GD\" \"WE\""],
+                        "key": [""],
+                        "keyValue": [""],
+                        "containerField": ["children"]
+                    }
+                },
+                "GeoProximitySensor": {
+                    "attrs": {
+                        "center": ["0 0 0"],
+                        "enabled": ["true"],
+                        "geoCenter": ["0 0 0"],
+                        "geoSystem": ["\"GD\" \"WE\""],
+                        "size": ["0 0 0"],
+                        "containerField": ["children"]
+                    }
+                },
+                "GeoTouchSensor": {
+                    "attrs": {
+                        "description": [""],
+                        "enabled": ["true"],
+                        "geoSystem": ["\"GD\" \"WE\""],
+                        "containerField": ["children"]
+                    }
+                },
+                "GeoTransform": {
+                    "attrs": {
+                        "bboxCenter": ["0 0 0"],
+                        "bboxSize": ["-1 -1 -1"],
+                        "geoCenter": ["0 0 0"],
+                        "geoSystem": ["\"GD\" \"WE\""],
+                        "rotation": ["0 0 1 0"],
+                        "scale": ["1 1 1"],
+                        "scaleOrientation": ["0 0 1 0"],
+                        "translation": ["0 0 0"],
+                        "containerField": ["children"]
+                    }
+                },
+                "GeoViewpoint": {
+                    "attrs": {
+                        "centerOfRotation": ["0 0 0"],
+                        "description": [""],
+                        "fieldOfView": ["0.7854"],
+                        "geoSystem": ["\"GD\" \"WE\""],
+                        "jump": ["true"],
+                        "orientation": ["0 0 1 0"],
+                        "position": ["0 0 100000"],
+                        "retainUserOffsets": ["false"],
+                        "speedFactor": ["1.0"],
+                        "containerField": ["children"]
+                    }
+                },
+                "Group": {
+                    "attrs": {
+                        "bboxCenter": ["0 0 0"],
+                        "bboxSize": ["-1 -1 -1"],
+                        "containerField": ["children"]
+                    }
+                },
+                "HAnimDisplacer": {
+                    "attrs": {
+                        "coordIndex": [""],
+                        "displacements": [""],
+                        "name": [""],
+                        "weight": ["0.0"],
+                        "containerField": ["displacers"]
+                    }
+                },
+                "HAnimHumanoid": {
+                    "attrs": {
+                        "bboxCenter": ["0 0 0"],
+                        "bboxSize": ["-1 -1 -1"],
+                        "center": ["0 0 0"],
+                        "info": [""],
+                        "name": [""],
+                        "rotation": ["0 0 1 0"],
+                        "scale": ["1 1 1"],
+                        "scaleOrientation": ["0 0 1 0"],
+                        "translation": ["0 0 0"],
+                        "version": ["2.0"],
+                        "containerField": ["children"]
+                    }
+                },
+                "HAnimJoint": {
+                    "attrs": {
+                        "bboxCenter": ["0 0 0"],
+                        "bboxSize": ["-1 -1 -1"],
+                        "center": ["0 0 0"],
+                        "limitOrientation": ["0 0 1 0"],
+                        "llimit": ["0 0 0"],
+                        "name": [""],
+                        "rotation": ["0 0 1 0"],
+                        "scale": ["1 1 1"],
+                        "scaleOrientation": ["0 0 1 0"],
+                        "skinCoordIndex": [""],
+                        "skinCoordWeight": [""],
+                        "stiffness": ["1 1 1"],
+                        "translation": ["0 0 0"],
+                        "ulimit": ["0 0 0"],
+                        "containerField": ["children"]
+                    }
+                },
+                "HAnimSegment": {
+                    "attrs": {
+                        "bboxCenter": ["0 0 0"],
+                        "bboxSize": ["-1 -1 -1"],
+                        "centerOfMass": ["0 0 0"],
+                        "mass": ["0"],
+                        "momentsOfInertia": ["0 0 0 0 0 0 0 0 0"],
+                        "name": [""],
+                        "containerField": ["children"]
+                    }
+                },
+                "HAnimSite": {
+                    "attrs": {
+                        "bboxCenter": ["0 0 0"],
+                        "bboxSize": ["-1 -1 -1"],
+                        "center": ["0 0 0"],
+                        "name": [""],
+                        "rotation": ["0 0 1 0"],
+                        "scale": ["1 1 1"],
+                        "scaleOrientation": ["0 0 1 0"],
+                        "translation": ["0 0 0"],
+                        "containerField": ["children"]
+                    }
+                },
+                "head": {
+                    "attrs": {}
+                },
+                "ImageCubeMapTexture": {
+                    "attrs": {
+                        "url": [""],
+                        "containerField": ["texture"]
+                    }
+                },
+                "ImageTexture": {
+                    "attrs": {
+                        "repeatS": ["true"],
+                        "repeatT": ["true"],
+                        "url": [""],
+                        "containerField": ["texture"]
+                    }
+                },
+                "ImageTexture3D": {
+                    "attrs": {
+                        "repeatR": ["false"],
+                        "repeatS": ["false"],
+                        "repeatT": ["false"],
+                        "url": [""],
+                        "containerField": ["texture"]
+                    }
+                },
+                "IMPORT": {
+                    "attrs": {
+                        "AS": [""],
+                        "importedDEF": [""],
+                        "inlineDEF": [""]
+                    }
+                },
+                "IndexedFaceSet": {
+                    "attrs": {
+                        "ccw": ["true"],
+                        "colorIndex": [""],
+                        "colorPerVertex": ["true"],
+                        "convex": ["true"],
+                        "coordIndex": [""],
+                        "creaseAngle": ["0"],
+                        "normalIndex": [""],
+                        "normalPerVertex": ["true"],
+                        "solid": ["true"],
+                        "texCoordIndex": [""],
+                        "containerField": ["geometry"]
+                    }
+                },
+                "IndexedLineSet": {
+                    "attrs": {
+                        "colorIndex": [""],
+                        "colorPerVertex": ["true"],
+                        "coordIndex": [""],
+                        "containerField": ["geometry"]
+                    }
+                },
+                "IndexedQuadSet": {
+                    "attrs": {
+                        "ccw": ["true"],
+                        "colorPerVertex": ["true"],
+                        "index": [""],
+                        "normalPerVertex": ["true"],
+                        "solid": ["true"],
+                        "containerField": ["geometry"]
+                    }
+                },
+                "IndexedTriangleFanSet": {
+                    "attrs": {
+                        "ccw": ["true"],
+                        "colorPerVertex": ["true"],
+                        "index": [""],
+                        "normalPerVertex": ["true"],
+                        "solid": ["true"],
+                        "containerField": ["geometry"]
+                    }
+                },
+                "IndexedTriangleSet": {
+                    "attrs": {
+                        "ccw": ["true"],
+                        "colorPerVertex": ["true"],
+                        "index": [""],
+                        "normalPerVertex": ["true"],
+                        "solid": ["true"],
+                        "containerField": ["geometry"]
+                    }
+                },
+                "IndexedTriangleStripSet": {
+                    "attrs": {
+                        "ccw": ["true"],
+                        "colorPerVertex": ["true"],
+                        "index": [""],
+                        "normalPerVertex": ["true"],
+                        "solid": ["true"],
+                        "containerField": ["geometry"]
+                    }
+                },
+                "Inline": {
+                    "attrs": {
+                        "bboxCenter": ["0 0 0"],
+                        "bboxSize": ["-1 -1 -1"],
+                        "load": ["true"],
+                        "url": [""],
+                        "containerField": ["children"]
+                    }
+                },
+                "IntegerSequencer": {
+                    "attrs": {
+                        "key": [""],
+                        "keyValue": [""],
+                        "containerField": ["children"]
+                    }
+                },
+                "IntegerTrigger": {
+                    "attrs": {
+                        "integerKey": ["-1"],
+                        "containerField": ["children"]
+                    }
+                },
+                "IS": {
+                    "attrs": {}
+                },
+                "IsoSurfaceVolumeData": {
+                    "attrs": {
+                        "bboxCenter": ["0 0 0"],
+                        "bboxSize": ["-1 -1 -1"],
+                        "contourStepSize": ["0"],
+                        "dimensions": ["1 1 1"],
+                        "surfaceTolerance": ["0"],
+                        "surfaceValues": [""],
+                        "containerField": ["children"]
+                    }
+                },
+                "KeySensor": {
+                    "attrs": {
+                        "enabled": ["true"],
+                        "containerField": ["children"]
+                    }
+                },
+                "Layer": {
+                    "attrs": {
+                        "isPickable": ["true"],
+                        "containerField": ["layers"]
+                    }
+                },
+                "LayerSet": {
+                    "attrs": {
+                        "activeLayer": ["0"],
+                        "order": ["0"],
+                        "containerField": ["children"]
+                    }
+                },
+                "Layout": {
+                    "attrs": {
+                        "align": ["\"CENTER\" \"CENTER\""],
+                        "offset": ["0 0"],
+                        "offsetUnits": ["\"WORLD\" \"WORLD\""],
+                        "scaleMode": ["\"NONE\" \"NONE\""],
+                        "size": ["1 1"],
+                        "sizeUnits": ["\"WORLD\" \"WORLD\""],
+                        "containerField": ["layout"]
+                    }
+                },
+                "LayoutGroup": {
+                    "attrs": {
+                        "bboxCenter": ["0 0 0"],
+                        "bboxSize": ["-1 -1 -1"],
+                        "containerField": ["children"]
+                    }
+                },
+                "LayoutLayer": {
+                    "attrs": {
+                        "isPickable": ["true"],
+                        "containerField": ["layers"]
+                    }
+                },
+                "LinePickSensor": {
+                    "attrs": {
+                        "enabled": ["true"],
+                        "intersectionType": ["BOUNDS"],
+                        "matchCriterion": ["MATCH_ANY"],
+                        "objectType": ["\"ALL\""],
+                        "sortOrder": ["CLOSEST"],
+                        "containerField": ["children"]
+                    }
+                },
+                "LineProperties": {
+                    "attrs": {
+                        "applied": ["true"],
+                        "linetype": ["1"],
+                        "linewidthScaleFactor": ["0"],
+                        "containerField": ["lineProperties"]
+                    }
+                },
+                "LineSet": {
+                    "attrs": {
+                        "vertexCount": [""],
+                        "containerField": ["geometry"]
+                    }
+                },
+                "LoadSensor": {
+                    "attrs": {
+                        "enabled": ["true"],
+                        "timeOut": ["0"],
+                        "containerField": ["children"]
+                    }
+                },
+                "LocalFog": {
+                    "attrs": {
+                        "color": ["1 1 1"],
+                        "enabled": ["true"],
+                        "fogType": ["LINEAR"],
+                        "visibilityRange": ["0"],
+                        "containerField": ["children"]
+                    }
+                },
+                "LOD": {
+                    "attrs": {
+                        "bboxCenter": ["0 0 0"],
+                        "bboxSize": ["-1 -1 -1"],
+                        "center": ["0 0 0"],
+                        "forceTransitions": ["false"],
+                        "range": [""],
+                        "containerField": ["children"]
+                    }
+                },
+                "Material": {
+                    "attrs": {
+                        "ambientIntensity": ["0.2"],
+                        "diffuseColor": ["0.8 0.8 0.8"],
+                        "emissiveColor": ["0 0 0"],
+                        "shininess": ["0.2"],
+                        "specularColor": ["0 0 0"],
+                        "transparency": ["0"],
+                        "containerField": ["material"]
+                    }
+                },
+                "Matrix3VertexAttribute": {
+                    "attrs": {
+                        "name": [""],
+                        "value": [""],
+                        "containerField": ["attrib"]
+                    }
+                },
+                "Matrix4VertexAttribute": {
+                    "attrs": {
+                        "name": [""],
+                        "value": [""],
+                        "containerField": ["attrib"]
+                    }
+                },
+                "meta": {
+                    "attrs": {
+                        "content": [""],
+                        "dir": [""],
+                        "http-equiv": [""],
+                        "lang": [""],
+                        "name": [""],
+                        "scheme": [""]
+                    }
+                },
+                "MetadataBoolean": {
+                    "attrs": {
+                        "name": [""],
+                        "reference": [""],
+                        "value": [""],
+                        "containerField": ["metadata"]
+                    }
+                },
+                "MetadataDouble": {
+                    "attrs": {
+                        "name": [""],
+                        "reference": [""],
+                        "value": [""],
+                        "containerField": ["metadata"]
+                    }
+                },
+                "MetadataFloat": {
+                    "attrs": {
+                        "name": [""],
+                        "reference": [""],
+                        "value": [""],
+                        "containerField": ["metadata"]
+                    }
+                },
+                "MetadataInteger": {
+                    "attrs": {
+                        "name": [""],
+                        "reference": [""],
+                        "value": [""],
+                        "containerField": ["metadata"]
+                    }
+                },
+                "MetadataSet": {
+                    "attrs": {
+                        "name": [""],
+                        "reference": [""],
+                        "containerField": ["metadata"]
+                    }
+                },
+                "MetadataString": {
+                    "attrs": {
+                        "name": [""],
+                        "reference": [""],
+                        "value": [""],
+                        "containerField": ["metadata"]
+                    }
+                },
+                "MotorJoint": {
+                    "attrs": {
+                        "autoCalc": ["false"],
+                        "axis1Angle": ["0"],
+                        "axis1Torque": ["0"],
+                        "axis2Angle": ["0"],
+                        "axis2Torque": ["0"],
+                        "axis3Angle": ["0"],
+                        "axis3Torque": ["0"],
+                        "enabledAxes": ["1"],
+                        "forceOutput": ["\"NONE\""],
+                        "motor1Axis": ["0 0 0"],
+                        "motor2Axis": ["0 0 0"],
+                        "motor3Axis": ["0 0 0"],
+                        "stop1Bounce": ["0"],
+                        "stop1ErrorCorrection": ["0.8"],
+                        "stop2Bounce": ["0"],
+                        "stop2ErrorCorrection": ["0.8"],
+                        "stop3Bounce": ["0"],
+                        "stop3ErrorCorrection": ["0.8"],
+                        "containerField": ["joints"]
+                    }
+                },
+                "MovieTexture": {
+                    "attrs": {
+                        "description": [""],
+                        "loop": ["false"],
+                        "pauseTime": ["0"],
+                        "pitch": ["1.0"],
+                        "repeatS": ["true"],
+                        "repeatT": ["true"],
+                        "resumeTime": ["0"],
+                        "speed": ["1.0"],
+                        "startTime": ["0"],
+                        "stopTime": ["0"],
+                        "url": [""],
+                        "containerField": ["texture"]
+                    }
+                },
+                "MultiTexture": {
+                    "attrs": {
+                        "alpha": ["1"],
+                        "color": ["1 1 1"],
+                        "function": [""],
+                        "mode": [""],
+                        "source": [""],
+                        "containerField": ["texture"]
+                    }
+                },
+                "MultiTextureCoordinate": {
+                    "attrs": {
+                        "containerField": ["texCoord"]
+                    }
+                },
+                "MultiTextureTransform": {
+                    "attrs": {
+                        "containerField": ["textureTransform"]
+                    }
+                },
+                "NavigationInfo": {
+                    "attrs": {
+                        "avatarSize": ["0.25 1.6 0.75"],
+                        "headlight": ["true"],
+                        "speed": ["1"],
+                        "transitionTime": ["1.0"],
+                        "transitionType": ["\"LINEAR\""],
+                        "type": ["\"EXAMINE\" \"ANY\""],
+                        "visibilityLimit": ["0"],
+                        "containerField": ["children"]
+                    }
+                },
+                "Normal": {
+                    "attrs": {
+                        "vector": [""],
+                        "containerField": ["normal"]
+                    }
+                },
+                "NormalInterpolator": {
+                    "attrs": {
+                        "key": [""],
+                        "keyValue": [""],
+                        "containerField": ["children"]
+                    }
+                },
+                "NurbsCurve": {
+                    "attrs": {
+                        "closed": ["false"],
+                        "knot": [""],
+                        "order": ["3"],
+                        "tessellation": ["0"],
+                        "weight": [""],
+                        "containerField": ["geometry"]
+                    }
+                },
+                "NurbsCurve2D": {
+                    "attrs": {
+                        "closed": ["false"],
+                        "controlPoint": [""],
+                        "knot": [""],
+                        "order": ["3"],
+                        "tessellation": ["0"],
+                        "weight": [""],
+                        "containerField": ["children"]
+                    }
+                },
+                "NurbsOrientationInterpolator": {
+                    "attrs": {
+                        "knot": [""],
+                        "order": ["3"],
+                        "weight": [""],
+                        "containerField": ["children"]
+                    }
+                },
+                "NurbsPatchSurface": {
+                    "attrs": {
+                        "solid": ["true"],
+                        "uClosed": ["false"],
+                        "uDimension": ["0"],
+                        "uKnot": [""],
+                        "uOrder": ["3"],
+                        "uTessellation": ["0"],
+                        "vClosed": ["false"],
+                        "vDimension": ["0"],
+                        "vKnot": [""],
+                        "vOrder": ["3"],
+                        "vTessellation": ["0"],
+                        "weight": [""],
+                        "containerField": ["geometry"]
+                    }
+                },
+                "NurbsPositionInterpolator": {
+                    "attrs": {
+                        "knot": [""],
+                        "order": ["3"],
+                        "weight": [""],
+                        "containerField": ["children"]
+                    }
+                },
+                "NurbsSet": {
+                    "attrs": {
+                        "bboxCenter": ["0 0 0"],
+                        "bboxSize": ["-1 -1 -1"],
+                        "tessellationScale": ["1.0"],
+                        "containerField": ["children"]
+                    }
+                },
+                "NurbsSurfaceInterpolator": {
+                    "attrs": {
+                        "uDimension": ["0"],
+                        "uKnot": [""],
+                        "uOrder": ["3"],
+                        "vDimension": ["0"],
+                        "vKnot": [""],
+                        "vOrder": ["3"],
+                        "weight": [""],
+                        "containerField": ["children"]
+                    }
+                },
+                "NurbsSweptSurface": {
+                    "attrs": {
+                        "ccw": ["true"],
+                        "solid": ["true"],
+                        "containerField": ["geometry"]
+                    }
+                },
+                "NurbsSwungSurface": {
+                    "attrs": {
+                        "ccw": ["true"],
+                        "solid": ["true"],
+                        "containerField": ["geometry"]
+                    }
+                },
+                "NurbsTextureCoordinate": {
+                    "attrs": {
+                        "controlPoint": [""],
+                        "uDimension": ["0"],
+                        "uKnot": [""],
+                        "uOrder": ["3"],
+                        "vDimension": ["0"],
+                        "vKnot": [""],
+                        "vOrder": ["3"],
+                        "weight": [""],
+                        "containerField": ["texCoord"]
+                    }
+                },
+                "NurbsTrimmedSurface": {
+                    "attrs": {
+                        "solid": ["true"],
+                        "uClosed": ["false"],
+                        "uDimension": ["0"],
+                        "uKnot": [""],
+                        "uOrder": ["3"],
+                        "uTessellation": ["0"],
+                        "vClosed": ["false"],
+                        "vDimension": ["0"],
+                        "vKnot": [""],
+                        "vOrder": ["3"],
+                        "vTessellation": ["0"],
+                        "weight": [""],
+                        "containerField": ["geometry"]
+                    }
+                },
+                "OpacityMapVolumeStyle": {
+                    "attrs": {
+                        "enabled": ["true"],
+                        "containerField": ["renderStyle"]
+                    }
+                },
+                "OrientationChaser": {
+                    "attrs": {
+                        "duration": ["1"],
+                        "initialDestination": ["0 1 0 0"],
+                        "initialValue": ["0 1 0 0"],
+                        "containerField": ["children"]
+                    }
+                },
+                "OrientationDamper": {
+                    "attrs": {
+                        "initialDestination": ["0 1 0 0"],
+                        "initialValue": ["0 1 0 0"],
+                        "order": ["3"],
+                        "tau": ["0.3"],
+                        "tolerance": ["-1"],
+                        "containerField": ["children"]
+                    }
+                },
+                "OrientationInterpolator": {
+                    "attrs": {
+                        "key": [""],
+                        "keyValue": [""],
+                        "containerField": ["children"]
+                    }
+                },
+                "OrthoViewpoint": {
+                    "attrs": {
+                        "centerOfRotation": ["0 0 0"],
+                        "description": [""],
+                        "fieldOfView": ["-1 -1 1 1"],
+                        "jump": ["true"],
+                        "orientation": ["0 0 1 0"],
+                        "position": ["0 0 10"],
+                        "retainUserOffsets": ["false"],
+                        "containerField": ["children"]
+                    }
+                },
+                "PackagedShader": {
+                    "attrs": {
+                        "language": [""],
+                        "url": [""],
+                        "containerField": ["shaders"]
+                    }
+                },
+                "ParticleSystem": {
+                    "attrs": {
+                        "bboxCenter": ["0 0 0"],
+                        "bboxSize": ["-1 -1 -1"],
+                        "colorKey": [""],
+                        "createParticles": ["true"],
+                        "enabled": ["true"],
+                        "geometryType": ["QUAD"],
+                        "lifetimeVariation": ["0.25"],
+                        "maxParticles": ["200"],
+                        "particleLifetime": ["5"],
+                        "particleSize": ["0.02 0.02"],
+                        "texCoordKey": [""],
+                        "containerField": ["children"]
+                    }
+                },
+                "PickableGroup": {
+                    "attrs": {
+                        "bboxCenter": ["0 0 0"],
+                        "bboxSize": ["-1 -1 -1"],
+                        "objectType": ["\"ALL\""],
+                        "pickable": ["true"],
+                        "containerField": ["children"]
+                    }
+                },
+                "PixelTexture": {
+                    "attrs": {
+                        "image": ["0 0 0"],
+                        "repeatS": ["true"],
+                        "repeatT": ["true"],
+                        "containerField": ["texture"]
+                    }
+                },
+                "PixelTexture3D": {
+                    "attrs": {
+                        "image": ["0 0 0 0"],
+                        "repeatR": ["false"],
+                        "repeatS": ["false"],
+                        "repeatT": ["false"],
+                        "containerField": ["texture"]
+                    }
+                },
+                "PlaneSensor": {
+                    "attrs": {
+                        "autoOffset": ["true"],
+                        "axisRotation": ["0 1 0 0"],
+                        "description": [""],
+                        "enabled": ["true"],
+                        "maxPosition": ["-1 -1"],
+                        "minPosition": ["0 0"],
+                        "offset": ["0 0 0"],
+                        "containerField": ["children"]
+                    }
+                },
+                "PointEmitter": {
+                    "attrs": {
+                        "direction": ["0 1 0"],
+                        "mass": ["0"],
+                        "position": ["0 0 0"],
+                        "speed": ["0"],
+                        "surfaceArea": ["0"],
+                        "variation": ["0.25"],
+                        "containerField": ["emitter"]
+                    }
+                },
+                "PointLight": {
+                    "attrs": {
+                        "ambientIntensity": ["0"],
+                        "attenuation": ["1 0 0"],
+                        "color": ["1 1 1"],
+                        "global": ["true"],
+                        "intensity": ["1"],
+                        "location": ["0 0 0"],
+                        "on": ["true"],
+                        "radius": ["100"],
+                        "containerField": ["children"]
+                    }
+                },
+                "PointPickSensor": {
+                    "attrs": {
+                        "enabled": ["true"],
+                        "intersectionType": ["BOUNDS"],
+                        "matchCriterion": ["MATCH_ANY"],
+                        "objectType": ["\"ALL\""],
+                        "sortOrder": ["CLOSEST"],
+                        "containerField": ["children"]
+                    }
+                },
+                "PointSet": {
+                    "attrs": {
+                        "containerField": ["geometry"]
+                    }
+                },
+                "Polyline2D": {
+                    "attrs": {
+                        "lineSegments": [""],
+                        "containerField": ["geometry"]
+                    }
+                },
+                "PolylineEmitter": {
+                    "attrs": {
+                        "coordIndex": ["-1"],
+                        "direction": ["0 1 0"],
+                        "mass": ["0"],
+                        "speed": ["0"],
+                        "surfaceArea": ["0"],
+                        "variation": ["0.25"],
+                        "containerField": ["emitter"]
+                    }
+                },
+                "Polypoint2D": {
+                    "attrs": {
+                        "point": [""],
+                        "containerField": ["geometry"]
+                    }
+                },
+                "PositionChaser": {
+                    "attrs": {
+                        "duration": ["1"],
+                        "initialDestination": ["0 0 0"],
+                        "initialValue": ["0 0 0"],
+                        "containerField": ["children"]
+                    }
+                },
+                "PositionChaser2D": {
+                    "attrs": {
+                        "duration": ["1"],
+                        "initialDestination": ["0 0"],
+                        "initialValue": ["0 0"],
+                        "containerField": ["children"]
+                    }
+                },
+                "PositionDamper": {
+                    "attrs": {
+                        "initialDestination": ["0 0 0"],
+                        "initialValue": ["0 0 0"],
+                        "order": ["3"],
+                        "tau": ["0.3"],
+                        "tolerance": ["-1"],
+                        "containerField": ["children"]
+                    }
+                },
+                "PositionDamper2D": {
+                    "attrs": {
+                        "initialDestination": ["0 0"],
+                        "initialValue": ["0 0"],
+                        "order": ["3"],
+                        "tau": ["0.3"],
+                        "tolerance": ["-1"],
+                        "containerField": ["children"]
+                    }
+                },
+                "PositionInterpolator": {
+                    "attrs": {
+                        "key": [""],
+                        "keyValue": [""],
+                        "containerField": ["children"]
+                    }
+                },
+                "PositionInterpolator2D": {
+                    "attrs": {
+                        "key": [""],
+                        "keyValue": [""],
+                        "containerField": ["children"]
+                    }
+                },
+                "PrimitivePickSensor": {
+                    "attrs": {
+                        "enabled": ["true"],
+                        "intersectionType": ["BOUNDS"],
+                        "matchCriterion": ["MATCH_ANY"],
+                        "objectType": ["\"ALL\""],
+                        "sortOrder": ["CLOSEST"],
+                        "containerField": ["children"]
+                    }
+                },
+                "ProgramShader": {
+                    "attrs": {
+                        "language": [""],
+                        "containerField": ["shaders"]
+                    }
+                },
+                "ProjectionVolumeStyle": {
+                    "attrs": {
+                        "enabled": ["true"],
+                        "intensityThreshold": ["0"],
+                        "type": ["MAX"],
+                        "containerField": ["renderStyle"]
+                    }
+                },
+                "ProtoBody": {
+                    "attrs": {}
+                },
+                "ProtoDeclare": {
+                    "attrs": {
+                        "appinfo": [""],
+                        "documentation": [""],
+                        "name": [""]
+                    }
+                },
+                "ProtoInstance": {
+                    "attrs": {
+                        "name": [""],
+                        "containerField": ["children"]
+                    }
+                },
+                "ProtoInterface": {
+                    "attrs": {}
+                },
+                "ProximitySensor": {
+                    "attrs": {
+                        "center": ["0 0 0"],
+                        "enabled": ["true"],
+                        "size": ["0 0 0"],
+                        "containerField": ["children"]
+                    }
+                },
+                "QuadSet": {
+                    "attrs": {
+                        "ccw": ["true"],
+                        "colorPerVertex": ["true"],
+                        "normalPerVertex": ["true"],
+                        "solid": ["true"],
+                        "containerField": ["geometry"]
+                    }
+                },
+                "ReceiverPdu": {
+                    "attrs": {
+                        "address": ["localhost"],
+                        "applicationID": ["0"],
+                        "bboxCenter": ["0 0 0"],
+                        "bboxSize": ["-1 -1 -1"],
+                        "enabled": ["true"],
+                        "entityID": ["0"],
+                        "geoCoords": ["0 0 0"],
+                        "geoSystem": ["\"GD\" \"WE\""],
+                        "multicastRelayHost": [""],
+                        "multicastRelayPort": ["0"],
+                        "networkMode": ["standAlone"],
+                        "port": ["0"],
+                        "radioID": ["0"],
+                        "readInterval": ["0.1"],
+                        "receivedPower": ["0.0"],
+                        "receiverState": ["0"],
+                        "rtpHeaderExpected": ["false"],
+                        "siteID": ["0"],
+                        "transmitterApplicationID": ["0"],
+                        "transmitterEntityID": ["0"],
+                        "transmitterRadioID": ["0"],
+                        "transmitterSiteID": ["0"],
+                        "whichGeometry": ["1"],
+                        "writeInterval": ["1.0"],
+                        "containerField": ["children"]
+                    }
+                },
+                "Rectangle2D": {
+                    "attrs": {
+                        "size": ["2 2"],
+                        "solid": ["false"],
+                        "containerField": ["geometry"]
+                    }
+                },
+                "RigidBody": {
+                    "attrs": {
+                        "angularDampingFactor": ["0.001"],
+                        "angularVelocity": ["0 0 0"],
+                        "autoDamp": ["false"],
+                        "autoDisable": ["false"],
+                        "centerOfMass": ["0 0 0"],
+                        "disableAngularSpeed": ["0"],
+                        "disableLinearSpeed": ["0"],
+                        "disableTime": ["0"],
+                        "enabled": ["true"],
+                        "finiteRotationAxis": ["0 1 0"],
+                        "fixed": ["false"],
+                        "forces": [""],
+                        "inertia": ["1 0 0 0 1 0 0 0 1"],
+                        "linearDampingFactor": ["0.001"],
+                        "linearVelocity": ["0 0 0"],
+                        "mass": ["1"],
+                        "orientation": ["0 0 1 0"],
+                        "position": ["0 0 0"],
+                        "torques": [""],
+                        "useFiniteRotation": ["false"],
+                        "useGlobalGravity": ["true"],
+                        "containerField": ["bodies"]
+                    }
+                },
+                "RigidBodyCollection": {
+                    "attrs": {
+                        "autoDisable": ["false"],
+                        "constantForceMix": ["0.0001"],
+                        "contactSurfaceThickness": ["0"],
+                        "disableAngularSpeed": ["0"],
+                        "disableLinearSpeed": ["0"],
+                        "disableTime": ["0"],
+                        "enabled": ["true"],
+                        "errorCorrection": ["0.8"],
+                        "gravity": ["0 -9.8 0"],
+                        "iterations": ["10"],
+                        "maxCorrectionSpeed": ["-1"],
+                        "preferAccuracy": ["false"],
+                        "containerField": ["children"]
+                    }
+                },
+                "ROUTE": {
+                    "attrs": {
+                        "fromField": [""],
+                        "fromNode": [""],
+                        "toField": [""],
+                        "toNode": [""]
+                    }
+                },
+                "ScalarChaser": {
+                    "attrs": {
+                        "duration": ["1"],
+                        "initialDestination": ["0"],
+                        "initialValue": ["0"],
+                        "containerField": ["children"]
+                    }
+                },
+                "ScalarDamper": {
+                    "attrs": {
+                        "initialDestination": ["0"],
+                        "initialValue": ["0"],
+                        "order": ["3"],
+                        "tau": ["0.3"],
+                        "tolerance": ["-1"],
+                        "containerField": ["children"]
+                    }
+                },
+                "ScalarInterpolator": {
+                    "attrs": {
+                        "key": [""],
+                        "keyValue": [""],
+                        "containerField": ["children"]
+                    }
+                },
+                "Scene": {
+                    "attrs": {}
+                },
+                "ScreenFontStyle": {
+                    "attrs": {
+                        "family": ["\"SERIF\""],
+                        "horizontal": ["true"],
+                        "justify": ["\"BEGIN\""],
+                        "language": [""],
+                        "leftToRight": ["true"],
+                        "pointSize": ["12.0"],
+                        "spacing": ["1.0"],
+                        "style": ["PLAIN"],
+                        "topToBottom": ["true"],
+                        "containerField": ["fontStyle"]
+                    }
+                },
+                "ScreenGroup": {
+                    "attrs": {
+                        "bboxCenter": ["0 0 0"],
+                        "bboxSize": ["-1 -1 -1"],
+                        "containerField": ["children"]
+                    }
+                },
+                "Script": {
+                    "attrs": {
+                        "directOutput": ["false"],
+                        "mustEvaluate": ["false"],
+                        "url": [""],
+                        "containerField": ["children"]
+                    }
+                },
+                "SegmentedVolumeData": {
+                    "attrs": {
+                        "bboxCenter": ["0 0 0"],
+                        "bboxSize": ["-1 -1 -1"],
+                        "dimensions": ["1 1 1"],
+                        "segmentEnabled": [""],
+                        "containerField": ["children"]
+                    }
+                },
+                "ShadedVolumeStyle": {
+                    "attrs": {
+                        "enabled": ["true"],
+                        "lighting": ["false"],
+                        "phaseFunction": ["Henyey-Greenstein"],
+                        "shadows": ["false"],
+                        "containerField": ["renderStyle"]
+                    }
+                },
+                "ShaderPart": {
+                    "attrs": {
+                        "type": ["VERTEX"],
+                        "url": [""],
+                        "containerField": ["parts"]
+                    }
+                },
+                "ShaderProgram": {
+                    "attrs": {
+                        "type": ["VERTEX"],
+                        "url": [""],
+                        "containerField": ["programs"]
+                    }
+                },
+                "Shape": {
+                    "attrs": {
+                        "bboxCenter": ["0 0 0"],
+                        "bboxSize": ["-1 -1 -1"],
+                        "containerField": ["children"]
+                    }
+                },
+                "SignalPdu": {
+                    "attrs": {
+                        "address": ["localhost"],
+                        "applicationID": ["0"],
+                        "bboxCenter": ["0 0 0"],
+                        "bboxSize": ["-1 -1 -1"],
+                        "data": [""],
+                        "dataLength": ["0"],
+                        "enabled": ["true"],
+                        "encodingScheme": ["0"],
+                        "entityID": ["0"],
+                        "geoCoords": ["0 0 0"],
+                        "geoSystem": ["\"GD\" \"WE\""],
+                        "multicastRelayHost": [""],
+                        "multicastRelayPort": ["0"],
+                        "networkMode": ["standAlone"],
+                        "port": ["0"],
+                        "radioID": ["0"],
+                        "readInterval": ["0.1"],
+                        "rtpHeaderExpected": ["false"],
+                        "sampleRate": ["0"],
+                        "samples": ["0"],
+                        "siteID": ["0"],
+                        "tdlType": ["0"],
+                        "whichGeometry": ["1"],
+                        "writeInterval": ["1.0"],
+                        "containerField": ["children"]
+                    }
+                },
+                "SilhouetteEnhancementVolumeStyle": {
+                    "attrs": {
+                        "enabled": ["true"],
+                        "silhouetteBoundaryOpacity": ["0"],
+                        "silhouetteRetainedOpacity": ["1"],
+                        "silhouetteSharpness": ["0.5"],
+                        "containerField": ["renderStyle"]
+                    }
+                },
+                "SingleAxisHingeJoint": {
+                    "attrs": {
+                        "anchorPoint": ["0 0 0"],
+                        "axis": ["0 0 0"],
+                        "forceOutput": ["\"NONE\""],
+                        "maxAngle": ["3.141592653"],
+                        "minAngle": ["-3.141592653"],
+                        "stopBounce": ["0"],
+                        "stopErrorCorrection": ["0.8"],
+                        "containerField": ["joints"]
+                    }
+                },
+                "SliderJoint": {
+                    "attrs": {
+                        "axis": ["0 1 0"],
+                        "forceOutput": ["\"NONE\""],
+                        "maxSeparation": ["1"],
+                        "minSeparation": ["0"],
+                        "sliderForce": ["0"],
+                        "stopBounce": ["0"],
+                        "stopErrorCorrection": ["1"],
+                        "containerField": ["joints"]
+                    }
+                },
+                "Sound": {
+                    "attrs": {
+                        "direction": ["0 0 1"],
+                        "intensity": ["1"],
+                        "location": ["0 0 0"],
+                        "maxBack": ["10"],
+                        "maxFront": ["10"],
+                        "minBack": ["1"],
+                        "minFront": ["1"],
+                        "priority": ["0"],
+                        "spatialize": ["true"],
+                        "containerField": ["children"]
+                    }
+                },
+                "Sphere": {
+                    "attrs": {
+                        "radius": ["1"],
+                        "solid": ["true"],
+                        "containerField": ["geometry"]
+                    }
+                },
+                "SphereSensor": {
+                    "attrs": {
+                        "autoOffset": ["true"],
+                        "description": [""],
+                        "enabled": ["true"],
+                        "offset": ["0 1 0 0"],
+                        "containerField": ["children"]
+                    }
+                },
+                "SplinePositionInterpolator": {
+                    "attrs": {
+                        "closed": ["false"],
+                        "key": [""],
+                        "keyValue": [""],
+                        "keyVelocity": [""],
+                        "normalizeVelocity": ["false"],
+                        "containerField": ["children"]
+                    }
+                },
+                "SplinePositionInterpolator2D": {
+                    "attrs": {
+                        "closed": ["false"],
+                        "key": [""],
+                        "keyValue": [""],
+                        "keyVelocity": [""],
+                        "normalizeVelocity": ["false"],
+                        "containerField": ["children"]
+                    }
+                },
+                "SplineScalarInterpolator": {
+                    "attrs": {
+                        "closed": ["false"],
+                        "key": [""],
+                        "keyValue": [""],
+                        "keyVelocity": [""],
+                        "normalizeVelocity": ["false"],
+                        "containerField": ["children"]
+                    }
+                },
+                "SpotLight": {
+                    "attrs": {
+                        "ambientIntensity": ["0"],
+                        "attenuation": ["1 0 0"],
+                        "beamWidth": ["0.7854"],
+                        "color": ["1 1 1"],
+                        "cutOffAngle": ["1.570796"],
+                        "direction": ["0 0 -1"],
+                        "global": ["true"],
+                        "intensity": ["1"],
+                        "location": ["0 0 0"],
+                        "on": ["true"],
+                        "radius": ["100"],
+                        "containerField": ["children"]
+                    }
+                },
+                "SquadOrientationInterpolator": {
+                    "attrs": {
+                        "key": [""],
+                        "keyValue": [""],
+                        "normalizeVelocity": ["false"],
+                        "containerField": ["children"]
+                    }
+                },
+                "StaticGroup": {
+                    "attrs": {
+                        "bboxCenter": ["0 0 0"],
+                        "bboxSize": ["-1 -1 -1"],
+                        "containerField": ["children"]
+                    }
+                },
+                "StringSensor": {
+                    "attrs": {
+                        "deletionAllowed": ["true"],
+                        "enabled": ["true"],
+                        "containerField": ["children"]
+                    }
+                },
+                "SurfaceEmitter": {
+                    "attrs": {
+                        "coordIndex": ["-1"],
+                        "mass": ["0"],
+                        "speed": ["0"],
+                        "surfaceArea": ["0"],
+                        "variation": ["0.25"],
+                        "containerField": ["emitter"]
+                    }
+                },
+                "Switch": {
+                    "attrs": {
+                        "bboxCenter": ["0 0 0"],
+                        "bboxSize": ["-1 -1 -1"],
+                        "whichChoice": ["-1"],
+                        "containerField": ["children"]
+                    }
+                },
+                "TexCoordChaser2D": {
+                    "attrs": {
+                        "duration": ["1"],
+                        "initialDestination": [""],
+                        "initialValue": [""],
+                        "containerField": ["children"]
+                    }
+                },
+                "TexCoordDamper2D": {
+                    "attrs": {
+                        "initialDestination": [""],
+                        "initialValue": [""],
+                        "order": ["3"],
+                        "tau": ["0.3"],
+                        "tolerance": ["-1"],
+                        "containerField": ["children"]
+                    }
+                },
+                "Text": {
+                    "attrs": {
+                        "length": [""],
+                        "maxExtent": ["0.0"],
+                        "solid": ["false"],
+                        "string": [""],
+                        "containerField": ["geometry"]
+                    }
+                },
+                "TextureBackground": {
+                    "attrs": {
+                        "groundAngle": [""],
+                        "groundColor": [""],
+                        "skyAngle": [""],
+                        "skyColor": ["0 0 0"],
+                        "transparency": ["0"],
+                        "containerField": ["children"]
+                    }
+                },
+                "TextureCoordinate": {
+                    "attrs": {
+                        "point": [""],
+                        "containerField": ["texCoord"]
+                    }
+                },
+                "TextureCoordinate3D": {
+                    "attrs": {
+                        "point": [""],
+                        "containerField": ["texCoord"]
+                    }
+                },
+                "TextureCoordinate4D": {
+                    "attrs": {
+                        "point": [""],
+                        "containerField": ["texCoord"]
+                    }
+                },
+                "TextureCoordinateGenerator": {
+                    "attrs": {
+                        "mode": ["SPHERE"],
+                        "parameter": [""],
+                        "containerField": ["texCoord"]
+                    }
+                },
+                "TextureProperties": {
+                    "attrs": {
+                        "anisotropicDegree": ["1"],
+                        "borderColor": ["0 0 0 0"],
+                        "borderWidth": ["0"],
+                        "boundaryModeR": ["REPEAT"],
+                        "boundaryModeS": ["REPEAT"],
+                        "boundaryModeT": ["REPEAT"],
+                        "generateMipMaps": ["false"],
+                        "magnificationFilter": ["FASTEST"],
+                        "minificationFilter": ["FASTEST"],
+                        "textureCompression": ["FASTEST"],
+                        "texturePriority": ["0"],
+                        "containerField": ["textureProperties"]
+                    }
+                },
+                "TextureTransform": {
+                    "attrs": {
+                        "center": ["0 0"],
+                        "rotation": ["0"],
+                        "scale": ["1 1"],
+                        "translation": ["0 0"],
+                        "containerField": ["textureTransform"]
+                    }
+                },
+                "TextureTransform3D": {
+                    "attrs": {
+                        "center": ["0 0 0"],
+                        "rotation": ["0 0 1 0"],
+                        "scale": ["1 1 1"],
+                        "translation": ["0 0 0"],
+                        "containerField": ["textureTransform"]
+                    }
+                },
+                "TextureTransformMatrix3D": {
+                    "attrs": {
+                        "matrix": ["1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1"],
+                        "containerField": ["textureTransform"]
+                    }
+                },
+                "TimeSensor": {
+                    "attrs": {
+                        "cycleInterval": ["1.0"],
+                        "enabled": ["true"],
+                        "loop": ["false"],
+                        "pauseTime": ["0"],
+                        "resumeTime": ["0"],
+                        "startTime": ["0"],
+                        "stopTime": ["0"],
+                        "containerField": ["children"]
+                    }
+                },
+                "TimeTrigger": {
+                    "attrs": {
+                        "containerField": ["children"]
+                    }
+                },
+                "ToneMappedVolumeStyle": {
+                    "attrs": {
+                        "coolColor": ["0 0 1 0"],
+                        "enabled": ["true"],
+                        "warmColor": ["1 1 0 0"],
+                        "containerField": ["renderStyle"]
+                    }
+                },
+                "TouchSensor": {
+                    "attrs": {
+                        "description": [""],
+                        "enabled": ["true"],
+                        "containerField": ["children"]
+                    }
+                },
+                "Transform": {
+                    "attrs": {
+                        "bboxCenter": ["0 0 0"],
+                        "bboxSize": ["-1 -1 -1"],
+                        "center": ["0 0 0"],
+                        "rotation": ["0 0 1 0"],
+                        "scale": ["1 1 1"],
+                        "scaleOrientation": ["0 0 1 0"],
+                        "translation": ["0 0 0"],
+                        "containerField": ["children"]
+                    }
+                },
+                "TransformSensor": {
+                    "attrs": {
+                        "center": ["0 0 0"],
+                        "enabled": ["true"],
+                        "size": ["0 0 0"],
+                        "containerField": ["children"]
+                    }
+                },
+                "TransmitterPdu": {
+                    "attrs": {
+                        "address": ["localhost"],
+                        "antennaLocation": ["0 0 0"],
+                        "antennaPatternLength": ["0"],
+                        "antennaPatternType": ["0"],
+                        "applicationID": ["0"],
+                        "bboxCenter": ["0 0 0"],
+                        "bboxSize": ["-1 -1 -1"],
+                        "cryptoKeyID": ["0"],
+                        "cryptoSystem": ["0"],
+                        "enabled": ["true"],
+                        "entityID": ["0"],
+                        "frequency": ["0"],
+                        "geoCoords": ["0 0 0"],
+                        "geoSystem": ["\"GD\" \"WE\""],
+                        "inputSource": ["0"],
+                        "lengthOfModulationParameters": ["0"],
+                        "modulationTypeDetail": ["0"],
+                        "modulationTypeMajor": ["0"],
+                        "modulationTypeSpreadSpectrum": ["0"],
+                        "modulationTypeSystem": ["0"],
+                        "multicastRelayHost": [""],
+                        "multicastRelayPort": ["0"],
+                        "networkMode": ["standAlone"],
+                        "port": ["0"],
+                        "power": ["0.0"],
+                        "radioEntityTypeCategory": ["0"],
+                        "radioEntityTypeCountry": ["0"],
+                        "radioEntityTypeDomain": ["0"],
+                        "radioEntityTypeKind": ["0"],
+                        "radioEntityTypeNomenclature": ["0"],
+                        "radioEntityTypeNomenclatureVersion": ["0"],
+                        "radioID": ["0"],
+                        "readInterval": ["0.1"],
+                        "relativeAntennaLocation": ["0 0 0"],
+                        "rtpHeaderExpected": ["false"],
+                        "siteID": ["0"],
+                        "transmitFrequencyBandwidth": ["0"],
+                        "transmitState": ["0"],
+                        "whichGeometry": ["1"],
+                        "writeInterval": ["1.0"],
+                        "containerField": ["children"]
+                    }
+                },
+                "TriangleFanSet": {
+                    "attrs": {
+                        "ccw": ["true"],
+                        "colorPerVertex": ["true"],
+                        "fanCount": [""],
+                        "normalPerVertex": ["true"],
+                        "solid": ["true"],
+                        "containerField": ["geometry"]
+                    }
+                },
+                "TriangleSet": {
+                    "attrs": {
+                        "ccw": ["true"],
+                        "colorPerVertex": ["true"],
+                        "normalPerVertex": ["true"],
+                        "solid": ["true"],
+                        "containerField": ["geometry"]
+                    }
+                },
+                "TriangleSet2D": {
+                    "attrs": {
+                        "solid": ["false"],
+                        "vertices": [""],
+                        "containerField": ["geometry"]
+                    }
+                },
+                "TriangleStripSet": {
+                    "attrs": {
+                        "ccw": ["true"],
+                        "colorPerVertex": ["true"],
+                        "normalPerVertex": ["true"],
+                        "solid": ["true"],
+                        "stripCount": [""],
+                        "containerField": ["geometry"]
+                    }
+                },
+                "TwoSidedMaterial": {
+                    "attrs": {
+                        "ambientIntensity": ["0.2"],
+                        "backAmbientIntensity": ["0.2"],
+                        "backDiffuseColor": ["0.8 0.8 0.8"],
+                        "backEmissiveColor": ["0 0 0"],
+                        "backShininess": ["0.2"],
+                        "backSpecularColor": ["0 0 0"],
+                        "backTransparency": ["0"],
+                        "diffuseColor": ["0.8 0.8 0.8"],
+                        "emissiveColor": ["0 0 0"],
+                        "separateBackColor": ["false"],
+                        "shininess": ["0.2"],
+                        "specularColor": ["0 0 0"],
+                        "transparency": ["0"],
+                        "containerField": ["material"]
+                    }
+                },
+                "unit": {
+                    "attrs": {
+                        "category": [""],
+                        "conversionFactor": [""],
+                        "name": [""]
+                    }
+                },
+                "UniversalJoint": {
+                    "attrs": {
+                        "anchorPoint": ["0 0 0"],
+                        "axis1": ["0 0 0"],
+                        "axis2": ["0 0 0"],
+                        "forceOutput": ["\"NONE\""],
+                        "stop1Bounce": ["0"],
+                        "stop1ErrorCorrection": ["0.8"],
+                        "stop2Bounce": ["0"],
+                        "stop2ErrorCorrection": ["0.8"],
+                        "containerField": ["joints"]
+                    }
+                },
+                "Viewpoint": {
+                    "attrs": {
+                        "centerOfRotation": ["0 0 0"],
+                        "description": [""],
+                        "fieldOfView": ["0.7854"],
+                        "jump": ["true"],
+                        "orientation": ["0 0 1 0"],
+                        "position": ["0 0 10"],
+                        "retainUserOffsets": ["false"],
+                        "containerField": ["children"]
+                    }
+                },
+                "ViewpointGroup": {
+                    "attrs": {
+                        "center": ["0 0 0"],
+                        "description": [""],
+                        "displayed": ["true"],
+                        "retainUserOffsets": ["false"],
+                        "size": ["0 0 0"],
+                        "containerField": ["children"]
+                    }
+                },
+                "Viewport": {
+                    "attrs": {
+                        "bboxCenter": ["0 0 0"],
+                        "bboxSize": ["-1 -1 -1"],
+                        "clipBoundary": ["0 1 0 1"],
+                        "containerField": ["viewport"]
+                    }
+                },
+                "VisibilitySensor": {
+                    "attrs": {
+                        "center": ["0 0 0"],
+                        "enabled": ["true"],
+                        "size": ["0 0 0"],
+                        "containerField": ["children"]
+                    }
+                },
+                "VolumeData": {
+                    "attrs": {
+                        "bboxCenter": ["0 0 0"],
+                        "bboxSize": ["-1 -1 -1"],
+                        "dimensions": ["1 1 1"],
+                        "containerField": ["children"]
+                    }
+                },
+                "VolumeEmitter": {
+                    "attrs": {
+                        "coordIndex": ["-1"],
+                        "direction": ["0 1 0"],
+                        "internal": ["true"],
+                        "mass": ["0"],
+                        "speed": ["0"],
+                        "surfaceArea": ["0"],
+                        "variation": ["0.25"],
+                        "containerField": ["emitter"]
+                    }
+                },
+                "VolumePickSensor": {
+                    "attrs": {
+                        "enabled": ["true"],
+                        "intersectionType": ["BOUNDS"],
+                        "matchCriterion": ["MATCH_ANY"],
+                        "objectType": ["\"ALL\""],
+                        "sortOrder": ["CLOSEST"],
+                        "containerField": ["children"]
+                    }
+                },
+                "WindPhysicsModel": {
+                    "attrs": {
+                        "direction": ["1 0 0"],
+                        "enabled": ["true"],
+                        "gustiness": ["0.1"],
+                        "speed": ["0.1"],
+                        "turbulence": ["0"],
+                        "containerField": ["physics"]
+                    }
+                },
+                "WorldInfo": {
+                    "attrs": {
+                        "info": [""],
+                        "title": [""],
+                        "containerField": ["children"]
+                    }
+                },
+                "X3D": {
+                    "attrs": {
+                        "profile": [""],
+                        "version": ["3.3"]
+                    }
+                }
+            };
+                        
             function completeAfter(cm, pred) {
                 var cur = cm.getCursor();
                 if (!pred || pred())
@@ -131,7 +2546,7 @@
                     return inner.tagName;
                 });
             }
-                
+
             var editor = CodeMirror.fromTextArea(document.getElementById("x3dcontent"), {
                 lineNumbers: true,
                 mode: "xml",
@@ -142,7 +2557,7 @@
                     bothTags: true
                 },
                 hintOptions: {
-                    schemaInfo: x3d_tags
+                    schemaInfo: x3d_allattr
                 },
                 extraKeys: {
                     "'<'": completeAfter,
