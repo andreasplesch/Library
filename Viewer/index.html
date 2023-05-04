@@ -60,7 +60,8 @@
                 X3DOM editor: Edit X3D code and click button to load: <button type="button" onclick="updatex3d();">Update</button>
                 or copy to clipboard as link: <button id="shareButton" type="button" onclick="sharex3d();">Copy</button>
             </h3>
-            Make sure to remove any initial white space. You can load external links with index.html?url=https://server/my.x3d .
+            Make sure to remove any initial
+                width: 100%; white space. You can load external links with index.html?url=https://server/my.x3d .
             <a target="_blank" href='https://codemirror.net/5/doc/manual.html#commands'>&#x2328 &#x1F13A &#x1F134 &#x1F148 &#x1F131 &#x1F13E &#x1F130 &#x1F141 &#x1F133</a>
         </form>
         <textarea name="x3dcontent" id='x3dcontent' rows="30" cols="120"></textarea>
@@ -81,7 +82,7 @@
                 blightness = (blightness + 10) % 50;
             }
 
-            var x3d_hints = cm-x3d-hints();
+            var x3d_hints = cm_x3d_hints();
             var x3d_tags = {
                 "!top": ["X3D", "Scene"],
                 "!attrs": {
@@ -154,7 +155,7 @@
                 },
                 hintOptions: {
                     quoteChar: "'",
-                    schemaInfo: x3d-hints
+                    schemaInfo: x3d_hints
                 },
                 extraKeys: {
                     "'<'": completeAfter,
