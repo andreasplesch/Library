@@ -219,6 +219,10 @@
                 var browser = document.querySelector('x3d').runtime
                 var content = editor.getDoc().getValue();
                 var x3d = browser.createX3DFromString(content);
+                var title = "x3dom editor";
+                var x3d_title = x3d.querySelector('meta[name=title');
+                if (x3d_title) { title += ": " + x3d_title.getAttribute('content'); };
+                document.title = title;
                 if (baseURL)
                     x3d.setAttribute('baseURL', baseURL);
                 browser.replaceWorld(x3d);
