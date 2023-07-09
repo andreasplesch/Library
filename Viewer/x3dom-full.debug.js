@@ -1,8 +1,8 @@
 /** 
  * X3DOM 1.8.3-dev
- * Build : 7450
- * Revision: 620601b404f9af9d912cb058f59804dc7d961604
- * Date: Mon May 1 00:17:07 2023 -0400
+ * Build : 7486
+ * Revision: 5cb21b8729e35300f58f9fea747fec8989733ff5
+ * Date: Sun Jul 9 05:11:50 2023 +0000
  */
 /**
  * X3DOM JavaScript Library
@@ -29,9 +29,9 @@ var x3dom = {
 
 x3dom.about = {
     version  : "1.8.3-dev",
-    build    : "7450",
-    revision : "620601b404f9af9d912cb058f59804dc7d961604",
-    date     : "Mon May 1 00:17:07 2023 -0400"
+    build    : "7486",
+    revision : "5cb21b8729e35300f58f9fea747fec8989733ff5",
+    date     : "Sun Jul 9 05:11:50 2023 +0000"
 };
 
 /**
@@ -668,9 +668,9 @@ x3dom.X3DCanvas = function ( x3dElem, canvasIdx )
 
     this.doc = null;
 
-    this.vrDisplay = null;
-    this.vrDisplayPromise = null;
-    this.vrFrameData = null;
+    this.isSessionSupportedPromise = null;
+    this.xrSession = null;
+    this.xrReferenceSpace = null;
     this.supportsPassiveEvents = false;
 
     this.devicePixelRatio = window.devicePixelRatio || 1;
@@ -1030,34 +1030,6 @@ x3dom.X3DCanvas.prototype.bindEventListeners = function ()
         this.parent.doc.needRender = true;
     };
 
-    this.onVrDisplayPresentChange = function ( evt )
-    {
-        if ( this.vrDisplay && this.vrDisplay.isPresenting )
-        {
-            var leftEye = this.vrDisplay.getEyeParameters( "left" );
-            var rightEye = this.vrDisplay.getEyeParameters( "right" );
-
-            this._oldCanvasWidth  = this.canvas.width;
-            this._oldCanvasHeight = this.canvas.height;
-
-            this.canvas.width = Math.max( leftEye.renderWidth, rightEye.renderWidth ) * 2;
-            this.canvas.height = Math.max( leftEye.renderHeight, rightEye.renderHeight );
-
-            this.gl.VRMode = 2;
-            this.doc.needRender = true;
-        }
-        else if ( this.vrDisplay && !this.vrDisplay.isPresenting )
-        {
-            this.canvas.width  = this._oldCanvasWidth;
-            this.canvas.height = this._oldCanvasHeight;
-
-            this.vrFrameData = null;
-
-            this.gl.VRMode = 1;
-            this.doc.needRender = true;
-        }
-    };
-
     if ( this.canvas !== null && this.gl !== null && this.hasRuntime )
     {
         // event handler for mouse interaction
@@ -1087,9 +1059,6 @@ x3dom.X3DCanvas.prototype.bindEventListeners = function ()
             x3dom.debug.logError( "recover WebGL state and resources on context lost NYI" );
             event.preventDefault();
         }, false );
-
-        // VR Events
-        window.addEventListener( "vrdisplaypresentchange", this.onVrDisplayPresentChange.bind( this ), false );
 
         // Mouse Events
         this.canvas.addEventListener( "mousedown", this.onMouseDown, false );
@@ -1799,9 +1768,9 @@ x3dom.X3DCanvas.prototype._createHTMLCanvas = function ( x3dElem )
 /**
  * Watches for a resize of the canvas and sets the current dimensions
  */
-x3dom.X3DCanvas.prototype._watchForResize = function ()
+x3dom.X3DCanvas.prototype._watchForResize = function ( )
 {
-    if ( this.vrDisplay && this.vrDisplay.isPresenting )
+    if ( this.xrSession )
     {
         return;
     }
@@ -1855,10 +1824,10 @@ x3dom.X3DCanvas.prototype._createVRDiv = function ()
     var vrDiv = document.createElement( "div" );
     vrDiv.setAttribute( "class", "x3dom-vr" );
 
-    vrDiv.onclick = function ()
+    vrDiv.onclick = ( e ) =>
     {
         this.x3dElem.runtime.toggleVR();
-    }.bind( this );
+    };
 
     vrDiv.oncontextmenu = function ( evt )
     {
@@ -1866,6 +1835,8 @@ x3dom.X3DCanvas.prototype._createVRDiv = function ()
         evt.stopPropagation();
         return false;
     };
+
+    vrDiv.title = "Toggle VR";
 
     return vrDiv;
 };
@@ -1889,7 +1860,7 @@ x3dom.X3DCanvas.prototype.mousePosition = function ( evt )
 
 /** Is called in the main loop after every frame
  */
-x3dom.X3DCanvas.prototype.tick = function ( timestamp )
+x3dom.X3DCanvas.prototype.tick = function ( timestamp, xrFrame )
 {
     var that = this;
 
@@ -1920,7 +1891,7 @@ x3dom.X3DCanvas.prototype.tick = function ( timestamp )
         }
     }
 
-    if ( this.doc.needRender )
+    if ( this.doc.needRender || xrFrame )
     {
         // calc average frames per second
         if ( diff >= 1000 )
@@ -1943,23 +1914,12 @@ x3dom.X3DCanvas.prototype.tick = function ( timestamp )
 
         runtime.enterFrame( {"total": this._totalTime, "elapsed": this._elapsedTime} );
 
-        if ( this.vrDisplay && this.vrDisplay.isPresenting )
-        {
-            if ( !this.vrFrameData )
-            {
-                this.vrFrameData = new VRFrameData();
-            }
-
-            this.vrDisplay.getFrameData( this.vrFrameData );
-        }
-        else
+        if ( !xrFrame )
         {
             this.doc.needRender = false;
         }
 
-        // picking might require another pass
-
-        this.doc.render( this.gl, this.vrFrameData, this.vrDisplay );
+        this.doc.render( this.gl, this.getVRFrameData( xrFrame ) );
 
         if ( !this.doc._scene._vf.doPickPass )
         {
@@ -1967,11 +1927,6 @@ x3dom.X3DCanvas.prototype.tick = function ( timestamp )
         }
 
         runtime.exitFrame( {"total": this._totalTime, "elapsed": this._elapsedTime} );
-
-        if ( this.vrDisplay && this.vrDisplay.isPresenting )
-        {
-            this.vrDisplay.submitFrame();
-        }
     }
 
     if ( this.progressDiv )
@@ -2028,7 +1983,28 @@ x3dom.X3DCanvas.prototype.tick = function ( timestamp )
     this.doc.previousDownloadCount = this.doc.downloadCount;
 };
 
-//----------------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------
+
+x3dom.X3DCanvas.prototype.mainloop = function ( timestamp, xrFrame )
+{
+    if ( this.doc && this.x3dElem.runtime )
+    {
+        this._watchForResize();
+
+        this.tick( timestamp, xrFrame );
+
+        if ( this.xrSession )
+        {
+            this.xrSession.requestAnimationFrame( this.mainloop );
+        }
+        else
+        {
+            window.requestAnimFrame( this.mainloop );
+        }
+    }
+};
+
+//------------------------------------------------------------------------------
 
 /** Loads the given @p uri.
  * @param uri can be a uri or an X3D node
@@ -2038,80 +2014,36 @@ x3dom.X3DCanvas.prototype.tick = function ( timestamp )
 x3dom.X3DCanvas.prototype.load = function ( uri, sceneElemPos, settings )
 {
     this.doc = new x3dom.X3DDocument( this.canvas, this.gl, settings );
-    var x3dCanvas = this;
 
-    this.doc.onload = function ()
+    this.doc.onload = () =>
     {
-        //x3dom.debug.logInfo("loaded '" + uri + "'");
+        this.mainloop = this.mainloop.bind( this );
 
-        if ( x3dCanvas.hasRuntime )
+        this.checkForVRSupport();
+
+        if ( this.hasRuntime )
         {
-            // requestAnimationFrame https://cvs.khronos.org/svn/repos/registry/trunk/public/webgl/sdk/demos/common/webgl-utils.js
-            ( function mainloop ( timestamp )
-            {
-                if ( x3dCanvas.doc && x3dCanvas.x3dElem.runtime )
-                {
-                    x3dCanvas._watchForResize();
-                    x3dCanvas.tick( timestamp );
-
-                    if ( navigator.getVRDisplays && x3dCanvas.vrDisplay === null )
-                    {
-                        if ( !x3dCanvas.vrDisplayPromise )
-                        {
-                            x3dCanvas.vrDisplayPromise = navigator.getVRDisplays();
-                        }
-
-                        x3dCanvas.vrDisplayPromise.then( function ( displays )
-                        {
-                            if ( displays[ 0 ] )
-                            {
-                                x3dCanvas.vrDisplay = displays[ 0 ];
-
-                                x3dCanvas.vrDisplay.requestAnimationFrame( mainloop, x3dCanvas );
-
-                                x3dCanvas.vrDiv.style.display = "block";
-                            }
-                            else
-                            {
-                                x3dCanvas.vrDisplay = undefined;
-                                window.requestAnimFrame( mainloop, x3dCanvas );
-                            }
-                        } ).catch( function ( error )
-                        {
-                            x3dCanvas.vrDisplay = undefined;
-                            window.requestAnimFrame( mainloop, x3dCanvas );
-                        } );
-                    }
-                    else if ( navigator.getVRDisplays && x3dCanvas.vrDisplay )
-                    {
-                        x3dCanvas.vrDisplay.requestAnimationFrame( mainloop, x3dCanvas );
-                    }
-                    else
-                    {
-                        window.requestAnimFrame( mainloop, x3dCanvas );
-                    }
-                }
-            } )();
+            this.mainloop();
         }
         else
         {
-            x3dCanvas.tick();
+            this.tick();
         }
     };
 
-    this.x3dElem.render = function ()
+    this.x3dElem.render = () =>
     {
-        if ( x3dCanvas.hasRuntime )
+        if ( this.hasRuntime )
         {
-            x3dCanvas.doc.needRender = true;
+            this.doc.needRender = true;
         }
         else
         {
-            x3dCanvas.doc.render( x3dCanvas.gl );
+            this.doc.render( x3dCanvas.gl );
         }
     };
 
-    this.x3dElem.context = x3dCanvas.gl.ctx3d;
+    this.x3dElem.context = this.gl.ctx3d;
 
     this.doc.onerror = function ()
     {
@@ -2119,6 +2051,158 @@ x3dom.X3DCanvas.prototype.load = function ( uri, sceneElemPos, settings )
     };
 
     this.doc.load( uri, sceneElemPos );
+};
+
+//------------------------------------------------------------------------------
+
+x3dom.X3DCanvas.prototype.checkForVRSupport = function ()
+{
+    if ( !navigator.xr )
+    {
+        return;
+    }
+
+    navigator.xr.isSessionSupported( "immersive-vr" ).then( ( isSupported ) =>
+    {
+        if ( isSupported )
+        {
+            this.vrDiv.style.display = "block";
+        }
+    } );
+};
+
+x3dom.X3DCanvas.prototype.enterVR = function ()
+{
+    if ( this.xrSession )
+    {
+        return;
+    }
+
+    this.gl.ctx3d.makeXRCompatible().then( () =>
+    {
+        navigator.xr.requestSession( "immersive-vr" ).then( ( session ) =>
+        {
+            session.requestReferenceSpace( "local" ).then( ( space ) =>
+            {
+                const xrLayer = new XRWebGLLayer( session, this.gl.ctx3d );
+                session.updateRenderState( { baseLayer: xrLayer } );
+
+                this._oldCanvasWidth  = this.canvas.width;
+                this._oldCanvasHeight = this.canvas.height;
+
+                this.canvas.width  = xrLayer.framebufferWidth;
+                this.canvas.height = xrLayer.framebufferHeight;
+
+                this.gl.VRMode = 2;
+                this.xrReferenceSpace = space;
+                this.xrSession = session;
+                this.doc.needRender = true;
+
+                var mat_view = this.doc._viewarea.getViewMatrix();
+                var rotation = new x3dom.fields.Quaternion( 0, 0, 1, 0 );
+                rotation.normalize();
+                rotation.setValue( mat_view );
+                var translation = mat_view.e3();
+
+                const offsetTransform = new XRRigidTransform( {x: translation.x, y: translation.y, z: translation.z},
+                    {x: rotation.x, y: rotation.y, z: rotation.z, w: rotation.w} );
+                this.xrReferenceSpace = this.xrReferenceSpace.getOffsetReferenceSpace( offsetTransform );
+
+                this.xrSession.addEventListener( "end", () =>
+                {
+                    this.exitVR();
+                } );
+
+                session.requestAnimationFrame( this.mainloop );
+            } );
+        } );
+    } );
+};
+
+//------------------------------------------------------------------------------
+
+x3dom.X3DCanvas.prototype.exitVR = function ()
+{
+    if ( !this.xrSession )
+    {
+        return;
+    }
+
+    this.xrSession.end();
+    this.xrSession = undefined;
+    this.xrReferenceSpace = undefined;
+    this.canvas.width  = this._oldCanvasWidth;
+    this.canvas.height = this._oldCanvasHeight;
+    this.gl.VRMode = 1;
+    this.doc.needRender = true;
+    window.requestAnimationFrame( this.mainloop );
+};
+
+//------------------------------------------------------------------------------
+
+x3dom.X3DCanvas.prototype.getVRFrameData = function ( xrFrame )
+{
+    if ( !xrFrame )
+    {
+        return;
+    }
+
+    const pose = xrFrame.getViewerPose( this.xrReferenceSpace );
+
+    if ( !pose )
+    {
+        return;
+    }
+
+    const vrFrameData = {
+        framebuffer : xrFrame.session.renderState.baseLayer.framebuffer,
+        controllers : {}
+    };
+
+    for ( const view of pose.views )
+    {
+        if ( view.eye === "left" )
+        {
+            vrFrameData.leftViewMatrix = view.transform.inverse.matrix;
+            vrFrameData.leftProjectionMatrix = view.projectionMatrix;
+        }
+        else if ( view.eye === "right" )
+        {
+            vrFrameData.rightViewMatrix = view.transform.inverse.matrix;
+            vrFrameData.rightProjectionMatrix = view.projectionMatrix;
+        }
+    }
+
+    for ( const inputSource of xrFrame.session.inputSources )
+    {
+        // Show the input source if it has a grip space
+        if ( inputSource.gripSpace )
+        {
+            const inputPose = xrFrame.getPose( inputSource.gripSpace, this.xrReferenceSpace );
+            if ( inputPose !== null && inputPose.transform !== null )
+            {
+                vrFrameData.controllers[ inputSource.handedness ] = {
+                    gamepad : inputSource.gamepad,
+                    type    : inputSource.profiles[ 0 ],
+                    pose    : {
+                        position : [
+                            inputPose.transform.position.x,
+                            inputPose.transform.position.y,
+                            inputPose.transform.position.z
+                        ],
+                        orientation : [
+                            inputPose.transform.orientation.x,
+                            inputPose.transform.orientation.y,
+                            inputPose.transform.orientation.z,
+                            inputPose.transform.orientation.w
+                        ]
+                    }
+                };
+            }
+        }
+    }
+
+    return vrFrameData;
 };
 
 /**
@@ -2282,58 +2366,30 @@ x3dom.Viewarea = function ( document, scene )
     this.vrLeftProjMatrix = new x3dom.fields.SFMatrix4f();
     this.vrRightProjMatrix = new x3dom.fields.SFMatrix4f();
 
-    this.vrControllerManager = new x3dom.VRControllerManager();
+    this.vrControllerManager = new x3dom.VRControllerManager( this._doc );
 
     this._inverseDevicePixelRatio = 1.0 / window.devicePixelRatio;
 
     this.arc = null;
 };
 
-x3dom.Viewarea.prototype.setVRFrameData = function ( vrFrameData )
+x3dom.Viewarea.prototype.setVRFrameData = function ( gl, vrFrameData )
 {
     this.vrFrameData = vrFrameData;
 
     if ( this.vrFrameData )
     {
-        this.vrLeftViewMatrix.setFromArray( this.vrFrameData.leftViewMatrix ),
+        this.vrLeftViewMatrix.setFromArray( this.vrFrameData.leftViewMatrix );
         this.vrRightViewMatrix.setFromArray( this.vrFrameData.rightViewMatrix );
+
+        this.vrLeftProjMatrix.setFromArray( this.vrFrameData.leftProjectionMatrix );
+        this.vrRightProjMatrix.setFromArray( this.vrFrameData.rightProjectionMatrix );
     }
 };
 
-x3dom.Viewarea.prototype.updateGamepads = function ( vrDisplay )
+x3dom.Viewarea.prototype.updateGamepads = function ( vrFrameData )
 {
-    this.vrControllerManager.update( this, vrDisplay );
-
-    // var allGamepads = navigator.getGamepads();
-    // var gamepads = [];
-
-    // for(var i = 0; i < allGamepads.length; i++ )
-    // {
-    //     if(allGamepads[i] && allGamepads[i].displayId != undefined && allGamepads[i].displayId == vrDisplay.displayId)
-    //     {
-    //         gamepads.push(allGamepads[i]);
-    //     }
-    // }
-
-    // if(gamepads.length)
-    // {
-    //     var axes = gamepads[0].axes;
-
-    //     var dx = axes[0];
-    //     var dy = axes[1];
-
-    //     var d = (this._scene._lastMax.subtract(this._scene._lastMin)).length();
-    //     d = ((d < x3dom.fields.Eps) ? 1 : d) * 5;
-
-    //     var viewDir = this.vrLeftViewMatrix.e2();
-    //     var rightDir = this.vrLeftViewMatrix.e0();
-
-    //     viewDir = new x3dom.fields.SFVec3f(-viewDir.x, -viewDir.y, viewDir.z).multiply(d*(dy)/this._height);
-    //     rightDir = new x3dom.fields.SFVec3f(-rightDir.x, -rightDir.y, rightDir.z).multiply((d*dx/this._width));
-
-    //     this._movement = this._movement.add(rightDir).add(viewDir);
-    //     this._transMat = x3dom.fields.SFMatrix4f.translation(this._movement);
-    // }
+    this.vrControllerManager.update( this, vrFrameData );
 };
 
 /**
@@ -2555,7 +2611,7 @@ x3dom.Viewarea.prototype.getLightsShadow = function ()
     var lights = this._doc._nodeBag.lights;
     for ( var l = 0; l < lights.length; l++ )
     {
-        if ( lights[ l ]._vf.shadowIntensity > 0.0 )
+        if ( lights[ l ]._vf.shadowIntensity > 0.0 && lights[ l ]._vf.on )
         {
             return true;
         }
@@ -2919,7 +2975,7 @@ x3dom.Viewarea.prototype.getProjectionMatrix = function ()
 {
     if ( this.vrFrameData )
     {
-        return this.vrLeftProjMatrix.setFromArray( this.vrFrameData.leftProjectionMatrix );
+        return this.vrLeftProjMatrix;
     }
     else
     {
@@ -2937,8 +2993,7 @@ x3dom.Viewarea.prototype.getProjectionMatrices = function ()
 {
     if ( this.vrFrameData )
     {
-        return [ this.vrLeftProjMatrix.setFromArray( this.vrFrameData.leftProjectionMatrix ),
-            this.vrRightProjMatrix.setFromArray( this.vrFrameData.rightProjectionMatrix ) ];
+        return [ this.vrLeftProjMatrix, this.vrRightProjMatrix ];
     }
     else
     {
@@ -12222,7 +12277,6 @@ x3dom.NodeNameSpace.prototype.routeLateRoutes = function ()
         }
     } );
 };
-
 /**
  * X3DOM JavaScript Library
  * http://www.x3dom.org
@@ -12636,7 +12690,6 @@ x3dom.gfx_webgl = ( function ()
         this.cache = new x3dom.Cache();
         this.stateManager = new x3dom.StateManager( ctx3d );
         this.VRMode = 1;
-        this.vrFrameData = null;
 
         this.BUFFER_IDX =
             {
@@ -15175,7 +15228,7 @@ x3dom.gfx_webgl = ( function ()
             var srcFactor = x3dom.Utils.blendFunc( gl, blendMode._vf.srcFactor );
             var destFactor = x3dom.Utils.blendFunc( gl, blendMode._vf.destFactor );
 
-            if ( srcFactor && destFactor )
+            if ( srcFactor !== false && destFactor !== false )
             {
                 // Enable Blending
                 this.stateManager.enable( gl.BLEND );
@@ -16855,6 +16908,7 @@ x3dom.gfx_webgl = ( function ()
         // rendering
         x3dom.Utils.startMeasure( "render" );
 
+        this.stateManager.bindFramebuffer( gl.FRAMEBUFFER, vrFrameData ? vrFrameData.framebuffer : null );
         this.stateManager.viewport( 0, 0, this.canvas.width, this.canvas.height );
 
         // calls gl.clear etc. (bgnd stuff)
@@ -17598,7 +17652,12 @@ x3dom.gfx_webgl = ( function ()
             for ( k = startIndex; k < endIndex; k++ )
             {currentLights[ currentLights.length ] = shadowedLights[ k ];}
 
-            var sp = this.cache.getShadowRenderingShader( gl, currentLights );
+            // generate shadow shader properties
+            var properties = {};
+
+            properties.FOG = ( scene.getFog()._vf.visibilityRange > 0 ) ? 1 : 0;
+
+            var sp = this.cache.getShadowRenderingShader( gl, currentLights, properties );
 
             this.stateManager.useProgram( sp );
 
@@ -17708,7 +17767,21 @@ x3dom.gfx_webgl = ( function ()
                 }
             }
 
-            gl.drawArrays( gl.TRIANGLES, 0, 6 );
+            if ( properties.FOG ) { sp.fogType = 999.0; } // draw without fog first
+
+            gl.drawArrays( gl.TRIANGLES, 0, 6 ); //shadows
+
+            // Set fog
+            if ( properties.FOG )
+            {
+                var fog = scene.getFog();
+                this.stateManager.blendColor( fog._vf.color.r, fog._vf.color.g, fog._vf.color.b, 1.0 );
+                this.stateManager.blendFunc( gl.CONSTANT_COLOR, gl.ONE_MINUS_SRC_COLOR );
+                sp.fogColor = fog._vf.color.toGL();
+                sp.fogRange = fog._vf.visibilityRange;
+                sp.fogType = ( fog._vf.fogType == "LINEAR" ) ? 0.0 : 1.0;
+                gl.drawArrays( gl.TRIANGLES, 0, 6 ); // fog
+            }
 
             // cleanup
             var nk = shadowIndex + 1;
@@ -17719,7 +17792,6 @@ x3dom.gfx_webgl = ( function ()
             }
             gl.disableVertexAttribArray( sp.position );
         }
-
         this.stateManager.blendFunc( gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA );
     };
 
@@ -19911,30 +19983,21 @@ x3dom.Runtime.prototype.onAnimationFinished = function ()
 
 x3dom.Runtime.prototype.enterVR = function ()
 {
-    if ( this.canvas.vrDisplay && !this.canvas.vrDisplay.isPresenting )
-    {
-        this.canvas.vrDisplay.requestPresent( [ { source: this.canvas.canvas } ] ).then( function ()
-        {
-            this.canvas.doc.needRender = true;
-        }.bind( this ) );
-    }
+    this.canvas.enterVR();
 };
 
 x3dom.Runtime.prototype.exitVR = function ()
 {
-    if ( this.canvas.vrDisplay && this.canvas.vrDisplay.isPresenting )
-    {
-        this.canvas.vrDisplay.exitPresent();
-    }
+    this.canvas.exitVR();
 };
 
 x3dom.Runtime.prototype.toggleVR = function ()
 {
-    if ( this.canvas.vrDisplay && !this.canvas.vrDisplay.isPresenting )
+    if ( !this.canvas.xrSession )
     {
         this.enterVR();
     }
-    else if ( this.canvas.vrDisplay && this.canvas.vrDisplay.isPresenting )
+    else if ( this.canvas.xrSession )
     {
         this.exitVR();
     }
@@ -20178,7 +20241,6 @@ x3dom.Runtime.prototype.loadURL = function ( url, optionalURL )
             else {x3dom.debug.logError( "loadURL: could not fetch or parse " + url );}
         } );
 };
-
 /**
  * X3DOM JavaScript Library
  * http://www.x3dom.org
@@ -20449,7 +20511,6 @@ x3dom.userAgentFeature = {
         window.setTimeout( function () { onload(); }, 20 );
     }
 } )();
-
 /**
  * X3DOM JavaScript Library
  * http://www.x3dom.org
@@ -20728,9 +20789,9 @@ x3dom.Cache.prototype.getShaderByProperties = function ( gl, shape, properties, 
  *
  * @returns {*}
  */
-x3dom.Cache.prototype.getShadowRenderingShader = function ( gl, shadowedLights )
+x3dom.Cache.prototype.getShadowRenderingShader = function ( gl, shadowedLights, properties )
 {
-    var ID = "shadow";
+    var ID = "shadow"  + Object.values( properties ).join( "" );
     for ( var i = 0; i < shadowedLights.length; i++ )
     {
         if ( x3dom.isa( shadowedLights[ i ], x3dom.nodeTypes.SpotLight ) )
@@ -20749,7 +20810,7 @@ x3dom.Cache.prototype.getShadowRenderingShader = function ( gl, shadowedLights )
 
     if ( this.shaders[ ID ] === undefined )
     {
-        var program = new x3dom.shader.ShadowRenderingShader( gl, shadowedLights );
+        var program = new x3dom.shader.ShadowRenderingShader( gl, shadowedLights, properties );
         this.shaders[ ID ] = x3dom.Utils.wrapProgram( gl, program, ID );
     }
     return this.shaders[ ID ];
@@ -21830,17 +21891,17 @@ x3dom.X3DDocument.prototype.advanceTime = function ( t )
     }
 };
 
-x3dom.X3DDocument.prototype.render = function ( ctx, vrFrameData, vrDisplay )
+x3dom.X3DDocument.prototype.render = function ( ctx, frameData )
 {
     if ( !ctx || !this._viewarea )
     {
         return;
     }
 
-    this._viewarea.setVRFrameData( vrFrameData );
-    this._viewarea.updateGamepads( vrDisplay );
+    this._viewarea.setVRFrameData( ctx, frameData );
+    this._viewarea.updateGamepads( frameData );
 
-    ctx.renderScene( this._viewarea );
+    ctx.renderScene( this._viewarea, frameData );
 };
 
 x3dom.X3DDocument.prototype.onPick = function ( ctx, x, y )
@@ -23654,14 +23715,38 @@ x3dom.docs.getComponentInfo = function ()
             result += "<li><a href='" +
                 x3dom.docs.specBaseURL + x3dom.docs.specURLMap[ c ] + "#" + t +
                 "' style='color:black; text-decoration:none; font-weight:bold;'>" +
-                t + "</a></li>";
+                t + "</a> <ul>";
+            if ( ! t.startsWith( "X3D" ) )
+            {
+                try
+                {
+                    var node = new x3dom.nodeTypes[ t ]();
+                    result += "-- basic fields --";
+                    for ( var field in node._vf )
+                    {
+                        result += "<li>" + field + ": " + node._vf[ field ] ;
+                        result += "</li>";
+                    }
+                }
+                catch ( m ) {};
+                try
+                {
+                    result += "-- node fields --";
+                    for ( var cfield in node._cf )
+                    {
+                        result += "<li>" + cfield + ": " + JSON.stringify( node._cf[ cfield ] ) ;
+                        result += "</li>";
+                    }
+                }
+                catch ( m ) {};
+            }
+            result += "</ul> </li>";
         }
         result += "</ul>";
     }
 
     return result;
 };
-
 /*
  * X3DOM JavaScript Library
  * http://www.x3dom.org
@@ -26095,7 +26180,7 @@ x3dom.Utils.isUnsignedType = function ( str )
 *****************************************************************************/
 x3dom.Utils.checkDirtyLighting = function ( viewarea )
 {
-    return ( viewarea.getLights().length + viewarea._scene.getNavigationInfo()._vf.headlight );
+    return ( viewarea.getLights().length + viewarea._scene.getNavigationInfo()._vf.headlight + ( viewarea._scene.getFog()._vf.visibilityRange > 0 ) );
 };
 
 /*****************************************************************************
@@ -32226,100 +32311,41 @@ x3dom.DDSLoader.A1R5G5B5_To_A1B5G5R5 = function ( src )
     return dst;
 };
 
-x3dom.VRControllerManager = function ()
+x3dom.VRControllerManager = function ( document )
 {
     this.leftInline     = undefined;
     this.leftTransform  = undefined;
     this.rightInline    = undefined;
     this.rightTransform = undefined;
+    this.wasPresenting  = false;
+    this.modelsAdded    = false;
+    this._doc = document;
 
-    this.leftGamepadIdx  = undefined;
-    this.rightGamepadIdx = undefined;
-    this.vrDisplay       = undefined;
-    this.wasPresenting   = false;
-
-    this.controllers = {
-        "HTC Vive MV" : {
+    this._controllers = {
+        "htc-vive" : {
             left        : "https://x3dom.org/download/assets/vr/vive.glb",
             right       : "https://x3dom.org/download/assets/vr/vive.glb",
             scaleFactor : new x3dom.fields.SFVec3f( 40, 40, 40 ),
             offset      : new x3dom.fields.SFVec3f(),
             axesScale   : [ 1, 1 ]
         },
-        "Oculus Oculus Rift CV1" : {
+        "oculus-touch" : {
             left        : "https://x3dom.org/download/assets/vr/oculus-touch-left.glb",
             right       : "https://x3dom.org/download/assets/vr/oculus-touch-right.glb",
             scaleFactor : new x3dom.fields.SFVec3f( 39.5, 39.5, 39.5 ),
             offset      : new x3dom.fields.SFVec3f(),
             axesScale   : [ 1, 1 ]
         },
-        "Oculus Go" : {
+        "oculus-go" : {
             left        : "https://x3dom.org/download/assets/vr/oculus-go.glb",
             right       : "https://x3dom.org/download/assets/vr/oculus-go.glb",
             scaleFactor : new x3dom.fields.SFVec3f( 1, 1, 1 ),
             offset      : new x3dom.fields.SFVec3f( 0.2, -0.3, -0.3 ),
-            axesScale   : [ 1, -1 ]
-        },
-        "Emulated HTC Vive DVT" : {
-            left        : "https://x3dom.org/download/assets/vr/vive.glb",
-            right       : "https://x3dom.org/download/assets/vr/vive.glb",
-            scaleFactor : new x3dom.fields.SFVec3f( 40, 40, 40 ),
-            offset      : new x3dom.fields.SFVec3f(),
-            axesScale   : [ 1, 1 ]
-        },
-        "WindowsMR DELL VISOR VR118" : {
-            left        : "https://x3dom.org/download/assets/vr/microsoft-left.glb",
-            right       : "https://x3dom.org/download/assets/vr/microsoft-right.glb",
-            scaleFactor : new x3dom.fields.SFVec3f( 40, 40, 40 ),
-            offset      : new x3dom.fields.SFVec3f(),
-            axesScale   : [ 1, 1 ]
+            axesScale   : [ -1, 1 ]
         }
     };
 
     this._addInlines();
-    this._addGamePadListeners();
-};
-
-x3dom.VRControllerManager.prototype._addGamePadListeners = function ()
-{
-    window.addEventListener( "gamepadconnected", this._onGamePadConnected.bind( this ) );
-    window.addEventListener( "gamepaddisconnected", this._onGamePadDisconnected.bind( this ) );
-};
-
-x3dom.VRControllerManager.prototype._onGamePadConnected = function ( e )
-{
-    var gamepad = e.gamepad;
-
-    navigator.getVRDisplays().then( function ( displays )
-    {
-        var display = displays[ 0 ];
-
-        if ( display && gamepad.displayId == display.displayId )
-        {
-            var controller = this.controllers[ display.displayName ];
-
-            if ( !controller )
-            {
-                return;
-            }
-
-            if ( gamepad.hand == "left" )
-            {
-                this.leftGamepadIdx = gamepad.index;
-                this.leftInline.setAttribute( "url", controller.left );
-            }
-            else if ( gamepad.hand == "right" )
-            {
-                this.rightGamepadIdx = gamepad.index;
-                this.rightInline.setAttribute( "url", controller.right, controller.scaleFactor );
-            }
-        }
-    }.bind( this ) );
-};
-
-x3dom.VRControllerManager.prototype._onGamePadDisconnected = function ( e )
-{
-    console.log( e );
 };
 
 x3dom.VRControllerManager.prototype._addInlines = function ()
@@ -32344,7 +32370,79 @@ x3dom.VRControllerManager.prototype._addInlines = function ()
         x3dScene.appendChild( this.rightTransform );
     }
 };
-x3dom.VRControllerManager.prototype.fit = function ( viewarea, vrDisplay )
+
+x3dom.VRControllerManager.prototype._addControllerModels = function ( controllers )
+{
+    if ( this.modelsAdded )
+    {
+        return;
+    }
+
+    if ( controllers.left )
+    {
+        const url = this._getControllerModelURL( controllers.left.type, "left" );
+
+        this.leftInline.setAttribute( "url", url );
+    }
+
+    if ( controllers.right )
+    {
+        const url = this._getControllerModelURL( controllers.right.type, "right" );
+
+        this.rightInline.setAttribute( "url", url );
+    }
+
+    this.modelsAdded = true;
+};
+
+x3dom.VRControllerManager.prototype._getControllerAxesScale = function ( type )
+{
+    if ( this._controllers[ type ] === undefined )
+    {
+        return [ 1, 1 ];
+    }
+
+    return this._controllers[ type ].axesScale;
+};
+
+x3dom.VRControllerManager.prototype._getControllerDirection = function ( pose )
+{
+    const controllerRotation = ( pose.orientation ? x3dom.fields.Quaternion.fromArray( pose.orientation ) : new x3dom.fields.Quaternion() );
+    const cRotMatrix = controllerRotation.toMatrix();
+    return cRotMatrix.e2();
+};
+
+x3dom.VRControllerManager.prototype._getControllerModelURL = function ( type, side )
+{
+    if ( this._controllers[ type ] === undefined )
+    {
+        return "";
+    }
+
+    return this._controllers[ type ][ side ];
+};
+
+x3dom.VRControllerManager.prototype._getControllerOffset = function ( type )
+{
+    if ( this._controllers[ type ] === undefined )
+    {
+        return [ 0, 0, 0 ];
+    }
+
+    return this._controllers[ type ].offset;
+};
+
+x3dom.VRControllerManager.prototype._getControllerScaleFactor = function ( type )
+{
+    if ( this._controllers[ type ] === undefined )
+    {
+        return [ 1, 1, 1 ];
+    }
+
+    return this._controllers[ type ].scaleFactor;
+};
+
+x3dom.VRControllerManager.prototype.fit = function ( viewarea )
 {
     var min = viewarea._scene._lastMin;
     var max = viewarea._scene._lastMax;
@@ -32359,12 +32457,13 @@ x3dom.VRControllerManager.prototype.fit = function ( viewarea, vrDisplay )
     var tanfov2 = Math.tan( 0.5 * Math.PI / 2.0 );
     var dist = bsr / tanfov2 / aspect;
 
-    viewarea._movement = viewDir.multiply( -dist );
+    var scaleFactor = 0.001;
+    viewarea._movement = viewDir.multiply( -1 * scaleFactor * dist );
 };
 
-x3dom.VRControllerManager.prototype.update = function ( viewarea, vrDisplay )
+x3dom.VRControllerManager.prototype.update = function ( viewarea, vrFrameData )
 {
-    if ( !vrDisplay || ( vrDisplay && !vrDisplay.isPresenting ) )
+    if ( !vrFrameData )
     {
         if ( this.wasPresenting )
         {
@@ -32376,63 +32475,57 @@ x3dom.VRControllerManager.prototype.update = function ( viewarea, vrDisplay )
 
         return;
     }
-    else
-    {
-        if ( !this.wasPresenting )
-        {
-            this.leftInline.setAttribute( "render", "true" );
-            this.rightInline.setAttribute( "render", "true" );
 
-            this.fit( viewarea, vrDisplay );
-        }
+    if ( !this.wasPresenting )
+    {
+        this.leftInline.setAttribute( "render", "true" );
+        this.rightInline.setAttribute( "render", "true" );
+
+        this.fit( viewarea );
 
         this.wasPresenting = true;
     }
 
-    var gamepads = navigator.getGamepads();
-    var controller = {};
-
-    if ( this.leftGamepadIdx != undefined && gamepads[ this.leftGamepadIdx ] )
-    {
-        var gamepad = gamepads[ this.leftGamepadIdx ];
-        controller.left = gamepad;
-    }
-
-    if ( this.rightGamepadIdx != undefined && gamepads[ this.rightGamepadIdx ] )
-    {
-        var gamepad = gamepads[ this.rightGamepadIdx ];
-        controller.right = gamepad;
-    }
-
-    this.onUpdate( viewarea, vrDisplay, controller );
+    this._addControllerModels( vrFrameData.controllers );
+    this._updateMatrices( viewarea, vrFrameData.controllers );
+    this._updateControllerModels( viewarea, vrFrameData.controllers );
 };
 
-x3dom.VRControllerManager.prototype.onUpdate = function ( viewarea, vrDisplay, controllers )
+x3dom.VRControllerManager.prototype._updateMatrices = function ( viewarea, controllers )
 {
     var transMat = new x3dom.fields.SFMatrix4f();
     var rotMat = new x3dom.fields.SFMatrix4f();
     var axes = [ 0, 0 ];
-    var axesScale = this.controllers[ vrDisplay.displayName ].axesScale;
 
     if ( controllers.left )
     {
-        axes[ 0 ] += controllers.left.axes[ 0 ] * axesScale[ 0 ];
-        axes[ 1 ] += controllers.left.axes[ 1 ] * axesScale[ 1 ];
+        var axesScale = this._getControllerAxesScale( controllers.left.type );
 
-        if ( controllers.left.buttons[ 1 ].pressed )
+        axes[ 0 ] += controllers.left.gamepad.axes[ 0 ] * axesScale[ 0 ];
+        axes[ 1 ] += controllers.left.gamepad.axes[ 1 ] * axesScale[ 1 ];
+
+        if ( controllers.left.gamepad.buttons[ 0 ].pressed )
         {
-            this.fit( viewarea );
+            const pose = controllers.left.pose;
+            const cDirection = this._getControllerDirection( pose );
+            const scaleFactor = this._getViewAreaZoom( viewarea );
+            viewarea._movement = viewarea._movement.add( cDirection.multiply( scaleFactor ) );
         }
     }
 
     if ( controllers.right )
     {
-        axes[ 0 ] += controllers.right.axes[ 0 ] * axesScale[ 0 ];
-        axes[ 1 ] += controllers.right.axes[ 1 ] * axesScale[ 1 ];
+        var axesScale = this._getControllerAxesScale( controllers.right.type );
 
-        if ( controllers.right.buttons[ 1 ].pressed )
+        axes[ 0 ] += controllers.right.gamepad.axes[ 0 ] * axesScale[ 0 ];
+        axes[ 1 ] += controllers.right.gamepad.axes[ 1 ] * axesScale[ 1 ];
+
+        if ( controllers.right.gamepad.buttons[ 0 ].pressed )
         {
-            this.fit( viewarea );
+            const pose = controllers.right.pose;
+            const cDirection = this._getControllerDirection( pose );
+            const scaleFactor = this._getViewAreaZoom( viewarea );
+            viewarea._movement = viewarea._movement.add( cDirection.multiply( scaleFactor ) );
         }
     }
 
@@ -32457,30 +32550,17 @@ x3dom.VRControllerManager.prototype.onUpdate = function ( viewarea, vrDisplay, c
     //Enable default Mouse Navigation
     // viewarea.vrLeftViewMatrix  = viewarea.vrLeftViewMatrix.mult(viewarea._transMat).mult(viewarea._rotMat);
     // viewarea.vrRightViewMatrix = viewarea.vrRightViewMatrix.mult(viewarea._transMat).mult(viewarea._rotMat);
-
-    this._updateControllerModels( viewarea, vrDisplay, controllers );
 };
 
-x3dom.VRControllerManager.prototype._updateControllerModels = function ( viewarea, vrDisplay, controllers )
+x3dom.VRControllerManager.prototype._updateControllerModels = function ( viewarea, controllers )
 {
-    if ( !vrDisplay || ( vrDisplay && !vrDisplay.isPresenting ) )
-    {
-        this.leftInline.setAttribute( "render", "false" );
-        this.rightInline.setAttribute( "render", "false" );
-        return;
-    }
-    else
-    {
-        this.leftInline.setAttribute( "render", "true" );
-        this.rightInline.setAttribute( "render", "true" );
-    }
-
     if ( controllers.left )
     {
-        var pose = controllers.left.pose;
+        var pose     = controllers.left.pose;
+        var offset   = this._getControllerOffset( controllers.left.type );
         var rotation = ( pose.orientation ) ? x3dom.fields.Quaternion.fromArray( pose.orientation ) : new x3dom.fields.Quaternion();
-        var position = ( pose.position ) ? x3dom.fields.SFVec3f.fromArray( pose.position ) : this.controllers[ vrDisplay.displayName ].offset;
-        var scale    = this.controllers[ vrDisplay.displayName ].scaleFactor;
+        var position = ( pose.position ) ? x3dom.fields.SFVec3f.fromArray( pose.position ) : offset;
+        var scale    = this._getControllerScaleFactor( controllers.left.type );
 
         position = position.subtract( viewarea._movement );
 
@@ -32491,10 +32571,11 @@ x3dom.VRControllerManager.prototype._updateControllerModels = function ( vieware
 
     if ( controllers.right )
     {
-        var pose = controllers.right.pose;
+        var pose     = controllers.right.pose;
+        var offset   = this._getControllerOffset( controllers.right.type );
         var rotation = ( pose.orientation ) ? x3dom.fields.Quaternion.fromArray( pose.orientation ) : new x3dom.fields.Quaternion();
-        var position = ( pose.position ) ? x3dom.fields.SFVec3f.fromArray( pose.position ) : this.controllers[ vrDisplay.displayName ].offset;
-        var scale    = this.controllers[ vrDisplay.displayName ].scaleFactor;
+        var position = ( pose.position ) ? x3dom.fields.SFVec3f.fromArray( pose.position ) : offset;
+        var scale    = this._getControllerScaleFactor( controllers.right.type );
 
         position = position.subtract( viewarea._movement );
 
@@ -32502,6 +32583,19 @@ x3dom.VRControllerManager.prototype._updateControllerModels = function ( vieware
 
         this.rightTransform.setAttribute( "matrix", matrix.toString() );
     }
+};
+
+x3dom.VRControllerManager.prototype._getViewAreaZoom = function ( viewarea )
+{
+    var navi = viewarea._scene.getNavigationInfo();
+    var viewpoint = viewarea._scene.getViewpoint();
+    var d = ( viewarea._scene._lastMax.subtract( viewarea._scene._lastMin ) ).length();
+    d = Math.min( d, viewpoint.getFar() );
+    d = ( ( d < x3dom.fields.Eps ) ? 1 : d ) * navi._vf.speed;
+    const fps = this._doc._x3dElem.runtime.getFPS();
+    const zoomAmount = 60 / fps;
+
+    return d * ( zoomAmount ) / viewarea._height;
 };
 /*
  * X3DOM JavaScript Library
@@ -35279,7 +35373,12 @@ x3dom.shader.shadowRendering = function ()
     shaderPart +=
                 "float ESM(float shadowMapDepth, float viewSampleDepth, float offset){\n";
     if ( !x3dom.caps.FP_TEXTURES )
-    {shaderPart +=     "    return exp(-80.0*(1.0-offset)*(viewSampleDepth - shadowMapDepth));\n";}
+    {
+        shaderPart +=
+        "    float d = viewSampleDepth - shadowMapDepth;\n" +
+        "    d = step( 0.002, abs(d) ) * d;\n" +
+        "    return exp(-80.0*(1.0-offset)*d);\n";
+    }
     else     {shaderPart +=     "    return shadowMapDepth * exp(-80.0*(1.0-offset)*viewSampleDepth);\n";}
     shaderPart += "}\n";
 
@@ -36887,7 +36986,7 @@ x3dom.shader.DynamicShader.prototype.generateFragmentShader = function ( gl, pro
     shader += "color = " + x3dom.shader.encodeGamma( properties, "color" ) + ";\n";
 
     //Fog
-    if ( properties.FOG )
+    if ( properties.FOG && !properties.SHADOW )
     {
         shader += "float f0 = calcFog(fragEyePosition);\n";
         shader += "color.rgb = fogColor * (1.0-f0) + f0 * (color.rgb);\n";
@@ -38346,11 +38445,11 @@ x3dom.shader.BackgroundCubeTextureDDSShader.prototype.generateFragmentShader = f
 /**
  * Generate the final Shader program
  */
-x3dom.shader.ShadowRenderingShader = function ( gl, shadowedLights )
+x3dom.shader.ShadowRenderingShader = function ( gl, shadowedLights, properties )
 {
     this.program = gl.createProgram();
-    var vertexShader   = this.generateVertexShader( gl );
-    var fragmentShader = this.generateFragmentShader( gl, shadowedLights );
+    var vertexShader = this.generateVertexShader( gl );
+    var fragmentShader = this.generateFragmentShader( gl, shadowedLights, properties );
 
     gl.attachShader( this.program, vertexShader );
     gl.attachShader( this.program, fragmentShader );
@@ -38393,7 +38492,7 @@ x3dom.shader.ShadowRenderingShader.prototype.generateVertexShader = function ( g
 /**
  * Generate the fragment shader
  */
-x3dom.shader.ShadowRenderingShader.prototype.generateFragmentShader = function ( gl, shadowedLights )
+x3dom.shader.ShadowRenderingShader.prototype.generateFragmentShader = function ( gl, shadowedLights, properties )
 {
     var shader = "#ifdef GL_FRAGMENT_PRECISION_HIGH\n";
     shader += "precision highp float;\n";
@@ -38405,102 +38504,116 @@ x3dom.shader.ShadowRenderingShader.prototype.generateFragmentShader = function (
     shader += "uniform mat4 inverseProj;\n";
     shader += "varying vec2 vPosition;\n";
     shader += "uniform sampler2D sceneMap;\n";
-    for ( var i = 0; i < 5; i++ )
-    {shader += "uniform float cascade" + i + "_Depth;\n";}
+    for ( var i = 0; i < 5; i++ ) { shader += "uniform float cascade" + i + "_Depth;\n"; }
 
     for ( var l = 0; l < shadowedLights.length; l++ )
     {
-        shader +=    "uniform float light" + l + "_On;\n" +
-                "uniform float light" + l + "_Type;\n" +
-                "uniform vec3  light" + l + "_Location;\n" +
-                "uniform vec3  light" + l + "_Direction;\n" +
-                "uniform vec3  light" + l + "_Attenuation;\n" +
-                "uniform float light" + l + "_Radius;\n" +
-                "uniform float light" + l + "_BeamWidth;\n" +
-                "uniform float light" + l + "_CutOffAngle;\n" +
-                "uniform float light" + l + "_ShadowIntensity;\n" +
-                "uniform float light" + l + "_ShadowOffset;\n" +
-                "uniform mat4 light" + l + "_ViewMatrix;\n";
+        shader += "uniform float light" + l + "_On;\n" +
+            "uniform float light" + l + "_Type;\n" +
+            "uniform vec3  light" + l + "_Location;\n" +
+            "uniform vec3  light" + l + "_Direction;\n" +
+            "uniform vec3  light" + l + "_Attenuation;\n" +
+            "uniform float light" + l + "_Radius;\n" +
+            "uniform float light" + l + "_BeamWidth;\n" +
+            "uniform float light" + l + "_CutOffAngle;\n" +
+            "uniform float light" + l + "_ShadowIntensity;\n" +
+            "uniform float light" + l + "_ShadowOffset;\n" +
+            "uniform mat4 light" + l + "_ViewMatrix;\n";
         for ( var j = 0; j < 6; j++ )
         {
             shader += "uniform mat4 light" + l + "_" + j + "_Matrix;\n";
             shader += "uniform sampler2D light" + l + "_" + j + "_ShadowMap;\n";
         }
-        for ( var j = 0; j < 5; j++ )
-        {shader += "uniform float light" + l + "_" + j + "_Split;\n";}
+        for ( var j = 0; j < 5; j++ ) { shader += "uniform float light" + l + "_" + j + "_Split;\n"; }
     }
-    if ( !x3dom.caps.FP_TEXTURES )
-    {shader +=     x3dom.shader.rgbaPacking();}
+    if ( !x3dom.caps.FP_TEXTURES ) { shader += x3dom.shader.rgbaPacking(); }
 
     shader += x3dom.shader.shadowRendering();
 
     shader += x3dom.shader.gammaCorrectionDecl( {} );  //TODO shader properties?
 
-    shader +=     "void main(void) {\n" +
-                "    float shadowValue = 1.0;\n" +
-                "    vec2 texCoordsSceneMap = (vPosition + 1.0)*0.5;\n" +
-                "    vec4 projCoords = texture2D(sceneMap, texCoordsSceneMap);\n" +
-                "    if (projCoords != vec4(1.0,1.0,1.0,0.0)){\n";
+    if ( properties.FOG ) { shader += x3dom.shader.fog(); }
+
+    shader +=
+        "void main(void) {\n" +
+        "    vec4 color = vec4( 1.0 );\n" +
+        //reconstruct world and view coordinates from scene map
+        "    vec2 texCoordsSceneMap = (vPosition + 1.0)*0.5;\n" +
+        "    vec4 projCoords = texture2D(sceneMap, texCoordsSceneMap);\n" +
+        "    if ( projCoords == vec4(1.0, 1.0, 1.0, 0.0) ){ gl_FragColor = vec4( 1.0 ); return; }\n";
     if ( !x3dom.caps.FP_TEXTURES )
     {
-        shader +=     "    projCoords.z = unpackDepth(projCoords);\n" +
-                    "    projCoords.w = 1.0;\n";
+        shader +=
+                "        projCoords.z = unpackDepth(projCoords);\n" +
+                "        projCoords.w = 1.0;\n";
     }
-
-    //reconstruct world and view coordinates from scene map
-    shader +=     "    projCoords = projCoords / projCoords.w;\n" +
-                "    projCoords.xy = vPosition;\n" +
-                "    vec4 eyeCoords = inverseProj*projCoords;\n" +
-                "    vec4 worldCoords = inverseViewProj*projCoords;\n" +
-                "    float lightInfluence = 0.0;\n";
+    shader +=
+            "    projCoords = projCoords / projCoords.w;\n" +
+            "    projCoords.xy = vPosition;\n" +
+            "    vec4 eyeCoords = inverseProj*projCoords;\n";
+    if ( properties.FOG )
+    {
+        shader +=
+            "    if (fogType < 2.0) {\n" +
+            "        vec3 eye = eyeCoords.xyz / eyeCoords.w;\n" +
+            "        float f0 = calcFog( eye );\n" +
+            "        color = vec4(  1.0 - f0, 1.0 - f0, 1.0 - f0, 1.0 );\n" +
+            "    }\n" +
+            "    else {\n";
+    }
+    shader +=
+        "    float shadowValue = 1.0;\n" +
+        //reconstruct world and view coordinates from scene map
+        "    vec4 worldCoords = inverseViewProj*projCoords;\n" +
+        "    float lightInfluence = 0.0;\n";
 
     for ( var l = 0; l < shadowedLights.length; l++ )
     {
         shader +=
-                "    lightInfluence = getLightInfluence(light" + l + "_Type, light" + l + "_ShadowIntensity, light" + l + "_On, light" + l + "_Location, light" + l + "_Direction, " +
-                        "light" + l + "_CutOffAngle, light" + l + "_BeamWidth, light" + l + "_Attenuation, light" + l + "_Radius, eyeCoords.xyz/eyeCoords.w);\n" +
-                "    if (lightInfluence != 0.0){\n" +
-                "        vec4 shadowMapValues;\n" +
-                "        float viewSampleDepth;\n";
+            "    lightInfluence = getLightInfluence(light" + l + "_Type, light" + l + "_ShadowIntensity, light" + l + "_On, light" + l + "_Location, light" + l + "_Direction, " +
+            "light" + l + "_CutOffAngle, light" + l + "_BeamWidth, light" + l + "_Attenuation, light" + l + "_Radius, eyeCoords.xyz/eyeCoords.w);\n" +
+            "    if (lightInfluence != 0.0){\n" +
+            "        vec4 shadowMapValues;\n" +
+            "        float viewSampleDepth;\n";
 
         if ( !x3dom.isa( shadowedLights[ l ], x3dom.nodeTypes.PointLight ) )
         {
             shader += "        getShadowValuesCascaded(shadowMapValues, viewSampleDepth, worldCoords, -eyeCoords.z/eyeCoords.w," +
-                                "light" + l + "_0_Matrix,light" + l + "_1_Matrix,light" + l + "_2_Matrix,light" + l + "_3_Matrix,light" + l + "_4_Matrix,light" + l + "_5_Matrix," +
-                                "light" + l + "_0_ShadowMap,light" + l + "_1_ShadowMap,light" + l + "_2_ShadowMap,light" + l + "_3_ShadowMap," +
-                                "light" + l + "_4_ShadowMap,light" + l + "_5_ShadowMap, light" + l + "_0_Split, light" + l + "_1_Split, light" + l + "_2_Split, light" + l + "_3_Split, \n" +
-                                "light" + l + "_4_Split);\n";
+                "light" + l + "_0_Matrix,light" + l + "_1_Matrix,light" + l + "_2_Matrix,light" + l + "_3_Matrix,light" + l + "_4_Matrix,light" + l + "_5_Matrix," +
+                "light" + l + "_0_ShadowMap,light" + l + "_1_ShadowMap,light" + l + "_2_ShadowMap,light" + l + "_3_ShadowMap," +
+                "light" + l + "_4_ShadowMap,light" + l + "_5_ShadowMap, light" + l + "_0_Split, light" + l + "_1_Split, light" + l + "_2_Split, light" + l + "_3_Split, \n" +
+                "light" + l + "_4_Split);\n";
         }
         else
         {
             shader += "        getShadowValuesPointLight(shadowMapValues, viewSampleDepth, light" + l + "_Location, worldCoords, light" + l + "_ViewMatrix, " +
-                                "light" + l + "_0_Matrix,light" + l + "_1_Matrix,light" + l + "_2_Matrix,light" + l + "_3_Matrix,light" + l + "_4_Matrix,light" + l + "_5_Matrix," +
-                                "light" + l + "_0_ShadowMap,light" + l + "_1_ShadowMap,light" + l + "_2_ShadowMap,light" + l + "_3_ShadowMap," +
-                                "light" + l + "_4_ShadowMap,light" + l + "_5_ShadowMap);\n";
+                "light" + l + "_0_Matrix,light" + l + "_1_Matrix,light" + l + "_2_Matrix,light" + l + "_3_Matrix,light" + l + "_4_Matrix,light" + l + "_5_Matrix," +
+                "light" + l + "_0_ShadowMap,light" + l + "_1_ShadowMap,light" + l + "_2_ShadowMap,light" + l + "_3_ShadowMap," +
+                "light" + l + "_4_ShadowMap,light" + l + "_5_ShadowMap);\n";
         }
 
         if ( !x3dom.caps.FP_TEXTURES )
         {
-            shader +=     "    shadowValue *= clamp(ESM(shadowMapValues.z, viewSampleDepth, light" + l + "_ShadowOffset), " +
-                        "                1.0 - light" + l + "_ShadowIntensity*lightInfluence, 1.0);\n";
+            shader += "    shadowValue *= clamp(ESM(shadowMapValues.z, viewSampleDepth, light" + l + "_ShadowOffset), " +
+                "                1.0 - light" + l + "_ShadowIntensity*lightInfluence, 1.0);\n";
         }
         else
         {
-            shader +=     "     shadowValue *= clamp(VSM(shadowMapValues.zy, viewSampleDepth, light" + l + "_ShadowOffset), " +
-                        "                1.0 - light" + l + "_ShadowIntensity*lightInfluence, 1.0);\n";
+            shader += "     shadowValue *= clamp(VSM(shadowMapValues.zy, viewSampleDepth, light" + l + "_ShadowOffset), " +
+                "                1.0 - light" + l + "_ShadowIntensity*lightInfluence, 1.0);\n";
         }
-        shader +=         "    }\n";
+        shader += "    }\n";
     }
 
-    shader +=     "}\n" +
+    shader += "    color = " + x3dom.shader.encodeGamma( {}, "vec4(shadowValue, shadowValue, shadowValue, 1.0)" ) + " ;\n";
+    if ( properties.FOG ) { shader += "    }\n"; }
     // In principle we should fix the place where this is multplied in instead
     // of overcompensating for the subsequent error from here. This way of doing
     // gamma correction explots the rule that (a*b)^x = a^x * b^x (x being the
     // gamma coefficient), i.e. the umbra is corrected for now, the penumbra
     // is incorrect and full light is zero here so unaffected as well.
-                "    gl_FragColor = " + x3dom.shader.encodeGamma( {}, "vec4(shadowValue, shadowValue, shadowValue, 1.0)" ) + ";\n" +
-                "}\n";
-
+    shader += "    gl_FragColor = color;\n" +
+        "}\n";
     var fragmentShader = gl.createShader( gl.FRAGMENT_SHADER );
     gl.shaderSource( fragmentShader, shader );
     gl.compileShader( fragmentShader );
@@ -38711,25 +38824,49 @@ x3dom.shader.BlurShader.prototype.generateFragmentShader = function ( gl )
                     "    vec2 offset;\n" +
                     "    if (horizontal) offset = vec2(pixelSizeHor, 0.0);\n" +
                     "    else offset = vec2(0.0, pixelSizeVert);\n" +
-                    "    float depth = unpackDepth(texture2D(texture, texCoords));\n" +
+                    "    vec4 packedDepth = texture2D(texture, texCoords);\n" +
+                    "    const vec4 clearColor = vec4(1.0, 1.0, 1.0, 0.0);\n" +
+                    "    if ( packedDepth == clearColor ) { discard; };\n" +
+                    "    float depth = unpackDepth(packedDepth);\n" +
                     "    if (filterSize == 3){\n" +
+                    "        vec4 packedDn1 = texture2D(texture, texCoords-offset);\n" +
+                    "        vec4 packedDp1 = texture2D(texture, texCoords+offset);\n" +
+                    //"        if ( packedDn1 == clearColor || packedDp1 == clearColor ) { discard; };\n" +
+                    "        if ( (packedDn1 - clearColor) * (packedDp1 - clearColor) == vec4(0.0) ) { discard; };\n" +
                     "        depth = depth * 0.3844;\n" +
-                    "        depth += 0.3078*unpackDepth(texture2D(texture, texCoords-offset));\n" +
-                    "        depth += 0.3078*unpackDepth(texture2D(texture, texCoords+offset));\n" +
+                    "        depth += 0.3078*unpackDepth(packedDn1);\n" +
+                    "        depth += 0.3078*unpackDepth(packedDp1);\n" +
                     "    } else if (filterSize == 5){\n" +
+                    "        vec4 packedDn1 = texture2D(texture, texCoords-offset);\n" +
+                    "        vec4 packedDp1 = texture2D(texture, texCoords+offset);\n" +
+                    "        vec4 packedDn2 = texture2D(texture, texCoords-2.0*offset);\n" +
+                    "        vec4 packedDp2 = texture2D(texture, texCoords+2.0*offset);\n" +
+                    "        if ( packedDn1 == clearColor || packedDp1 == clearColor || " +
+                    "             packedDn2 == clearColor || packedDp2 == clearColor ) { discard; };\n" +
+                    // "        if ( ( packedDn1 - clearColor ) * ( packedDp1 - clearColor ) * " +
+                    // "             ( packedDn2 - clearColor ) * ( packedDp2 - clearColor ) == vec4(0.0) ) { discard; };\n" +
                     "        depth = depth * 0.2921;\n" +
-                    "        depth += 0.2339*unpackDepth(texture2D(texture, texCoords-offset));\n" +
-                    "        depth += 0.2339*unpackDepth(texture2D(texture, texCoords+offset));\n" +
-                    "        depth += 0.1201*unpackDepth(texture2D(texture, texCoords-2.0*offset));\n" +
-                    "        depth += 0.1201*unpackDepth(texture2D(texture, texCoords+2.0*offset));\n" +
+                    "        depth += 0.2339*unpackDepth(packedDn1);\n" +
+                    "        depth += 0.2339*unpackDepth(packedDp1);\n" +
+                    "        depth += 0.1201*unpackDepth(packedDn2);\n" +
+                    "        depth += 0.1201*unpackDepth(packedDp2);\n" +
                     "    } else if (filterSize == 7){\n" +
+                    "        vec4 packedDn1 = texture2D(texture, texCoords-offset);\n" +
+                    "        vec4 packedDp1 = texture2D(texture, texCoords+offset);\n" +
+                    "        vec4 packedDn2 = texture2D(texture, texCoords-2.0*offset);\n" +
+                    "        vec4 packedDp2 = texture2D(texture, texCoords+2.0*offset);\n" +
+                    "        vec4 packedDn3 = texture2D(texture, texCoords-3.0*offset);\n" +
+                    "        vec4 packedDp3 = texture2D(texture, texCoords+3.0*offset);\n" +
+                    "        if ( packedDn1 == clearColor || packedDp1 == clearColor || " +
+                    "             packedDn2 == clearColor || packedDp2 == clearColor || " +
+                    "             packedDn3 == clearColor || packedDp3 == clearColor ) { discard; };\n" +
                     "        depth = depth * 0.2161;\n" +
-                    "        depth += 0.1907*unpackDepth(texture2D(texture, texCoords-offset));\n" +
-                    "        depth += 0.1907*unpackDepth(texture2D(texture, texCoords+offset));\n" +
-                    "        depth += 0.1311*unpackDepth(texture2D(texture, texCoords-2.0*offset));\n" +
-                    "        depth += 0.1311*unpackDepth(texture2D(texture, texCoords+2.0*offset));\n" +
-                    "        depth += 0.0702*unpackDepth(texture2D(texture, texCoords-3.0*offset));\n" +
-                    "        depth += 0.0702*unpackDepth(texture2D(texture, texCoords+3.0*offset));\n" +
+                    "        depth += 0.1907*unpackDepth(packedDn1);\n" +
+                    "        depth += 0.1907*unpackDepth(packedDp1);\n" +
+                    "        depth += 0.1311*unpackDepth(packedDn2);\n" +
+                    "        depth += 0.1311*unpackDepth(packedDp2);\n" +
+                    "        depth += 0.0702*unpackDepth(packedDn3);\n" +
+                    "        depth += 0.0702*unpackDepth(packedDp3);\n" +
                     "    }\n" +
                     "    gl_FragColor = packDepth(depth);\n" +
                     "}\n";
@@ -40090,9 +40227,66 @@ x3dom.registerNodeType(
              * @instance
              */
             this.addField_SFString( ctx, "reference", "" );
+        },
+        {
+            nodeChanged : function ()
+            {
+                const value0 = this._vf.value[ 0 ];
+                const field = this._vf.name;
+                const tag = x3dom.extensions.TAG;
+                const startTag = "<" + tag + ">";
+                const endTag = "</" + tag + ">";
+                const parentDom = this._xmlNode.parentNode;
+                const parentType = parentDom.localName.toLowerCase();
+                const parentDefault = new x3dom.nodeTypesLC[ parentType ]();
+                if ( this._vf.reference == x3dom.extensions.FIELD && value0 !== undefined )
+                {
+                    if ( !( field in parentDefault._vf ) )
+                    {
+                        x3dom.debug.logWarning(
+                            "Requested extension field " + field + " for " + parentDefault.typeName() + " not implemented." );
+                    }
+                    this._xmlNode.parentNode.setAttribute(
+                        field, value0 );
+                }
+                if ( this._vf.reference == x3dom.extensions.NODE && value0 !== undefined )
+                {
+                    if ( !( this._vf.name in parentDefault._cf ) )
+                    {
+                        x3dom.debug.logWarning(
+                            "Requested extension node field " + field + " for " + parentDefault.typeName() + " not implemented." );
+                    }
+                    var dom = new DOMParser()
+                        .parseFromString( startTag + value0 + endTag, "application/xml" )
+                        .firstChild;
+                    while ( dom.firstElementChild )
+                    {
+                        const cf = dom.firstElementChild.getAttribute( "containerField" );
+                        if ( cf !== null && cf !== field )
+                        {
+                            x3dom.debug.logWarning(
+                                "Provided containerField " + cf + " does not match extension field " + field
+                            );
+                        }
+                        else
+                        {
+                            x3dom.debug.logInfo(
+                                "Setting containerField for " + dom.firstElementChild.localName + " to extension field " + field
+                            );
+                            dom.firstElementChild.setAttribute( "containerField", field );
+                        }
+                        this._xmlNode.parentNode.appendChild( dom.firstElementChild );
+                    }
+                }
+            }
         }
     )
 );
+x3dom.extensions = {
+    FIELD : "X3DFieldExtension",
+    NODE  : "X3DNodeExtension",
+    TAG   : "MFNode"
+};
 /** @namespace x3dom.nodeTypes */
 /*
  * X3DOM JavaScript Library
@@ -65517,14 +65711,17 @@ x3dom.registerNodeType(
                     {
                         hasTexCoord = true;
                         texCoords = texCoordNode._vf.point;
-                        if ( !hasTexCoordInd )
+                        var nTexCoords = hasTexCoordInd ?
+                            Math.max( ...texCoordInd ) + 1 : positions.length;
+                        var i,
+                            lastTexCoord = texCoords.length;
+                        for ( i = lastTexCoord; i < nTexCoords; i++ )
                         {
-                            var i,
-                                lastTexCoord = texCoords.length;
-                            for ( i = lastTexCoord; i < positions.length; i++ )
-                            {
-                                texCoords.push( texCoords[ i % lastTexCoord ] );
-                            }
+                            x3dom.debug.logWarning(
+                                "IFS " + ( this._DEF || "" ) +
+                                ": more tex. coords. required, guessing " +
+                                i + 1 + "th coord." );
+                            texCoords.push( texCoords[ i % lastTexCoord ] );
                         }
 
                         if ( x3dom.isa( texCoordNode, x3dom.nodeTypes.TextureCoordinate3D ) )
@@ -66232,14 +66429,13 @@ x3dom.registerNodeType(
                         {
                             hasTexCoord = true;
                             texCoords = texCoordNode._vf.point;
-                            if ( !hasTexCoordInd )
+                            var nTexCoords = hasTexCoordInd ?
+                                Math.max( ...texCoordInd ) + 1 : positions.length;
+                            var i,
+                                lastTexCoord = texCoords.length;
+                            for ( i = lastTexCoord; i < nTexCoords; i++ )
                             {
-                                var i,
-                                    lastTexCoord = texCoords.length;
-                                for ( i = lastTexCoord; i < positions.length; i++ )
-                                {
-                                    texCoords.push( texCoords[ i % lastTexCoord ] );
-                                }
+                                texCoords.push( texCoords[ i % lastTexCoord ] );
                             }
 
                             if ( x3dom.isa( texCoordNode, x3dom.nodeTypes.TextureCoordinate3D ) )
