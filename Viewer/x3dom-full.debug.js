@@ -1,8 +1,8 @@
 /** 
  * X3DOM 1.8.3-dev
- * Build : 7486
- * Revision: 5cb21b8729e35300f58f9fea747fec8989733ff5
- * Date: Sun Jul 9 05:11:50 2023 +0000
+ * Build : 7487
+ * Revision: 296faab125bddcfac62d86f9695c481d29cd3f65
+ * Date: Mon Jul 10 03:14:37 2023 +0000
  */
 /**
  * X3DOM JavaScript Library
@@ -29,9 +29,9 @@ var x3dom = {
 
 x3dom.about = {
     version  : "1.8.3-dev",
-    build    : "7486",
-    revision : "5cb21b8729e35300f58f9fea747fec8989733ff5",
-    date     : "Sun Jul 9 05:11:50 2023 +0000"
+    build    : "7487",
+    revision : "296faab125bddcfac62d86f9695c481d29cd3f65",
+    date     : "Mon Jul 10 03:14:37 2023 +0000"
 };
 
 /**
@@ -40237,6 +40237,7 @@ x3dom.registerNodeType(
                 const startTag = "<" + tag + ">";
                 const endTag = "</" + tag + ">";
                 const parentDom = this._xmlNode.parentNode;
+                const useNodes = this._runtime.doc.querySelectorAll( "[USE=" + this._DEF + "]" );
                 const parentType = parentDom.localName.toLowerCase();
                 const parentDefault = new x3dom.nodeTypesLC[ parentType ]();
                 if ( this._vf.reference == x3dom.extensions.FIELD && value0 !== undefined )
@@ -40248,6 +40249,10 @@ x3dom.registerNodeType(
                     }
                     this._xmlNode.parentNode.setAttribute(
                         field, value0 );
+                    for ( const useNode of useNodes )
+                    {
+                        useNode.parentNode.setAttribute( field, value0 );
+                    }
                 }
                 if ( this._vf.reference == x3dom.extensions.NODE && value0 !== undefined )
                 {
@@ -40274,6 +40279,11 @@ x3dom.registerNodeType(
                                 "Setting containerField for " + dom.firstElementChild.localName + " to extension field " + field
                             );
                             dom.firstElementChild.setAttribute( "containerField", field );
+                        }
+                        for ( const useNode of useNodes )
+                        {
+                            var currentElement = dom.firstElementChild.cloneNode( true );
+                            useNode.parentNode.appendChild( currentElement );
                         }
                         this._xmlNode.parentNode.appendChild( dom.firstElementChild );
                     }
