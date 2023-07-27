@@ -265,6 +265,7 @@
                 zoom = !zoom;
                 var zoomButton = document.querySelector('#zoomButton');
                 var x3d = document.querySelector('.x3d-container');
+                var x3dNode = document.querySelector('x3d');
                 var form = document.querySelector('form');
                 var code = document.querySelector('.CodeMirror');
 
@@ -272,6 +273,12 @@
                     zoomButton.textContent = '\u{1F5D7}';
                     form.style.display = 'none';
                     code.style.display = 'none';
+                    x3dNode.removeAttribute("width");
+                    x3dNode.removeAttribute("height");
+                    x3dNode.style.width = null;
+                    x3dNode.style.height = null;
+                    x3dNode.runtime.getCanvas().style.width = null;
+                    x3dNode.runtime.getCanvas().style.height = null;
                     x3d.style.width = '100%';
                     x3d.style.height = '100%';
                 } else {
