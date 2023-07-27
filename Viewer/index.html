@@ -52,9 +52,17 @@
             button {
                 font-size: inherit;
             }
+
+            .upperRight {
+                position: absolute;
+                top: 0;
+                right: 0;
+                z-index: 100;
+            }
         </style>
     </head>
     <body onload='load()'>
+        <button class='upperRight' id='zoomButton' onclick="toggleZoom();">&#x1F5D6</button>
         <form style="margin: 8px;">
             <h3>
                 X3DOM editor: Edit X3D code and click button to load: <button type="button" onclick="updatex3d();">Update</button>
@@ -221,8 +229,10 @@
                 var x3d = browser.createX3DFromString(content);
                 var title = "x3dom editor";
                 var x3d_title = x3d.querySelector('meta[name=title');
-                if (x3d_title) { title += ": " + x3d_title.getAttribute('content'); };
-                document.title = title;
+                if (x3d_title) {
+                    title += ": " + x3d_title.getAttribute('content');
+                }
+                ;document.title = title;
                 if (baseURL)
                     x3d.setAttribute('baseURL', baseURL);
                 browser.replaceWorld(x3d);
@@ -247,6 +257,30 @@
                 var dataurl = "data:text/plain,base64;" + btoa(content);
                 var browser = X3D.getBrowser(x3dele);
                 browser.replaceWorld(browser.createX3DFromString(content));
+            }
+
+            zoom = false;
+
+            function toggleZoom() {
+                zoom = !zoom;
+                var zoomButton = document.querySelector('#zoomButton');
+                var x3d = document.querySelector('.x3d-container');
+                var form = document.querySelector('form');
+                var code = document.querySelector('.CodeMirror');
+
+                if (zoom) {
+                    zoomButton.textContent = '\u{1F5D7}';
+                    form.style.display = 'none';
+                    code.style.display = 'none';
+                    x3d.style.width = '100%';
+                    x3d.style.height = '100%';
+                } else {
+                    zoomButton.textContent = '\u{1F5D6}';
+                    x3d.style.width = '';
+                    x3d.style.height = '';
+                    form.style.display = '';
+                    code.style.display = '';
+                }
             }
         </script>
         <script type="text/javascript" _src="https://x3dom.org/download/dev/ammo.js"></script>
