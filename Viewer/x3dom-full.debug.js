@@ -1,8 +1,8 @@
 /** 
  * X3DOM 1.8.3-dev
- * Build : 7487
- * Revision: 296faab125bddcfac62d86f9695c481d29cd3f65
- * Date: Mon Jul 10 03:14:37 2023 +0000
+ * Build : 7488
+ * Revision: 5999d90f83aa31be3f661df50dadad49dbe7150d
+ * Date: Thu Jul 27 18:14:52 2023 +0000
  */
 /**
  * X3DOM JavaScript Library
@@ -29,9 +29,9 @@ var x3dom = {
 
 x3dom.about = {
     version  : "1.8.3-dev",
-    build    : "7487",
-    revision : "296faab125bddcfac62d86f9695c481d29cd3f65",
-    date     : "Mon Jul 10 03:14:37 2023 +0000"
+    build    : "7488",
+    revision : "5999d90f83aa31be3f661df50dadad49dbe7150d",
+    date     : "Thu Jul 27 18:14:52 2023 +0000"
 };
 
 /**
@@ -40501,6 +40501,12 @@ x3dom.registerNodeType(
              * @instance
              */
             this.addField_MFNode( "value", x3dom.nodeTypes.X3DMetadataObject );
+        },
+        {
+            nodeChanged : function ()
+            {
+                //skip extension field eval.
+            }
         }
     )
 );
