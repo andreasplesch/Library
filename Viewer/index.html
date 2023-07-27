@@ -3,11 +3,13 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>x3dom editor</title>
         <link href="./x3dom.css" _href="https://x3dom.org/download/dev/x3dom.css" rel="stylesheet" type="text/css"/>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.8.0/codemirror.min.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.8.0/addon/dialog/dialog.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.8.0/addon/hint/show-hint.css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.8.0/codemirror.min.js"></script>
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.8.0/mode/xml/xml.min.js"></script>
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.8.0/addon/edit/matchbrackets.min.js"></script>
@@ -62,7 +64,7 @@
         </style>
     </head>
     <body onload='load()'>
-        <button class='upperRight' id='zoomButton' onclick="toggleZoom();">&#x1F5D6</button>
+        <button class='upperRight material-symbols-rounded' id='zoomButton' onclick="toggleZoom();">fullscreen</button>
         <form style="margin: 8px;">
             <h3>
                 X3DOM editor: Edit X3D code and click button to load: <button type="button" onclick="updatex3d();">Update</button>
@@ -270,7 +272,8 @@
                 var code = document.querySelector('.CodeMirror');
 
                 if (zoom) {
-                    zoomButton.textContent = '\u{1F5D7}';
+                    //zoomButton.textContent = '\u{1F5D7}';
+                    zoomButton.textContent = 'close_fullscreen';
                     form.style.display = 'none';
                     code.style.display = 'none';
                     x3dNode.removeAttribute("width");
@@ -282,7 +285,8 @@
                     x3d.style.width = '100%';
                     x3d.style.height = '100%';
                 } else {
-                    zoomButton.textContent = '\u{1F5D6}';
+                    //zoomButton.textContent = '\u{1F5D6}';
+                    zoomButton.textContent = 'fullscreen';
                     x3d.style.width = '';
                     x3d.style.height = '';
                     form.style.display = '';
