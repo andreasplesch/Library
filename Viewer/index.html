@@ -48,11 +48,11 @@
                 _outline: thick double black;
                 background-color: white;
                 background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAYAAADED76LAAAAAXNSR0IArs4c6QAAADJJREFUKFNjZMAP/jPikf/PwMDAiEsBWBKkGZsCuCQ2BSiS6AowJJEVYJWEKcApCVIAABjkCAg3E7weAAAAAElFTkSuQmCC);
-                box-shadow: -4px 4px 4px 4px black;
+                box-shadow: -2px 0px 1px 0px black;
             }
             .x3d-container {
                 /* width: 40%; */
-                height: calc(100% - 94px);
+                height: calc(100% - 6rlh);
                 overflow: hidden;
                 /* float: right; */
             }
@@ -71,7 +71,7 @@
     </head>
     <body onload='load()'>
         <button class='upperRight material-symbols-rounded' id='zoomButton' onclick="toggleZoom();">fullscreen</button>
-        <form style="margin: 8px;">
+        <form style="margin-right: 8px; height: 6rlh; contain: content">
             <h3>
                 X3DOM editor: Edit X3D code and click button to load: <button type="button" onclick="updatex3d();">Update</button>
                 or copy to clipboard as link: <button id="shareButton" type="button" onclick="sharex3d();">Copy</button>
