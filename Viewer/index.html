@@ -61,17 +61,17 @@
                 font-size: inherit;
             }
 
-            .upperRight {
+            .lowerRight {
                 position: absolute;
-                top: 0;
+                bottom: 0;
                 right: 0;
                 z-index: 100;
             }
         </style>
     </head>
     <body onload='load()'>
-        <button class='upperRight material-symbols-rounded' id='zoomButton' onclick="toggleZoom();">fullscreen</button>
-        <form style="margin-left: 8px; height: 6rlh; contain: content">
+        <button class='lowerRight material-symbols-rounded' id='zoomButton' onclick="toggleZoom();">fullscreen</button>
+        <form style="margin-left: 8px; height: 6rlh; contain: content; overflow: auto;">
             <h3>
                 X3DOM editor: Edit X3D code and click button to load: <button type="button" onclick="updatex3d();">Update</button>
                 or copy to clipboard as link: <button id="shareButton" type="button" onclick="sharex3d();">Copy</button>
