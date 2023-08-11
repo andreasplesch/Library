@@ -240,10 +240,19 @@
                 if (x3d_title) {
                     title += ": " + x3d_title.getAttribute('content');
                 }
-                ;document.title = title;
+                document.title = title;
                 if (baseURL)
                     x3d.setAttribute('baseURL', baseURL);
                 browser.replaceWorld(x3d);
+
+                //enable javascripts by rewriting
+                var scriptNodes = [...browser.doc.querySelectorAll(':is(script, Script, SCRIPT)[type="text/javascript"]')];
+                scriptNodes.forEach(
+                    (scriptNode) => {
+                        const scriptHTML = scriptNode.outerHTML;
+                        const frag = document.createRange().createContextualFragment(scriptHTML);
+                        scriptNode.parentNode.replaceChild(frag, scriptNode);
+                });
                 var x3dNode = document.querySelector('x3d');
                 x3dNode.removeAttribute("width");
                 x3dNode.removeAttribute("height");
