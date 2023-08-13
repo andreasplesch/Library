@@ -13,10 +13,9 @@
 		                type='"EXAMINE"'
 		                avatarSize="0.25, 1.75, 0.75"
 		                />
-		<!--Background DEF="WO_World"
-		            groundColor="0.051 0.051 0.051"
-		            skyColor="0.051 0.051 0.051"
-		            /-->
+		<Background DEF='lightSky' skyColor='1 1 1' groundColor='1 1 1'/>
+		<Background DEF='darkSky' skyColor='0.04 0.04 0.04, 0.01 0.01 0.01' skyAngle='0.9' groundColor='0.3 0.3 0.3, 0.01 0.01 0.01' groundAngle='0.9'/>
+
         <Transform DEF='spin_TRAFO' _center='-86.2 4 12'>
 		<Transform DEF='StoryBookScaler'>
 <!-- blender dimensions: 22.61 x 28.73 x 3.82; real dimension: 252mm x 288mm x 20mm;
