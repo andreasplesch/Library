@@ -35,11 +35,21 @@ var BK = {
 		sUrlPage: "",
 		sUrlPageLink: "",
 		sUserDevice : 0,
-		bgMode : "lightSky",
+		sBgMode : "light",
 	},
 	
 	
 	A: {
+
+flipmode: function (){
+    //flip between dark and light background
+	BK.V.sBgMode = BK.V.sBgMode == "light" ? "dark" : "light";
+	var eA = document.querySelector("[DEF="+ BK.V.sBgMode + "Sky]");
+	eA.setAttribute("set_bind", true);
+	//dark buttons
+	//document.querySelector(".buttonsbox").style.background = BK.V.sBgMode == "light" ? "white" : "white";
+	document.querySelector(".buttonsbox").style.filter = BK.V.sBgMode == "light" ? "invert(0)" : "invert(100%)";
+},
 
 book2d3d: function(){
 	var eA, iH;
@@ -103,10 +113,6 @@ bookclose: function(){
 
 bookhelp: function(){
 	BK.A.modalopen();
-	//flip between dark and light background
-	BK.V.bgMode = BK.V.bgMode == "lightSky" ? "darkSky" : "lightSky";
-	var eI = document.querySelector("[DEF="+ BK.V.bgMode + "]");
-	eI.setAttribute("set_bind", true);
 },
 
 
