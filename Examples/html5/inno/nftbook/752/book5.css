@@ -6,10 +6,8 @@ html, body {
 	border: 0px;
 	width: 100%;
 	height: 100%;
-	/*	overflow: hidden;
-*/
-	/* background: radial-gradient(#b9b9b9, white); */
-	/* filter: invert(1); */
+/*	overflow: hidden;
+*/	background: #ffffff;
 }
 
 
@@ -195,22 +193,17 @@ img.imgwh100{
 	height:140px;
 	position:fixed;
 	bottom:0;
-	/* background: white; */
-	/* filter: invert(1); */
+	background: white;
 }
 .buttonsbox1{
 	max-width:500px;
 	height:100%;
 	margin: 0 auto;
 	text-align:center;
-	/* background: black; */
-	/* filter: invert(1); */
 }
 .buttonsvg{
 	margin-right:1%;
 	width:100%;
-	/* filter: invert(100%); */
-	/* mix-blend-mode: difference; */
 }
 .buttonsvghelp{
 	width:50px;
@@ -527,5 +520,4 @@ x3d:hover,
 X3D {
 	width: 100%;
 	height: 100%;
-	/* background: radial-gradient(#545454, #000000); */
 }
