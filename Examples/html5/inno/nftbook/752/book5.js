@@ -103,6 +103,10 @@ bookclose: function(){
 
 bookhelp: function(){
 	BK.A.modalopen();
+	//flip between dark and light background
+	BK.V.bgMode = BK.V.bgMode == "lightSky" ? "darkSky" : "lightSky";
+	var eI = document.querySelector("[DEF="+ BK.V.bgMode + "]");
+	eI.setAttribute("set_bind", true);
 },
 
 
@@ -132,10 +136,6 @@ bookreset: function(){
 	eI.setAttribute("centerOfRotation", BK.V.sCenterRotation);
 	eI.setAttribute("position", BK.V.sPosition);
 	eI.setAttribute("orientation", "0.00 0.707 0.707 3.1415");
-	//flip between dark and light background
-	BK.V.bgMode = BK.V.bgMode == "lightSky" ? "darkSky" : "lightSky";
-	eI = document.querySelector("[DEF="+ BK.V.bgMode + "]");
-	eI.setAttribute("set_bind", true);
 },
 
 
