@@ -27,7 +27,7 @@ var BK = {
 		bIsOpen: 0,
 		bUrlPage: 0,
 		iPageCurrent: 1,
-		iPageLast: 559,
+		iPageLast: 11,
 		oPreloadNext: new Image(),
 		oPreloadNextAfterNext: new Image(),
 		oPreloadPrevious: new Image(),
@@ -391,7 +391,10 @@ pagenext: function(){
 	}
 	BK.A.pagesearch();
 	eA = document.querySelector("Inline").querySelector("[DEF=TIMEFlipRight]");
-	eA.setAttribute("startTime", Date.now() / 1000);
+	if (eA.getFieldValue('isActive')) {
+	  eA.setAttribute("enabled", false)
+	};
+	if (BK.V.iPageCurrent < BK.V.iPageLast) eA.setAttribute("startTime", Date.now() / 1000);
 },
 
 
@@ -401,7 +404,8 @@ pagenextbusy: function(event) {
 		if  (event.value == true) {
 		}
 		if  (event.value == false) {
-			BK.V.iPageCurrent += 2;
+			event.target.setAttribute("enabled", true);
+			if (BK.V.iPageCurrent < BK.V.iPageLast) BK.V.iPageCurrent += 2;
 			BK.A.dg("pagenumber").value = BK.V.iPageCurrent;
 			BK.A.pagestexture();
 		}
@@ -417,7 +421,10 @@ pageprev: function(){
 	}
 	BK.A.pagesearch();
 	eA = document.querySelector("Inline").querySelector("[DEF=TIMEFlipLeft]");
-	eA.setAttribute("startTime", Date.now() / 1000);
+	if (eA.getFieldValue('isActive')) {
+	    eA.setAttribute("enabled", false);
+	};
+	if (BK.V.iPageCurrent > -1) eA.setAttribute("startTime", Date.now() / 1000);
 },
 
 
@@ -427,7 +434,8 @@ pageprevbusy: function(event) {
 		if  (event.value == true){ 
 		}
 		if  (event.value == false){
-			BK.V.iPageCurrent -= 2;
+			event.target.setAttribute("enabled", true);
+			if (BK.V.iPageCurrent > -1) BK.V.iPageCurrent -= 2;
 			BK.A.dg("pagenumber").value = BK.V.iPageCurrent;
 			BK.A.pagestexture();
 		}
