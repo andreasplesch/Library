@@ -4,7 +4,7 @@ var BK = {
 
 	
 	V: {
-		aButtonStates: [1, 2, 2, 2, 1, 0, 1, 2, 1],
+		aButtonStates: [1, 2, 2, 2, 1, 0, 1, 2, 1, 1],
 		aButtonStates3d: [],
 		aButtonIds: [
 			"book2d3d",
@@ -15,7 +15,8 @@ var BK = {
 			"closebook",
 			"bookreset",
 			"pagelink",
-			"bookhelp"
+			"bookhelp",
+			"flipmode"
 		],
 		aPageUrls: '[]',
 		sCenterRotation: "0 0 0",
