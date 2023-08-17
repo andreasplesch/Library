@@ -1,8 +1,8 @@
 /** 
- * X3DOM 1.8.3-dev
- * Build : 7488
- * Revision: 5999d90f83aa31be3f661df50dadad49dbe7150d
- * Date: Thu Jul 27 18:14:52 2023 +0000
+ * X3DOM 1.8.4-dev
+ * Build : 7494
+ * Revision: db14b4bc186f2abd35cbac13954685be73e848dd
+ * Date: Thu Aug 17 10:49:13 2023 -0400
  */
 /**
  * X3DOM JavaScript Library
@@ -28,10 +28,10 @@ var x3dom = {
 };
 
 x3dom.about = {
-    version  : "1.8.3-dev",
-    build    : "7488",
-    revision : "5999d90f83aa31be3f661df50dadad49dbe7150d",
-    date     : "Thu Jul 27 18:14:52 2023 +0000"
+    version  : "1.8.4-dev",
+    build    : "7494",
+    revision : "db14b4bc186f2abd35cbac13954685be73e848dd",
+    date     : "Thu Aug 17 10:49:13 2023 -0400"
 };
 
 /**
@@ -29176,26 +29176,6 @@ x3dom.BinaryContainerLoader.setupBufferInterpolator = function ( interpolator )
             }
         }
 
-        //modify for STEP
-        if ( interpolator._vf.interpolation === "STEP" )
-        {
-            var stepKey   = key.copy();
-            var stepValue = keyValue.copy();
-
-            for ( var i = 1, n = key.length; i < n; i++ )
-            {
-                stepKey.splice( i * 2, 0, key[ i ] );
-            }
-
-            for ( var i = 0, n = keyValue.length; i < n; i++ )
-            {
-                stepValue.splice( i * 2 + 1, 0, keyValue[ i ] );
-            }
-
-            key = stepKey;
-            keyValue = stepValue;
-        }
-
         interpolator._vf.keyValue = keyValue;
     };
 
@@ -51794,7 +51774,8 @@ x3dom.registerNodeType(
                         intervalInSeconds = interval * this._vf.duration;
                         basis             = this.cubicSplineBasis( t, intervalInSeconds );
 
-                        return interp( this._vf.keyValue[ i3 + 2 ],
+                        return interp(
+                            this._vf.keyValue[ i3 + 2 ],
                             this._vf.keyValue[ i3 + 1 ],
                             this._vf.keyValue[ i3 + 3 ],
                             this._vf.keyValue[ i3 + 4 ],
@@ -51916,6 +51897,13 @@ x3dom.registerNodeType(
                             return result;//normalize(result);
                         } );
                     }
+                    else if ( this._vf.interpolation === "STEP" )
+                    {
+                        value = this.linearInterp( this._vf.set_fraction, function ( a, b, t )
+                        {
+                            return a.copy();
+                        } );
+                    }
                     else
                     {
                         value = this.linearInterp( this._vf.set_fraction, function ( a, b, t )
@@ -51953,7 +51941,6 @@ x3dom.registerNodeType(
         }
     )
 );
-
 /** @namespace x3dom.nodeTypes */
 /*
  * X3DOM JavaScript Library
@@ -52017,6 +52004,13 @@ x3dom.registerNodeType(
                             result.y = _applyBasis( "y" );
                             result.z = _applyBasis( "z" );
                             return result;
+                        } );
+                    }
+                    else if ( this._vf.interpolation === "STEP" )
+                    {
+                        value = this.linearInterp( this._vf.set_fraction, function ( a, b, t )
+                        {
+                            return a.copy();
                         } );
                     }
                     else
@@ -52090,7 +52084,7 @@ x3dom.registerNodeType(
 
             /**
              * Defines the set of data points, that are used for interpolation.
-             * @var {x3dom.fields.MFVec3f} keyValue
+             * @var {x3dom.fields.MFVec2f} keyValue
              * @memberof x3dom.nodeTypes.PositionInterpolator2D
              * @initvalue []
              * @field x3d
@@ -52103,12 +52097,49 @@ x3dom.registerNodeType(
             {
                 if ( fieldName === "set_fraction" )
                 {
-                    var value = this.linearInterp( this._vf.set_fraction, function ( a, b, t )
-                    {
-                        return a.multiply( 1.0 - t ).add( b.multiply( t ) );
-                    } );
+                    var value;
 
-                    this.postMessage( "value_changed", value );
+                    if ( this._vf.interpolation === "CUBICSPLINE" )
+                    {
+                        value = this.cubicSplineInterp( this._vf.set_fraction, function ( startInTangent, start, endOutTangent, end, h00, h10, h01, h11 )
+                        {
+                            function _applyBasis ( axis )//p0, m0, p1, m1, axis)
+                            {
+                                return h00 * start[ axis ] + h10 * startInTangent[ axis ] + h01 * end[ axis ] + h11 * endOutTangent[ axis ];
+                            }
+
+                            var result = new x3dom.fields.SFVec2f();
+
+                            // do not use SFVec3f methods to avoid generating objects
+
+                            result.x = _applyBasis( "x" );
+                            result.y = _applyBasis( "y" );
+                            return result;
+                        } );
+                    }
+                    else if ( this._vf.interpolation === "STEP" )
+                    {
+                        value = this.linearInterp( this._vf.set_fraction, function ( a, b, t )
+                        {
+                            return a.copy();
+                        } );
+                    }
+                    else
+                    {
+                        value = this.linearInterp( this._vf.set_fraction, function ( a, b, t )
+                        {
+                            var result = a.multiply( 1.0 - t );
+                            result.x += t * b.x;
+                            result.y += t * b.y;
+                            return result;//a.multiply(1.0-t).add(b.multiply(t));
+                        } );
+                    }
+
+                    if ( value != undefined && value != this._lastValue )
+                    {
+                        this._lastValue = value;
+                        this.postMessage( "value_changed", value );
+                    }
                 }
             }
         }
@@ -52159,43 +52190,94 @@ x3dom.registerNodeType(
              */
             this.addField_MFVec3f( ctx, "keyValue", [] );
 
-            if ( ctx && ctx.xmlNode.hasAttribute( "keyValue" ) )
-            {
-                this._vf.keyValue = [];     // FIXME!!!
-
-                var arr = x3dom.fields.MFVec3f.parse( ctx.xmlNode.getAttribute( "keyValue" ) );
-                var key = this._vf.key.length > 0 ? this._vf.key.length : 1;
-                var len = arr.length / key;
-                for ( var i = 0; i < key; i++ )
-                {
-                    var val = new x3dom.fields.MFVec3f();
-                    for ( var j = 0; j < len; j++ )
-                    {
-                        val.push( arr[ i * len + j ] );
-                    }
-                    this._vf.keyValue.push( val );
-                }
-            }
+            this.fieldChanged( "keyValue" );
         },
         {
             fieldChanged : function ( fieldName )
             {
                 if ( fieldName === "set_fraction" )
                 {
-                    var value = this.linearInterp( this._vf.set_fraction, function ( a, b, t )
+                    var value;
+                    if ( this._vf.interpolation === "CUBICSPLINE" )
+                    {
+                        value = this.cubicSplineInterp( this._vf.set_fraction, function ( startInTangent, start, endOutTangent, end, h00, h10, h01, h11 )
+                        {
+                            function _applyBasis ( axis )//p0, m0, p1, m1, axis)
+                            {
+                                return h00 * start[ i ][ axis ] + h10 * startInTangent[ i ][ axis ] + h01 * end[ i ][ axis ] + h11 * endOutTangent[ i ][ axis ];
+                            }
+                            //untested
+                            //  [
+                            //    1[it it]
+                            //    [s s]
+                            //    [sit sit]
+                            // ------
+                            //    2[eot eot]
+                            //    [e e]
+                            //    [ot ot]
+                            //  ]
+
+                            var val = new x3dom.fields.MFVec3f();
+                            for ( var i = 0; i < start.length; i++ )
+                            {
+                                var result = new x3dom.fields.SFVec3f();
+
+                                // do not use SFVec3f methods to avoid generating objects
+                                result.x = _applyBasis( "x" );
+                                result.y = _applyBasis( "y" );
+                                result.z = _applyBasis( "z" );
+                                val.push( result.normalize() );
+                            }
+
+                            return val;
+                        } );
+                    }
+                    else if ( this._vf.interpolation === "STEP" )
+                    {
+                        value = this.linearInterp( this._vf.set_fraction, function ( a, b, t )
+                        {
+                            return a.copy();
+                        } );
+                    }
+                    else
+                    {
+                        value = this.linearInterp( this._vf.set_fraction, function ( a, b, t )
+                        {
+                            var val = new x3dom.fields.MFVec3f();
+                            for ( var i = 0; i < a.length; i++ )
+                            {
+                                val.push( a[ i ].multiply( 1.0 - t ).add( b[ i ].multiply( t ) ).normalize() );
+                            }
+                            return val;
+                        } );
+
+                        if ( value != undefined && value != this._lastValue )
+                        {
+                            this._lastValue = value;
+                            this.postMessage( "value_changed", value );
+                        }
+                    }
+                }
+                if ( fieldName === "keyValue" )
+                {
+                    var arr = this._vf.keyValue.copy();
+
+                    this._vf.keyValue = [];  // FIXME!!!
+
+                    var key = this._vf.key.length > 0 ? this._vf.key.length : 1;
+                    var len = arr.length / key;
+                    if ( this._vf.interpolation === "CUBICSPLINE" )
+                    {
+                        len /= 3;
+                    }
+                    for ( var i = 0; i < key; i++ )
                     {
                         var val = new x3dom.fields.MFVec3f();
-                        for ( var i = 0; i < a.length; i++ )
+                        for ( var j = 0; j < len; j++ )
                         {
-                            val.push( a[ i ].multiply( 1.0 - t ).add( b[ i ].multiply( t ) ).normalize() );
+                            val.push( arr[ i * len + j ] );
                         }
-                        return val;
-                    } );
-
-                    if ( value != undefined && value != this._lastValue )
-                    {
-                        this._lastValue = value;
-                        this.postMessage( "value_changed", value );
+                        this._vf.keyValue.push( val );
                     }
                 }
             },
@@ -52216,6 +52298,10 @@ x3dom.registerNodeType(
                 } );
                 var key = this._vf.key.length > 0 ? this._vf.key.length : 1;
                 var len = keyValue.length / key;
+                if ( this._vf.interpolation === "CUBICSPLINE" )
+                {
+                    len /= 3;
+                }
                 var vf_keyValue = [];
                 for ( var i = 0; i < key; i++ )
                 {
@@ -52294,7 +52380,14 @@ x3dom.registerNodeType(
                 {
                     var value,
                         mix;
-                    if ( this._vf.RGB )
+                    if ( this._vf.interpolation === "STEP" )
+                    {
+                        value = this.linearInterp( this._vf.set_fraction, function ( a, b, t )
+                        {
+                            return a;
+                        } );
+                    }
+                    else if ( this._vf.RGB )
                     {
                         value = this.linearInterp( this._vf.set_fraction, function ( a, b, t )
                         {
@@ -52422,6 +52515,13 @@ x3dom.registerNodeType(
                             return h00 * start + h10 * startInTangent + h01 * end + h11 * endOutTangent;
                         } );
                     }
+                    else if ( this._vf.interpolation === "STEP" )
+                    {
+                        value = this.linearInterp( this._vf.set_fraction, function ( a, b, t )
+                        {
+                            return a;
+                        } );
+                    }
                     else
                     {
                         value = this.linearInterp( this._vf.set_fraction, function ( a, b, t )
@@ -52491,42 +52591,92 @@ x3dom.registerNodeType(
              */
             this.addField_MFVec3f( ctx, "keyValue", [] );
 
-            if ( ctx && ctx.xmlNode.hasAttribute( "keyValue" ) )
-            {
-                this._vf.keyValue = [];     // FIXME!!!
-
-                var arr = x3dom.fields.MFVec3f.parse( ctx.xmlNode.getAttribute( "keyValue" ) );
-                var key = this._vf.key.length > 0 ? this._vf.key.length : 1;
-                var len = arr.length / key;
-                for ( var i = 0; i < key; i++ )
-                {
-                    var val = new x3dom.fields.MFVec3f();
-                    for ( var j = 0; j < len; j++ )
-                    {
-                        val.push( arr[ i * len + j ] );
-                    }
-                    this._vf.keyValue.push( val );
-                }
-            }
+            this.fieldChanged( "keyValue" );
         },
         {
             fieldChanged : function ( fieldName )
             {
                 if ( fieldName === "set_fraction" )
                 {
-                    var value = this.linearInterp( this._vf.set_fraction, function ( a, b, t )
+                    var value;
+                    if ( this._vf.interpolation === "CUBICSPLINE" )
                     {
-                        var val = new x3dom.fields.MFVec3f();
-                        for ( var i = 0; i < a.length; i++ )
-                        {val.push( a[ i ].multiply( 1.0 - t ).add( b[ i ].multiply( t ) ) );}
+                        value = this.cubicSplineInterp( this._vf.set_fraction, function ( startInTangent, start, endOutTangent, end, h00, h10, h01, h11 )
+                        {
+                            function _applyBasis ( axis )//p0, m0, p1, m1, axis)
+                            {
+                                return h00 * start[ i ][ axis ] + h10 * startInTangent[ i ][ axis ] + h01 * end[ i ][ axis ] + h11 * endOutTangent[ i ][ axis ];
+                            }
+                            //untested
+                            //  [
+                            //    1[it it]
+                            //    [s s]
+                            //    [sit sit]
+                            // ------
+                            //    2[eot eot]
+                            //    [e e]
+                            //    [ot ot]
+                            //  ]
 
-                        return val;
-                    } );
+                            var val = new x3dom.fields.MFVec3f();
+                            for ( var i = 0; i < start.length; i++ )
+                            {
+                                var result = new x3dom.fields.SFVec3f();
 
+                                // do not use SFVec3f methods to avoid generating objects
+                                result.x = _applyBasis( "x" );
+                                result.y = _applyBasis( "y" );
+                                result.z = _applyBasis( "z" );
+                                val.push( result );
+                            }
+
+                            return val;
+                        } );
+                    }
+                    else if ( this._vf.interpolation === "STEP" )
+                    {
+                        value = this.linearInterp( this._vf.set_fraction, function ( a, b, t )
+                        {
+                            return a.copy();
+                        } );
+                    }
+                    else
+                    {
+                        value = this.linearInterp( this._vf.set_fraction, function ( a, b, t )
+                        {
+                            var val = new x3dom.fields.MFVec3f();
+                            for ( var i = 0; i < a.length; i++ )
+                            {val.push( a[ i ].multiply( 1.0 - t ).add( b[ i ].multiply( t ) ) );}
+
+                            return val;
+                        } );
+                    }
                     if ( value != undefined && value != this._lastValue )
                     {
                         this._lastValue = value;
                         this.postMessage( "value_changed", value );
+                    }
+                }
+                if ( fieldName === "keyValue" )
+                {
+                    var arr = this._vf.keyValue.copy();
+
+                    this._vf.keyValue = [];  // FIXME!!!
+
+                    var key = this._vf.key.length > 0 ? this._vf.key.length : 1;
+                    var len = arr.length / key;
+                    if ( this._vf.interpolation === "CUBICSPLINE" )
+                    {
+                        len /= 3;
+                    }
+                    for ( var i = 0; i < key; i++ )
+                    {
+                        var val = new x3dom.fields.MFVec3f();
+                        for ( var j = 0; j < len; j++ )
+                        {
+                            val.push( arr[ i * len + j ] );
+                        }
+                        this._vf.keyValue.push( val );
                     }
                 }
             },
@@ -52547,6 +52697,10 @@ x3dom.registerNodeType(
                 } );
                 var key = this._vf.key.length > 0 ? this._vf.key.length : 1;
                 var len = keyValue.length / key;
+                if ( this._vf.interpolation === "CUBICSPLINE" )
+                {
+                    len /= 3;
+                }
                 var vf_keyValue = [];
                 for ( var i = 0; i < key; i++ )
                 {
@@ -53128,11 +53282,13 @@ x3dom.registerNodeType(
                 }
                 else if ( fieldName == "cycleInterval" )
                 {
-                    // Spec: Should be ignored when active. (Restore old value)
+                    // Spec. v3.3: Should be ignored when active. (Restore old value)
+                    // Spec. v4.0: immediately update, continue at the same fraction
                     if ( this._vf.isActive )
                     {
-                        this._vf.cycleInterval = this._backupCycleInterval;
-                        return;
+                        this._vf.startTime = this._lastTime - this._fraction * this._vf.cycleInterval;
+                        //this._vf.cycleInterval = this._backupCycleInterval;
+                        //return;
                     }
 
                     this._backupCycleInterval = this._vf.cycleInterval;
@@ -55097,6 +55253,7 @@ x3dom.registerNodeType(
 
             /**
              * The centerOfRotation field specifies a center about which to rotate the user's eyepoint when in EXAMINE mode.
+             * The coordinates are provided in world coordinates for x3dom, currently.
              * @var {x3dom.fields.SFVec3f} centerOfRotation
              * @memberof x3dom.nodeTypes.Viewpoint
              * @initvalue 0,0,0
@@ -57663,7 +57820,6 @@ x3dom.DefaultNavigation.prototype.onDoubleClick = function ( view, x, y )
     view.animateTo( mat.inverse(), viewpoint );
 };
 
-
 x3dom.TurntableNavigation = function ( navigationNode )
 {
     x3dom.DefaultNavigation.call( this, navigationNode );
@@ -58030,7 +58186,9 @@ x3dom.TurntableNavigation.prototype.animateTo = function ( view, target, prev, d
     var navi = this.navi;
     var targetMat;
 
-    if ( x3dom.isa( target, x3dom.nodeTypes.X3DViewpointNode ) )
+    view._mixer._isVPtarget = x3dom.isa( target, x3dom.nodeTypes.X3DViewpointNode );
+
+    if ( view._mixer._isVPtarget )
     {
         targetMat = x3dom.fields.SFMatrix4f.lookAt( target._vf.position, target.getCenterOfRotation(), new x3dom.fields.SFVec3f( 0, 1, 0 ) );
     }
