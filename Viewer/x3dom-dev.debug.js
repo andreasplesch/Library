@@ -1,8 +1,8 @@
 /** 
  * X3DOM 1.8.4-dev
- * Build : 1
- * Revision: 285d305b7fe1c0af3f976598435cda99bf4905c3
- * Date: Fri Sep 1 22:20:06 2023 -0400
+ * Build : 7511
+ * Revision: 25a3f48e83498b0a8ae1534eefa61c9b0872385c
+ * Date: Thu Sep 7 04:01:13 2023 +0000
  */
 /**
  * X3DOM JavaScript Library
@@ -29,9 +29,9 @@ var x3dom = {
 
 x3dom.about = {
     version  : "1.8.4-dev",
-    build    : "1",
-    revision : "285d305b7fe1c0af3f976598435cda99bf4905c3",
-    date     : "Fri Sep 1 22:20:06 2023 -0400"
+    build    : "7511",
+    revision : "25a3f48e83498b0a8ae1534eefa61c9b0872385c",
+    date     : "Thu Sep 7 04:01:13 2023 +0000"
 };
 
 /**
@@ -659,7 +659,7 @@ x3dom.X3DCanvas = function ( x3dElem, canvasIdx )
     this._current_dim = [ 0, 0 ];
 
     // for FPS measurements
-    this.fps_t0 = new Date().getTime();
+    this.fps_t0 = Date.now();
     this.lastTimeFPSWasTaken = 0;
     this.framesSinceLastTime = 0;
 
@@ -1090,7 +1090,7 @@ x3dom.X3DCanvas.prototype.bindEventListeners = function ()
         {
             numTouches : 0,
 
-            firstTouchTime  : new Date().getTime(),
+            firstTouchTime  : Date.now(),
             firstTouchPoint : new x3dom.fields.SFVec2f( 0, 0 ),
 
             lastPos  : new x3dom.fields.SFVec2f(),
@@ -1440,7 +1440,7 @@ x3dom.X3DCanvas.prototype.bindEventListeners = function ()
 
                 if ( dblClick )
                 {
-                    var now = new Date().getTime();
+                    var now = Date.now();
                     var dist = touches.firstTouchPoint.subtract( touches.lastDrag ).length();
 
                     if ( dist < 18 && now - touches.firstTouchTime < 180 )
@@ -1723,7 +1723,7 @@ x3dom.X3DCanvas.prototype._createHTMLCanvas = function ( x3dElem )
     {
         // If the X3D element does not have an id... do what?
         // For now check the date for creating a (hopefully) unique id
-        var index = new Date().getTime();
+        var index = Date.now();
         canvas.id = "x3dom-" + index + "-canvas";
     }
 
@@ -1869,7 +1869,7 @@ x3dom.X3DCanvas.prototype.tick = function ( timestamp, xrFrame )
     this._totalTime = timestamp;
 
     var runtime = this.x3dElem.runtime;
-    var d = new Date().getTime();
+    var d = Date.now();
     var diff = d - this.lastTimeFPSWasTaken;
 
     var fps = 1000.0 / ( d - this.fps_t0 );
@@ -1877,7 +1877,7 @@ x3dom.X3DCanvas.prototype.tick = function ( timestamp, xrFrame )
 
     // update routes and stuff
     this.doc.advanceTime( d / 1000.0 );
-    var animD = new Date().getTime() - d;
+    var animD = Date.now() - d;
 
     if ( this.doc.hasAnimationStateChanged() )
     {
@@ -3609,7 +3609,7 @@ x3dom.Viewarea.prototype.onMouseRelease = function ( x, y, buttonState, prevButt
     }
     else
     {
-        var t0 = new Date().getTime();
+        var t0 = Date.now();
         var line = this.calcViewRay( x, y );
         var isect = this._scene.doIntersect( line );
         var obj = line.hitObject;
@@ -3640,7 +3640,7 @@ x3dom.Viewarea.prototype.onMouseRelease = function ( x, y, buttonState, prevButt
             }
         }
 
-        var t1 = new Date().getTime() - t0;
+        var t1 = Date.now() - t0;
         x3dom.debug.logInfo( "Picking time (box): " + t1 + "ms" );
 
         if ( !isect )
@@ -20409,7 +20409,7 @@ x3dom.userAgentFeature = {
                 continue;
             }
 
-            t0 = new Date().getTime();
+            t0 = Date.now();
 
             x3ds[ i ].runtime = new x3dom.Runtime( x3ds[ i ], x3dcanvas );
             x3ds[ i ].runtime.initialize( x3ds[ i ], x3dcanvas );
@@ -20450,7 +20450,7 @@ x3dom.userAgentFeature = {
                 x3ds[ i ].runtime.processIndicator( false );
             }
 
-            t1 = new Date().getTime() - t0;
+            t1 = Date.now() - t0;
             x3dom.debug.logInfo( "Time for setup and init of GL element no. " + i + ": " + t1 + " ms." );
         }
 
@@ -27376,7 +27376,7 @@ x3dom.BinaryContainerLoader.setupBinGeo = function ( shape, sp, gl, viewarea, cu
         return;
     }
 
-    var t00 = new Date().getTime();
+    var t00 = Date.now();
     var that = this;
 
     var binGeo = shape._cf.geometry.node;
@@ -27789,7 +27789,7 @@ x3dom.BinaryContainerLoader.setupBinGeo = function ( shape, sp, gl, viewarea, cu
 
             that.checkError( gl );
 
-            var t11 = new Date().getTime() - t00;
+            var t11 = Date.now() - t00;
             x3dom.debug.logInfo( "XHR0/ index load time: " + t11 + " ms" );
 
             shape._webgl.buffers[ x3dom.BUFFER_IDX.INDEX ] = indicesBuffer;
@@ -27915,7 +27915,7 @@ x3dom.BinaryContainerLoader.setupBinGeo = function ( shape, sp, gl, viewarea, cu
 
             that.checkError( gl );
 
-            var t11 = new Date().getTime() - t00;
+            var t11 = Date.now() - t00;
             x3dom.debug.logInfo( "XHR/ interleaved array load time: " + t11 + " ms" );
 
             shape._webgl.buffers[ x3dom.BUFFER_IDX.POSITION ] = buffer;
@@ -28024,7 +28024,7 @@ x3dom.BinaryContainerLoader.setupBinGeo = function ( shape, sp, gl, viewarea, cu
 
             that.checkError( gl );
 
-            var t11 = new Date().getTime() - t00;
+            var t11 = Date.now() - t00;
             x3dom.debug.logInfo( "XHR1/ coord load time: " + t11 + " ms" );
 
             shape._webgl.buffers[ x3dom.BUFFER_IDX.POSITION ] = positionBuffer;
@@ -28094,7 +28094,7 @@ x3dom.BinaryContainerLoader.setupBinGeo = function ( shape, sp, gl, viewarea, cu
 
             that.checkError( gl );
 
-            var t11 = new Date().getTime() - t00;
+            var t11 = Date.now() - t00;
             x3dom.debug.logInfo( "XHR2/ normal load time: " + t11 + " ms" );
 
             shape._webgl.buffers[ x3dom.BUFFER_IDX.NORMAL ] = normalBuffer;
@@ -28193,7 +28193,7 @@ x3dom.BinaryContainerLoader.setupBinGeo = function ( shape, sp, gl, viewarea, cu
 
             that.checkError( gl );
 
-            var t11 = new Date().getTime() - t00;
+            var t11 = Date.now() - t00;
             x3dom.debug.logInfo( "XHR3/ texCoord load time: " + t11 + " ms" );
         };
     }
@@ -28261,7 +28261,7 @@ x3dom.BinaryContainerLoader.setupBinGeo = function ( shape, sp, gl, viewarea, cu
 
             that.checkError( gl );
 
-            var t11 = new Date().getTime() - t00;
+            var t11 = Date.now() - t00;
             x3dom.debug.logInfo( "XHR4/ color load time: " + t11 + " ms" );
 
             shape._webgl.buffers[ x3dom.BUFFER_IDX.COLOR ] = colorBuffer;
@@ -28331,7 +28331,7 @@ x3dom.BinaryContainerLoader.setupBinGeo = function ( shape, sp, gl, viewarea, cu
 
             that.checkError( gl );
 
-            var t11 = new Date().getTime() - t00;
+            var t11 = Date.now() - t00;
             x3dom.debug.logInfo( "XHR5/ normal load time: " + t11 + " ms" );
 
             shape._webgl.buffers[ x3dom.BUFFER_IDX.TANGENT ] = tangentBuffer;
@@ -28401,7 +28401,7 @@ x3dom.BinaryContainerLoader.setupBinGeo = function ( shape, sp, gl, viewarea, cu
 
             that.checkError( gl );
 
-            var t11 = new Date().getTime() - t00;
+            var t11 = Date.now() - t00;
             x3dom.debug.logInfo( "XHR6/ normal load time: " + t11 + " ms" );
 
             shape._webgl.buffers[ x3dom.BUFFER_IDX.BITANGENT ] = binormalBuffer;
@@ -28613,7 +28613,7 @@ x3dom.BinaryContainerLoader.setupPopGeo = function ( shape, sp, gl, viewarea, cu
             popGeo.adaptVertexCount( popGeo.hasIndex() ? popGeo._mesh._numFaces * 3 : popGeo._mesh._numCoords );
             //x3dom.debug.logInfo("PopGeometry: Loaded level " + lvl + " data to gpu, model has now " +
             //    popGeo._mesh._numCoords + " vertices and " + popGeo._mesh._numFaces + " triangles, " +
-            //    (new Date().getTime() - shape._webgl.downloadStartTimer) + " ms after posting download requests");
+            //    (Date.now() - shape._webgl.downloadStartTimer) + " ms after posting download requests");
 
             //request redraw, if necessary
             if ( redrawNeeded )
@@ -28626,7 +28626,7 @@ x3dom.BinaryContainerLoader.setupPopGeo = function ( shape, sp, gl, viewarea, cu
     //post XHRs
     var dataURLs = popGeo.getDataURLs();
 
-    shape._webgl.downloadStartTimer = new Date().getTime();
+    shape._webgl.downloadStartTimer = Date.now();
 
     for ( var i = 0; i < dataURLs.length; ++i )
     {
@@ -31078,7 +31078,7 @@ x3dom.glTF2Loader.prototype._generateX3DImageTexture = function ( texture, conta
 {
     var image   = this._gltf.images[ texture.source ];
 
-    var webpImageUrl = ""; 
+    var webpImageUrl = "";
 
     if ( texture.extensions && texture.extensions.EXT_texture_webp && texture.extensions.EXT_texture_webp.source )
     {
@@ -31100,9 +31100,9 @@ x3dom.glTF2Loader.prototype._generateX3DImageTexture = function ( texture, conta
 
     if ( image.uri != undefined || webpImageUrl.length > 0 )
     {
-        var MFUrl = webpImageUrl.length ? [ '"' + webpImageUrl + '"'] : [];
-        if ( image.uri ) MFUrl.push( '"' + x3dom.Utils.dataURIToObjectURL( image.uri ) + '"' );
-        imagetexture.setAttribute( "url", MFUrl.join(" ") );
+        var MFUrl = webpImageUrl.length ? [ "\"" + webpImageUrl + "\"" ] : [];
+        if ( image.uri ) {MFUrl.push( "\"" + x3dom.Utils.dataURIToObjectURL( image.uri ) + "\"" );}
+        imagetexture.setAttribute( "url", MFUrl.join( " " ) );
     }
 
     if ( texture.sampler != undefined )
@@ -31623,20 +31623,20 @@ x3dom.glTF2Loader.prototype._getGLTF = async function ( input, binary )
             for ( var i = 0; i < gltf.buffers.length; i++ )
             {
                 var bufferURI = gltf.buffers[ i ].uri;
-                var response = await fetch( this._nameSpace.getURL( bufferURI ));
-                arrayBuffers[i] = await response.arrayBuffer();
-                totalLength += arrayBuffers[i].byteLength;
-                this._convertBinaryImages( gltf, arrayBuffers[i], 0 );
-                gltf.buffers[ i ].uri = x3dom.Utils.arrayBufferToObjectURL( arrayBuffers[i], "application/octet-stream" );
+                var response = await fetch( this._nameSpace.getURL( bufferURI ) );
+                arrayBuffers[ i ] = await response.arrayBuffer();
+                totalLength += arrayBuffers[ i ].byteLength;
+                this._convertBinaryImages( gltf, arrayBuffers[ i ], 0 );
+                gltf.buffers[ i ].uri = x3dom.Utils.arrayBufferToObjectURL( arrayBuffers[ i ], "application/octet-stream" );
             }
             //combine all buffers since BufferGeometry only takes one buffer
             var superBuffer = new Uint8Array( totalLength );
             totalLength = 0;
-            arrayBuffers.forEach( ( buffer ) => 
-                {
-                    superBuffer.set( new Uint8Array( buffer ), totalLength );
-                    totalLength += buffer.byteLength;
-                });
+            arrayBuffers.forEach( ( buffer ) =>
+            {
+                superBuffer.set( new Uint8Array( buffer ), totalLength );
+                totalLength += buffer.byteLength;
+            } );
             gltf.buffers[ 0 ].uri = x3dom.Utils.arrayBufferToObjectURL( superBuffer.buffer, "application/octet-stream" );
         }
 
@@ -42589,7 +42589,7 @@ x3dom.registerNodeType(
                 var viewarea = this._nameSpace.doc._viewarea;
                 var isMoving = viewarea.isMovingOrAnimating();
 
-                var ts = new Date().getTime();
+                var ts = Date.now();
                 var maxLiveTime = 10000;
                 var i,
                     n,
@@ -42995,7 +42995,7 @@ x3dom.registerNodeType(
         {
             nodeChanged : function ()
             {
-                var time0 = new Date().getTime();
+                var time0 = Date.now();
 
                 var i,
                     n = this._cf.vertexAttributes.nodes.length;
@@ -43035,7 +43035,7 @@ x3dom.registerNodeType(
                 this._mesh._numFaces = this._mesh._indices[ 0 ].length / 3;
                 this._mesh._numCoords = this._mesh._positions[ 0 ].length / 3;
 
-                var time1 = new Date().getTime() - time0;
+                var time1 = Date.now() - time0;
                 x3dom.debug.logWarning( "Mesh load time: " + time1 + " ms" );
             }
         }
@@ -43108,7 +43108,7 @@ x3dom.registerNodeType(
         {
             nodeChanged : function ()
             {
-                var time0 = new Date().getTime();
+                var time0 = Date.now();
 
                 var coordNode = this._cf.coord.node;
                 x3dom.debug.assert( coordNode, "PointSet without coord node!" );
@@ -43147,7 +43147,7 @@ x3dom.registerNodeType(
                 this.invalidateVolume();
                 this._mesh._numCoords = this._mesh._positions[ 0 ].length / 3;
 
-                var time1 = new Date().getTime() - time0;
+                var time1 = Date.now() - time0;
                 //x3dom.debug.logInfo("Mesh load time: " + time1 + " ms");
             },
 
@@ -43306,7 +43306,7 @@ x3dom.registerNodeType(
         {
             handleAttribs : function ()
             {
-                //var time0 = new Date().getTime();
+                //var time0 = Date.now();
 
                 // TODO; handle case that more than 2^16-1 attributes are to be referenced
                 var i,
@@ -43340,7 +43340,7 @@ x3dom.registerNodeType(
                     }
                 }
 
-                //var time1 = new Date().getTime() - time0;
+                //var time1 = Date.now() - time0;
                 //x3dom.debug.logInfo("Mesh load time: " + time1 + " ms");
             }
         }
@@ -43600,7 +43600,7 @@ x3dom.registerNodeType(
 
             _buildGeometry : function ()
             {
-                var time0 = new Date().getTime();
+                var time0 = Date.now();
 
                 // this.handleAttribs();
 
@@ -43757,7 +43757,7 @@ x3dom.registerNodeType(
                     this._mesh._numCoords += this._mesh._positions[ i ].length / 3;
                 }
 
-                var time1 = new Date().getTime() - time0;
+                var time1 = Date.now() - time0;
                 //x3dom.debug.logInfo("Mesh load time: " + time1 + " ms");
 
                 function _updateMesh ( mesh )
@@ -43892,7 +43892,7 @@ x3dom.registerNodeType(
         {
             nodeChanged : function ()
             {
-                var time0 = new Date().getTime();
+                var time0 = Date.now();
 
                 this.handleAttribs();
 
@@ -44255,7 +44255,7 @@ x3dom.registerNodeType(
                     this._mesh._numCoords += this._mesh._positions[ i ].length / 3;
                 }
 
-                var time1 = new Date().getTime() - time0;
+                var time1 = Date.now() - time0;
                 //x3dom.debug.logInfo("Mesh load time: " + time1 + " ms");
             },
 
@@ -53361,6 +53361,7 @@ x3dom.registerNodeType(
                         this._vf.startTime = this._backupStartTime;
                         return;
                     }
+                    this._vf.startTime = Date.now() / 1000; //needs to be refreshed since it can take be slow to get here
 
                     this._backupStartTime = this._vf.startTime;
                     this._updateCycleStopTime();
@@ -53439,7 +53440,7 @@ x3dom.registerNodeType(
             {
                 if ( this._vf.loop == false )
                 {
-                    var now = new Date().getTime() / 1000;
+                    var now = Date.now() / 1000;
                     var cycleToStop = Math.floor( this._getCycleAt( now ) ) + 1;
 
                     this._cycleStopTime = this._vf.startTime + cycleToStop * this._vf.cycleInterval;
@@ -54110,7 +54111,7 @@ x3dom.registerNodeType(
 
                                     // that.loadX3D( inlineScene, namespace );
                                     loader.load( xhr.response, isBinary )
-                                    .then( ( inlineScene ) => that.loadX3D( inlineScene, namespace ) );
+                                        .then( ( inlineScene ) => that.loadX3D( inlineScene, namespace ) );
                                 }
                                 else
                                 {
@@ -65910,7 +65911,7 @@ x3dom.registerNodeType(
         {
             nodeChanged : function ()
             {
-                var time0 = new Date().getTime();
+                var time0 = Date.now();
 
                 this.handleAttribs();
 
@@ -66563,7 +66564,7 @@ x3dom.registerNodeType(
                     {this._mesh._numFaces += numCoords / 3;}
                 }
 
-                //var time1 = new Date().getTime() - time0;
+                //var time1 = Date.now() - time0;
                 //x3dom.debug.logInfo("Mesh load time: " + time1 + " ms");
             },
 
@@ -82351,7 +82352,7 @@ x3dom.registerNodeType(
                 /*
                  This code largely taken from the IndexedTriangleSet code
                  */
-                var time0 = new Date().getTime();
+                var time0 = Date.now();
 
                 this.handleAttribs();
 
@@ -82553,7 +82554,7 @@ x3dom.registerNodeType(
                     this._mesh._numCoords += this._mesh._positions[ i ].length / 3;
                 }
 
-                var time1 = new Date().getTime() - time0;
+                var time1 = Date.now() - time0;
                 //x3dom.debug.logInfo("Mesh load time: " + time1 + " ms");
             },
 
@@ -82714,7 +82715,7 @@ x3dom.registerNodeType(
                 /*
                  This code largely taken from the IndexedTriangleSet code
                  */
-                var time0 = new Date().getTime();
+                var time0 = Date.now();
 
                 this.handleAttribs();
 
@@ -82905,7 +82906,7 @@ x3dom.registerNodeType(
                     this._mesh._numCoords += this._mesh._positions[ i ].length / 3;
                 }
 
-                var time1 = new Date().getTime() - time0;
+                var time1 = Date.now() - time0;
                 //x3dom.debug.logInfo("Mesh load time: " + time1 + " ms");
             },
 
