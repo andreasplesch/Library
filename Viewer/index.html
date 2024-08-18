@@ -221,16 +221,20 @@
   </Scene>
 </X3D>`
                 if (url.searchParams.get('url')) {
-                    var query_url = url.search.match(/\?url=(.*)/);
-                    editor.getDoc().setValue("loading " + query_url[1]);
+                    var query_url = url.search.match(/[\?&]url=(.*)/);
+                    var load_url = query_url[1].replace(/&zoom.*/,'');
+                    editor.getDoc().setValue("loading " + load_url);
                     try {
-                        var r = await fetch(query_url[1]);
+                        var r = await fetch(load_url);
                         content = r.ok ? await r.text() : "not ok";
                         if (new URL(query_url[1]).protocol !== "data:")
                             baseURL = query_url[1];
                     } catch (error) {
                         content = error.toString();
                     }
+                }
+                if (url.searchParams.get('zoom')) {
+                    toggleZoom();
                 }
                 editor.getDoc().setValue(content);
                 updatex3d();
