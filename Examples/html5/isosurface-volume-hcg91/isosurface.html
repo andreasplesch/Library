@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 	 <head>
-		<script type='text/javascript' src='https://x3dom.org/download/dev/x3dom-full.js'></script>
+		<script type='text/javascript' src='https://x3dom.org/download/dev/x3dom-full.debug.js'></script>
 		<link rel='stylesheet' type='text/css' href='https://x3dom.org/download/dev/x3dom.css'></link>
 		<title> Stephan's Quintet</title>
 	</head>
 	<body>
 		<h1> Stephan's Quintet </h1>
-		<center><x3d showStat='true' showLog='false' width='100%' height='500px' id='cubeFixed'>
+		<center><x3d showStat='true' showLog='false' width='100%' height='calc(100vh - 100px)' id='cubeFixed'>
 				<Scene>
 					<Viewpoint description='HCG91' position='0 0 200' orientation='0 0 -0.113320737191137 6.28318530717959'></Viewpoint>
-					<Background DEF='BG' skyColor="0.5 0.5 0.5"></Background>
+					<Background DEF='BG' skyColor="0. 0. 0."></Background>
 					<NavigationInfo type='"EXAMINE" "ANY' speed="4" headlight="true"></NavigationInfo>
 					<DirectionalLight ambientIntensity="1" intensity="0" color="1 1 1"></DirectionalLight>
 					<Transform
@@ -23,6 +23,7 @@
 							<ImageTextureAtlas containerField='voxels' url='hcg91image2d.png'
 							numberOfSlices='58' slicesOverX='8' slicesOverY='8'></ImageTextureAtlas>
 						<OpacityMapVolumeStyle>
+							<!-- <PixelTexture image='3 1 2 0x0000 0xe0a0 0xffff'></PixelTexture> -->
 							<ImageTexture containerField='transferFunction' url='transfer.png'></ImageTexture>
 						</OpacityMapVolumeStyle>
 					  </IsoSurfaceVolumeData>
