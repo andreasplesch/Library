@@ -1,35 +1,35 @@
 <!DOCTYPE html>
-	 <head>
-		<script type='text/javascript' src='https://x3dom.org/download/dev/x3dom-full.debug.js'></script>
-		<link rel='stylesheet' type='text/css' href='https://x3dom.org/download/dev/x3dom.css'></link>
-		<title> Stephan's Quintet</title>
-	</head>
-	<body>
-		<h1> Stephan's Quintet </h1>
-		<center><x3d showStat='true' showLog='false' width='100%' height='calc(100vh - 100px)' id='cubeFixed'>
-				<Scene>
-					<Viewpoint description='HCG91' position='0 0 200' orientation='0 0 -0.113320737191137 6.28318530717959'></Viewpoint>
-					<Background DEF='BG' skyColor="0. 0. 0."></Background>
-					<NavigationInfo type='"EXAMINE" "ANY' speed="4" headlight="true"></NavigationInfo>
-					<DirectionalLight ambientIntensity="1" intensity="0" color="1 1 1"></DirectionalLight>
-					<Transform
-						rotation='-0.734984397936391 0.477428228081317 0.481518661965676 1.71916544983595'
-						scale='1 1 1'
-						scaleOrientation='-0.373584715954867 -0.0259322116773033 -0.927233509102453 0.257019911109868'>
-						  <IsoSurfaceVolumeData
-							dimensions='128 128 128'
-							surfaceValues='0.21 0.22 0.25 0.3 0.4 0.6'
-							bboxDisplay="false">
-							<ImageTextureAtlas containerField='voxels' url='hcg91image2d.png'
-							numberOfSlices='58' slicesOverX='8' slicesOverY='8'></ImageTextureAtlas>
-						<OpacityMapVolumeStyle>
-							<!-- <PixelTexture image='3 1 2 0x0000 0xe0a0 0xffff'></PixelTexture> -->
-							<ImageTexture containerField='transferFunction' url='transfer.png'></ImageTexture>
-						</OpacityMapVolumeStyle>
-					  </IsoSurfaceVolumeData>
-					</Transform>
-				</Scene>
-		</x3d></center>
-	</body>
+<head>
+    <script type='text/javascript' src='https://x3dom.org/download/dev/x3dom-full.debug.js'></script>
+    <link rel='stylesheet' type='text/css' href='https://x3dom.org/download/dev/x3dom.css'></link>
+    <title> Stephan's Quintet </title>
+</head>
+    <body>
+        <h1> Stephan's Quintet </h1>
+            <center><x3d showStat='true' showLog='false' width='100%' height='calc(100vh - 100px)' id='cubeFixed'>
+                <Scene>
+                    <WorldInfo title='Astrophysics: Stephans Quintet' info='"author:Ixaka Labadie"'></WorldInfo>
+                    <Viewpoint description='HCG91' position='0 0 200' orientation='0 0 -0.113320737191137 6.28318530717959'></Viewpoint>
+                    <Background DEF='BG' skyColor="0. 0. 0."></Background>
+                    <NavigationInfo type='"EXAMINE" "ANY' speed="4" headlight="true"></NavigationInfo>
+                    <DirectionalLight ambientIntensity="1" intensity="0" color="1 1 1"></DirectionalLight>
+                    <Transform
+                        rotation='-0.734984397936391 0.477428228081317 0.481518661965676 1.71916544983595'
+                        scale='1 1 1'
+                        scaleOrientation='-0.373584715954867 -0.0259322116773033 -0.927233509102453 0.257019911109868'>
+                        <IsoSurfaceVolumeData
+                            dimensions='128 128 128'
+                            surfaceValues='0.21 0.22 0.25 0.3 0.4 0.6'
+                            bboxDisplay="false">
+                            <ImageTextureAtlas containerField='voxels' url='hcg91image2d.png'
+                                numberOfSlices='58' slicesOverX='8' slicesOverY='8'></ImageTextureAtlas>
+                            <OpacityMapVolumeStyle>
+                                <!-- <PixelTexture image='3 1 2 0x0000 0xe0a0 0xffff'></PixelTexture> -->
+                                <ImageTexture containerField='transferFunction' url='transfer.png'></ImageTexture>
+                        </OpacityMapVolumeStyle>
+                        </IsoSurfaceVolumeData>
+                    </Transform>
+                </Scene>
+            </x3d></center>
+    </body>
 </html>
-	
