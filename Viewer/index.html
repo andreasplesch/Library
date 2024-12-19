@@ -186,7 +186,8 @@
                     "'='": completeIfInTag,
                     "Ctrl-Space": "autocomplete",
                     "Ctrl-/": "toggleComment",
-                    "Ctrl-J": "toMatchingTag"
+                    "Ctrl-J": "toMatchingTag",
+                    "Alt-Q": function (cm) { cm.setOption("lineWrapping", !cm.getOption("lineWrapping"))}
                 }
             });
 
