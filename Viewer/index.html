@@ -249,7 +249,7 @@
 
             function updatex3d() {
                 editor.save();
-                var browser = document.querySelector('x3d').runtime
+                var browser = document.querySelector('X3D').runtime
                 var content = editor.getDoc().getValue();
                 var x3d = browser.createX3DFromString(content);
                 var title = "x3dom editor";
