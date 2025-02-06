@@ -87,7 +87,7 @@
             </h3>
             Make sure to remove any initial
             white space. You can load external links with index.html?url=https://server/my.x3d .
-            <a target="_blank" href='https://codemirror.net/5/doc/manual.html#commands'>&#x2328 &#x1F13A &#x1F134 &#x1F148 &#x1F131 &#x1F13E &#x1F130 &#x1F141 &#x1F133</a>
+            <a title="also Alt-Q: wrapping, Alt-J: folding" target="_blank" href='https://codemirror.net/5/doc/manual.html#commands'>&#x2328 &#x1F13A &#x1F134 &#x1F148 &#x1F131 &#x1F13E &#x1F130 &#x1F141 &#x1F133</a>
         </form>
         <textarea name="x3dcontent" id='x3dcontent' rows="30" cols="120"></textarea>
         <div class="x3d-container">
@@ -191,7 +191,7 @@
                     "Ctrl-/": "toggleComment",
                     "Ctrl-J": "toMatchingTag",
                     "Alt-Q": function (cm) { cm.setOption("lineWrapping", !cm.getOption("lineWrapping"))},
-                    "Ctrl-Q": function(cm){ cm.foldCode(cm.getCursor()); }
+                    "Alt-J": function(cm){ cm.foldCode(cm.getCursor()); }
                 },
                 foldGutter: true,
                 gutters: ["CodeMirror-linenumbers", "CodeMirror-foldgutter"]
