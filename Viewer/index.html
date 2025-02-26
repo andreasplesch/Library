@@ -270,6 +270,21 @@
                         const frag = document.createRange().createContextualFragment(scriptHTML);
                         scriptNode.parentNode.replaceChild(frag, scriptNode);
                 });
+                //enable adding additional nodes to html head with special x3d meta
+                var html_head = browser.doc.querySelector("meta[name='html-head']");
+                if (html_head)
+                {
+                   // var head_as_html = html_head.outerHTML;// add properties
+                    var head = document.head;
+                    var aux_head = head.querySelector("metacontainer");
+                    if (aux_head)
+                    {
+                        aux_head.remove();
+                    }
+                    var meta = document.createElement('metacontainer');
+                    meta.innerHTML = html_head.outerHTML; //reparse as html for properties
+                    head.appendChild(meta);
+                }
                 var x3dNode = document.querySelector('x3d');
                 x3dNode.removeAttribute("width");
                 x3dNode.removeAttribute("height");
