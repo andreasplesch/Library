@@ -101,7 +101,7 @@
             var blightness = 10;
             async function sharex3d() {
                 var content = editor.getDoc().getValue();
-                var dataUrl = 'data:text/plan;base64,' + btoa(content);
+                var dataUrl = 'data:text/plain;base64,' + btoa(content);
                 var r = await navigator.clipboard.writeText('https://andreasplesch.github.io/Library/Viewer/index.html?url=' + dataUrl);
                 document.querySelector('#shareButton').style.background = `hsl(84deg 100% ${50 + blightness}%)`;
                 blightness = (blightness + 10) % 50;
